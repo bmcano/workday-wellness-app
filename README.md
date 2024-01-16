@@ -27,7 +27,9 @@ The following steps will guide you through the installation guide to start devel
 
 5. Open project folder in `VS Code`
 
-6. Run the command `npm start` which will run the project on [http://localhost:3000](http://localhost:3000) to verify everything is working properly
+6. Run the command `npm install` to get all the dependencies
+
+7. Run the command `npm start` which will run the project on [http://localhost:3000](http://localhost:3000) to verify everything is working properly
 
 ## Available Scripts
 
