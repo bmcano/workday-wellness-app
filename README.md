@@ -1,8 +1,35 @@
-# Getting Started with Create React App
+# Workday Wellness App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to our Workday Wellness App project, sponsored by State Farm, which is our groups senior design project at the University of Iowa.
+This project addresses the evolving landscape of remote work and the impact on employee wellness. 
+This shift to remote work in many areas has allowed individuals more control over their work environments, yet it has also introduced challenges, such as reducing both physical activity and social interactions with co-workers. 
+Our goal aims to alleviate these wellness concerns by creating an application giving positive workday habits and enhancing overall employee wellbeing.
+
+# Getting Started
+
+The following steps will guide you through the installation guide to start development on this project.
+
+1. Download and install `node.js`
+
+    - [Download link](https://nodejs.org/en/download/)
+    - [Installation guide](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
+
+2. After installing an issue may occur with the `npm` commands so in the terminal run the command
+
+    - `npm install -g npm`
+
+3. To verify that everything installed correctly run the following commands in the terminal
+
+    - `node -v`
+    - `npm -v`
+
+4. Clone this repository
+
+5. Open in `VS Code`
 
 ## Available Scripts
+
+The following section was generated after the `npx create-react-app <project-name>` command was executed.
 
 In the project directory, you can run:
 
