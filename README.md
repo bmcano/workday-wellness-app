@@ -25,7 +25,9 @@ The following steps will guide you through the installation guide to start devel
 
 4. Clone this repository
 
-5. Open in `VS Code`
+5. Open project folder in `VS Code`
+
+6. Run the command `npm start` which will run the project on [http://localhost:3000](http://localhost:3000) to verify everything is working properly
 
 ## Available Scripts
 
