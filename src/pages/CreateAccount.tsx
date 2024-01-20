@@ -11,15 +11,30 @@ const defaultTheme = createTheme();
 
 const CreateAccount: React.FC = () => {
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        // collect data from text fields
         const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get('username'),
-            email: data.get('email'),
-            password: data.get('password'),
-            confirm_password: data.get('confirm_password')
-        });
+        const username = data.get('username');
+        const email = data.get('email');
+        const password = data.get('password');
+        const jsonData = JSON.stringify({ username, email, password });
+        console.log(jsonData);
+        // take user data and post it to the database
+        let result = await fetch(
+            'http://localhost:3001/register', {
+                method: "post",
+                body: jsonData,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+        result = await result.json();
+        console.warn(result);
+        if (result) {
+            alert("Data saved succesfully");
+        }
     };
 
     return (
