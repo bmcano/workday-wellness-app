@@ -1,12 +1,32 @@
 import "../App.css";
-import React from 'react';
+import React, { useState } from 'react';
+import TextBox from "../components/TextBox.tsx";
 
 const Login: React.FC = () => {
 
+    const [inputEmail, setInputEmail] = useState<string>('');
+    const [inputPassword, setInputPassword] = useState<string>('');
+
+    const handleEmailChange = (newValue: string) => {
+        setInputEmail(newValue);
+    };
+
+    const handlePasswordChange = (newValue: string) => {
+        setInputPassword(newValue);
+    };
+
     return (
-        <div>
+        <React.Fragment>
             <h1>Login</h1>
-        </div>
+            <TextBox
+                value={inputEmail}
+                onChange={handleEmailChange}
+                placeholder="Email" />
+            <TextBox
+                value={inputPassword}
+                onChange={handlePasswordChange}
+                placeholder="Passowrd" />
+        </React.Fragment>
     )
 }
 
