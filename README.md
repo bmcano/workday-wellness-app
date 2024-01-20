@@ -9,6 +9,8 @@ Our goal aims to alleviate these wellness concerns by creating an application gi
 
 The following steps will guide you through the installation guide to start development on this project.
 
+## React/Node.js Setup
+
 1. Download and install `node.js`
 
     - [Download link](https://nodejs.org/en/download/)
@@ -30,6 +32,22 @@ The following steps will guide you through the installation guide to start devel
 6. Run the command `npm install` to get all the dependencies
 
 7. Run the command `npm start` which will run the project on [http://localhost:3000](http://localhost:3000) to verify everything is working properly
+
+## MongoDB Setup
+
+1. Download and intall MongoDB Compass
+
+    - [Download link](https://www.mongodb.com/products/tools/compass)
+
+2. Open MongoDB Compass the URI should be `mongodb://localhost:27017/`
+
+3. Click `Connect`
+
+4. On the left side towards the top add a new database and fill in the fields
+    - Database Name = `wellness-app`
+    - Collection Name = `users`
+
+5. Click `Create Database`
 
 ## Available Scripts
 
