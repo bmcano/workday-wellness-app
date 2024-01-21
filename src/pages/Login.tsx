@@ -8,18 +8,44 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 const Login: React.FC = () => {
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const email = data.get('email');
+        const password = data.get('password');
+        const jsonData = JSON.stringify({ email, password })
+        console.log(jsonData);
+
+        let result = await fetch(
+            'http://localhost:3001/login', {
+                method: "post",
+                body: jsonData,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+
+
+        const response = await result.json()
+        console.warn(result);
+        if (result.ok) {
+            const success = response.success
+            if (success) {
+                console.log("Login successful");
+                navigate('/');
+            } else {
+                console.log("Login Failed");
+            }
+        }
     };
 
     return (

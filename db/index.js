@@ -31,6 +31,31 @@ app.post('/register', async (req, res) => {
     }
 })
 
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({email: email.toLowerCase()}).catch(
+        (err) => {
+            console.log("Error: ", err);
+        }
+    );
+
+    if (!user) {
+        // user account does not exist
+        return res
+            .status(400)
+            .json({ success: false, message: "Email or password does not match" });
+    }
+
+    if (user.password !== password) {
+        // account exist, but password does not match
+        return res
+            .status(400)
+            .json({ success: false, message: "Email or password does not match" });
+    }
+
+    res.json({ success: true, message: "Welcome Back!" })
+})
+
 app.listen(3001, () => {
     console.log("Database is running")
 })
