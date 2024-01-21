@@ -1,0 +1,27 @@
+[
+    {
+      "username": "john_doe",
+      "email": "john@example.com",
+      "password": "password123"
+    },
+    {
+      "username": "alice_smith",
+      "email": "alice@example.com",
+      "password": "securepass"
+    },
+    {
+      "username": "bob_jones",
+      "email": "bob@example.com",
+      "password": "secret123"
+    },
+    {
+      "username": "emma_wilson",
+      "email": "emma@example.com",
+      "password": "pass1234"
+    },
+    {
+      "username": "mike_roberts",
+      "email": "mike@example.com",
+      "password": "mikerocks"
+    }
+  ]
