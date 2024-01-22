@@ -26,14 +26,14 @@ const Login: React.FC = () => {
 
         let result = await fetch(
             'http://localhost:3001/login', {
-                method: "post",
-                body: jsonData,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+            method: "post",
+            body: jsonData,
+            credentials: 'include',
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
             }
-        )
-
+        })
 
         const response = await result.json()
         console.warn(result);
@@ -43,14 +43,14 @@ const Login: React.FC = () => {
                 console.log("Login successful");
                 navigate('/');
             } else {
-                console.log("Login Failed");
+                alert("Login Failed");
             }
         }
     };
 
     return (
         <React.Fragment>
-             <ThemeProvider theme={defaultTheme}>
+            <ThemeProvider theme={defaultTheme}>
                 <Container component="main" maxWidth="xs">
                     <Box sx={{
                         marginTop: 8,
@@ -102,4 +102,4 @@ const Login: React.FC = () => {
     )
 }
 
-export default Login
+export default Login;
