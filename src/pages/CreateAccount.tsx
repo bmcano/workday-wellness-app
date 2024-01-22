@@ -3,6 +3,8 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -93,6 +95,14 @@ const CreateAccount: React.FC = () => {
                             >
                                 Create Account
                             </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href="" variant="body2">Forgot password?</Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link href="/login" variant="body2">Already have an account?</Link>
+                                </Grid>
+                            </Grid>
                         </Box>
                     </Box>
                 </Container>

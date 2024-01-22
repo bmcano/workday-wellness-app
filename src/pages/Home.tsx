@@ -27,11 +27,25 @@ const Home: React.FC = () => {
             }).catch(err => console.log(err))
     }, [])
 
+    const handleLogout = async () => {
+        await fetch(
+            'http://localhost:3001/logout', {
+            method: "post",
+            credentials: 'include',
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            console.log("Logging Out")
+            navigate('/login')
+        }).catch(err => console.log(err))
+    }
+
     return (
         <div>
             <h1>Home: Welcome {email}</h1>
-            <Link to="/login">Login</Link>
-            <Link to="/profile">Profile</Link>
+            <Link to="#" onClick={handleLogout}>Logout</Link>
         </div>
     )
 }
