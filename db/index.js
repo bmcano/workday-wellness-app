@@ -30,13 +30,13 @@ connect("mongodb://localhost:27017/wellness-app")
 app.post('/register', async (req, res) => {
     try {
         // check to see if email is already in use.
-        console.log(req.body.email)
         const existingEmail = await UserModel.findOne({ email: req.body.email.toLowerCase() });
         if (existingEmail && existingEmail.email !== undefined) {
             return res.json({ success: false, message: "Email is already in use." });
         }
 
         // if not in use create the account
+        req.body.email = req.body.email.toLowerCase() 
         const user = new UserModel(req.body);
         let result = await user.save();
         result = result.toObject();
