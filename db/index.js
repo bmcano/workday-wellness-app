@@ -16,7 +16,7 @@ app.use(json())
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(session({
-    secret: "secret_token", // TODO - generate a token
+    secret: process.env.SESSION_SECRET || 'default_secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -74,6 +74,15 @@ app.post('/login', async (req, res) => {
     req.session.email = user.email;
     return res.json({ success: true });
 })
+
+app.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Session destruction error:', err);
+      }
+      return res.json({ success: true });
+    });
+});
 
 app.get('/', (req, res) => {
     console.log("Session: ", req.session.email)
