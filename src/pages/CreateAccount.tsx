@@ -23,16 +23,21 @@ const CreateAccount: React.FC = () => {
         event.preventDefault();
         // collect data from text fields
         const data = new FormData(event.currentTarget);
-        const username = data.get('username');
         const email = data.get('email');
         const password = data.get('password');
         const confirmPassword = data.get('confirm_password');
-        const jsonData = JSON.stringify({ username, email, password });
+        const first_name = data.get('first_name');
+        const last_name = data.get('last_name');
+        const jsonData = JSON.stringify({ email, password, first_name, last_name });
         console.log(jsonData);
         
         // validate user inputs
         if (!isValidEmail(email as string)) return;
         if (!isValidPassword(password as string, confirmPassword as string)) return;
+        if (!isValidName(first_name as string, last_name as string)) {
+            alert("One or more name items are left empty.");
+            return;
+        }
         
         // take user data and post it to the database
         let result = await fetch(
@@ -79,6 +84,10 @@ const CreateAccount: React.FC = () => {
         return true;
     };
 
+    const isValidName = (first_name: string, last_name: string): boolean => {
+        return first_name !== "" && last_name !== ""
+    }
+
     return (
         <React.Fragment>
              <ThemeProvider theme={defaultTheme}>
@@ -91,15 +100,6 @@ const CreateAccount: React.FC = () => {
                     }}>
                         <Typography component="h1" variant="h5">Create Account</Typography>
                         <Box component="form" onSubmit={handleSubmit} noValidate >
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                name="username"
-                                autoComplete="username"
-                                autoFocus />
                             <TextField
                                 margin="normal"
                                 required
@@ -131,6 +131,24 @@ const CreateAccount: React.FC = () => {
                                 type="password"
                                 id="confirm_password"
                                 autoComplete="current-password" />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="first_name"
+                                label="First Name"
+                                name="first_name"
+                                autoComplete="first_name"
+                                autoFocus />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="last_name"
+                                label="Last Name"
+                                name="last_name"
+                                autoComplete="last_name"
+                                autoFocus />
                             <Button
                                 type="submit"
                                 fullWidth
