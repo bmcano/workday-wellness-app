@@ -27,25 +27,27 @@ app.use(session({
 
 connect("mongodb://localhost:27017/wellness-app")
 
-app.get('/getUser', (req, res) => {
-    UserModel.find()
-        .then(users => res.json(users))
-        .catch(err => res.json(err))
-})
-
 app.post('/register', async (req, res) => {
     try {
+        // check to see if email is already in use.
+        console.log(req.body.email)
+        const existingEmail = await UserModel.findOne({ email: req.body.email.toLowerCase() });
+        if (existingEmail && existingEmail.email !== undefined) {
+            return res.json({ success: false, message: "Email is already in use." });
+        }
+
+        // if not in use create the account
         const user = new UserModel(req.body);
         let result = await user.save();
         result = result.toObject();
         if (result) {
-            res.send(req.body);
             console.log(result);
+            return res.json({ success: true, message: "Account successfully created." })
         } else {
-            console.log("User already exists");
+            return res.json({ success: false, message: "User already exists." })
         }
     } catch (e) {
-        res.send("Something went wrong");
+        return res.json({ success: false, message: "Something went wrong." })
     }
 })
 

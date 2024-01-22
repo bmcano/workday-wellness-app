@@ -25,7 +25,7 @@ const Home: React.FC = () => {
                     navigate('/login')
                 }
             }).catch(err => console.log(err))
-    }, [])
+    }, [navigate])
 
     const handleLogout = async () => {
         await fetch(

@@ -43,8 +43,10 @@ const Login: React.FC = () => {
                 console.log("Login successful");
                 navigate('/');
             } else {
-                alert("Login Failed");
+                alert("Login Failed.");
             }
+        } else {
+            alert("Incorrect email or password.")
         }
     };
 

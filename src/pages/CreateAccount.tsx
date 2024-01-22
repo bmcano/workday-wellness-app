@@ -1,5 +1,5 @@
 import "../App.css";
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -8,10 +8,16 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 const CreateAccount: React.FC = () => {
+
+    const [emailError, setEmailError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -20,8 +26,14 @@ const CreateAccount: React.FC = () => {
         const username = data.get('username');
         const email = data.get('email');
         const password = data.get('password');
+        const confirmPassword = data.get('confirm_password');
         const jsonData = JSON.stringify({ username, email, password });
         console.log(jsonData);
+        
+        // validate user inputs
+        if (!isValidEmail(email as string)) return;
+        if (!isValidPassword(password as string, confirmPassword as string)) return;
+        
         // take user data and post it to the database
         let result = await fetch(
             'http://localhost:3001/register', {
@@ -32,11 +44,39 @@ const CreateAccount: React.FC = () => {
                 }
             }
         )
-        result = await result.json();
+        const response = await result.json();
         console.warn(result);
-        if (result) {
-            alert("Data saved succesfully");
+        console.log(response)
+        if (response.success) {
+            alert("Account created.")
+            navigate('/')
+        } else if (response.message === "Email is already in use.") {
+            setEmailError(response.message)
         }
+    };
+
+    const isValidEmail = (email: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const valid = emailRegex.test(email);
+        if (valid) {
+            setEmailError(null);
+            return true;
+        }
+        setEmailError("Invalid email address.");
+        return false
+    } 
+
+    const isValidPassword = (password: string, confirmPassword: string): boolean => {
+        if (password.length < 8) {
+            setPasswordError("Password must be at least 8 characters");
+            return false;
+        }
+        if (password !== confirmPassword) {
+            setPasswordError("Passwords do not match");
+            return false;
+        }
+        setPasswordError(null);
+        return true;
     };
 
     return (
@@ -68,7 +108,9 @@ const CreateAccount: React.FC = () => {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
-                                autoFocus />
+                                autoFocus
+                                error={emailError !== null}
+                                helperText={emailError} />
                             <TextField
                                 margin="normal"
                                 required
@@ -77,16 +119,18 @@ const CreateAccount: React.FC = () => {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                autoComplete="current-password" />
+                                autoComplete="current-password"
+                                error={passwordError !== null}
+                                helperText={passwordError} />
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
                                 name="confirm_password"
                                 label="Confirm Password"
-                                type="confirm_password"
+                                type="password"
                                 id="confirm_password"
-                                autoComplete="confirm-current-password" />
+                                autoComplete="current-password" />
                             <Button
                                 type="submit"
                                 fullWidth
