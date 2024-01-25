@@ -1,3 +1,10 @@
+/* Define custom colors here */
+:root {
+  --red: #fc2929;
+  --gray: #acabab;
+  --dark-gray: #403c3c;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

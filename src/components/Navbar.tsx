@@ -1,12 +1,25 @@
-import '../App.css'
-import React from 'react'
+import '../App.css';
+import React, { useState } from 'react';
 import logoImage from '../static/images/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { handleLogout } from '../api/Logout.tsx';
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+    const [openSubMenu, setOpenSubMenu] = useState(false);
+    const toggleSubMenu = () => {
+        setOpenSubMenu(!openSubMenu);
+    };
+
+    const logout = () => {
+        handleLogout(navigate)
+    }
+
     return (
         <div className="navbar">
             <div className="logo">
-                <img src={logoImage} alt="logo"/>
+                <img src={logoImage} alt="logo" />
             </div>
             <div className="nav-links">
                 <a href="/">Home</a>
@@ -18,12 +31,20 @@ const Navbar = () => {
                     </span>
                     Notidication {/** likewise, this text might disappear later on*/}
                 </a>
-                <a href="/profile">
-                    <span role="img" aria-label="profile icon">
-                        🧑‍💻 {/** same idea here, except it will be users profile picture */}
-                    </span>
-                    Profile
-                </a>
+                <div className="subnav">
+                    <a href="#/" onClick={toggleSubMenu} role="button">
+                        <span role="img" aria-label="profile icon">
+                            🧑‍💻
+                        </span>
+                        Profile <i className="fa fa-caret-down"></i>
+                    </a>
+                    {openSubMenu && (
+                        <div className="subnav-content">
+                            <a href="/profile">Profile Settings</a>
+                            <a href="#/" onClick={logout}>Logout</a>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

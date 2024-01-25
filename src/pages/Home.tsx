@@ -2,6 +2,7 @@ import "../App.css";
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import Navbar from "../components/Navbar.tsx";
+import { handleLogout } from '../api/Logout.tsx';
 
 const Home: React.FC = () => {
 
@@ -28,26 +29,15 @@ const Home: React.FC = () => {
             }).catch(err => console.log(err))
     }, [navigate])
 
-    const handleLogout = async () => {
-        await fetch(
-            'http://localhost:3001/logout', {
-            method: "post",
-            credentials: 'include',
-            mode: "cors",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(() => {
-            console.log("Logging Out")
-            navigate('/login')
-        }).catch(err => console.log(err))
+    const logout = () => {
+        handleLogout(navigate)
     }
 
     return (
         <React.Fragment>
             <Navbar />
             <h1>Home: Welcome {email}</h1>
-            <Link to="#" onClick={handleLogout}>Logout</Link>
+            <Link to="#/" onClick={logout}>Logout</Link>
         </React.Fragment>
     )
 }

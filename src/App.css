@@ -1,47 +1,7 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Navbar styling */
 .navbar {
-  background-color: #fc2929;
+  background-color: var(--red);
   color: white;
-  padding: 16px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,7 +17,63 @@
   text-decoration: none;
 }
 
+.navbar a {
+  display: block;
+  padding: 16px 16px;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar a:hover {
+  background-color: var(--dark-gray);
+}
+
 .logo {
   max-width: 16px;
   max-height: 16px;
+}
+
+.subnav {
+  float: right;
+  position: relative;
+}
+
+.subnav .subnavbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 16px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.subnav:hover .subnavbtn {
+  background-color: var(--dark-gray);
+}
+
+.subnav-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--dark-gray);
+  z-index: 1;
+}
+
+.subnav-content a {
+  display: block;
+  padding: 8px;
+  color: white;
+  text-decoration: none;
+}
+
+.subnav-content a:hover {
+  background-color: var(--gray);
+  color: black;
+}
+
+.subnav:hover .subnav-content {
+  display: block;
 }
