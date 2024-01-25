@@ -1,6 +1,7 @@
 import "../App.css";
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
+import Navbar from "../components/Navbar.tsx";
 
 const Home: React.FC = () => {
 
@@ -43,10 +44,11 @@ const Home: React.FC = () => {
     }
 
     return (
-        <div>
+        <React.Fragment>
+            <Navbar />
             <h1>Home: Welcome {email}</h1>
             <Link to="#" onClick={handleLogout}>Logout</Link>
-        </div>
+        </React.Fragment>
     )
 }
 
