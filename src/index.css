@@ -1,6 +1,7 @@
 /* Define custom colors here */
 :root {
   --red: #fc2929;
+  --dark-red: #d62311;
   --gray: #acabab;
   --dark-gray: #403c3c;
 }
