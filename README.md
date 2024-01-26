@@ -56,6 +56,16 @@ The following steps will guide you through the installation guide to start devel
 
 7. In `VS Code` open a terminal and in the project directory run `npm run start:db` to start the server on `localhost:3001`.
 
+## Seeding Setup
+
+1. Python is utilized for seeding fake data into our database, first ensure python is installed.
+
+2. Next go into the db directory: `cd db`
+
+3. Install the python mongo library `pip install pymongo`
+
+4. Run the command `npm run seed` to add the fake data
+
 ## Available Scripts
 
 The following section was generated after the `npx create-react-app <project-name>` command was executed, but has since been modified in some parts to fit this project.
