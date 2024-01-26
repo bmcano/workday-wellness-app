@@ -49,6 +49,8 @@ The following steps will guide you through the installation guide to start devel
 
 5. Click `Create Database`
 
+6. In `VS Code` open a terminal and in the project directory run `npm run start:db` to start the server on `localhost:3001`.
+
 ## Available Scripts
 
 The following section was generated after the `npx create-react-app <project-name>` command was executed, but has since been modified in some parts to fit this project.
