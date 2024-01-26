@@ -5,10 +5,10 @@ import json
 print("Connecting...")
 client = MongoClient('mongodb://localhost:27017')
 db = client['wellness-app']
-db.drop_collection('users')
 user_collection = db['users']
+user_collection.delete_many({})
 
-with open('db/stub_data/users.json', 'r') as file:
+with open('stub_data/users.json', 'r') as file:
     user_stubs = json.load(file)
 
 for user in user_stubs:

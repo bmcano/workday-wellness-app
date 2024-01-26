@@ -1,32 +1,37 @@
 [
     {
       "email": "john@example.com",
-      "password": "password123",
+      "password": "password",
       "first_name": "John",
-      "last_name": "Doe"
+      "last_name": "Doe",
+      "stub_data": true
     },
     {
       "email": "alice@example.com",
-      "password": "password123",
+      "password": "password",
       "first_name": "Alice",
-      "last_name": "Jones"
+      "last_name": "Jones",
+      "stub_data": true
     },
     {
       "email": "bob@example.com",
-      "password": "password123",
+      "password": "password",
       "first_name": "Bob",
-      "last_name": "Smith"
+      "last_name": "Smith",
+      "stub_data": true
     },
     {
       "email": "emma@example.com",
-      "password": "password123",
+      "password": "password",
       "first_name": "Emma",
-      "last_name": "Johnson"
+      "last_name": "Johnson",
+      "stub_data": true
     },
     {
       "email": "mike@example.com",
-      "password": "password123",
+      "password": "password",
       "first_name": "Mike",
-      "last_name": "Smith"
+      "last_name": "Smith",
+      "stub_data": true
     }
   ]

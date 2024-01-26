@@ -1,11 +1,12 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema({
-    email: String,
-    password: String,
-    first_name: String,
-    last_name: String
-})
- 
-const UserModel = model("users", UserSchema)
-export default UserModel
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, unique: false },
+    first_name: { type: String, required: true, unique: false },
+    last_name: { type: String, required: true, unique: false },
+    stub_data: { type: Boolean, required: false, unique: false }
+});
+
+const UserModel = model("users", UserSchema);
+export default UserModel;

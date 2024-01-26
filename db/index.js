@@ -5,6 +5,7 @@ import UserModel from './models/Users.js'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
+import bcrypt from 'bcrypt'
 
 const app = express();
 app.use(cors({
@@ -29,60 +30,67 @@ connect("mongodb://localhost:27017/wellness-app")
 
 app.post('/register', async (req, res) => {
     try {
-        // check to see if email is already in use.
-        const existingEmail = await UserModel.findOne({ email: req.body.email.toLowerCase() });
-        if (existingEmail && existingEmail.email !== undefined) {
-            return res.json({ success: false, message: "Email is already in use." });
-        }
-
-        // if not in use create the account
-        req.body.email = req.body.email.toLowerCase() 
-        const user = new UserModel(req.body);
+        req.body.email = req.body.email.toLowerCase()
+        const { email, password: plainTextPassword, first_name, last_name } = req.body;
+        const password = await bcrypt.hash(plainTextPassword, 10);
+        const user = new UserModel({
+            email,
+            password,
+            first_name,
+            last_name
+        });
         let result = await user.save();
         result = result.toObject();
+        console.log(result)
         if (result) {
             console.log(result);
             return res.json({ success: true, message: "Account successfully created." })
         } else {
-            return res.json({ success: false, message: "User already exists." })
+            return res.json({ success: false, message: "Account was unable to be created." })
         }
     } catch (e) {
-        return res.json({ success: false, message: "Something went wrong." })
+        console.log("Error: ", e);
+        if (e.code === 11000) { // Duplicate key error
+            return res.json({ success: false, message: "Email is already in use." });
+        } else {
+            return res.json({ success: false, message: "An error occurred." });
+        }
     }
 })
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const user = await UserModel.findOne({ email: email.toLowerCase() }).catch(
-        (err) => {
-            console.log("Error: ", err);
+    try {
+        const user = await UserModel.findOne({ email: email.toLowerCase() }).lean()
+        if (!user) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Email or password does not match" });
         }
-    );
-
-    if (!user) {
-        // user account does not exist
+        if (user.stub_data && user.password === password) {
+            console.log("STUB_DATA");
+            req.session.email = user.email;
+            return res.json({ success: true });
+        }
+        if (await bcrypt.compare(password, user.password)) {
+            req.session.email = user.email;
+            return res.json({ success: true });
+        } 
         return res
             .status(400)
             .json({ success: false, message: "Email or password does not match" });
+    } catch (error) {
+        console.log(error);
+        return { status: 'error', error: 'timed out' }
     }
-
-    if (user.password !== password) {
-        // account exist, but password does not match
-        return res
-            .status(400)
-            .json({ success: false, message: "Email or password does not match" });
-    }
-
-    req.session.email = user.email;
-    return res.json({ success: true });
-})
+});
 
 app.post('/logout', (req, res) => {
     req.session.destroy((err) => {
-      if (err) {
-        console.error('Session destruction error:', err);
-      }
-      return res.json({ success: true });
+        if (err) {
+            console.error('Session destruction error:', err);
+        }
+        return res.json({ success: true });
     });
 });
 
