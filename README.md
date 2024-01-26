@@ -35,11 +35,12 @@ The following steps will guide you through the installation guide to start devel
 
 ## MongoDB Setup
 
-1. Download and intall MongoDB Compass and Mongo Shell
+1. Download and intall Mongo Community Server, Mongosh, and MongoDB Compass
 
+    - [Mongo Community Server](https://www.mongodb.com/try/download/community)
     - [Mongo Compass](https://www.mongodb.com/products/tools/compass)
     - [Mongo Shell](https://www.mongodb.com/try/download/shell)
-    - [Mongo Shell Installation Guide](https://www.mongodb.com/docs/mongodb-shell/install/)
+    - [Installation Guide](https://www.youtube.com/watch?v=jvaBaxlTqU8)
 
 2. To verify that Mongo Shell is installed run the command `mongosh` in a terminal
 
