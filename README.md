@@ -35,21 +35,25 @@ The following steps will guide you through the installation guide to start devel
 
 ## MongoDB Setup
 
-1. Download and intall MongoDB Compass
+1. Download and intall MongoDB Compass and Mongo Shell
 
-    - [Download link](https://www.mongodb.com/products/tools/compass)
+    - [Mongo Compass](https://www.mongodb.com/products/tools/compass)
+    - [Mongo Shell](https://www.mongodb.com/try/download/shell)
+    - [Mongo Shell Installation Guide](https://www.mongodb.com/docs/mongodb-shell/install/)
 
-2. Open MongoDB Compass the URI should be `mongodb://localhost:27017/`
+2. To verify that Mongo Shell is installed run the command `mongosh` in a terminal
 
-3. Click `Connect`
+3. Once Mongo Shell is working, open MongoDB Compass and the URI should be `mongodb://localhost:27017/`
 
-4. On the left side towards the top add a new database and fill in the fields
+4. Click `Connect`
+
+5. On the left side towards the top add a new database and fill in the fields
     - Database Name = `wellness-app`
     - Collection Name = `users`
 
-5. Click `Create Database`
+6. Click `Create Database`
 
-6. In `VS Code` open a terminal and in the project directory run `npm run start:db` to start the server on `localhost:3001`.
+7. In `VS Code` open a terminal and in the project directory run `npm run start:db` to start the server on `localhost:3001`.
 
 ## Available Scripts
 
