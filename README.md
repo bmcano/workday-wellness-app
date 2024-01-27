@@ -54,7 +54,12 @@ The following steps will guide you through the installation guide to start devel
 
 6. Click `Create Database`
 
-7. In `VS Code` open a terminal and in the project directory run `npm run start:db` to start the server on `localhost:3001`.
+7. In `VS Code` open a terminal and in the project directory run the following commands to setup the server on `localhost:3001`:
+
+    - `cd db`
+    - `npm install`
+    - `npm run start:db`
+
 
 ## Seeding Setup
 
