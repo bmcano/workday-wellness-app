@@ -7,7 +7,6 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import bcrypt from 'bcrypt'
 
-
 /**
  * Server setup
  */
@@ -16,10 +15,10 @@ app.use(cors({
     origin: 'http://localhost:3000',
     methods: ["POST", "GET"],
     credentials: true
-}))
-app.use(json())
-app.use(cookieParser())
-app.use(bodyParser.json())
+}));
+app.use(json());
+app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET || 'default_secret',
     resave: false,
@@ -28,7 +27,7 @@ app.use(session({
         secure: false,
         maxAge: 1000 * 60 * 60 * 24
     }
-}))
+}));
 
 connect("mongodb://localhost:27017/wellness-app")
 
@@ -55,15 +54,15 @@ app.post('/register', async (req, res) => {
         } else {
             return res.json({ success: false, message: "Account was unable to be created." })
         }
-    } catch (e) {
-        console.log("Error: ", e);
-        if (e.code === 11000) { // Duplicate key error
+    } catch (error) {
+        console.log("Error: ", error);
+        if (error.code === 11000) { // Duplicate key error
             return res.json({ success: false, message: "Email is already in use." });
         } else {
             return res.json({ success: false, message: "An error occurred." });
         }
     }
-})
+});
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -110,7 +109,21 @@ app.get('/', (req, res) => {
     } else {
         return res.json({ authorized: false })
     }
-})
+});
+
+app.get('/user', async (req, res) => {
+    try {
+        if (req.session._id) {
+            const user = await UserModel.findOne({ _id: req.session._id }).lean();
+            return res.json({ authorized: true, user: user })
+        } else {
+            return res.json({ authorized: false })
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false })
+    }
+});
 
 /**
  * These methods are all related to the a users friends: Add, Remove, View
@@ -141,10 +154,31 @@ app.get('/friends_list', async (req, res) => {
             .status(500)
             .json({ error: "Internal Server Error" });
     }
-})
+});
 
-
+app.post('/view_profile', async (req, res) => {
+    try {
+        const user_id = req.body;
+        const user = await UserModel.findOne({ _id: user_id }).lean();
+        const auth_user = await UserModel.findOne({ _id: req.session._id }).lean();
+        if (!user || !auth_user) {
+            return res
+                .status(404)
+                .json({ error: "User not found" });
+        }
+        // TODO - profile picture
+        const email = user.email;
+        const first_name = user.first_name;
+        const last_name = user.last_name;
+        return res.json({ email: email, first_name: first_name, last_name: last_name, auth_user: auth_user });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ error: "Internal Server Error" });
+    }
+});
 
 app.listen(3001, () => {
     console.log("Database is running")
-})
+});
