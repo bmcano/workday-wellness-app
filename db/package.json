@@ -20,5 +20,9 @@
     "express-session": "^1.17.3",
     "mongoose": "^8.1.0",
     "nodemon": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express-session": "^1.17.10"
   }
 }
