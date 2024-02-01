@@ -13,6 +13,7 @@ const FriendsProfile: React.FC = () => {
     // TODO - add profile picture
     const [firstName, setFristName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [isFriend, setIsFriend] = useState(false);
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
 
@@ -36,20 +37,21 @@ const FriendsProfile: React.FC = () => {
                 const user = data.auth_user;
                 setUserId(user._id);
                 if (user.friends.includes(data.email)) {
+                    setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
             }).catch(err => console.log(err))
-        
+
     }, [navigate]);
 
     const handleOnClick = () => {
         var link = "";
-        if (buttonText === "Add Friend") {
+        if (!isFriend) {
             link = 'http://localhost:3001/add_friend';
         } else {
             link = 'http://localhost:3001/remove_friend';
         }
-        const jsonData = JSON.stringify({user_id: user_id, friend_id: id });
+        const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
         fetch(
             link, {
             method: "post",
@@ -58,7 +60,18 @@ const FriendsProfile: React.FC = () => {
             headers: {
                 'Content-Type': 'application/json'
             }
-        });
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.isFriend) {
+                    setIsFriend(true)
+                    setButtonText("Remove Friend");
+                } else {
+                    setIsFriend(false);
+                    setButtonText("Add Friend");
+                }
+            })
+            .catch(err => console.log(err));
     }
 
     return (

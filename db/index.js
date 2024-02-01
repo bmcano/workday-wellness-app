@@ -193,6 +193,7 @@ app.post('/add_friend', async (req, res) => {
         friend.friends.push(user.email);
         await user.save();
         await friend.save();
+        return res.json({ isFriend: true, message: "Friend added successfully." });
     } catch (error) {
         console.error(error);
         return res
@@ -215,7 +216,7 @@ app.post('/remove_friend', async (req, res) => {
         friend.friends = friend.friends.filter(item => item !== user.email);
         await user.save();
         await friend.save();
-        return res.status(200).json({ message: "Friend removed successfully" });
+        return res.json({ isFriend: false, message: "Friend removed successfully." });
     } catch (error) {
         console.error(error);
         return res
