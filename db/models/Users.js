@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     last_name: { type: String, required: true },
     stub_data: { type: Boolean, required: false },
     friends: { type: [String], default: [] },
-    profile_picture: { type: String, default: process.env.DEFAULT_BASE64 }
+    profile_picture: { type: String, default: "" }
 });
 
 const UserModel = model("users", UserSchema);

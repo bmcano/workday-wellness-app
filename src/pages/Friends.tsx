@@ -7,6 +7,7 @@ import { Friend } from "../types/Friend.tsx";
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import ProfilePicture from "../components/ProfilePicture.tsx";
 
 const Friends: React.FC = () => {
 
@@ -49,6 +50,7 @@ const Friends: React.FC = () => {
                 <ul className="card-list">
                     {filteredFriendsList.map((friend, index) => (
                         <><li key={index} className="card-item">
+                            <ProfilePicture isUserProfile={false} base64Img={friend.profile_picture} isSmallScreen={true} />
                             <div className="card-text">{`${friend.first_name} ${friend.last_name}`}</div>
                             <Button variant="contained" color="primary" onClick={() => navigate(`/profile/friends/${friend.id}`)}>
                                 View Profile

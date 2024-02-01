@@ -127,32 +127,9 @@ const CreateAccount: React.FC = () => {
                             type="password"
                             id="confirm_password"
                             autoComplete="current-password" />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="first_name"
-                            label="First Name"
-                            name="first_name"
-                            autoComplete="first_name"
-                            autoFocus />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="last_name"
-                            label="Last Name"
-                            name="last_name"
-                            autoComplete="last_name"
-                            autoFocus />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 2, mb: 2 }}
-                        >
-                            Create Account
-                        </Button>
+                        <TextField margin="normal" required fullWidth id="first_name" label="First Name" name="first_name" autoComplete="first_name" autoFocus />
+                        <TextField margin="normal" required fullWidth id="last_name" label="Last Name" name="last_name" autoComplete="last_name" autoFocus />
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>Create Account</Button>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="" variant="body2">Forgot password?</Link>
