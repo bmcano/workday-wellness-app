@@ -78,21 +78,38 @@
   display: block;
 }
 
-.friends-list {
-  list-style-type: none;
+/* Items for displaying a list on a card view */
+.divider {
+  height: 1px;
+  background-color: var(--dark-gray);
+  margin: 10px 0;
+}
+
+.card {
+  border-radius: 8px;
+  padding: 16px;
+  padding-bottom: 8px;
+  margin-top: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+  background-color: var(--gray);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-list {
+  list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.friend-item {
+.card-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
 }
 
-.friend-name {
+.card-text {
   font-size: 18px;
   font-weight: bold;
 }
