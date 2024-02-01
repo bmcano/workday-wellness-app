@@ -69,18 +69,20 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await UserModel.findOne({ email: email.toLowerCase() }).lean()
+        console.log(user._id.toString())
         if (!user) {
             return res
                 .status(400)
                 .json({ success: false, message: "Email or password does not match" });
         }
+        const id = user._id.toString();
         if (user.stub_data && user.password === password) {
             console.log("STUB_DATA");
-            req.session.email = user.email;
+            req.session._id = id;
             return res.json({ success: true });
         }
         if (await bcrypt.compare(password, user.password)) {
-            req.session.email = user.email;
+            req.session._id = id;
             return res.json({ success: true });
         }
         return res
@@ -102,9 +104,9 @@ app.post('/logout', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    console.log("Session: ", req.session.email)
-    if (req.session.email) {
-        return res.json({ authorized: true, email: req.session.email })
+    console.log("Session: ", req.session._id)
+    if (req.session._id) {
+        return res.json({ authorized: true, id: req.session._id })
     } else {
         return res.json({ authorized: false })
     }
@@ -115,7 +117,7 @@ app.get('/', (req, res) => {
  */
 app.get('/friends_list', async (req, res) => {
     try {
-        const user = await UserModel.findOne({ email: req.session.email }).lean();
+        const user = await UserModel.findOne({ _id: req.session._id }).lean();
         if (!user) {
             return res
                 .status(404)

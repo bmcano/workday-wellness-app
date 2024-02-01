@@ -3,6 +3,7 @@ import CreateAccount from './pages/CreateAccount.tsx';
 import Home from './pages/Home.tsx';
 import Profile from './pages/Profile.tsx';
 import Friends from './pages/Friends.tsx';
+import FriendsProfile from './pages/FriendsProfile.tsx';
 import Notification from './pages/Notifications.tsx';
 import Chat from './pages/Chat.tsx';
 import Calendar from './pages/Calendar.tsx';
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/friends" exact element={<Friends />} />
+          <Route path="/profile/friends/:_id" element={<FriendsProfile />} />
           <Route path="/notifications" exact element={<Notification />} />
           <Route path="/chat" exact element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />

@@ -50,7 +50,7 @@ const Friends: React.FC = () => {
                     {filteredFriendsList.map((friend, index) => (
                         <><li key={index} className="card-item">
                             <div className="card-text">{`${friend.first_name} ${friend.last_name}`}</div>
-                            <Button variant="contained" color="primary" onClick={() => navigate(`/profile/${friend.id}`)}>
+                            <Button variant="contained" color="primary" onClick={() => navigate(`/profile/friends/${friend.id}`)}>
                                 View Profile
                             </Button>
                         </li>{index < filteredFriendsList.length - 1 && <div className="divider"></div>}</>
