@@ -32,7 +32,7 @@ const Navbar = () => {
                     Notidication {/** likewise, this text might disappear later on*/}
                 </a>
                 <div className="subnav">
-                    <a href="javascript:void(0);" onClick={toggleSubMenu} role="button">
+                    <a onClick={toggleSubMenu} role="button">
                         <span role="img" aria-label="profile icon">
                             🧑‍💻
                         </span>
