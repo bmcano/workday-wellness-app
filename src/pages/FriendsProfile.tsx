@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import ProfilePicture from "../components/ProfilePicture.tsx";
 
 const FriendsProfile: React.FC = () => {
 
@@ -16,6 +17,7 @@ const FriendsProfile: React.FC = () => {
     const [isFriend, setIsFriend] = useState(false);
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
+    const [base64Image, setBase64Image] = useState("");
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -34,6 +36,7 @@ const FriendsProfile: React.FC = () => {
             .then(data => {
                 setFristName(data.first_name);
                 setLastName(data.last_name);
+                setBase64Image(data.profile_picture);
                 const user = data.auth_user;
                 setUserId(user._id);
                 if (user.friends.includes(data.email)) {
@@ -80,7 +83,7 @@ const FriendsProfile: React.FC = () => {
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className="card">
                     <Typography component="h1" variant="h4" align="center">{firstName} {lastName}'s Profile</Typography>
-                    {/* Profile picture */}
+                    <ProfilePicture base64Image={base64Image}/>
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>

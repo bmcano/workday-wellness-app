@@ -47,7 +47,6 @@ app.post('/register', async (req, res) => {
         });
         let result = await user.save();
         result = result.toObject();
-        console.log(result)
         if (result) {
             console.log(result);
             return res.json({ success: true, message: "Account successfully created." })
@@ -55,7 +54,7 @@ app.post('/register', async (req, res) => {
             return res.json({ success: false, message: "Account was unable to be created." })
         }
     } catch (error) {
-        console.log("Error: ", error);
+        console.log(error);
         if (error.code === 11000) { // Duplicate key error
             return res.json({ success: false, message: "Email is already in use." });
         } else {
@@ -68,7 +67,6 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await UserModel.findOne({ email: email.toLowerCase() }).lean()
-        console.log(user._id.toString())
         if (!user) {
             return res
                 .status(400)
@@ -145,8 +143,7 @@ app.get('/friends_list', async (req, res) => {
                 last_name: friend.last_name
             };
         });
-        console.log("Friends API")
-        console.log(friendsStub)
+
         return res.json(friendsStub);
     } catch (error) {
         console.error(error);
@@ -166,11 +163,11 @@ app.post('/view_profile', async (req, res) => {
                 .status(404)
                 .json({ error: "User not found" });
         }
-        // TODO - profile picture
         const email = user.email;
         const first_name = user.first_name;
         const last_name = user.last_name;
-        return res.json({ email: email, first_name: first_name, last_name: last_name, auth_user: auth_user });
+        const profile_picture = user.profile_picture;
+        return res.json({ email: email, first_name: first_name, last_name: last_name, profile_picture: profile_picture, auth_user: auth_user });
     } catch (error) {
         console.error(error);
         return res
@@ -222,6 +219,26 @@ app.post('/remove_friend', async (req, res) => {
         return res
             .status(500)
             .json({ error: "Internal Server Error" });
+    }
+});
+
+/**
+ * This is two upload the base64 encoding of a profile picture
+ */
+app.post('/upload', async (req, res) => {
+    try {
+        const { _id, base64Image } = req.body;
+        const user = await UserModel.findById(_id);
+        user.profile_picture = base64Image;
+        await user.save();
+        return res
+            .status(200)
+            .send('Image uploaded successfully');
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send('Error uploading picture.');
     }
 });
 
