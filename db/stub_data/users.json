@@ -7,7 +7,9 @@
     "stub_data": true,
     "friends": [
       "alice@example.com",
-      "bob@example.com"
+      "bob@example.com",
+      "emma@example.com",
+      "sarah@example.com"
     ]
   },
   {
@@ -17,7 +19,8 @@
     "last_name": "Jones",
     "stub_data": true,
     "friends": [
-      "john@example.com"
+      "john@example.com",
+      "emma@example.com"
     ]
   },
   {
@@ -27,7 +30,8 @@
     "last_name": "Smith",
     "stub_data": true,
     "friends": [
-      "john@example.com"
+      "john@example.com",
+      "mike@example.com"
     ]
   },
   {
@@ -36,13 +40,60 @@
     "first_name": "Emma",
     "last_name": "Johnson",
     "stub_data": true,
-    "friends": []
+    "friends": [
+      "alice@example.com",
+      "john@example.com"
+    ]
   },
   {
     "email": "mike@example.com",
     "password": "password",
     "first_name": "Mike",
-    "last_name": "Smith",
+    "last_name": "Williams",
+    "stub_data": true,
+    "friends": [
+      "bob@example.com"
+    ]
+  },
+  {
+    "email": "sarah@example.com",
+    "password": "password",
+    "first_name": "Sarah",
+    "last_name": "Lee",
+    "stub_data": true,
+    "friends": [
+      "john@example.com"
+    ]
+  },
+  {
+    "email": "david@example.com",
+    "password": "password",
+    "first_name": "David",
+    "last_name": "Kim",
+    "stub_data": true,
+    "friends": []
+  },
+  {
+    "email": "olivia@example.com",
+    "password": "password",
+    "first_name": "Olivia",
+    "last_name": "Brown",
+    "stub_data": true,
+    "friends": []
+  },
+  {
+    "email": "daniel@example.com",
+    "password": "password",
+    "first_name": "Daniel",
+    "last_name": "Thomas",
+    "stub_data": true,
+    "friends": []
+  },
+  {
+    "email": "jessica@example.com",
+    "password": "password",
+    "first_name": "Jessica",
+    "last_name": "Anderson",
     "stub_data": true,
     "friends": []
   }

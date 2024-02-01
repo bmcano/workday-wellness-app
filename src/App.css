@@ -25,6 +25,7 @@
 
 .navbar a:hover {
   background-color: var(--dark-gray);
+  border-radius: 4px;
 }
 
 .logo {
@@ -56,6 +57,7 @@
 .subnav-content {
   display: none;
   position: absolute;
+  border-radius: 4px;
   top: 100%;
   right: 0;
   background-color: var(--dark-gray);
@@ -64,6 +66,7 @@
 
 .subnav-content a {
   display: block;
+  border-radius: 4px;
   padding: 8px;
   color: white;
   text-decoration: none;
