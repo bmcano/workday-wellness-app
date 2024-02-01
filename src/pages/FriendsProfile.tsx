@@ -82,8 +82,8 @@ const FriendsProfile: React.FC = () => {
             <Navbar />
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className="card">
-                    <Typography component="h1" variant="h4" align="center">{firstName} {lastName}'s Profile</Typography>
-                    <ProfilePicture base64Image={base64Image}/>
+                    <Typography component="h1" variant="h4" align="center" marginBottom={2}>{firstName} {lastName}'s Profile</Typography>
+                    <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false}/>
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>

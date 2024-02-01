@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import logoImage from '../static/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout } from '../api/Logout.tsx';
+import ProfilePicture from './ProfilePicture.tsx';
 
 const Navbar = () => {
 
@@ -33,10 +34,7 @@ const Navbar = () => {
                 </a>
                 <div className="subnav">
                     <a onClick={toggleSubMenu} role="button">
-                        <span role="img" aria-label="profile icon">
-                            🧑‍💻
-                        </span>
-                        Profile <i className="fa fa-caret-down"></i>
+                        <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true}/>
                     </a>
                     {openSubMenu && (
                         <div className="subnav-content">
