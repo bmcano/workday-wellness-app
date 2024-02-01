@@ -7,6 +7,10 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import bcrypt from 'bcrypt'
 
+
+/**
+ * Server setup
+ */
 const app = express();
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -28,6 +32,9 @@ app.use(session({
 
 connect("mongodb://localhost:27017/wellness-app")
 
+/**
+ * These following methods are all related to accounts by creation, login, logout, and authorization
+ */
 app.post('/register', async (req, res) => {
     try {
         req.body.email = req.body.email.toLowerCase()
@@ -75,7 +82,7 @@ app.post('/login', async (req, res) => {
         if (await bcrypt.compare(password, user.password)) {
             req.session.email = user.email;
             return res.json({ success: true });
-        } 
+        }
         return res
             .status(400)
             .json({ success: false, message: "Email or password does not match" });
@@ -102,6 +109,39 @@ app.get('/', (req, res) => {
         return res.json({ authorized: false })
     }
 })
+
+/**
+ * These methods are all related to the a users friends: Add, Remove, View
+ */
+app.get('/friends_list', async (req, res) => {
+    try {
+        const user = await UserModel.findOne({ email: req.session.email }).lean();
+        if (!user) {
+            return res
+                .status(404)
+                .json({ error: "User not found" });
+        }
+        const friendsEmails = user.friends;
+        const friendsDetails = await UserModel.find({ email: { $in: friendsEmails } }).lean();
+        const friendsStub = friendsDetails.map(friend => {
+            return {
+                id: friend._id,
+                first_name: friend.first_name,
+                last_name: friend.last_name
+            };
+        });
+        console.log("Friends API")
+        console.log(friendsStub)
+        return res.json(friendsStub);
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ error: "Internal Server Error" });
+    }
+})
+
+
 
 app.listen(3001, () => {
     console.log("Database is running")

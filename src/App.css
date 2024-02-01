@@ -77,3 +77,22 @@
 .subnav:hover .subnav-content {
   display: block;
 }
+
+.friends-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.friend-name {
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -32,7 +32,7 @@ const Navbar = () => {
                     Notidication {/** likewise, this text might disappear later on*/}
                 </a>
                 <div className="subnav">
-                    <a href="#/" onClick={toggleSubMenu} role="button">
+                    <a href="javascript:void(0);" onClick={toggleSubMenu} role="button">
                         <span role="img" aria-label="profile icon">
                             🧑‍💻
                         </span>
@@ -41,6 +41,7 @@ const Navbar = () => {
                     {openSubMenu && (
                         <div className="subnav-content">
                             <a href="/profile">Profile Settings</a>
+                            <a href="/profile/friends">Friends</a>
                             <a href="#/" onClick={logout}>Logout</a>
                         </div>
                     )}

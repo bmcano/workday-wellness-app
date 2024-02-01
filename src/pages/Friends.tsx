@@ -1,0 +1,48 @@
+import "../App.css";
+import React, { useEffect, useState } from 'react';
+import Navbar from "../components/Navbar.tsx";
+import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+import { useNavigate } from "react-router-dom";
+import { Friend } from "../context/Friend.tsx";
+import Button from '@mui/material/Button';
+
+const Friends: React.FC = () => {
+
+    const [friendsList, setFriendsList] = useState<Friend[]>([]);
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        AuthorizedUser(navigate);
+        fetch(
+            'http://localhost:3001/friends_list', {
+            method: "get",
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setFriendsList(data)
+            }).catch(err => console.log(err))
+    }, [navigate]);
+
+    return (
+        <React.Fragment>
+            <Navbar />
+            <h1>Friends</h1>
+            <ul className="friends-list">
+                {friendsList.map((friend, index) => (
+                    <li key={index} className="friend-item">
+                        <div className="friend-name">{`${friend.first_name} ${friend.last_name}`}</div>
+                        <Button variant="contained" color="primary" onClick={() => navigate(`/profile/${friend.id}`)}>
+                            View Profile
+                        </Button>
+                    </li>
+                ))}
+            </ul>
+        </React.Fragment>
+    )
+}
+
+export default Friends
