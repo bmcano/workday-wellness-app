@@ -14,6 +14,7 @@ const FriendsProfile: React.FC = () => {
     const [firstName, setFristName] = useState("");
     const [lastName, setLastName] = useState("");
     const [buttonText, setButtonText] = useState("Add Friend");
+    const [user_id, setUserId] = useState("");
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -33,6 +34,7 @@ const FriendsProfile: React.FC = () => {
                 setFristName(data.first_name);
                 setLastName(data.last_name);
                 const user = data.auth_user;
+                setUserId(user._id);
                 if (user.friends.includes(data.email)) {
                     setButtonText("Remove Friend");
                 }
@@ -41,11 +43,22 @@ const FriendsProfile: React.FC = () => {
     }, [navigate]);
 
     const handleOnClick = () => {
+        var link = "";
         if (buttonText === "Add Friend") {
-            // add friend call
+            link = 'http://localhost:3001/add_friend';
         } else {
-            // remove friend call
+            link = 'http://localhost:3001/remove_friend';
         }
+        const jsonData = JSON.stringify({user_id: user_id, friend_id: id });
+        fetch(
+            link, {
+            method: "post",
+            credentials: 'include',
+            body: jsonData,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 
     return (

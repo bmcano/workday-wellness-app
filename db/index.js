@@ -179,6 +179,51 @@ app.post('/view_profile', async (req, res) => {
     }
 });
 
+app.post('/add_friend', async (req, res) => {
+    try {
+        const { user_id, friend_id } = req.body;
+        const user = await UserModel.findById(user_id)
+        const friend = await UserModel.findById(friend_id)
+        if (!user || !friend) {
+            return res
+                .status(404)
+                .json({ error: "User or friend not found" });
+        }
+        user.friends.push(friend.email);
+        friend.friends.push(user.email);
+        await user.save();
+        await friend.save();
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ error: "Internal Server Error" });
+    }
+});
+
+app.post('/remove_friend', async (req, res) => {
+    try {
+        const { user_id, friend_id } = req.body;
+        const user = await UserModel.findById(user_id)
+        const friend = await UserModel.findById(friend_id)
+        if (!user || !friend) {
+            return res
+                .status(404)
+                .json({ error: "User or friend not found" });
+        }
+        user.friends = user.friends.filter(item => item !== friend.email);
+        friend.friends = friend.friends.filter(item => item !== user.email);
+        await user.save();
+        await friend.save();
+        return res.status(200).json({ message: "Friend removed successfully" });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ error: "Internal Server Error" });
+    }
+});
+
 app.listen(3001, () => {
     console.log("Database is running")
 });
