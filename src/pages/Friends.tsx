@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { Friend } from "../context/Friend.tsx";
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 const Friends: React.FC = () => {
 
     const [friendsList, setFriendsList] = useState<Friend[]>([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -28,19 +30,30 @@ const Friends: React.FC = () => {
             }).catch(err => console.log(err))
     }, [navigate]);
 
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredFriendsList = friendsList.filter((friend) =>
+        `${friend.first_name} ${friend.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <React.Fragment>
             <Navbar />
             <Typography component="h1" variant="h4" align="center" marginTop={4}>Friends</Typography>
+            <div className="box-card">
+                <TextField label="Search" variant="outlined" value={searchTerm} onChange={handleSearch} fullWidth/>
+            </div>
             <div className="card">
                 <ul className="card-list">
-                    {friendsList.map((friend, index) => (
+                    {filteredFriendsList.map((friend, index) => (
                         <><li key={index} className="card-item">
                             <div className="card-text">{`${friend.first_name} ${friend.last_name}`}</div>
                             <Button variant="contained" color="primary" onClick={() => navigate(`/profile/${friend.id}`)}>
                                 View Profile
                             </Button>
-                        </li>{index < friendsList.length - 1 && <div className="divider"></div>}</>
+                        </li>{index < filteredFriendsList.length - 1 && <div className="divider"></div>}</>
                     ))}
                 </ul>
             </div>

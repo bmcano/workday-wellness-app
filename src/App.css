@@ -81,6 +81,16 @@
   display: block;
 }
 
+/* Blank card that can act as a container */
+.box-card {
+  border-radius: 8px;
+  padding: 0px;
+  padding-bottom: 16px;
+  margin-top: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
 /* Items for displaying a list on a card view */
 .divider {
   height: 1px;
@@ -91,7 +101,7 @@
 .card {
   border-radius: 8px;
   padding: 16px;
-  padding-bottom: 8px;
+  padding-bottom: 16px;
   margin-top: 32px;
   margin-right: 32px;
   margin-left: 32px;
@@ -109,7 +119,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 }
 
 .card-text {
