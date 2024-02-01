@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
-import { Friend } from "../context/Friend.tsx";
+import { Friend } from "../types/Friend.tsx";
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";

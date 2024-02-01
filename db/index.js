@@ -127,7 +127,7 @@ app.get('/friends_list', async (req, res) => {
         const friendsDetails = await UserModel.find({ email: { $in: friendsEmails } }).lean();
         const friendsStub = friendsDetails.map(friend => {
             return {
-                id: friend._id,
+                id: friend._id.toString(),
                 first_name: friend.first_name,
                 last_name: friend.last_name
             };

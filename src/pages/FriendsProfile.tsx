@@ -5,17 +5,17 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate, useParams } from "react-router-dom";
 
 const FriendsProfile: React.FC = () => {
-    const { _id } = useParams<{ _id: string }>();
+    const { id } = useParams<{ id: string }>();
 
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-    }, [navigate])
+    }, [navigate]);
 
     return (
         <React.Fragment>
             <Navbar />
-            <h1>{_id}</h1>
+            <h1>{id}</h1>
         </React.Fragment>
     )
 }

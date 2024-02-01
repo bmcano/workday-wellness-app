@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/friends" exact element={<Friends />} />
-          <Route path="/profile/friends/:_id" element={<FriendsProfile />} />
+          <Route path="/profile/friends/:id" element={<FriendsProfile />} />
           <Route path="/notifications" exact element={<Notification />} />
           <Route path="/chat" exact element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />
