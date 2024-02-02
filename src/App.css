@@ -81,6 +81,7 @@
   display: block;
 }
 
+/* Items dealing with the settings page */
 .settings-container {
     max-width: 600px;
     margin: 0 auto;
@@ -104,12 +105,16 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: var(--light-gray);
     border-radius: 8px;
 }
 
+.settings-option:hover {
+  background-color: var(--gray);
+}
+
 .settings-option p {
-    margin-top: 8px;
+    margin-top: 16px;
 }
 
 .icon {
