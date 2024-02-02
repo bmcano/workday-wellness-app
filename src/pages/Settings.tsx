@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
-import {ReactComponent as PrivacyIcon} from "src/static/images/finger-print-outline.svg"
+import { ReactComponent as PrivacyIcon } from "../static/images/finger-print-outline.svg"
 
 const Profile: React.FC = () => {
 
@@ -20,9 +20,9 @@ const Profile: React.FC = () => {
                 <div className="settings-content">
                     <div className="settings-option">
                         <div className="icon privacy"></div>
-                        <PrivacyIcon/>
+                        <PrivacyIcon />
                         <div>
-                        <p>Privacy Settings</p>
+                            <p>Privacy Settings</p>
                         </div>
                     </div>
                     <div className="settings-option">
