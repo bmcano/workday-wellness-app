@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import logoImage from '../static/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout } from '../api/Logout.tsx';
+import ProfilePicture from './ProfilePicture.tsx';
 
 const Navbar = () => {
 
@@ -32,15 +33,13 @@ const Navbar = () => {
                     Notidication {/** likewise, this text might disappear later on*/}
                 </a>
                 <div className="subnav">
-                    <a href="#/" onClick={toggleSubMenu} role="button">
-                        <span role="img" aria-label="profile icon">
-                            🧑‍💻
-                        </span>
-                        Profile <i className="fa fa-caret-down"></i>
+                    <a onClick={toggleSubMenu} role="button">
+                        <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true}/>
                     </a>
                     {openSubMenu && (
                         <div className="subnav-content">
                             <a href="/profile">Profile</a>
+                            <a href="/profile/friends">Friends</a>
                             <a href="/settings">Settings</a>
                             <a href="#/" onClick={logout}>Logout</a>
                         </div>

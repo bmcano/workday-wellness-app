@@ -25,6 +25,7 @@
 
 .navbar a:hover {
   background-color: var(--dark-gray);
+  border-radius: 4px;
 }
 
 .logo {
@@ -56,6 +57,7 @@
 .subnav-content {
   display: none;
   position: absolute;
+  border-radius: 4px;
   top: 100%;
   right: 0;
   background-color: var(--dark-gray);
@@ -64,6 +66,7 @@
 
 .subnav-content a {
   display: block;
+  border-radius: 4px;
   padding: 8px;
   color: white;
   text-decoration: none;
@@ -117,3 +120,47 @@
     background-position: center;
 }
 
+/* Blank card that can act as a container */
+.box-card {
+  border-radius: 8px;
+  padding: 0px;
+  padding-bottom: 16px;
+  margin-top: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
+/* Items for displaying a list on a card view */
+.divider {
+  height: 1px;
+  background-color: var(--gray);
+  margin: 10px 0;
+}
+
+.card {
+  border-radius: 8px;
+  padding: 16px;
+  padding-bottom: 16px;
+  margin-top: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+  background-color: var(--light-gray);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-text {
+  font-size: 18px;
+  font-weight: bold;
+}
