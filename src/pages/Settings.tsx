@@ -17,6 +17,10 @@ const Profile: React.FC = () => {
         AuthorizedUser(navigate)
     }, [navigate])
 
+    const handleClick = (link: string) => {
+        navigate(link)
+    }
+
     return (
         <React.Fragment>
             <Navbar />
@@ -24,26 +28,14 @@ const Profile: React.FC = () => {
                 <h1 className="settings-title">Settings</h1>
                 <div className="settings-content">
                     <div className="settings-option">
-                        <div className="icon privacy"></div>
-                        <PrivacyIcon />
-                        <div>
-                            <p>Privacy Settings</p>
-                        </div>
-                    </div>
-                    <div className="settings-option">
-                        <div className="icon support"></div>
-                        <SupportIcon />
-                        <p>Contact Support</p>
-                    </div>
-                    <div className="settings-option">
-                        <div className="icon friends"></div>
-                        <FriendsIcon />
-                        <p>Manage Friends</p>
-                    </div>
-                    <div className="settings-option">
                         <div className="icon profile"></div>
                         <EditProfileIcon />
                         <p>Edit Profile</p>
+                    </div>
+                    <div className="settings-option" onClick={() => handleClick("/profile/friends")}>
+                        <div className="icon friends"></div>
+                        <FriendsIcon />
+                        <p>Manage Friends</p>
                     </div>
                     <div className="settings-option">
                         <div className="icon exercises"></div>
@@ -54,6 +46,16 @@ const Profile: React.FC = () => {
                         <div className="icon stats"></div>
                         <LifeStatsIcon />
                         <p>Lifetime Stats</p>
+                    </div>
+                    <div className="settings-option">
+                        <div className="icon privacy"></div>
+                        <PrivacyIcon />
+                        <p>Privacy Settings</p>
+                    </div>
+                    <div className="settings-option">
+                        <div className="icon support"></div>
+                        <SupportIcon />
+                        <p>Contact Support</p>
                     </div>
                 </div>
             </div>
