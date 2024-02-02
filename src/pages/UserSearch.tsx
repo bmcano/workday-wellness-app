@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Friend } from "../types/Friend.tsx";
 import UserSearchList from "../components/UserSearchList.tsx";
 
-const FriendsSearch: React.FC = () => {
+const UserSearch: React.FC = () => {
 
     const [userList, setUserList] = useState<Friend[]>([]);
 
@@ -37,4 +37,4 @@ const FriendsSearch: React.FC = () => {
     )
 }
 
-export default FriendsSearch;
+export default UserSearch;
