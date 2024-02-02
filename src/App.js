@@ -7,6 +7,7 @@ import FriendsProfile from './pages/FriendsProfile.tsx';
 import Notification from './pages/Notifications.tsx';
 import Chat from './pages/Chat.tsx';
 import Calendar from './pages/Calendar.tsx';
+import Settings from './pages/Settings.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from '@emotion/react';
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/notifications" exact element={<Notification />} />
           <Route path="/chat" exact element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />
+          <Route path="/settings" exact element={<Settings />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
