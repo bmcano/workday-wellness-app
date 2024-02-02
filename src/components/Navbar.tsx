@@ -40,6 +40,7 @@ const Navbar = () => {
                         <div className="subnav-content">
                             <a href="/profile">Profile</a>
                             <a href="/profile/friends">Friends</a>
+                            <a href="/profile/friends/search">Find Friends</a>
                             <a href="/settings">Settings</a>
                             <a href="#/" onClick={logout}>Logout</a>
                         </div>

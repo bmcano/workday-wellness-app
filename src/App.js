@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
+import FriendsSearch from './pages/FriendsSearch.tsx';
 
 const App = () => {
 
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/friends" exact element={<Friends />} />
           <Route path="/profile/friends/:id" element={<FriendsProfile />} />
+          <Route path="/profile/friends/search" element={<FriendsSearch />} />
           <Route path="/notifications" exact element={<Notification />} />
           <Route path="/chat" exact element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />
