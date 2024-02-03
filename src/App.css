@@ -81,6 +81,50 @@
   display: block;
 }
 
+/* Items dealing with the settings page */
+.settings-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.settings-title {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.settings-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.settings-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+}
+
+.settings-option:hover {
+  background-color: var(--gray);
+}
+
+.settings-option p {
+    margin-top: 16px;
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 /* Blank card that can act as a container */
 .box-card {
   border-radius: 8px;

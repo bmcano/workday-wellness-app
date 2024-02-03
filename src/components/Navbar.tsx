@@ -38,8 +38,9 @@ const Navbar = () => {
                     </a>
                     {openSubMenu && (
                         <div className="subnav-content">
-                            <a href="/profile">Profile Settings</a>
-                            <a href="/profile/friends">Friends</a>
+                            <a href="/profile">Profile</a>
+                            <a href="/users/search">Find Friends</a>
+                            <a href="/settings">Settings</a>
                             <a href="#/" onClick={logout}>Logout</a>
                         </div>
                     )}
