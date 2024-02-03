@@ -51,7 +51,7 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
         } else {
             setBase64Image(base64Img)
         }
-    })
+    }, [isUserProfile, base64Img]);
 
     return (
         <div>

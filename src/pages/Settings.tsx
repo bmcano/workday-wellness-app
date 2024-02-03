@@ -27,7 +27,7 @@ const Profile: React.FC = () => {
             <div className="settings-container">
                 <h1 className="settings-title">Settings</h1>
                 <div className="settings-content">
-                    <div className="settings-option">
+                    <div className="settings-option" onClick={() => handleClick("/profile/edit")}>
                         <div className="icon profile"></div>
                         <EditProfileIcon />
                         <p>Edit Profile</p>

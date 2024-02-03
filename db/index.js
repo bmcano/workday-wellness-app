@@ -263,18 +263,18 @@ app.post('/remove_friend', async (req, res) => {
  */
 app.post('/upload', async (req, res) => {
     try {
-        const { _id, base64Image } = req.body;
-        const user = await UserModel.findById(_id);
+        const base64Image = req.body.base64Image;
+        const user = await UserModel.findById(req.session._id);
         user.profile_picture = base64Image;
         await user.save();
         return res
             .status(200)
-            .send('Image uploaded successfully');
+            .send("Image uploaded successfully");
     } catch (error) {
         console.error(error);
         return res
             .status(500)
-            .send('Error uploading picture.');
+            .send("Error uploading picture.");
     }
 });
 
