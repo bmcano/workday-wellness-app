@@ -9,6 +9,7 @@
 
 .nav-links {
   display: flex;
+  align-items: center;
 }
 
 .nav-links a {
@@ -161,11 +162,16 @@
 
 .card-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
 }
 
 .card-text {
   font-size: 18px;
   font-weight: bold;
+  margin-left: 16px;
+}
+
+.card-button {
+  margin-left: auto;
 }

@@ -32,7 +32,6 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
     };
 
     useEffect(() => {
-        console.log(base64Img)
         if (isUserProfile) {
             fetch(
                 'http://localhost:3001/user', {
@@ -45,13 +44,11 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.authorized) {
-                        console.log("User Profile Picture")
                         setBase64Image(data.user.profile_picture);
                     }
                 })
                 .catch(err => console.log(err));
         } else {
-            console.log("Public Profile");
             setBase64Image(base64Img)
         }
     })
