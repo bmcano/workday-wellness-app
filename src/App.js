@@ -8,6 +8,7 @@ import Notification from './pages/Notifications.tsx';
 import Chat from './pages/Chat.tsx';
 import Calendar from './pages/Calendar.tsx';
 import Settings from './pages/Settings.tsx';
+import Exercises from './pages/Exercises.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from '@emotion/react';
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/chat" exact element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
+          <Route path="/exercises" exact element={<Exercises />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
