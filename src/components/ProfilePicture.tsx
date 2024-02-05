@@ -15,7 +15,7 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
 
     const smallImageStyle: ImageStyle = {
         width: "32px",
-        height: "auto",
+        height: "32px",
         borderRadius: "50%",
         objectFit: "cover",
         margin: "0 0",

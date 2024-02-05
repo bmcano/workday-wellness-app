@@ -16,9 +16,10 @@ app.use(cors({
     methods: ["POST", "GET"],
     credentials: true
 }));
+app.use(bodyParser.json({ limit: '125kb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '125kb' }));
 app.use(json());
 app.use(cookieParser());
-app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET || 'default_secret',
     resave: false,
