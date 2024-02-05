@@ -4,7 +4,7 @@ import Home from './pages/Home.tsx';
 import Profile from './pages/Profile.tsx';
 import EditProfile from './pages/EditProfile.tsx';
 import Friends from './pages/Friends.tsx';
-import FriendsProfile from './pages/FriendsProfile.tsx';
+import UserProfile from './pages/UserProfile.tsx';
 import Notification from './pages/Notifications.tsx';
 import Chat from './pages/Chat.tsx';
 import Calendar from './pages/Calendar.tsx';
@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/profile/friends" exact element={<Friends />} />
-          <Route path="/profile/friends/:id" element={<FriendsProfile />} />
+          <Route path="/user/search/:id" element={<UserProfile />} />
           <Route path="/user/search" element={<UserSearch />} />
           <Route path="/notifications" exact element={<Notification />} />
           <Route path="/chat" exact element={<Chat />} />

@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
 
-const FriendsProfile: React.FC = () => {
+const UserProfile: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
     // TODO - add profile picture
@@ -93,4 +93,4 @@ const FriendsProfile: React.FC = () => {
     )
 }
 
-export default FriendsProfile
+export default UserProfile;
