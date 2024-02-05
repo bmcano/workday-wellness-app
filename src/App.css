@@ -164,3 +164,113 @@
   font-size: 18px;
   font-weight: bold;
 }
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.timer__circle {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  background-color: #f3f3f3;
+  overflow: hidden;
+}
+
+.timer__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.timer__circle-track {
+  fill: none;
+  stroke: #d9d9d9;
+  stroke-width: 8;
+}
+
+.timer__path-elapsed {
+  fill: none;
+  stroke: #ff4545;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dashoffset: 0;
+  stroke-dasharray: 0 283;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.timer__circle-progress {
+  fill: none;
+  stroke: #ff4545;
+  stroke-width: 8;
+}
+
+.timer__path-remaining {
+  fill: none;
+  stroke: #ff4545;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 282.7433388230589; /* This should be the circle's circumference */
+  stroke-dashoffset: 282.7433388230589; /* This should also be the circle's circumference */
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.timer__time {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff4545;
+  line-height: 1;
+}
+
+.timer__progress {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d9d9d9;
+  line-height: 1;
+}
+
+.timer__settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.timer__settings input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.timer__settings button {
+  width: 100px;
+  height: 50px;
+  font-size: 18px;
+  background-color: #ff4545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.timer__settings button:hover {
+  background-color: #e03e3e;
+}
