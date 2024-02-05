@@ -24,6 +24,7 @@ const Navbar = () => {
             </div>
             <div className="nav-links">
                 <a href="/">Home</a>
+                <a href="/exercises">Exercises</a>
                 <a href="/chat">Chat</a>
                 <a href="/calendar">Calendar</a>
                 <a href="/notifications">
