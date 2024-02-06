@@ -47,6 +47,12 @@ const points = [
       },
   ];
 const Exercises: React.FC = () => {
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        AuthorizedUser(navigate)
+    }, [navigate])
+    
     return (
         <React.Fragment>
             <Navbar />
