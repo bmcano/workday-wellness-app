@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as PrivacyIcon } from "../static/images/finger-print-outline.svg"
-import { ReactComponent as SupportIcon } from "../static/images/information-circle-outline.svg"
-import { ReactComponent as FriendsIcon } from "../static/images/people-outline.svg"
-import { ReactComponent as EditProfileIcon } from "../static/images/person-circle-outline.svg"
-import { ReactComponent as ExercisesIcon } from "../static/images/walk-outline.svg"
-import { ReactComponent as LifeStatsIcon } from "../static/images/bar-chart-outline.svg"
+import { ReactComponent as PrivacyIcon } from "../static/assets/finger-print-outline.svg"
+import { ReactComponent as SupportIcon } from "../static/assets/information-circle-outline.svg"
+import { ReactComponent as FriendsIcon } from "../static/assets/people-outline.svg"
+import { ReactComponent as EditProfileIcon } from "../static/assets/person-circle-outline.svg"
+import { ReactComponent as ExercisesIcon } from "../static/assets/walk-outline.svg"
+import { ReactComponent as LifeStatsIcon } from "../static/assets/bar-chart-outline.svg"
 
 const Profile: React.FC = () => {
 
@@ -27,7 +27,7 @@ const Profile: React.FC = () => {
             <div className="settings-container">
                 <h1 className="settings-title">Settings</h1>
                 <div className="settings-content">
-                    <div className="settings-option">
+                    <div className="settings-option" onClick={() => handleClick("/profile/edit")}>
                         <div className="icon profile"></div>
                         <EditProfileIcon />
                         <p>Edit Profile</p>

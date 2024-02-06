@@ -71,6 +71,18 @@ The following steps will guide you through the installation guide to start devel
 
 4. Run the command `npm run seed` to add the fake data
 
+## (Optional) Navigation Script
+
+1. Python is utilized to make a visual of all of our navigations so that it's easy to see the flow of the app.
+
+2. In the project directory: `pip install graphviz`
+
+3. Follow instructions from [here](https://pypi.org/project/graphviz/) to set the PATH enviorment variables
+
+4. A computer restart will be required
+
+5. If any changes are made to `navigation.py` you can run the command `npm run nav` to get an updated `pdf`
+
 ## Available Scripts
 
 The following section was generated after the `npx create-react-app <project-name>` command was executed, but has since been modified in some parts to fit this project.

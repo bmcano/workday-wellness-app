@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "browser-image-compression": "^2.0.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.3",
     "mongodb": "^6.3.0",
@@ -27,7 +28,8 @@
     "eject": "react-scripts eject",
     "seed": "cd db && python seed.py",
     "start:db": "npm run seed && cd db && npm run start:db",
-    "all": "concurrently \"npm run start:db\" \"npm start\""
+    "all": "concurrently \"npm run start:db\" \"npm start\"",
+    "nav": "cd src && python navigation.py"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +51,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "svg-url-loader": "^8.0.0"
+    "svg-url-loader": "^8.0.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

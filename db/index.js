@@ -16,9 +16,10 @@ app.use(cors({
     methods: ["POST", "GET"],
     credentials: true
 }));
+app.use(bodyParser.json({ limit: '125kb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '125kb' }));
 app.use(json());
 app.use(cookieParser());
-app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET || 'default_secret',
     resave: false,
@@ -263,18 +264,18 @@ app.post('/remove_friend', async (req, res) => {
  */
 app.post('/upload', async (req, res) => {
     try {
-        const { _id, base64Image } = req.body;
-        const user = await UserModel.findById(_id);
+        const base64Image = req.body.base64Image;
+        const user = await UserModel.findById(req.session._id);
         user.profile_picture = base64Image;
         await user.save();
         return res
             .status(200)
-            .send('Image uploaded successfully');
+            .send("Image uploaded successfully");
     } catch (error) {
         console.error(error);
         return res
             .status(500)
-            .send('Error uploading picture.');
+            .send("Error uploading picture.");
     }
 });
 
