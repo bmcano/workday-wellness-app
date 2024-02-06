@@ -1,6 +1,5 @@
 import "../App.css";
 import React, { useEffect } from 'react';
-import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage.tsx";
@@ -59,7 +58,7 @@ const EditProfile: React.FC = () => {
 
     return (
         <React.Fragment>
-            <Navbar />
+            {/* <Navbar /> Probably wont have navbar for edit pages */}
             <h1>Edit Profile</h1>
             <h3>Image Upload</h3>
             <UploadImage handleImageUpload={handleImageUpload} />
