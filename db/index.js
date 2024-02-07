@@ -1,11 +1,13 @@
-import express, { json } from 'express'
-import { connect } from 'mongoose'
-import cors from 'cors'
-import UserModel from './models/Users.js'
-import session from 'express-session'
-import cookieParser from 'cookie-parser'
-import bodyParser from 'body-parser'
-import bcrypt from 'bcrypt'
+import express, { json } from 'express';
+import { connect } from 'mongoose';
+import cors from 'cors';
+import UserModel from './models/Users.js';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import settings from './outlookSettings.js';
+import * as graphHelper from './graphHelper.js';
 
 /**
  * Server setup
@@ -279,6 +281,59 @@ app.post('/upload', async (req, res) => {
     }
 });
 
+/**
+ * This is for validating and retrieving outlook data.
+ */
+app.get('/check_outlook_client', async (req, res) => {
+    const result = graphHelper.checkIfClientExist()
+    return res.json({ authorized: result })
+})
+
+
+app.get('/initalize_outlook', async (req, res) => {
+    try {
+        console.log("Initialize Outlook.")
+        graphHelper.initializeGraphForUserAuth(settings, (deviceCodeMessage) => {
+            console.log(deviceCodeMessage);
+            return res.json({ authorized: true, deviceCodeMessage: deviceCodeMessage })
+        });
+        await graphHelper.getUserAsync();
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .send("Error connecting to Outlook.");
+    }
+});
+
+app.get('/get_outlook_user', async (req, res) => {
+    try {
+        const user = await graphHelper.getUserAsync();
+        return res.json({ authorized: true, user: user })
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .send("Error connecting to Outlook.");
+    }
+});
+
+app.get('/sync_calendar', async (req, res) => {
+    try {
+        const user = await graphHelper.getUserAsync();
+        const email = user.mail;
+        const calendar = await graphHelper.getCalendarAysnc(email);
+        return res.json({ authorized: true, calendar: calendar })
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .send("Error connecting to Outlook.");
+    }
+});
+
 app.listen(3001, () => {
     console.log("Database is running")
 });
+
+
