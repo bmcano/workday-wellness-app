@@ -9,8 +9,10 @@ export const handleLogout = async (navigate: NavigateFunction) => {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(() => {
-        console.log("Logging Out")
-        navigate('/login')
-    }).catch(err => console.log(err))
+    })
+        .then(() => {
+            console.log("Logging Out")
+            navigate('/login')
+        })
+        .catch(err => console.log(err))
 }
