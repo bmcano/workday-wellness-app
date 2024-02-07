@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost } from "../api/serverApiCalls.tsx";
+import DefaultProfile from "../components/DefaultProfile.tsx";
 
 const UserProfile: React.FC = () => {
 
@@ -28,7 +29,7 @@ const UserProfile: React.FC = () => {
             .then(data => {
                 setFristName(data.first_name);
                 setLastName(data.last_name);
-                setBase64Image(data.profile_picture);
+                setBase64Image(data.profile_picture === "" ? DefaultProfile : data.profile_picture);
                 const user = data.auth_user;
                 setUserId(user._id);
                 if (user.friends.includes(data.email)) {
