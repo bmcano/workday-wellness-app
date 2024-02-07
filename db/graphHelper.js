@@ -2,6 +2,7 @@ import { DeviceCodeCredential } from '@azure/identity';
 import { Client } from '@microsoft/microsoft-graph-client';
 import authProviders from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials/index.js';
 
+// File originated from Microsoft Corporation, but has since been modified for our need.
 
 let _settings = undefined;
 let _deviceCodeCredential = undefined;
@@ -9,9 +10,9 @@ let _userClient = undefined;
 
 export function checkIfClientExist() {
     if (_userClient) {
-        return true
+        return true;
     }
-    return false
+    return false;
 }
 
 export function initializeGraphForUserAuth(settings, deviceCodePrompt) {
@@ -20,7 +21,6 @@ export function initializeGraphForUserAuth(settings, deviceCodePrompt) {
     }
 
     _settings = settings;
-
     console.log(settings);
 
     _deviceCodeCredential = new DeviceCodeCredential({
@@ -45,7 +45,6 @@ export async function getUserAsync() {
     }
 
     return _userClient.api('/me')
-        // Only request specific properties
         .select(['displayName', 'mail', 'userPrincipalName'])
         .get();
 
@@ -56,7 +55,6 @@ export async function getCalendarAysnc(email) {
         throw new Error('Graph has not been initialized for user auth');
     }
 
-    console.log(email)
     const scheduleInformation = {
         schedules: [email],
         startTime: {
