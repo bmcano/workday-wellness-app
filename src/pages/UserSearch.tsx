@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Friend } from "../types/Friend.tsx";
 import UserSearchList from "../components/UserSearchList.tsx";
+import { apiGet } from "../api/serverApiCalls.tsx";
 
 const UserSearch: React.FC = () => {
 
@@ -14,18 +15,12 @@ const UserSearch: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        fetch(
-            'http://localhost:3001/search_users', {
-            method: "get",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiGet('http://localhost:3001/search_users')
             .then(res => res.json())
             .then(data => {
                 setUserList(data)
-            }).catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
     }, [navigate]);
 
     return (

@@ -40,7 +40,7 @@ app.post('/login', async (req, res) => login(req, res));
 app.post('/logout', (req, res) => logout(req, res));
 app.get('/', (req, res) => checkSession(req, res));
 // see ./controllers/profileController.js for more details.
-app.get('/user', async (req, res) => getUser(req, res));
+app.get('/get_user', async (req, res) => getUser(req, res));
 app.post('/upload', async (req, res) => uploadProfilePicture(req, res));
 // see ./controllers/friendsController.js for more details.
 app.get('/search_users', async (req, res) => searchUsersList(req, res));

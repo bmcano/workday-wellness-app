@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { configDotenv } from "dotenv";
+import { apiGet } from "../api/serverApiCalls.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -14,14 +14,7 @@ const Calendar: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-        fetch(
-            "http://localhost:3001/check_outlook_client", {
-            method: "get",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiGet('http://localhost:3001/check_outlook_client')
             .then(res => res.json())
             .then(data => {
                 console.log("Outlook Client: ", data)
@@ -30,14 +23,7 @@ const Calendar: React.FC = () => {
     }, [navigate])
 
     const handleOutlookLogin = () => {
-        fetch(
-            "http://localhost:3001/initalize_outlook", {
-            method: "get",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiGet("http://localhost:3001/initalize_outlook")
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -50,26 +36,20 @@ const Calendar: React.FC = () => {
                     console.log("Problem with Outlook.")
                 }
             })
+            .catch(error => console.log(error));
     }
 
     const handleCalendarSync = () => {
-        fetch(
-            "http://localhost:3001/sync_calendar", {
-            method: "get",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiGet('http://localhost:3001/sync_calendar')
             .then(res => res.json())
             .then(data => {
                 console.log(data)
                 if (data.authorized) {
                     console.log(data.calendar);
-                    setCalendar(data.calendar.value[0].scheduleId)
-                    console.log("CALENDAR: ", calendar)
+                    setCalendar(data.calendar.value[0].scheduleId);
+                    console.log("CALENDAR: ", calendar);
                 } else {
-                    console.log("Problem with Outlook.")
+                    console.log("Problem with Outlook.");
                 }
             })
     }
