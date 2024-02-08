@@ -6,18 +6,18 @@ import * as graphHelper from '../graphHelper.js';
  */
 
 export const checkIfOutlookClientExist = (req, res) => {
-    const result = graphHelper.checkIfClientExist();
+    const result = graphHelper.checkIfClientExist(req.session._id);
     return res.json({ authorized: result });
 }
 
 export const initalizeOutlookClient = async (req, res) => {
     try {
-        graphHelper.initializeGraphForUserAuth(settings, (deviceCodeMessage) => {
+        graphHelper.initializeGraphForUserAuth(req.session._id, settings, (deviceCodeMessage) => {
             console.log(deviceCodeMessage);
             return res.json({ authorized: true, deviceCodeMessage: deviceCodeMessage });
         });
         // we need to call this in order to be able to return the device code message for the user to authenticate
-        await graphHelper.getUserAsync();
+        await graphHelper.getUserAsync(req.session._id);
     } catch (error) {
         console.log(error);
         return res
@@ -28,9 +28,9 @@ export const initalizeOutlookClient = async (req, res) => {
 
 export const getOutlookCalendar = async (req, res) => {
     try {
-        const user = await graphHelper.getUserAsync();
+        const user = await graphHelper.getUserAsync(req.session._id);
         const email = user.mail;
-        const calendar = await graphHelper.getCalendarAysnc(email);
+        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email);
         return res.json({ authorized: true, calendar: calendar });
     } catch (error) {
         console.log(error);
