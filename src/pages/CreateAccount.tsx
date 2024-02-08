@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
+import { apiPost } from "../api/serverApiCalls.tsx";
 
 const CreateAccount: React.FC = () => {
 
@@ -37,24 +38,17 @@ const CreateAccount: React.FC = () => {
         }
 
         // take user data and post it to the database
-        let result = await fetch(
-            'http://localhost:3001/register', {
-            method: "post",
-            body: jsonData,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        )
-        const response = await result.json();
-        console.warn(result);
-        console.log(response)
-        if (response.success) {
-            alert("Account created.")
-            navigate('/')
-        } else if (response.message === "Email is already in use.") {
-            setEmailError(response.message)
-        }
+        apiPost('http://localhost:3001/register', jsonData)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    alert("Account created.")
+                    navigate('/')
+                } else if (data.message === "Email is already in use.") {
+                    setEmailError(data.message)
+                }
+            })
     };
 
     const isValidEmail = (email: string): boolean => {

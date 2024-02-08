@@ -31,7 +31,7 @@ const Navbar = () => {
                     <span role="img" aria-label="bell icon">
                         🔔 {/** will probably want a proper icon since we will need to have the little dot/number to show a user has a notificaiton */}
                     </span>
-                    Notidication {/** likewise, this text might disappear later on*/}
+                    Notification {/** likewise, this text might disappear later on*/}
                 </a>
                 <div className="subnav">
                     <a onClick={toggleSubMenu} role="button">

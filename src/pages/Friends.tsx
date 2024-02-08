@@ -6,26 +6,20 @@ import { useNavigate } from "react-router-dom";
 import { Friend } from "../types/Friend.tsx";
 import Typography from "@mui/material/Typography";
 import UserSearchList from "../components/UserSearchList.tsx";
+import { apiGet } from "../api/serverApiCalls.tsx";
 
 const Friends: React.FC = () => {
 
     const [friendsList, setFriendsList] = useState<Friend[]>([]);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
         AuthorizedUser(navigate);
-        fetch(
-            'http://localhost:3001/friends_list', {
-            method: "get",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiGet('http://localhost:3001/friends_list')
             .then(res => res.json())
             .then(data => {
                 setFriendsList(data)
-            }).catch(err => console.log(err))
+            }).catch(err => console.log(err));
     }, [navigate]);
 
     return (
