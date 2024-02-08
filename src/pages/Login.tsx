@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
+import { apiPost } from "../api/serverApiCalls.tsx";
 
 const Login: React.FC = () => {
 
@@ -21,30 +22,17 @@ const Login: React.FC = () => {
         const jsonData = JSON.stringify({ email, password })
         console.log(jsonData);
 
-        let result = await fetch(
-            'http://localhost:3001/login', {
-            method: "post",
-            body: jsonData,
-            credentials: 'include',
-            mode: "cors",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        const response = await result.json()
-        console.warn(result);
-        if (result.ok) {
-            const success = response.success
-            if (success) {
-                console.log("Login successful");
-                navigate('/');
-            } else {
-                alert("Login Failed.");
-            }
-        } else {
-            alert("Incorrect email or password.")
-        }
+        apiPost('http://localhost:3001/login', jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Login successful");
+                    navigate('/');
+                } else {
+                    alert("Incorrect email or password.");
+                }
+            })
+            .catch(() => alert("Login failed."));
     };
 
     return (

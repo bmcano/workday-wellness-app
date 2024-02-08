@@ -177,3 +177,7 @@
 .card-button {
   margin-left: auto;
 }
+
+.card-button > Button {
+  margin-right: 32px;
+}
