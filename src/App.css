@@ -181,3 +181,16 @@
 .card-button > Button {
   margin-right: 32px;
 }
+
+.calendar {
+  margin-left: 16px;
+  margin-right: 16px;
+  width: auto;
+  height: auto;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  color: var(--black);
+  font-size: 14px;
+  padding-bottom: 16px;
+  max-width: 720px;
+  max-height: auto;
+}

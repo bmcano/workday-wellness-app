@@ -6,8 +6,24 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import { getCurrentFormattedDate } from "../util/dateUtils.tsx";
+import { EventApi, DateSelectArg, EventClickArg, EventContentArg, formatDate } from '@fullcalendar/core'
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+
+
+interface DemoAppState {
+    weekendsVisible: boolean
+    currentEvents: EventApi[]
+}
 
 const Calendar: React.FC = () => {
+
+    // state: DemoAppState = {
+    //     weekendsVisible: true,
+    //     currentEvents: []
+    // }
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [calendar, setCalendar] = useState("");
@@ -67,11 +83,36 @@ const Calendar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <p>
-                {/* will be removed later */}
-                {calendar.toString()} 
-            </p>
-            <p>*Calendar will go here*</p>
+            <div className="box-card">
+                <div className="calendar">
+                    <FullCalendar
+                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                        headerToolbar={{
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        }}
+                        initialView='dayGridMonth'
+                        editable={true}
+                        selectable={true}
+                        selectMirror={true}
+                        dayMaxEvents={true}
+                        weekends={false}
+                    // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                    // select={this.handleDateSelect}
+                    // eventContent={renderEventContent} // custom render function
+                    // eventClick={this.handleEventClick}
+                    // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+                    /* you can update a remote database when these fire:
+                    eventAdd={function(){}}
+                    eventChange={function(){}}
+                    eventRemove={function(){}}
+                    */
+                    />
+                </div>
+            </div>
+
+
         </React.Fragment>
     )
 }
