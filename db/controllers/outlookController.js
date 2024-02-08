@@ -22,7 +22,7 @@ export const initalizeOutlookClient = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .send("Error connecting to Outlook.");
+            .json({ error: "Error connecting to Outlook."});
     }
 }
 
@@ -36,6 +36,6 @@ export const getOutlookCalendar = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .send("Error connecting to Outlook.");
+            .json({ error: "Error connecting to Outlook."});
     }
 }
