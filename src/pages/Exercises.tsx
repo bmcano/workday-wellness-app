@@ -19,7 +19,7 @@ const points = [
       title: 'Back Stretches',
       subPoints: [
         { id: 1, title: 'On the ground figure four', youtubeURL: '' },
-        { id: 2, title: 'Sinal Twist', youtubeURL: 'https://www.youtube.com/shorts/sI44ZU33DjA' },
+        { id: 2, title: 'Spinal Twist', youtubeURL: 'https://www.youtube.com/shorts/sI44ZU33DjA' },
         { id: 3, title: 'Shoulder Rolls', youtubeURL: 'https://www.youtube.com/watch?v=IKJZL4hvppw' },
         { id: 4, title: 'Horizontal abduction', youtubeURL: 'https://www.youtube.com/watch?v=UoJO2B5cAPg' },
         { id: 5, title: 'Seated lower back', youtubeURL: 'https://www.youtube.com/watch?v=oi4Dq7uZfEg' },

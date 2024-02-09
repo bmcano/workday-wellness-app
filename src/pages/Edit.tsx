@@ -8,7 +8,7 @@ const points = [
       id: 'neck',
       title: 'Neck Stretches',
       subPoints: [
-        { id: 'flexion', title: 'Neck flexion and extension',value: 1},
+        { id: 'flexion', title: 'Neck flexion and extension',value: 1}, //change the 1 to get the shit from the database
         { id: 'retraction', title: 'Neck retraction',value: 1 },
         { id: 'rotation', title: 'Neck Rotation',value: 1 },
       ],
@@ -47,8 +47,7 @@ const points = [
   ];
 
 const Exercises: React.FC = () => {
-    //const [exercisePoints, setExercisePoints] = useState<{ [key: number]: number }>({});
-
+    //do default database stuff here first
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const allExercises = new FormData(event.currentTarget);
@@ -69,9 +68,41 @@ const Exercises: React.FC = () => {
         const push = allExercises.get('push');
         const walk = allExercises.get('walk');
         const jsonData = JSON.stringify({flexion,retraction,rotation,figure,twist,rolls,abduction,lower,reminder,wristrolls,palm,squat,lunge,jacks,push,walk});
+        checkDefaultValues(JSON.parse(jsonData));
         console.log(jsonData);
-    };
-
+      };
+    const defaultValues = { //can be removed once database stuff gets added
+        flexion: 1,
+        retraction: 2,
+        rotation: 3,
+        figure: 4,
+        twist: 5,
+        rolls: 6,
+        abduction: 7,
+        lower: 8,
+        reminder: 9,
+        wristrolls: 10,
+        palm: 11,
+        squat: 12,
+        lunge: 13,
+        jacks: 14,
+        push: 15,
+        walk: 16,
+      };
+      
+      const checkDefaultValues = (jsonData: { [key: string]: string | number }) => {
+        for (let key in jsonData) {
+          if (jsonData[key] === "") {  //include an & statement or an imbedded if statement for checking database
+            jsonData[key] = defaultValues[key];
+            //do database stuff with default values
+          }
+          else
+            {
+             //change the database
+          }
+        }
+      };
+    
     return (
         <React.Fragment>
             <Navbar />
@@ -91,6 +122,7 @@ const Exercises: React.FC = () => {
                                         min="0"
                                         step="1"
                                     />
+                                    <span>times</span>
                                 </li>
                             ))}
                         </ul>
