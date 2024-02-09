@@ -44,7 +44,7 @@ const Exercises: React.FC = () => {
                                         <div className="card-item">
                                             <div className="card-text">{subPoint.title}</div>
                                             <div className="card-button">
-                                                <Button variant="contained" color="primary" onClick={() => window.open(subPoint.youtubeURL)}>Tutorial</Button>
+                                                <Button variant="contained" color="primary" onClick={() => window.open(subPoint.youtubeURL)}>More Info</Button>
                                             </div>
                                         </div>
                                         {index !== point.subPoints.length - 1 && <div className="divider" />}

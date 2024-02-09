@@ -1,103 +1,107 @@
 [
   {
-    "email": "john@example.com",
-    "neck_strectches": [
-      {
-        "title": "Neck flexion and extension",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+    "neck_flexion_and_extension": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Neck retraction",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "neck_retraction": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Neck rotation",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
-      }
-    ],
-    "back_strectches": [
-      {
-        "title": "On the ground figure four",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "neck_rotation": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Sinal twist",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "on_the_ground_figure_four": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Shoulder rolls",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "spinal_twist": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Horizontal abduction",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "shoulder_rolls": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Seated lower back",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "horizontal_abduction": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Posture Reminder",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
-      }
-    ],
-    "wrist_strectches": [
-      {
-        "title": "Wrist rolls",
-        "reps": 5,
-        "time": 30,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "seated_lower_back": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Figner to palm",
-        "reps": 5,
-        "isEnabled": true
-      }
-    ],
-    "movement_exercises": [
-      {
-        "title": "squats",
-        "reps": 5,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "wrist_rolls": {
+      "values": {
+        "time": 10,
+        "reps": 2
       },
-      {
-        "title": "lunges",
-        "reps": 5,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "finger_to_palm": {
+      "values": {
+        "time": 10
       },
-      {
-        "title": "Jumping jacks",
-        "reps": 5,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "squats": {
+      "values": {
+        "reps": 10
       },
-      {
-        "title": "Push ups",
-        "reps": 5,
-        "isEnabled": true
+      "isEnabled": true
+    },
+    "lunges": {
+      "values": {
+        "reps": 10
       },
-      {
-        "title": "Walks",
-        "reps": 5,
-        "isEnabled": true
-      }
-    ]
+      "isEnabled": true
+    },
+    "push_ups": {
+      "values": {
+        "reps": 10
+      },
+      "isEnabled": true
+    },
+    "walks": {
+      "values": {
+        "time": 1000
+      },
+      "isEnabled": true
+    },
+    "posture_reminder": {
+      "values": {
+        "reps": 10
+      },
+      "isEnabled": true
+    },
+    "meditation": {
+      "values": {
+        "time": 10
+      },
+      "isEnabled": true
+    },
+    "sun_exposure": {
+      "values": {
+        "time": 10
+      },
+      "isEnabled": true
+    }
   }
 ]

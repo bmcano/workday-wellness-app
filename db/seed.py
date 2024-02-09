@@ -13,13 +13,11 @@ exercise_collection.delete_many({})
 with open('stub_data/users.json', 'r') as file:
     user_stubs = json.load(file)
 
-for user in user_stubs:
-    user_collection.insert_one(user)
-    
 with open('stub_data/exercises.json', 'r') as file:
     exercise_stubs = json.load(file)
 
-for exercise in exercise_stubs:
-    exercise_collection.insert_one(exercise)
+for user in user_stubs:
+    user['exercises'] = exercise_stubs[0]
+    user_collection.insert_one(user)
 
 print("Schema created")
