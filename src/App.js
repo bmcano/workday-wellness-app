@@ -9,7 +9,7 @@ import Chat from './pages/Chat.tsx';
 import Calendar from './pages/Calendar.tsx';
 import Settings from './pages/Settings.tsx';
 import Exercises from './pages/Exercises.tsx';
-import Edit from './pages/Edit.tsx';
+import Edit from './pages/EditExercises.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from '@emotion/react';
