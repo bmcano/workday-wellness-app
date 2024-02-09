@@ -10,6 +10,7 @@ import Chat from './pages/Chat.tsx';
 import Calendar from './pages/Calendar.tsx';
 import Settings from './pages/Settings.tsx';
 import Exercises from './pages/Exercises.tsx';
+import Edit from './pages/EditExercises.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from '@emotion/react';
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
+          <Route path="/exercises/edit" exact element={<Edit />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
