@@ -1,0 +1,103 @@
+[
+  {
+    "email": "john@example.com",
+    "neck_strectches": [
+      {
+        "title": "Neck flexion and extension",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Neck retraction",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Neck rotation",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      }
+    ],
+    "back_strectches": [
+      {
+        "title": "On the ground figure four",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Sinal twist",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Shoulder rolls",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Horizontal abduction",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Seated lower back",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Posture Reminder",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      }
+    ],
+    "wrist_strectches": [
+      {
+        "title": "Wrist rolls",
+        "reps": 5,
+        "time": 30,
+        "isEnabled": true
+      },
+      {
+        "title": "Figner to palm",
+        "reps": 5,
+        "isEnabled": true
+      }
+    ],
+    "movement_exercises": [
+      {
+        "title": "squats",
+        "reps": 5,
+        "isEnabled": true
+      },
+      {
+        "title": "lunges",
+        "reps": 5,
+        "isEnabled": true
+      },
+      {
+        "title": "Jumping jacks",
+        "reps": 5,
+        "isEnabled": true
+      },
+      {
+        "title": "Push ups",
+        "reps": 5,
+        "isEnabled": true
+      },
+      {
+        "title": "Walks",
+        "reps": 5,
+        "isEnabled": true
+      }
+    ]
+  }
+]
