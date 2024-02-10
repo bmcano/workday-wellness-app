@@ -1,6 +1,6 @@
 import UserModel from '../models/Users.js';
 import bcrypt from 'bcrypt';
-import exercises from '../stub_data/exercises.json' with { type: "json" };
+import exercises from '../stub_data/exercises.json' assert { type: "json" };
 
 
 /**
