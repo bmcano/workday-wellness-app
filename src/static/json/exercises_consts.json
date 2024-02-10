@@ -1,0 +1,127 @@
+[
+  {
+    "id": 1,
+    "title": "Neck Stretches",
+    "subPoints": [
+      {
+        "id": 1,
+        "title": "Neck flexion and extension",
+        "youtubeURL": "https://www.youtube.com/watch?v=6k9VQNN8B5U"
+      },
+      {
+        "id": 2,
+        "title": "Neck retraction",
+        "youtubeURL": "https://www.youtube.com/watch?v=cncV6CTVvkM"
+      },
+      {
+        "id": 3,
+        "title": "Neck rotation",
+        "youtubeURL": "https://www.youtube.com/watch?v=ZgeO87_VFog"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Back Stretches",
+    "subPoints": [
+      {
+        "id": 4,
+        "title": "On the ground figure four",
+        "youtubeURL": ""
+      },
+      {
+        "id": 5,
+        "title": "Spinal twist",
+        "youtubeURL": "https://www.youtube.com/shorts/sI44ZU33DjA"
+      },
+      {
+        "id": 6,
+        "title": "Shoulder tolls",
+        "youtubeURL": "https://www.youtube.com/watch?v=IKJZL4hvppw"
+      },
+      {
+        "id": 7,
+        "title": "Horizontal abduction",
+        "youtubeURL": "https://www.youtube.com/watch?v=UoJO2B5cAPg"
+      },
+      {
+        "id": 8,
+        "title": "Seated lower back",
+        "youtubeURL": "https://www.youtube.com/watch?v=oi4Dq7uZfEg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Wrist Stretches",
+    "subPoints": [
+      {
+        "id": 9,
+        "title": "Wrist rolls",
+        "youtubeURL": "https://www.youtube.com/watch?v=nAiWIrRICFE"
+      },
+      {
+        "id": 10,
+        "title": "Finger to palm",
+        "youtubeURL": "https://www.youtube.com/watch?v=cOYA0cTIwzM"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Movement Exercises",
+    "subPoints": [
+      {
+        "id": 11,
+        "title": "Squats",
+        "youtubeURL": "https://www.youtube.com/watch?v=xqvCmoLULNY"
+      },
+      {
+        "id": 12,
+        "title": "Lunges",
+        "youtubeURL": "https://www.youtube.com/watch?v=MxfTNXSFiYI"
+      },
+      {
+        "id": 13,
+        "title": "Jumping jacks",
+        "youtubeURL": "https://www.youtube.com/watch?v=iSSAk4XCsRA"
+      },
+      {
+        "id": 14,
+        "title": "Push ups",
+        "youtubeURL": "https://www.youtube.com/watch?v=JyCG_5l3XLk"
+      },
+      {
+        "id": 15,
+        "title": "Walks",
+        "youtubeURL": ""
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Miscellaneous",
+    "subPoints": [
+      {
+        "id": 16,
+        "title": "Meditation",
+        "youtubeURL": ""
+      },
+      {
+        "id": 17,
+        "title": "Sun exposure",
+        "youtubeURL": ""
+      },
+      {
+        "id": 18,
+        "title": "Standing at work",
+        "youtubeURL": ""
+      },
+      {
+        "id": 19,
+        "title": "Posture reminder",
+        "youtubeURL": ""
+      }
+    ]
+  }
+]

@@ -25,6 +25,11 @@ const App = () => {
         main: '#fc2929',
       },
     },
+    typography: {
+      button: {
+        textTransform: 'none',
+      },
+    },
   });
 
   return (

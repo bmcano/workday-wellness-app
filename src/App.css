@@ -129,6 +129,10 @@
 }
 
 /* Blank card that can act as a container */
+.card-header-text {
+  padding-left: 32px;
+}
+
 .box-card {
   border-radius: 8px;
   padding: 0px;
@@ -152,6 +156,7 @@
   margin-top: 32px;
   margin-right: 32px;
   margin-left: 32px;
+  margin-bottom: 32px;
   background-color: var(--light-gray);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -170,8 +175,8 @@
 
 .card-text {
   font-size: 18px;
-  font-weight: bold;
   margin-left: 16px;
+  margin-right: 16px;
 }
 
 .card-button {
@@ -179,5 +184,29 @@
 }
 
 .card-button > Button {
-  margin-right: 32px;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.calendar {
+  margin-left: 16px;
+  margin-right: 16px;
+  width: auto;
+  height: auto;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  color: var(--black);
+  font-size: 14px;
+  padding-bottom: 16px;
+  max-width: 720px;
+  max-height: auto;
+}
+
+.exercise-columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exercise-column {
+  flex: 1;
+  margin: 0 0px;
 }
