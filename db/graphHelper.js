@@ -4,26 +4,20 @@ import authProviders from '@microsoft/microsoft-graph-client/authProviders/azure
 
 // File originated from Microsoft Corporation, but has since been modified for our need.
 
-let _settings = undefined;
-let _deviceCodeCredential = undefined;
-let _userClient = undefined;
+const userClients = {};
 
-export function checkIfClientExist() {
-    if (_userClient) {
-        return true;
-    }
-    return false;
+export function checkIfClientExist(user_id) {
+    return !!userClients[user_id];
 }
 
-export function initializeGraphForUserAuth(settings, deviceCodePrompt) {
+export function initializeGraphForUserAuth(user_id, settings, deviceCodePrompt) {
     if (!settings) {
         throw new Error('Settings cannot be undefined');
     }
 
-    _settings = settings;
     console.log(settings);
 
-    _deviceCodeCredential = new DeviceCodeCredential({
+    const _deviceCodeCredential = new DeviceCodeCredential({
         clientId: settings.clientId,
         tenantId: settings.tenantId,
         userPromptCallback: deviceCodePrompt
@@ -34,40 +28,41 @@ export function initializeGraphForUserAuth(settings, deviceCodePrompt) {
         scopes: settings.graphUserScopes
     });
 
-    _userClient = Client.initWithMiddleware({
+    userClients[user_id] = Client.initWithMiddleware({
         authProvider: authProvider
     });
 }
 
-export async function getUserAsync() {
-    if (!_userClient) {
+export async function getUserAsync(user_id) {
+    const userClient = userClients[user_id];
+    if (!userClient) {
         throw new Error('Graph has not been initialized for user auth');
     }
 
-    return _userClient.api('/me')
+    return userClient.api('/me')
         .select(['displayName', 'mail', 'userPrincipalName'])
         .get();
-
 }
 
-export async function getCalendarAysnc(email) {
-    if (!_userClient) {
+export async function getCalendarAysnc(user_id, email) {
+    const userClient = userClients[user_id];
+    if (!userClient) {
         throw new Error('Graph has not been initialized for user auth');
     }
 
     const scheduleInformation = {
         schedules: [email],
         startTime: {
-            dateTime: '2024-02-06T09:00:00',
+            dateTime: '2024-02-01',
             timeZone: 'Pacific Standard Time'
         },
         endTime: {
-            dateTime: '2024-02-06T18:00:00',
+            dateTime: '2024-02-28',
             timeZone: 'Pacific Standard Time'
         },
         availabilityViewInterval: 60
     };
 
-    return _userClient.api('/me/calendar/getSchedule')
+    return userClient.api('/me/calendar/getSchedule')
         .post(scheduleInformation);
 }

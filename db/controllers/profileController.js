@@ -34,3 +34,29 @@ export const uploadProfilePicture = async (req, res) => {
             .send("Error uploading picture.");
     }
 }
+
+export const getExerciseInformation = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        return res.json(user.exercises);
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error finding user information.");
+    }
+}
+
+export const updateExerciseInformation = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        user.exercises = req.body.exerciseData;
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error saving exercise information.");
+    }
+}

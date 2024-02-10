@@ -5,12 +5,19 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { apiGet } from "../api/serverApiCalls.tsx";
-import { getCurrentFormattedDate } from "../util/dateUtils.tsx";
+import { getCurrentFormattedDate } from "../util/dateUtils.ts";
+import { convertOutlookPayload } from "../util/convertOutlookPayload.ts";
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import { EventInput } from '@fullcalendar/core'
+
 
 const Calendar: React.FC = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
-    const [calendar, setCalendar] = useState("");
+    const [events, setEvents] = useState<EventInput[]>([])
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -46,9 +53,9 @@ const Calendar: React.FC = () => {
             .then(data => {
                 console.log(data)
                 if (data.authorized) {
-                    console.log(data.calendar);
-                    setCalendar(data.calendar.value[0].scheduleId);
-                    console.log("CALENDAR: ", calendar);
+                    const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
+                    console.log(outlookEvents)
+                    setEvents(outlookEvents);
                 } else {
                     console.log("Problem with Outlook.");
                 }
@@ -67,11 +74,26 @@ const Calendar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <p>
-                {/* will be removed later */}
-                {calendar.toString()} 
-            </p>
-            <p>*Calendar will go here*</p>
+            <div className="box-card">
+                <div className="calendar">
+                    <FullCalendar
+                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                        headerToolbar={{
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        }}
+                        initialView='dayGridMonth'
+                        editable={true}
+                        selectable={true}
+                        selectMirror={true}
+                        dayMaxEvents={true}
+                        weekends={false}
+                        initialEvents={events}
+                        events={events}
+                    />
+                </div>
+            </div>
         </React.Fragment>
     )
 }

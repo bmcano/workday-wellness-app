@@ -1,5 +1,7 @@
 import UserModel from '../models/Users.js';
 import bcrypt from 'bcrypt';
+import exercises from '../stub_data/exercises.json' assert { type: "json" };
+
 
 /**
  * Job: Backend API calls for anything related to the user account, creation, and login/session management. 
@@ -15,7 +17,8 @@ export const registerAccount = async (req, res) => {
             password: password,
             first_name: first_name,
             last_name: last_name,
-            profile_picture: "" // if empty we check for default profile picture elsewhere
+            profile_picture: "", // if empty we check for default profile picture elsewhere
+            exercises: exercises[0] // the first item in this stub_data will be our defaults
         });
         let result = await user.save();
         result = result.toObject();

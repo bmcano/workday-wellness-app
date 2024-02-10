@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { checkIfOutlookClientExist, getOutlookCalendar, initalizeOutlookClient } from './controllers/outlookController.js';
 import { checkSession, login, logout, registerAccount } from './controllers/sessionController.js';
-import { uploadProfilePicture, getUser } from './controllers/profileController.js';
+import { uploadProfilePicture, getUser, getExerciseInformation, updateExerciseInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, searchFriendsList, searchUsersList, viewUserProfile } from './controllers/friendsController.js';
 
 /**
@@ -42,6 +42,8 @@ app.get('/', (req, res) => checkSession(req, res));
 // see ./controllers/profileController.js for more details.
 app.get('/get_user', async (req, res) => getUser(req, res));
 app.post('/upload', async (req, res) => uploadProfilePicture(req, res));
+app.get('/get_exercise_information', async (req, res) => getExerciseInformation(req, res));
+app.post('/update_exercise_information', async (req, res) => updateExerciseInformation(req, res));
 // see ./controllers/friendsController.js for more details.
 app.get('/search_users', async (req, res) => searchUsersList(req, res));
 app.get('/friends_list', async (req, res) => searchFriendsList(req, res));
