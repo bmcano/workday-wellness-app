@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Neck flexion and extension",
       "values": {
-        "time": 10
+        "reps": 15
       },
       "isEnabled": true
     },
@@ -12,7 +12,9 @@
       "id": 2,
       "name": "Neck retraction",
       "values": {
-        "time": 10
+        "time": 5,
+        "reps": 10
+
       },
       "isEnabled": true
     },
@@ -20,7 +22,7 @@
       "id": 3,
       "name": "Neck rotation",
       "values": {
-        "time": 10
+        "reps": 20
       },
       "isEnabled": true
     },
@@ -28,7 +30,8 @@
       "id": 4,
       "name": "On the ground figure four",
       "values": {
-        "time": 10
+        "time": 5,
+        "reps": 10
       },
       "isEnabled": true
     },
@@ -36,7 +39,7 @@
       "id": 5,
       "name": "Spinal twist",
       "values": {
-        "time": 10
+        "reps": 15
       },
       "isEnabled": true
     },
@@ -44,7 +47,7 @@
       "id": 6,
       "name": "Shoulder rolls",
       "values": {
-        "time": 10
+        "reps": 15
       },
       "isEnabled": true
     },
@@ -52,15 +55,17 @@
       "id": 7,
       "name": "Horizontal abduction",
       "values": {
-        "time": 10
+        "time": 10,
+        "reps": 5
       },
       "isEnabled": true
     },
     "seated_lower_back": {
       "id": 8,
-      "name": "Neck flexion and extension",
+      "name": "Seated lower back",
       "values": {
-        "time": 10
+        "time": 5,
+        "reps": 20
       },
       "isEnabled": true
     },
@@ -68,8 +73,7 @@
       "id": 9,
       "name": "Wrist rolls",
       "values": {
-        "time": 10,
-        "reps": 2
+        "reps": 25
       },
       "isEnabled": true
     },
@@ -77,7 +81,8 @@
       "id": 10,
       "name": "Finger to palm",
       "values": {
-        "time": 10
+        "time": 5,
+        "reps": 5
       },
       "isEnabled": true
     },
@@ -93,7 +98,7 @@
       "id": 12,
       "name": "Lunges",
       "values": {
-        "reps": 10
+        "reps": 5
       },
       "isEnabled": true
     },
@@ -101,7 +106,7 @@
       "id": 13,
       "name": "Jumping jacks",
       "values": {
-        "reps": 10
+        "reps": 20
       },
       "isEnabled": true
     },
@@ -109,7 +114,7 @@
       "id": 14,
       "name": "Push ups",
       "values": {
-        "reps": 10
+        "reps": 5
       },
       "isEnabled": true
     },
@@ -117,7 +122,7 @@
       "id": 15,
       "name": "Walks",
       "values": {
-        "time": 1000
+        "time": 600
       },
       "isEnabled": true
     },
@@ -125,7 +130,7 @@
       "id": 16,
       "name": "Meditation",
       "values": {
-        "time": 10
+        "time": 300
       },
       "isEnabled": true
     },
@@ -133,7 +138,7 @@
       "id": 17,
       "name": "Sun exposure",
       "values": {
-        "time": 10
+        "time": 300
       },
       "isEnabled": true
     },
@@ -141,7 +146,7 @@
       "id": 18,
       "name": "Standing at work",
       "values": {
-        "reps": 10
+        "time": 1200
       },
       "isEnabled": true
     },
@@ -149,7 +154,7 @@
       "id": 19,
       "name": "Posture reminder",
       "values": {
-        "reps": 10
+        "reps": 5
       },
       "isEnabled": true
     }
