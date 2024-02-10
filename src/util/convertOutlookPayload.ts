@@ -10,6 +10,4 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     }));
 
     return events;
-    //const event: EventInput[] = [] 
-    //return event;
 }
