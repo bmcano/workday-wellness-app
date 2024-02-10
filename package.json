@@ -5,11 +5,18 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/interaction": "^6.1.10",
+    "@fullcalendar/react": "^6.1.10",
+    "@fullcalendar/timegrid": "^6.1.10",
     "@mui/icons-material": "^5.15.5",
     "@mui/material": "^5.15.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "browser-image-compression": "^2.0.2",
+    "dotenv": "^16.4.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.3",
     "mongodb": "^6.3.0",
@@ -27,7 +34,8 @@
     "eject": "react-scripts eject",
     "seed": "cd db && python seed.py",
     "start:db": "npm run seed && cd db && npm run start:db",
-    "all": "concurrently \"npm run start:db\" \"npm start\""
+    "all": "concurrently \"npm run start:db\" \"npm start\"",
+    "nav": "cd src && python navigation.py"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^8.2.2",
     "svg-url-loader": "^8.0.0"
   }

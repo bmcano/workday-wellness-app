@@ -24,13 +24,14 @@ const Navbar = () => {
             </div>
             <div className="nav-links">
                 <a href="/">Home</a>
+                <a href="/exercises">Exercises</a>
                 <a href="/chat">Chat</a>
                 <a href="/calendar">Calendar</a>
                 <a href="/notifications">
                     <span role="img" aria-label="bell icon">
                         🔔 {/** will probably want a proper icon since we will need to have the little dot/number to show a user has a notificaiton */}
                     </span>
-                    Notidication {/** likewise, this text might disappear later on*/}
+                    Notification {/** likewise, this text might disappear later on*/}
                 </a>
                 <div className="subnav">
                     <a onClick={toggleSubMenu} role="button">
@@ -39,7 +40,7 @@ const Navbar = () => {
                     {openSubMenu && (
                         <div className="subnav-content">
                             <a href="/profile">Profile</a>
-                            <a href="/profile/friends">Friends</a>
+                            <a href="/user/search">Find Friends</a>
                             <a href="/settings">Settings</a>
                             <a href="#/" onClick={logout}>Logout</a>
                         </div>

@@ -7,11 +7,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
+import { apiPost } from "../api/serverApiCalls.tsx";
+import DefaultProfile from "../components/DefaultProfile.tsx";
 
-const FriendsProfile: React.FC = () => {
+const UserProfile: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
-    // TODO - add profile picture
     const [firstName, setFristName] = useState("");
     const [lastName, setLastName] = useState("");
     const [isFriend, setIsFriend] = useState(false);
@@ -23,28 +24,19 @@ const FriendsProfile: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate);
         const jsonData = JSON.stringify({ _id: id });
-        fetch(
-            'http://localhost:3001/view_profile', {
-            method: "post",
-            credentials: 'include',
-            body: jsonData,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiPost('http://localhost:3001/view_profile', jsonData)
             .then(res => res.json())
             .then(data => {
                 setFristName(data.first_name);
                 setLastName(data.last_name);
-                setBase64Image(data.profile_picture);
+                setBase64Image(data.profile_picture === "" ? DefaultProfile : data.profile_picture);
                 const user = data.auth_user;
                 setUserId(user._id);
                 if (user.friends.includes(data.email)) {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            }).catch(err => console.log(err))
-
+            }).catch(err => console.log(err));
     }, [navigate]);
 
     const handleOnClick = () => {
@@ -55,19 +47,11 @@ const FriendsProfile: React.FC = () => {
             link = 'http://localhost:3001/remove_friend';
         }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
-        fetch(
-            link, {
-            method: "post",
-            credentials: 'include',
-            body: jsonData,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        apiPost(link, jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.isFriend) {
-                    setIsFriend(true)
+                    setIsFriend(true);
                     setButtonText("Remove Friend");
                 } else {
                     setIsFriend(false);
@@ -83,7 +67,7 @@ const FriendsProfile: React.FC = () => {
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className="card">
                     <Typography component="h1" variant="h4" align="center" marginBottom={2}>{firstName} {lastName}'s Profile</Typography>
-                    <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false}/>
+                    <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false} />
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>
@@ -93,4 +77,4 @@ const FriendsProfile: React.FC = () => {
     )
 }
 
-export default FriendsProfile
+export default UserProfile;

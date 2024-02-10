@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { apiGet } from "../api/serverApiCalls.tsx";
+import DefaultProfile from "./DefaultProfile.tsx";
 
 interface ImageStyle {
     width: string;
@@ -15,7 +17,7 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
 
     const smallImageStyle: ImageStyle = {
         width: "32px",
-        height: "auto",
+        height: "32px",
         borderRadius: "50%",
         objectFit: "cover",
         margin: "0 0",
@@ -32,29 +34,19 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
     };
 
     useEffect(() => {
-        console.log(base64Img)
         if (isUserProfile) {
-            fetch(
-                'http://localhost:3001/user', {
-                method: "get",
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            apiGet('http://localhost:3001/get_user')
                 .then(res => res.json())
                 .then(data => {
                     if (data.authorized) {
-                        console.log("User Profile Picture")
-                        setBase64Image(data.user.profile_picture);
+                        setBase64Image(data.user.profile_picture === "" ? DefaultProfile : data.user.profile_picture);
                     }
                 })
                 .catch(err => console.log(err));
         } else {
-            console.log("Public Profile");
             setBase64Image(base64Img)
         }
-    })
+    }, [isUserProfile, base64Img]);
 
     return (
         <div>
