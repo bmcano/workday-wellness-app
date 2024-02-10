@@ -53,11 +53,11 @@ export async function getCalendarAysnc(user_id, email) {
     const scheduleInformation = {
         schedules: [email],
         startTime: {
-            dateTime: '2024-02-06T09:00:00',
+            dateTime: '2024-02-01',
             timeZone: 'Pacific Standard Time'
         },
         endTime: {
-            dateTime: '2024-02-06T18:00:00',
+            dateTime: '2024-02-28',
             timeZone: 'Pacific Standard Time'
         },
         availabilityViewInterval: 60
