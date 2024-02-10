@@ -25,34 +25,29 @@
     "title": "Back Stretches",
     "subPoints": [
       {
-        "id": 1,
+        "id": 4,
         "title": "On the ground figure four",
         "youtubeURL": ""
       },
       {
-        "id": 2,
+        "id": 5,
         "title": "Spinal twist",
         "youtubeURL": "https://www.youtube.com/shorts/sI44ZU33DjA"
       },
       {
-        "id": 3,
+        "id": 6,
         "title": "Shoulder tolls",
         "youtubeURL": "https://www.youtube.com/watch?v=IKJZL4hvppw"
       },
       {
-        "id": 4,
+        "id": 7,
         "title": "Horizontal abduction",
         "youtubeURL": "https://www.youtube.com/watch?v=UoJO2B5cAPg"
       },
       {
-        "id": 5,
+        "id": 8,
         "title": "Seated lower back",
         "youtubeURL": "https://www.youtube.com/watch?v=oi4Dq7uZfEg"
-      },
-      {
-        "id": 6,
-        "title": "Posture reminder",
-        "youtubeURL": ""
       }
     ]
   },
@@ -61,12 +56,12 @@
     "title": "Wrist Stretches",
     "subPoints": [
       {
-        "id": 1,
+        "id": 9,
         "title": "Wrist rolls",
         "youtubeURL": "https://www.youtube.com/watch?v=nAiWIrRICFE"
       },
       {
-        "id": 2,
+        "id": 10,
         "title": "Finger to palm",
         "youtubeURL": "https://www.youtube.com/watch?v=cOYA0cTIwzM"
       }
@@ -77,27 +72,27 @@
     "title": "Movement Exercises",
     "subPoints": [
       {
-        "id": 1,
+        "id": 11,
         "title": "Squats",
         "youtubeURL": "https://www.youtube.com/watch?v=xqvCmoLULNY"
       },
       {
-        "id": 2,
+        "id": 12,
         "title": "Lunges",
         "youtubeURL": "https://www.youtube.com/watch?v=MxfTNXSFiYI"
       },
       {
-        "id": 3,
+        "id": 13,
         "title": "Jumping jacks",
         "youtubeURL": "https://www.youtube.com/watch?v=iSSAk4XCsRA"
       },
       {
-        "id": 4,
+        "id": 14,
         "title": "Push ups",
         "youtubeURL": "https://www.youtube.com/watch?v=JyCG_5l3XLk"
       },
       {
-        "id": 5,
+        "id": 15,
         "title": "Walks",
         "youtubeURL": ""
       }
@@ -108,18 +103,23 @@
     "title": "Miscellaneous",
     "subPoints": [
       {
-        "id": 1,
+        "id": 16,
         "title": "Meditation",
         "youtubeURL": ""
       },
       {
-        "id": 2,
+        "id": 17,
         "title": "Sun exposure",
         "youtubeURL": ""
       },
       {
-        "id": 3,
+        "id": 18,
         "title": "Standing at work",
+        "youtubeURL": ""
+      },
+      {
+        "id": 19,
+        "title": "Posture reminder",
         "youtubeURL": ""
       }
     ]

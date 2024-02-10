@@ -48,5 +48,15 @@ export const getExerciseInformation = async (req, res) => {
 }
 
 export const updateExerciseInformation = async (req, res) => {
-
+    try {
+        const user = await UserModel.findById(req.session._id);
+        user.exercises = req.body.exerciseData;
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error saving exercise information.");
+    }
 }

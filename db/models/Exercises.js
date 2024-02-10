@@ -2,6 +2,8 @@ import { Schema } from 'mongoose';
 
 const createTimeSchema = (time) => {
     return new Schema({
+        id: { type: Number },
+        name: { type: String },
         values: {
             time: { type: Number, default: time }
         },
@@ -11,6 +13,8 @@ const createTimeSchema = (time) => {
 
 const createRepsSchema = (reps) => {
     return new Schema({
+        id: { type: Number },
+        name: { type: String },
         values: {
             reps: { type: Number, default: reps }
         },
@@ -20,6 +24,8 @@ const createRepsSchema = (reps) => {
 
 const createTimeRepsSchema = (time, reps) => {
     return new Schema({
+        id: { type: Number },
+        name: { type: String },
         values: {
             time: { type: Number, default: time },
             reps: { type: Number, default: reps },
@@ -43,10 +49,12 @@ export const ExercisesSchema = new Schema({
     // exercises
     squats: createRepsSchema(30),
     lunges: createRepsSchema(30),
+    jumping_jacks: createRepsSchema(30),
     push_ups: createRepsSchema(30),
     walks: createTimeSchema(30),
     // misc
-    posture_reminder: createRepsSchema(5),
     meditation: createTimeSchema(30),
     sun_exposure: createTimeSchema(30),
+    standing_at_work: createRepsSchema(10),
+    posture_reminder: createRepsSchema(5),
 });
