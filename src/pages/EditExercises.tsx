@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import CheckBox from "@mui/material/Checkbox";
 
 const Exercises: React.FC = () => {
 
-    const [exerciseData, setExerciseData] = useState<Object>({})
+    const [exerciseData, setExerciseData] = useState<Object>({});
+    const [checkboxStates, setCheckboxStates] = useState<boolean[]>([]);
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
@@ -18,6 +20,8 @@ const Exercises: React.FC = () => {
             .then(data => {
                 setExerciseData(data)
                 console.log(data)
+                const states: boolean[] = Object.keys(data).map(key => data[key].isEnabled);
+                setCheckboxStates(states);
             })
             .catch(error => console.log(error));
     }, [navigate])
@@ -28,38 +32,35 @@ const Exercises: React.FC = () => {
 
         const allExercises = new FormData(event.currentTarget); // Initialize an empty object to store form data
         const formData = {}
-
         Object.keys(exerciseData).forEach((key) => {
             const exercise = exerciseData[key];
-            const timeValue = allExercises.get(`time${exercise.id}`);
-            if (timeValue !== '' && timeValue !== null && timeValue !== undefined) {
-                formData[`${exercise.id}`] = [`${timeValue}`, null];
+            const isEnabled = allExercises.get(`checkbox${exercise.id}`) === "on" ? true : false
+            var timeValue = allExercises.get(`time${exercise.id}`);
+            var repsValue = allExercises.get(`reps${exercise.id}`);
+            if (timeValue === "" || timeValue === null || timeValue === undefined) {
+                timeValue = null;
             }
-        });
+            if (repsValue === "" || repsValue === null || repsValue === undefined) {
+                repsValue = null;
+            }
 
-        Object.keys(exerciseData).forEach((key) => {
-            const exercise = exerciseData[key];
-            const repsValue = allExercises.get(`reps${exercise.id}`);
-            const timeValue = formData[`${exercise.id}`]
-            if (repsValue !== '' && repsValue !== null && repsValue !== undefined) {
-                formData[`${exercise.id}`] = [timeValue !== undefined ? timeValue[0] : null, `${repsValue}`];
-            }
+            formData[`${exercise.id}`] = [timeValue, repsValue, isEnabled];
+
         });
 
         console.log(formData);
 
-        Object.keys(exerciseData).forEach((key) => {
+        Object.keys(exerciseData).forEach((key, index) => {
             if (key === "_id") return;
             const exercise = exerciseData[key];
-            if (exercise.id in formData) {
-                const values = exercise.values
-                if (values.time) {
-                    exerciseData[key].values.time = formData[exercise.id][0]
-                }
-                if (values.reps) {
-                    exerciseData[key].values.reps = formData[exercise.id][1]
-                }
+            if (formData[`${index + 1}`][0] !== null) {
+                exerciseData[key].values.time = formData[exercise.id][0]
             }
+            if (formData[`${index + 1}`][1] !== null) {
+                exerciseData[key].values.reps = formData[exercise.id][1]
+            }
+            exerciseData[key].isEnabled = formData[exercise.id][2]
+
         });
         console.log(exerciseData)
         const jsonData = JSON.stringify({ exerciseData })
@@ -73,10 +74,22 @@ const Exercises: React.FC = () => {
             .catch(error => console.log(error));
     };
 
-    const getCardItemComponent = (key: string, exercise: any) => {
+    const handleCheckboxChange = (index: number) => {
+        const newCheckboxStates = [...checkboxStates];
+        newCheckboxStates[index] = !newCheckboxStates[index];
+        setCheckboxStates(newCheckboxStates);
+    };
+
+    const getCardItemComponent = (key: string, exercise: any, index: number) => {
         return (
             <div key={key}>
                 <div className="card-item">
+                    <div>
+                        <CheckBox
+                            name={"checkbox" + exercise.id.toString()}
+                            defaultChecked={exercise.isEnabled}
+                            onChange={() => handleCheckboxChange(index)} />
+                    </div>
                     <div className="card-text">
                         {`${exercise.name}: `}
                     </div>
@@ -89,6 +102,7 @@ const Exercises: React.FC = () => {
                                 placeholder={exercise.values.time.toString()}
                                 inputProps={{ min: "0", step: "1" }}
                                 sx={{ marginRight: '16px', maxWidth: '160px' }}
+                                disabled={!checkboxStates[index]}
                             />
                         )}
                         {exercise.values.reps && (
@@ -99,6 +113,7 @@ const Exercises: React.FC = () => {
                                 placeholder={exercise.values.reps.toString()}
                                 inputProps={{ min: "0", step: "1" }}
                                 sx={{ marginRight: '16px', maxWidth: '160px' }}
+                                disabled={!checkboxStates[index]}
                             />
                         )}
                     </div>
@@ -126,10 +141,10 @@ const Exercises: React.FC = () => {
                     <div className="exercise-column">
                         <div className="card">
                             <div className="card-list">
-                                {Object.keys(exerciseData).map((key) => {
+                                {Object.keys(exerciseData).map((key, index) => {
                                     const exercise = exerciseData[key];
                                     if (exercise.id <= 10) {
-                                        return getCardItemComponent(key, exercise)
+                                        return getCardItemComponent(key, exercise, index)
                                     } else {
                                         return null;
                                     }
@@ -140,10 +155,10 @@ const Exercises: React.FC = () => {
                     <div className="exercise-column">
                         <div className="card">
                             <div className="card-list">
-                                {Object.keys(exerciseData).map((key) => {
+                                {Object.keys(exerciseData).map((key, index) => {
                                     const exercise = exerciseData[key];
                                     if (exercise.id > 10) {
-                                        return getCardItemComponent(key, exercise)
+                                        return getCardItemComponent(key, exercise, index)
                                     } else {
                                         return null;
                                     }
