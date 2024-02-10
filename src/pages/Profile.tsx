@@ -2,36 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
-import "../App.css"; 
+import "../App.css";
 
 const fetchUserData = () => {
     return Promise.resolve({
-      name: "John Doe",
-      email: "john.doe@example.com",
-      profilePic: "https://example.com/profile.jpg", // Placeholder image URL
-      bio: "Software Engineer with a passion for web development and open source.",
-      location: "San Francisco, CA",
-      skills: ["JavaScript", "React", "Node.js", "TypeScript"],
-      education: [
-        {
-          school: "University of Technology",
-          degree: "Bachelor of Science in Computer Science",
-          year: 2020,
+        name: "John Doe",
+        email: "john.doe@example.com",
+        profilePic: "https://example.com/profile.jpg", // Placeholder image URL
+        bio: "Software Engineer with a passion for web development and open source.",
+        location: "San Francisco, CA",
+        skills: ["JavaScript", "React", "Node.js", "TypeScript"],
+        education: [
+            {
+                school: "University of Technology",
+                degree: "Bachelor of Science in Computer Science",
+                year: 2020,
+            },
+            {
+                school: "Online Courses",
+                degree: "Various Certifications",
+                year: 2021,
+            },
+        ],
+        social: {
+            github: "https://github.com/johndoe",
+            linkedin: "https://linkedin.com/in/johndoe",
         },
-        {
-          school: "Online Courses",
-          degree: "Various Certifications",
-          year: 2021,
-        },
-      ],
-      social: {
-        github: "https://github.com/johndoe",
-        linkedin: "https://linkedin.com/in/johndoe",
-      },
     });
-  };
+};
 
-  type UserData = {
+type UserData = {
     name: string;
     email: string;
     profilePic: string;
@@ -39,23 +39,24 @@ const fetchUserData = () => {
     location: string;
     skills: string[];
     education: {
-      school: string;
-      degree: string;
-      year: number;
+        school: string;
+        degree: string;
+        year: number;
     }[];
     social: {
-      github: string;
-      linkedin: string;
+        github: string;
+        linkedin: string;
     };
-  };
-  
-  const Profile: React.FC = () => {
+};
+
+const Profile: React.FC = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState<UserData | null>(null);
 
     useEffect(() => {
+        AuthorizedUser(navigate)
         fetchUserData().then(setUser);
-    }, []);
+    }, [navigate]);
 
     return (
         <React.Fragment>
