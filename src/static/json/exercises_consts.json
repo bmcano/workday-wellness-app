@@ -27,7 +27,7 @@
       {
         "id": 4,
         "title": "On the ground figure four",
-        "youtubeURL": ""
+        "youtubeURL": "https://www.youtube.com/watch?v=-g0nuyTHMrI"
       },
       {
         "id": 5,
@@ -94,7 +94,7 @@
       {
         "id": 15,
         "title": "Walks",
-        "youtubeURL": ""
+        "youtubeURL": "https://www.health.harvard.edu/staying-healthy/5-surprising-benefits-of-walking"
       }
     ]
   },
@@ -105,22 +105,28 @@
       {
         "id": 16,
         "title": "Meditation",
-        "youtubeURL": ""
+        "youtubeURL": "https://www.health.harvard.edu/staying-healthy/what-meditation-can-do-for-your-mind-mood-and-health-"
       },
       {
         "id": 17,
         "title": "Sun exposure",
-        "youtubeURL": ""
+        "youtubeURL": "https://www.health.harvard.edu/diseases-and-conditions/benefits-of-moderate-sun-exposure"
       },
       {
         "id": 18,
         "title": "Standing at work",
-        "youtubeURL": ""
+        "youtubeURL": "https://www.health.harvard.edu/blog/the-truth-behind-standing-desks-2016092310264"
       },
       {
         "id": 19,
         "title": "Posture reminder",
-        "youtubeURL": ""
+        "youtubeURL": "https://www.health.harvard.edu/staying-healthy/why-good-posture-matters"
+      }
+      ,
+      {
+        "id": 20,
+        "title": "Ergonomic Tips",
+        "youtubeURL": "https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169"
       }
     ]
   }
