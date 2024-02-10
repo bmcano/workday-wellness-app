@@ -1,12 +1,15 @@
 import { EventInput } from '@fullcalendar/core'
 
-/**
- * Job: Takes the JSON payload from outlook and converts it for our FullCalendar item.
- */
-export const convertOutlookPayload = (payload: JSON): EventInput[] => {
+export const convertOutlookPayload = (payload: any): EventInput[] => {
+    const { scheduleItems } = payload;
 
+    const events: EventInput[] = scheduleItems.map(item => ({
+      title: item.subject,
+      start: new Date(item.start.dateTime),
+      end: new Date(item.end.dateTime),
+    }));
 
-
-    const event: EventInput[] = [] 
-    return event;
+    return events;
+    //const event: EventInput[] = [] 
+    //return event;
 }
