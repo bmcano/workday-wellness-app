@@ -41,7 +41,7 @@ export const ExercisesSchema = new Schema({
     neck_rotation: createRepsSchema(20),
     on_the_ground_figure_four: createTimeRepsSchema(5,10),
     spinal_twist: createRepsSchema(15),
-    shoulder_rolls: createRepSchema(15),
+    shoulder_rolls: createRepsSchema(15),
     horizontal_abduction: createTimeRepsSchema(10,5),
     seated_lower_back: createTimeRepsSchema(5,20),
     wrist_rolls: createRepsSchema(25),
