@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { handleLogout } from '../api/Logout.tsx';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+import messageSound from '../static/sounds/popcorn.mp3'
 
 let intervalId: number | null = null; // Explicitly stating that intervalId can be a number or null
 
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [duration, setDuration] = useState<number>(60);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const audioRef = new Audio(messageSound);
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -55,6 +57,7 @@ const Home: React.FC = () => {
         // When elapsed time reaches 0, clear the interval
         if (newTime <= 0) {
           clearInterval(intervalId as number);
+          audioRef.play();
           intervalId = null;
         }
   
