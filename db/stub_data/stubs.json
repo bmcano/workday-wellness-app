@@ -1,0 +1,50 @@
+[
+  {
+    "section": "users"
+  },
+  {
+    "section": "exercises",
+    "stubs": [
+      {
+        "stub": 0,
+        "file": "..\\db\\stub_data\\exercises\\exercises_00.json",
+        "description": "default path, every value is at the preset defaults and everything is enabled"
+      },
+      {
+        "stub": 1,
+        "file": "..\\db\\stub_data\\exercises\\exercises_01.json",
+        "description": "many items are disbaled and some items have modified values, more of a standard user appearance"
+      },
+      {
+        "stub": 2,
+        "file": "..\\db\\stub_data\\exercises\\exercises_02.json",
+        "description": "none of the values are the defaults, all custom to the user, with some disabled"
+      },
+      {
+        "stub": 3,
+        "file": "..\\db\\stub_data\\exercises\\exercises_03.json",
+        "description": "most items are disabled"
+      }
+    ]
+  },
+  {
+    "section": "calendars",
+    "stubs": [
+      {
+        "stub": 0,
+        "file": "..\\db\\stub_data\\calendars\\calendars_00.json",
+        "description": "default path, calendar is initially empty"
+      },
+      {
+        "stub": 1,
+        "file": "",
+        "description": "calendar has 'outlook synced' data for the current month"
+      },
+      {
+        "stub": 2,
+        "file": "",
+        "description": "calendar has both 'outlook synced' and user recommendations data for the current month"
+      }
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 import UserModel from '../models/Users.js';
 import bcrypt from 'bcrypt';
-import exercises from '../stub_data/exercises.json' assert { type: "json" };
+import exercises from '../stub_data/exercises/exercises_00.json' assert { type: "json" };
 
 /**
  * Job: Backend API calls for anything related to the user account, creation, and login/session management. 
