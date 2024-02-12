@@ -211,129 +211,6 @@
   margin: 0 0px;
 }
 
-.timer {
-  display: flex;
-  flex-direction: column;
-  align-items: absolute;
-  top: 0.5em;
-  right: 1000;
-  margin-top: 50px;
-}
-
-.timer__circle {
-  width: 150px;
-  height: 150px;
-  position: relative;
-  border-radius: 50%;
-  background-color: #f3f3f3;
-  overflow: hidden;
-}
-
-.timer__svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.timer__circle-track {
-  fill: none;
-  stroke: #d9d9d9;
-  stroke-width: 8;
-}
-
-.timer__path-elapsed {
-  fill: none;
-  stroke: #ff4545;
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dashoffset: 0;
-  stroke-dasharray: 0 283;
-  transform: rotate(-90deg);
-  transform-origin: center;
-}
-
-.timer__circle-progress {
-  fill: none;
-  stroke: #ff4545;
-  stroke-width: 8;
-}
-
-.timer__path-remaining {
-  fill: none;
-  stroke: #ff4545;
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dasharray: 282.7433388230589; /* This should be the circle's circumference */
-  stroke-dashoffset: 282.7433388230589; /* This should also be the circle's circumference */
-  transform: rotate(-90deg);
-  transform-origin: center;
-  transition: stroke-dashoffset 1s linear;
-}
-
-.timer__label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.timer__time {
-  font-size: 48px;
-  font-weight: bold;
-  color: #ff4545;
-  line-height: 1;
-}
-
-.timer__progress {
-  font-size: 24px;
-  font-weight: bold;
-  color: #d9d9d9;
-  line-height: 1;
-}
-
-.timer__settings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.timer__settings input {
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.timer__settings button {
-  width: 100px;
-  height: 50px;
-  font-size: 18px;
-  background-color: #ff4545;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.timer__settings button:hover {
-  background-color: #e03e3e;
-}
-
-.timer__text {
-  fill: #ff4545; /* Text color */
-  font-size: 4px; /* Adjust the size as needed */
-  /* Ensure the font size is large enough to be legible when scaled up */
-  font-family: 'Arial', sans-serif; /* Choose a font that you prefer */
-  /* Center the text in the SVG */
-  text-anchor: middle;
-  /* Adjust the position if it's not exactly centered */
-  transform: translateY(0.3em);
-}
-
 .profile-container {
   text-align: center;
   margin-top: 20px;
@@ -366,3 +243,328 @@
 .social-links a:hover {
   text-decoration: underline;
 }
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.timer {
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 1fr; 
+  grid-template-rows: auto auto auto; 
+  place-items: center; 
+  width: 100%; 
+  gap: 20px; 
+}
+
+.timer__circle {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  background-color: #f3f3f3;
+  overflow: hidden;
+  justify-self: center;
+}
+
+.timer__svg {
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+}
+
+.timer__circle-track {
+  fill: none;
+  stroke: #d9d9d9;
+  stroke-width: 8;
+}
+
+.timer__path-elapsed {
+  fill: none;
+  stroke: #ff4545;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dashoffset: 0;
+  stroke-dasharray: 0 283;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.timer__circle-progress {
+  fill: none;
+  stroke: #ff4545;
+  stroke-width: 8;
+}
+
+.timer__path-remaining {
+  fill: none;
+  stroke: #ff4545;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 282.7433388230589; 
+  stroke-dashoffset: 282.7433388230589; 
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  grid-row: 2;
+}
+
+.timer__time {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff4545;
+  line-height: 1;
+  grid-row: 3;
+}
+
+.timer__progress {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d9d9d9;
+  line-height: 1;
+}
+
+.timer__settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  margin-top: 50px;
+}
+
+.timer__settings input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.timer__settings button {
+  width: 100px;
+  height: 50px;
+  font-size: 18px;
+  background-color: #ff4545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.timer__settings button:hover {
+  background-color: #e03e3e;
+}
+
+.timer__text {
+  fill: #ff4545; 
+  font-size: 4px; 
+  
+  font-family: 'Arial', sans-serif; 
+  
+  text-anchor: middle;
+  transform: translateY(0.3em);
+}
+
+.home {
+  max-width: 2400px; 
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  align-items: start;
+  
+}
+
+
+.black-box {
+  width: 400px;  
+  height: 1000px; 
+  background-color: black; 
+  grid-column: 4; 
+  justify-self: right;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding: 20px; 
+  border-radius: 4px;
+}
+
+.black-box-timer {
+  width: 400px;  
+  height: 1000px; 
+  background-color: black; 
+  grid-column: 1; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding: 20px; 
+  border-radius: 4px;
+}
+
+.black-box-status {
+  height: 500px; 
+  width: 900px;
+  background-color: black;
+  grid-column: 2 / span 2; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 4px;
+  justify-self: center;
+  margin: 0;
+}
+
+.black-box-activities{
+  width: 500px; 
+  height: 500px; 
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 4px;
+  grid-row: 1;
+  grid-column: 2/3;
+}
+
+
+.black-box h1 {
+  color: white; 
+  margin-bottom: 20px; 
+}
+
+.add-reminder-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px 0; 
+  background-color: #ffffff; 
+  color: black; 
+  border: none; 
+  border-radius: 4px; 
+}
+
+.reminders-list {
+  width: 100%; 
+  height: 100%; 
+  padding: 10px;
+  background-color: #333333; 
+  color: white; 
+  margin-bottom: 20px; 
+  overflow-y: auto; 
+  grid-column: 3;
+}
+
+.break-list{
+  width: 100%; 
+  height: 100%; 
+  padding: 10px;
+  background-color: #333333; 
+  color: white; 
+  margin-bottom: 20px; 
+  overflow-y: auto; 
+}
+
+.status-box {
+  background-color: #fff; 
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.status-input {
+  flex: 1; 
+  border: none;
+  padding: 8px 12px;
+  border-radius: 18px; 
+  outline: none; 
+  width: 600px;
+}
+
+.status-update-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccd0d5;
+  border-radius: 18px;
+  overflow: hidden; 
+  padding-right: 8px; 
+}
+
+
+.status-submit-btn {
+  background-color: #4267B2; 
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-left: 4px; 
+  border-radius: 15px; 
+  cursor: pointer;
+  font-weight: bold; 
+  outline: none; 
+}
+
+.status-submit-btn:hover {
+  background-color: #0056b3; 
+}
+
+.status-input:focus {
+  border: 1px solid #80b2ff; 
+  box-shadow: 0 0 0 2px #e7f3ff; 
+}
+
+.posted-status {
+  margin-top: 20px;
+  width: max-content;
+  padding: 10px;
+  background-color: #b11616; 
+  border-radius: 4px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); 
+}
+
+.status-display{
+  color: white;
+}
+
