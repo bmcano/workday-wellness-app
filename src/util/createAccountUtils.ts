@@ -1,3 +1,5 @@
+import React from 'react';
+
 /**
  * Job: String validation checks of all of the user inputs for account creation.
  */
