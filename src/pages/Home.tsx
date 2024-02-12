@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { handleLogout } from '../api/Logout.tsx';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+import Button from "@mui/material/Button";
 
 let intervalId: number | null = null; // Explicitly stating that intervalId can be a number or null
 
@@ -131,9 +132,9 @@ const Home: React.FC = () => {
                 onChange={handleStatusChange}
                 className="status-input"
               />
-              <button onClick={handleSubmitStatus} className="status-submit-btn">
-                Post
-              </button>
+              
+              <Button variant="contained" color="primary" onClick={handleSubmitStatus}>Post</Button>
+              
             </form>
           </div>
           <div className="card-info">
