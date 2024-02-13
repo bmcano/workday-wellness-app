@@ -1,35 +1,19 @@
 import "../App.css";
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
-import { handleLogout } from '../api/Logout.tsx';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 
-let intervalId: number | null = null; // Explicitly stating that intervalId can be a number or null
-
+let intervalId: number | null = null;
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [duration, setDuration] = useState<number>(60);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-  const [status, setStatus] = useState(''); // State for the individual status
   const [statuses, setStatuses] = useState<string[]>([]);
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handleSubmitStatus = () => {
-    if (status.trim()) {
-      // Add the new status at the beginning of the array
-      const newStatuses = [status, ...statuses];
-      const updatedStatuses = newStatuses.slice(0, 3);
-      setStatuses(updatedStatuses);
-      setStatus('');
-    }
-  };
-  
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -40,13 +24,15 @@ const Home: React.FC = () => {
     };
   }, [navigate]);
 
-  const logout = () => {
-    handleLogout(navigate);
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submit action
-    handleSubmitStatus(); // Calls your existing submit handler
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const updates = new FormData(event.currentTarget);
+    const status = updates.get("updates");
+    if (status) {
+      const newStatuses = [status.toString(), ...statuses];
+      const updatedStatuses = newStatuses.slice(0, 5); // can limit how many statuses show at once.
+      setStatuses(updatedStatuses);
+    }
   };
 
   const startTimer = () => {
@@ -54,16 +40,12 @@ const Home: React.FC = () => {
     const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
     const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
 
-    // Ensure elements exist before continuing
     if (!timerElapsed || !timerProgress) {
       console.error('SVG elements not found!');
       return;
     }
 
-    // Clear any existing interval
     if (intervalId !== null) clearInterval(intervalId);
-
-    // Set the initial elapsed time to the duration
     setElapsedTime(duration);
 
     intervalId = setInterval(() => {
@@ -86,14 +68,19 @@ const Home: React.FC = () => {
     }, 1000) as unknown as number;
   };
 
-
   return (
     <React.Fragment>
       <Navbar />
-      <h1 style={{ color: "Red" }}>Welcome, User!</h1>
-      <div className="grid-container">
-        <div className="home-box box1">
-        <div className="timer">
+      <div className="card">
+        <div className="card-item">
+          <h2 className="card-header-text">Welcome, User!</h2>
+          <p className="card-footer-text">{getCurrentFormattedDate()}</p>
+        </div>
+      </div>
+      <div className="card-columns">
+        <div className="card-column">
+          <div className="card">
+            <div className="timer">
               <div className="timer__circle">
                 <svg className="timer__svg" viewBox="0 0 100 100">
                   <g className="timer__circle-track">
@@ -116,50 +103,47 @@ const Home: React.FC = () => {
                   {(elapsedTime % 60).toString().padStart(2, '0')}
                 </span>
               </div>
-            </div>  
-        </div>
-        <div className="home-box box2">
-        <div className="card">
-          <div className= "black-box">
-          <h1 style={{ color: "white" }}>Reminders</h1>
-          </div>
-          <Button variant="contained" color="primary" onClick={startTimer}>Add Reminder</Button>
-          <div className="reminders-list">
-            {/* Placeholder for reminders */}
-            <p style={{ color: "white" }}>No reminders yet.</p>
+            </div>
           </div>
         </div>
-        </div>
-        <div className="home-box box3">
-        <div className="status-update-container">
-            <form onSubmit={handleFormSubmit} className="status-update-container">
-              <input
+        <div className="card-column">
+          <div className="card">
+            <form onSubmit={handleFormSubmit} className="card-item ">
+              <TextField
                 type="text"
-                placeholder="What's on your mind, User?"
-                value={status}
-                onChange={handleStatusChange}
-                className="status-input"
+                id="updates"
+                name="updates"
+                fullWidth
+                label="What's on your mind?"
+                inputProps={{ min: "0", step: "1" }}
+                sx={{ marginRight: '16px' }}
               />
-              <Button variant="contained" color="primary" onClick={handleSubmitStatus}>Post</Button>
+              <Button type="submit" variant="contained" color="primary">Post</Button>
             </form>
+            <div className="card-info">
+              {statuses.map((status, index) => (
+                <div key={index} className="posted-status">
+                  {status}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="card-info">
-            {statuses.map((status, index) => (
-              <div key={index} className="posted-status">
-                {status}
-              </div>
-            ))}
-          </div>  
         </div>
-        <div className="home-box box4">
-          
+        <div className="card-column">
+          <div className="card">
+            <div>
+              <h1>Reminders</h1>
+            </div>
+            <Button variant="contained" color="primary" onClick={startTimer}>Add Reminder</Button>
+            <div>
+              {/* Placeholder for reminders */}
+              <p>No reminders yet.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <Link to="#/" onClick={logout}>Logout</Link>
     </React.Fragment>
   );
-
 };
 
 export default Home;
-

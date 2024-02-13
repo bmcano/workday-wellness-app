@@ -32,8 +32,8 @@ const Exercises: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="exercise-columns">
-                <div className="exercise-column">
+            <div className="card-columns">
+                <div className="card-column">
                     {stretches.map(point => (
                         <div key={point.id}>
                             <h2 className="card-header-text">{point.title}</h2>
@@ -53,7 +53,7 @@ const Exercises: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <div className="exercise-column">
+                <div className="card-column">
                     {exercisesMisc.map(point => (
                         <div key={point.id}>
                             <h2 className="card-header-text">{point.title}</h2>
