@@ -129,16 +129,6 @@
 }
 
 /* Blank card that can act as a container */
-.card-header-text {
-  padding-left: 32px;
-}
-
-.card-footer-text {
-  margin-left: auto;
-  margin-right: 32px;
-  font-size: 18px;
-}
-
 .box-card {
   border-radius: 8px;
   padding: 0px;
@@ -151,7 +141,7 @@
 /* Items for displaying a list on a card view */
 .divider {
   height: 1px;
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   margin: 10px 0;
 }
 
@@ -163,8 +153,8 @@
   margin-right: 32px;
   margin-left: 32px;
   margin-bottom: 32px;
-  background-color: var(--light-gray);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
 }
 
 .card-list {
@@ -180,9 +170,26 @@
 }
 
 .card-text {
-  font-size: 18px;
+  font-size: 16px;
   margin-left: 16px;
   margin-right: 16px;
+}
+
+.card-header-text {
+  padding-left: 32px;
+  font-size: 24px;
+  color: var(--dark-gray);
+}
+
+.card-inside-header-text {
+  font-size: 24px;
+  color: var(--dark-gray);
+}
+
+.card-right-text {
+  margin-left: auto;
+  margin-right: 32px;
+  font-size: 18px;
 }
 
 .card-button {
@@ -190,6 +197,7 @@
 }
 
 .card-button>Button {
+  font-size: 14px;
   margin-right: 16px;
   margin-left: 16px;
 }
@@ -251,6 +259,17 @@
 }
 
 /* Timer related items */
+.timer-card {
+  border-radius: 8px;
+  padding: 16px;
+  padding-bottom: 16px;
+  margin-top: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+  margin-bottom: 32px;
+  background-color: var(--khaki);
+}
+
 .timer {
   grid-row: 1;
   display: grid;
@@ -267,6 +286,7 @@
   position: relative;
   border-radius: 50%;
   background-color: var(--white);
+  border: 1px solid var(--light-gray);
   overflow: hidden;
   justify-self: center;
 }

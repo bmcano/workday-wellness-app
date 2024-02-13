@@ -73,13 +73,13 @@ const Home: React.FC = () => {
       <Navbar />
       <div className="card">
         <div className="card-item">
-          <h2 className="card-header-text">Welcome, User!</h2>
-          <p className="card-footer-text">{getCurrentFormattedDate()}</p>
+          <p className="card-header-text">Welcome, User!</p>
+          <p className="card-right-text">{getCurrentFormattedDate()}</p>
         </div>
       </div>
       <div className="card-columns">
         <div className="card-column">
-          <div className="card">
+          <div className="timer-card">
             <div className="timer">
               <div className="timer__circle">
                 <svg className="timer__svg" viewBox="0 0 100 100">
@@ -92,12 +92,18 @@ const Home: React.FC = () => {
                 </svg>
               </div>
               <div className="timer__label">
-                <input
+                <div className="card-item">
+                  <TextField
                   type="number"
-                  value={duration.toString()}
+                  id="timer"
                   onChange={(e) => setDuration(Number(e.target.value))}
+                  value={duration.toString()}
+                  inputProps={{ min: "0", step: "1" }}
+                  sx={{ marginRight: '16px' }}
                 />
                 <Button variant="contained" color="primary" onClick={startTimer}>Start</Button>
+                </div>
+                
                 <span className="timer__time">
                   {Math.floor(elapsedTime / 60).toString().padStart(2, '0')}:
                   {(elapsedTime % 60).toString().padStart(2, '0')}
@@ -108,7 +114,7 @@ const Home: React.FC = () => {
         </div>
         <div className="card-column">
           <div className="card">
-            <form onSubmit={handleFormSubmit} className="card-item ">
+            <form onSubmit={handleFormSubmit} className="card-item">
               <TextField
                 type="text"
                 id="updates"
@@ -131,9 +137,7 @@ const Home: React.FC = () => {
         </div>
         <div className="card-column">
           <div className="card">
-            <div>
-              <h1>Reminders</h1>
-            </div>
+            <p className="card-inside-header-text">Reminders</p>
             <Button variant="contained" color="primary" onClick={startTimer}>Add Reminder</Button>
             <div>
               {/* Placeholder for reminders */}
