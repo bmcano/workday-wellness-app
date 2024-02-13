@@ -6,18 +6,27 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
+import { apiGet } from "../api/serverApiCalls.tsx";
 
 let intervalId: number | null = null;
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [duration, setDuration] = useState<number>(60);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [statuses, setStatuses] = useState<string[]>([]);
 
   useEffect(() => {
     AuthorizedUser(navigate);
-
+    apiGet('http://localhost:3001/get_user')
+      .then(res => res.json())
+      .then(data => {
+          if (data.authorized) {
+            setName(data.user.first_name);
+          }
+      })
+      .catch(error => console.log(error));
     // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (intervalId !== null) clearInterval(intervalId);
@@ -30,7 +39,7 @@ const Home: React.FC = () => {
     const status = updates.get("updates");
     if (status) {
       const newStatuses = [status.toString(), ...statuses];
-      const updatedStatuses = newStatuses.slice(0, 5); // can limit how many statuses show at once.
+      const updatedStatuses = newStatuses.slice(0, 3); // can limit how many statuses show at once.
       setStatuses(updatedStatuses);
     }
   };
@@ -47,16 +56,12 @@ const Home: React.FC = () => {
 
     if (intervalId !== null) clearInterval(intervalId);
     setElapsedTime(duration);
-
     intervalId = setInterval(() => {
       setElapsedTime((prevTime) => {
         const newTime = prevTime - 1;
         const percentage = (newTime / duration) * 100;
-
-
         timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
         timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-
 
         if (newTime <= 0) {
           clearInterval(intervalId as number);
@@ -73,7 +78,7 @@ const Home: React.FC = () => {
       <Navbar />
       <div className="card">
         <div className="card-item">
-          <p className="card-header-text">Welcome, User!</p>
+          <p className="card-header-text">Welcome, {name}!</p>
           <p className="card-right-text">{getCurrentFormattedDate()}</p>
         </div>
       </div>
@@ -94,16 +99,16 @@ const Home: React.FC = () => {
               <div className="timer__label">
                 <div className="card-item">
                   <TextField
-                  type="number"
-                  id="timer"
-                  onChange={(e) => setDuration(Number(e.target.value))}
-                  value={duration.toString()}
-                  inputProps={{ min: "0", step: "1" }}
-                  sx={{ marginRight: '16px' }}
-                />
-                <Button variant="contained" color="primary" onClick={startTimer}>Start</Button>
+                    type="number"
+                    id="timer"
+                    onChange={(e) => setDuration(Number(e.target.value))}
+                    value={duration.toString()}
+                    inputProps={{ min: "0", step: "1" }}
+                    sx={{ marginRight: '16px' }}
+                  />
+                  <Button variant="contained" color="primary" onClick={startTimer}>Start</Button>
                 </div>
-                
+
                 <span className="timer__time">
                   {Math.floor(elapsedTime / 60).toString().padStart(2, '0')}:
                   {(elapsedTime % 60).toString().padStart(2, '0')}
