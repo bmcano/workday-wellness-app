@@ -84,30 +84,30 @@
 
 /* Items dealing with the settings page */
 .settings-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
 }
 
 .settings-title {
-    color: var(--black);
-    margin-bottom: 30px;
+  color: var(--black);
+  margin-bottom: 30px;
 }
 
 .settings-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .settings-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: var(--light-gray);
-    border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--light-gray);
+  border-radius: 8px;
 }
 
 .settings-option:hover {
@@ -115,24 +115,20 @@
 }
 
 .settings-option p {
-    margin-top: 16px;
-    font-size: 16px;
-    font-weight: bold;
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .icon {
-    width: 60px;
-    height: 60px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Blank card that can act as a container */
-.card-header-text {
-  padding-left: 32px;
-}
-
 .box-card {
   border-radius: 8px;
   padding: 0px;
@@ -145,7 +141,7 @@
 /* Items for displaying a list on a card view */
 .divider {
   height: 1px;
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   margin: 10px 0;
 }
 
@@ -157,8 +153,8 @@
   margin-right: 32px;
   margin-left: 32px;
   margin-bottom: 32px;
-  background-color: var(--light-gray);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
 }
 
 .card-list {
@@ -174,16 +170,34 @@
 }
 
 .card-text {
-  font-size: 18px;
+  font-size: 16px;
   margin-left: 16px;
   margin-right: 16px;
+}
+
+.card-header-text {
+  padding-left: 32px;
+  font-size: 24px;
+  color: var(--dark-gray);
+}
+
+.card-inside-header-text {
+  font-size: 24px;
+  color: var(--dark-gray);
+}
+
+.card-right-text {
+  margin-left: auto;
+  margin-right: 32px;
+  font-size: 18px;
 }
 
 .card-button {
   margin-left: auto;
 }
 
-.card-button > Button {
+.card-button>Button {
+  font-size: 14px;
   margin-right: 16px;
   margin-left: 16px;
 }
@@ -201,137 +215,14 @@
   max-height: auto;
 }
 
-.exercise-columns {
+.card-columns {
   display: flex;
   justify-content: space-between;
 }
 
-.exercise-column {
+.card-column {
   flex: 1;
   margin: 0 0px;
-}
-
-.timer {
-  display: flex;
-  flex-direction: column;
-  align-items: absolute;
-  top: 0.5em;
-  right: 1000;
-  margin-top: 50px;
-}
-
-.timer__circle {
-  width: 150px;
-  height: 150px;
-  position: relative;
-  border-radius: 50%;
-  background-color: #f3f3f3;
-  overflow: hidden;
-}
-
-.timer__svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.timer__circle-track {
-  fill: none;
-  stroke: #d9d9d9;
-  stroke-width: 8;
-}
-
-.timer__path-elapsed {
-  fill: none;
-  stroke: #ff4545;
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dashoffset: 0;
-  stroke-dasharray: 0 283;
-  transform: rotate(-90deg);
-  transform-origin: center;
-}
-
-.timer__circle-progress {
-  fill: none;
-  stroke: #ff4545;
-  stroke-width: 8;
-}
-
-.timer__path-remaining {
-  fill: none;
-  stroke: #ff4545;
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dasharray: 282.7433388230589; /* This should be the circle's circumference */
-  stroke-dashoffset: 282.7433388230589; /* This should also be the circle's circumference */
-  transform: rotate(-90deg);
-  transform-origin: center;
-  transition: stroke-dashoffset 1s linear;
-}
-
-.timer__label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.timer__time {
-  font-size: 48px;
-  font-weight: bold;
-  color: #ff4545;
-  line-height: 1;
-}
-
-.timer__progress {
-  font-size: 24px;
-  font-weight: bold;
-  color: #d9d9d9;
-  line-height: 1;
-}
-
-.timer__settings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.timer__settings input {
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.timer__settings button {
-  width: 100px;
-  height: 50px;
-  font-size: 18px;
-  background-color: #ff4545;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.timer__settings button:hover {
-  background-color: #e03e3e;
-}
-
-.timer__text {
-  fill: #ff4545; /* Text color */
-  font-size: 4px; /* Adjust the size as needed */
-  /* Ensure the font size is large enough to be legible when scaled up */
-  font-family: 'Arial', sans-serif; /* Choose a font that you prefer */
-  /* Center the text in the SVG */
-  text-anchor: middle;
-  /* Adjust the position if it's not exactly centered */
-  transform: translateY(0.3em);
 }
 
 .profile-container {
@@ -343,7 +234,7 @@
   display: inline-block;
   text-align: left;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--light-gray);
   border-radius: 8px;
   max-width: 400px;
 }
@@ -365,4 +256,138 @@
 
 .social-links a:hover {
   text-decoration: underline;
+}
+
+/* Timer related items */
+.timer-card {
+  border-radius: 8px;
+  padding: 16px;
+  padding-bottom: 16px;
+  margin-top: 32px;
+  margin-right: 32px;
+  margin-left: 32px;
+  margin-bottom: 32px;
+  background-color: var(--khaki);
+}
+
+.timer {
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  place-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.timer__circle {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  overflow: hidden;
+  justify-self: center;
+}
+
+.timer__svg {
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+}
+
+.timer__circle-track {
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 8;
+}
+
+.timer__path-elapsed {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dashoffset: 0;
+  stroke-dasharray: 0 283;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.timer__circle-progress {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 8;
+}
+
+.timer__path-remaining {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 282.7433388230589;
+  stroke-dashoffset: 282.7433388230589;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row: 2;
+}
+
+.timer__time {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--red);
+  line-height: 1;
+  grid-row: 3;
+}
+
+.timer__progress {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--white);
+  line-height: 1;
+}
+
+.timer__settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.timer__settings input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.timer__text {
+  fill: var(--red);
+  font-size: 4px;
+  font-family: 'Arial', sans-serif;
+  text-anchor: middle;
+  transform: translateY(0.3em);
+}
+
+@media (max-width: 768px) {
+  .timer {
+    width: 50%;
+  }
+}
+
+.posted-status {
+  margin-top: 20px;
+  width: max-content;
+  padding: 10px;
+  background-color: var(--khaki);
+  border-radius: 4px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
 }
