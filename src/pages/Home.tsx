@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+import messageSound from '../static/sounds/popcorn.mp3'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
@@ -15,6 +16,7 @@ const Home: React.FC = () => {
   const [name, setName] = useState("");
   const [duration, setDuration] = useState<number>(60);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const audioRef = new Audio(messageSound);
   const [statuses, setStatuses] = useState<string[]>([]);
 
   useEffect(() => {
@@ -65,6 +67,7 @@ const Home: React.FC = () => {
 
         if (newTime <= 0) {
           clearInterval(intervalId as number);
+          audioRef.play();
           intervalId = null;
         }
 

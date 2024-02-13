@@ -50,15 +50,19 @@ export async function getCalendarAysnc(user_id, email) {
         throw new Error('Graph has not been initialized for user auth');
     }
 
+    const date = new Date();
+    const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
     const scheduleInformation = {
         schedules: [email],
         startTime: {
-            dateTime: '2024-02-01',
-            timeZone: 'Pacific Standard Time'
+            dateTime: startDate,
+            timeZone: 'Central Standard Time'
         },
         endTime: {
-            dateTime: '2024-02-28',
-            timeZone: 'Pacific Standard Time'
+            dateTime: endDate,
+            timeZone: 'Central Standard Time'
         },
         availabilityViewInterval: 60
     };
