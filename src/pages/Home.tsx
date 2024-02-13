@@ -22,10 +22,14 @@ const Home: React.FC = () => {
 
   const handleSubmitStatus = () => {
     if (status.trim()) {
-      setStatuses([...statuses, status]);
+      // Add the new status at the beginning of the array
+      const newStatuses = [status, ...statuses];
+      const updatedStatuses = newStatuses.slice(0, 3);
+      setStatuses(updatedStatuses);
       setStatus('');
     }
   };
+  
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -87,11 +91,9 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Navbar />
       <h1 style={{ color: "Red" }}>Welcome, User!</h1>
-      <div className="home">
-        <div className="card">
-          <div className="card-info">
-            <h1 style={{ color: "white" }}>Break Timer</h1>
-            <div className="timer">
+      <div className="grid-container">
+        <div className="home-box box1">
+        <div className="timer">
               <div className="timer__circle">
                 <svg className="timer__svg" viewBox="0 0 100 100">
                   <g className="timer__circle-track">
@@ -108,22 +110,28 @@ const Home: React.FC = () => {
                   value={duration.toString()}
                   onChange={(e) => setDuration(Number(e.target.value))}
                 />
-                <button onClick={startTimer}>Start</button>
+                <Button variant="contained" color="primary" onClick={startTimer}>Start</Button>
                 <span className="timer__time">
                   {Math.floor(elapsedTime / 60).toString().padStart(2, '0')}:
                   {(elapsedTime % 60).toString().padStart(2, '0')}
                 </span>
               </div>
-            </div>
+            </div>  
+        </div>
+        <div className="home-box box2">
+        <div className="card">
+          <div className= "black-box">
+          <h1 style={{ color: "white" }}>Reminders</h1>
           </div>
-          
-          <div className="break-list">
-            {/* break placeholder */}
-            <p style={{ color: "white" }}>No activties yet.</p>
+          <Button variant="contained" color="primary" onClick={startTimer}>Add Reminder</Button>
+          <div className="reminders-list">
+            {/* Placeholder for reminders */}
+            <p style={{ color: "white" }}>No reminders yet.</p>
           </div>
         </div>
-        <div className="card">
-          <div className="status-update-container">
+        </div>
+        <div className="home-box box3">
+        <div className="status-update-container">
             <form onSubmit={handleFormSubmit} className="status-update-container">
               <input
                 type="text"
@@ -132,9 +140,7 @@ const Home: React.FC = () => {
                 onChange={handleStatusChange}
                 className="status-input"
               />
-              
               <Button variant="contained" color="primary" onClick={handleSubmitStatus}>Post</Button>
-              
             </form>
           </div>
           <div className="card-info">
@@ -143,20 +149,11 @@ const Home: React.FC = () => {
                 {status}
               </div>
             ))}
-          </div>
+          </div>  
         </div>
-
-
-        <div className="card">
-          <h1 style={{ color: "white" }}>Reminders</h1>
-          <button className="add-reminder-btn">Add Reminder</button>
-          <div className="reminders-list">
-            {/* Placeholder for reminders */}
-            <p style={{ color: "white" }}>No reminders yet.</p>
-          </div>
+        <div className="home-box box4">
+          
         </div>
-
-
       </div>
       <Link to="#/" onClick={logout}>Logout</Link>
     </React.Fragment>

@@ -406,20 +406,20 @@
   transform: translateY(0.3em);
 }
 
-.home {
-  max-width: 2400px; 
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  align-items: start;
-  display: flex;
-  justify-content: space-between;
-  
+@media (max-width: 768px) {
+  .timer {
+    width: 50%; /* Adjust width for smaller screens */
+  }
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  grid-template-rows: auto auto; 
+  gap: 10px; 
+}
 
-.black-box {
+.home-box {
   border-radius: 8px;
   padding: 16px;
   padding-bottom: 16px;
@@ -431,88 +431,24 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.black-box-timer {
-  width: 400px;  
-  height: 1000px; 
-  background-color: black; 
-  grid-column: 1; 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  padding: 20px; 
-  border-radius: 4px;
+.box1 {
+  grid-column: 1;
+  grid-row: 1 / 3; /* Spanning 2 rows */
 }
 
-.black-box-status {
-  height: 500px; 
-  width: 900px;
-  background-color: black;
-  grid-column: 2 / span 2; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-radius: 4px;
-  justify-self: center;
-  margin: 0;
+.box2 {
+  grid-column: 4;
+  grid-row: 1 / 3; /* Spanning 2 rows */
 }
 
-.black-box-activities{
-  width: 500px; 
-  height: 500px; 
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-radius: 4px;
+.box3 {
+  grid-column: 2/4;
   grid-row: 1;
-  grid-column: 2/3;
 }
 
-
-.black-box h1 {
-  color: white; 
-  margin-bottom: 20px; 
-}
-
-.add-reminder-btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 20px 0; 
-  background-color: #ffffff; 
-  color: black; 
-  border: none; 
-  border-radius: 4px; 
-}
-
-.reminders-list {
-  width: 100%; 
-  height: 100%; 
-  padding: 10px;
-  background-color: #333333; 
-  color: white; 
-  margin-bottom: 20px; 
-  overflow-y: auto; 
-  grid-column: 3;
-}
-
-.break-list{
-  width: 100%; 
-  height: 100%; 
-  padding: 10px;
-  background-color: #333333; 
-  color: white; 
-  margin-bottom: 20px; 
-  overflow-y: auto; 
-}
-
-.status-box {
-  background-color: #fff; 
-  border-radius: 4px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+.box4 {
+  grid-column: 2 / 4;
+  grid-row: 2;
 }
 
 .status-input {
@@ -521,7 +457,7 @@
   padding: 8px 12px;
   border-radius: 18px; 
   outline: none; 
-  width: 600px;
+  width: 900px;
 }
 
 .status-update-container {
@@ -532,23 +468,8 @@
   border-radius: 18px;
   overflow: hidden; 
   padding-right: 8px; 
-}
-
-
-.status-submit-btn {
-  background-color: #4267B2; 
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin-left: 4px; 
-  border-radius: 15px; 
-  cursor: pointer;
-  font-weight: bold; 
-  outline: none; 
-}
-
-.status-submit-btn:hover {
-  background-color: #0056b3; 
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .status-input:focus {
@@ -568,4 +489,6 @@
 .status-display{
   color: white;
 }
+
+
 
