@@ -137,8 +137,8 @@ const Exercises: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="exercise-columns">
-                    <div className="exercise-column">
+                <div className="card-columns">
+                    <div className="card-column">
                         <div className="card">
                             <div className="card-list">
                                 {Object.keys(exerciseData).map((key, index) => {
@@ -152,7 +152,7 @@ const Exercises: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="exercise-column">
+                    <div className="card-column">
                         <div className="card">
                             <div className="card-list">
                                 {Object.keys(exerciseData).map((key, index) => {

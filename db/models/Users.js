@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { ExercisesSchema } from './Exercises.js';
+import { CalendarSchema } from './Calendar.js';
 
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
@@ -9,7 +10,8 @@ const UserSchema = new Schema({
     stub_data: { type: Boolean, required: false },
     friends: { type: [String], default: [] },
     profile_picture: { type: String, default: "" },
-    exercises: ExercisesSchema
+    exercises: ExercisesSchema,
+    calendar: { type: [CalendarSchema], default: [] }
 });
 
 const UserModel = model("users", UserSchema);

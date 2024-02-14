@@ -18,6 +18,7 @@ with open('stub_data/exercises.json', 'r') as file:
 
 for user in user_stubs:
     user['exercises'] = exercise_stubs[0]
+    user['calendar'] = []
     user_collection.insert_one(user)
 
 print("Schema created")

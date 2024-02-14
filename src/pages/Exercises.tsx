@@ -16,6 +16,8 @@ const Exercises: React.FC = () => {
     const stretches = exerecises.filter(point => point.title.includes('Stretches'));
     const exercisesMisc = exerecises.filter(point => !point.title.includes('Stretches'));
 
+    
+
     return (
         <React.Fragment>
             <Navbar />
@@ -30,18 +32,18 @@ const Exercises: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="exercise-columns">
-                <div className="exercise-column">
+            <div className="card-columns">
+                <div className="card-column">
                     {stretches.map(point => (
                         <div key={point.id}>
-                            <h2 className="card-header-text">{point.title}</h2>
+                            <p className="card-header-text">{point.title}</p>
                             <ul className="card">
                                 {point.subPoints.map((subPoint, index) => (
                                     <li key={subPoint.id} className="card-list">
                                         <div className="card-item">
                                             <div className="card-text">{subPoint.title}</div>
                                             <div className="card-button">
-                                                <Button variant="contained" color="primary" onClick={() => window.open(subPoint.youtubeURL)}>More Info</Button>
+                                                <Button variant="text" color="primary" onClick={() => window.open(subPoint.youtubeURL)}>More Info</Button>
                                             </div>
                                         </div>
                                         {index !== point.subPoints.length - 1 && <div className="divider" />}
@@ -51,17 +53,17 @@ const Exercises: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <div className="exercise-column">
+                <div className="card-column">
                     {exercisesMisc.map(point => (
                         <div key={point.id}>
-                            <h2 className="card-header-text">{point.title}</h2>
+                            <p className="card-header-text">{point.title}</p>
                             <ul className="card">
                                 {point.subPoints.map((subPoint, index) => (
                                     <li key={subPoint.id} className="card-list">
                                         <div className="card-item">
                                             <div className="card-text">{subPoint.title}</div>
                                             <div className="card-button">
-                                                <Button variant="contained" color="primary" onClick={() => window.open(subPoint.youtubeURL)}>More Info</Button>
+                                            <Button variant="text" color="primary" onClick={() => window.open(subPoint.youtubeURL)}>More Info</Button>
                                             </div>
                                         </div>
                                         {index !== point.subPoints.length - 1 && <div className="divider" />}
