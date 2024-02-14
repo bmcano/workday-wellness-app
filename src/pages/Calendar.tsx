@@ -12,7 +12,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
-
+import UpcomingEvents from "../components/UpcomingEvents.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -82,7 +82,7 @@ const Calendar: React.FC = () => {
             <Navbar />
             <div className="card">
                 <div className="card-item">
-                    <div className="card-text">{getCurrentFormattedDate()}</div>
+                    <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin} >Login to Outlook</Button>
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleCalendarSync} disabled={!loggedIn}>Sync Calendar</Button>
@@ -90,24 +90,33 @@ const Calendar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="box-card">
-                <div className="calendar">
-                    <FullCalendar
-                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                        headerToolbar={{
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                        }}
-                        initialView='dayGridMonth'
-                        editable={true}
-                        selectable={true}
-                        selectMirror={true}
-                        dayMaxEvents={true}
-                        weekends={false}
-                        initialEvents={events}
-                        events={events}
-                    />
+            <div className="card-columns">
+                <div className="card-column">
+                    <div className="card">
+                        <div className="calendar">
+                            <FullCalendar
+                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                headerToolbar={{
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                                }}
+                                initialView='dayGridMonth'
+                                editable={true}
+                                selectable={true}
+                                selectMirror={true}
+                                dayMaxEvents={true}
+                                weekends={false}
+                                initialEvents={events}
+                                events={events}
+                                eventColor="red"
+                                eventBackgroundColor="red"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="card-column">
+                    <UpcomingEvents events={events} />
                 </div>
             </div>
         </React.Fragment>
