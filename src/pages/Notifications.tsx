@@ -5,6 +5,7 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // API FOR NOTIFICATIONS
+// @ts-ignore
 import messageSound from '../static/sounds/popcorn.mp3'
 
 const Notifications: React.FC = () => {

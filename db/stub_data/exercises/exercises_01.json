@@ -1,0 +1,161 @@
+[
+  {
+    "neck_flexion_and_extension": {
+      "id": 1,
+      "name": "Neck flexion and extension",
+      "values": {
+        "reps": 15
+      },
+      "isEnabled": false
+    },
+    "neck_retraction": {
+      "id": 2,
+      "name": "Neck retraction",
+      "values": {
+        "time": 5,
+        "reps": 10
+      },
+      "isEnabled": false
+    },
+    "neck_rotation": {
+      "id": 3,
+      "name": "Neck rotation",
+      "values": {
+        "reps": 20
+      },
+      "isEnabled": false
+    },
+    "on_the_ground_figure_four": {
+      "id": 4,
+      "name": "On the ground figure four",
+      "values": {
+        "time": 5,
+        "reps": 10
+      },
+      "isEnabled": false
+    },
+    "spinal_twist": {
+      "id": 5,
+      "name": "Spinal twist",
+      "values": {
+        "reps": 15
+      },
+      "isEnabled": true
+    },
+    "shoulder_rolls": {
+      "id": 6,
+      "name": "Shoulder rolls",
+      "values": {
+        "reps": 15
+      },
+      "isEnabled": true
+    },
+    "horizontal_abduction": {
+      "id": 7,
+      "name": "Horizontal abduction",
+      "values": {
+        "time": 10,
+        "reps": 5
+      },
+      "isEnabled": true
+    },
+    "seated_lower_back": {
+      "id": 8,
+      "name": "Seated lower back",
+      "values": {
+        "time": 5,
+        "reps": 10
+      },
+      "isEnabled": true
+    },
+    "wrist_rolls": {
+      "id": 9,
+      "name": "Wrist rolls",
+      "values": {
+        "reps": 40
+      },
+      "isEnabled": true
+    },
+    "finger_to_palm": {
+      "id": 10,
+      "name": "Finger to palm",
+      "values": {
+        "time": 8,
+        "reps": 4
+      },
+      "isEnabled": true
+    },
+    "squats": {
+      "id": 11,
+      "name": "Squats",
+      "values": {
+        "reps": 10
+      },
+      "isEnabled": true
+    },
+    "lunges": {
+      "id": 12,
+      "name": "Lunges",
+      "values": {
+        "reps": 5
+      },
+      "isEnabled": false
+    },
+    "jumping_jacks": {
+      "id": 13,
+      "name": "Jumping jacks",
+      "values": {
+        "reps": 20
+      },
+      "isEnabled": false
+    },
+    "push_ups": {
+      "id": 14,
+      "name": "Push ups",
+      "values": {
+        "reps": 5
+      },
+      "isEnabled": true
+    },
+    "walks": {
+      "id": 15,
+      "name": "Walks",
+      "values": {
+        "time": 600
+      },
+      "isEnabled": true
+    },
+    "meditation": {
+      "id": 16,
+      "name": "Meditation",
+      "values": {
+        "time": 300
+      },
+      "isEnabled": true
+    },
+    "sun_exposure": {
+      "id": 17,
+      "name": "Sun exposure",
+      "values": {
+        "time": 300
+      },
+      "isEnabled": false
+    },
+    "standing_at_work": {
+      "id": 18,
+      "name": "Standing at work",
+      "values": {
+        "time": 1200
+      },
+      "isEnabled": true
+    },
+    "posture_reminder": {
+      "id": 19,
+      "name": "Posture reminder",
+      "values": {
+        "reps": 10
+      },
+      "isEnabled": true
+    }
+  }
+]
