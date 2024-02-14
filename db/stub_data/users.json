@@ -27,7 +27,7 @@
     ],
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_01.json",
-    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
   },
   {
     "email": "bob@example.com",

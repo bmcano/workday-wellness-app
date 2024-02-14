@@ -1,6 +1,12 @@
 [
   {
-    "section": "users"
+    "section": "users",
+    "stubs": [
+      {
+        "name": "John Doe",
+        "description": "default path, everything is as a new account"
+      }
+    ]
   },
   {
     "section": "exercises",
@@ -37,8 +43,8 @@
       },
       {
         "stub": 1,
-        "file": "",
-        "description": "calendar has 'outlook synced' data for the current month"
+        "file": "..\\db\\stub_data\\calendars\\calendars_01.json",
+        "description": "calendar has 'outlook synced' data for the current month (feb 2024)"
       },
       {
         "stub": 2,
