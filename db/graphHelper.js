@@ -7,7 +7,13 @@ import authProviders from '@microsoft/microsoft-graph-client/authProviders/azure
 const userClients = {};
 
 export function checkIfClientExist(user_id) {
-    return !!userClients[user_id];
+    if (userClients[user_id] !== undefined) {
+        if (userClients[user_id].httpClient.middleware.authenticationProvider.tokenCredential.msalFlow.account !== undefined) {
+            console.log("User is logged into Outlook.");
+            return true;
+        }
+    }
+    return false;
 }
 
 export function initializeGraphForUserAuth(user_id, settings, deviceCodePrompt) {

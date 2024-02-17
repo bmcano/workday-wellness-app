@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
+import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
 
 const CreateAccount: React.FC = () => {
 
@@ -30,8 +31,8 @@ const CreateAccount: React.FC = () => {
         console.log(jsonData);
 
         // validate user inputs
-        if (!isValidEmail(email as string)) return;
-        if (!isValidPassword(password as string, confirmPassword as string)) return;
+        if (!isValidEmail(email as string, setEmailError)) return;
+        if (!isValidPassword(password as string, confirmPassword as string, setPasswordError)) return;
         if (!isValidName(first_name as string, last_name as string)) {
             alert("One or more name items are left empty.");
             return;
@@ -50,34 +51,6 @@ const CreateAccount: React.FC = () => {
                 }
             })
     };
-
-    const isValidEmail = (email: string): boolean => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const valid = emailRegex.test(email);
-        if (valid) {
-            setEmailError(null);
-            return true;
-        }
-        setEmailError("Invalid email address.");
-        return false
-    }
-
-    const isValidPassword = (password: string, confirmPassword: string): boolean => {
-        if (password.length < 8) {
-            setPasswordError("Password must be at least 8 characters");
-            return false;
-        }
-        if (password !== confirmPassword) {
-            setPasswordError("Passwords do not match");
-            return false;
-        }
-        setPasswordError(null);
-        return true;
-    };
-
-    const isValidName = (first_name: string, last_name: string): boolean => {
-        return first_name !== "" && last_name !== ""
-    }
 
     return (
         <React.Fragment>
