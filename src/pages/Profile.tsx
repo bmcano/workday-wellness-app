@@ -1,97 +1,76 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
 
-const fetchUserData = () => {
-  return Promise.resolve({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    profilePic: "https://example.com/profile.jpg", // Placeholder image URL
-    bio: "Software Engineer with a passion for web development and open source.",
-    location: "San Francisco, CA",
-    skills: ["JavaScript", "React", "Node.js", "TypeScript"],
-    education: [
-      {
-        school: "University of Technology",
-        degree: "Bachelor of Science in Computer Science",
-        year: 2020,
-      },
-      {
-        school: "Online Courses",
-        degree: "Various Certifications",
-        year: 2021,
-      },
-    ],
-    social: {
-      github: "https://github.com/johndoe",
-      linkedin: "https://linkedin.com/in/johndoe",
-    },
-  });
-};
-
-type UserData = {
-  name: string;
-  email: string;
-  profilePic: string;
-  bio: string;
-  location: string;
-  skills: string[];
-  education: {
-    school: string;
-    degree: string;
-    year: number;
-  }[];
-  social: {
-    github: string;
-    linkedin: string;
-  };
-};
+const TABS = ['About', 'Latest Activity', 'Posts', 'Status']; 
 
 const Profile: React.FC = () => {
+
+  const [activeTab, setActiveTab] = useState(TABS[0]); 
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
     AuthorizedUser(navigate);
-    fetchUserData().then(setUser);
   }, [navigate]);
+
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+  };
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'About':
+        return <div>About content goes here.</div>;
+      case 'Latest Activity':
+        return <div>Latest Activity content goes here.</div>;
+      case 'Posts':
+        return <div>Posts content goes here.</div>;
+      case 'Status':
+        return <div>Status content goes here.</div>;
+      default:
+        return <div>Select a tab.</div>;
+    }
+  };
 
   return (
     <React.Fragment>
       <Navbar />
-      <div className="profile-container">
-        <h1>Profile Page</h1>
-        {user ? (
-          <div className="profile-details">
-            <img src={user.profilePic} alt="Profile" className="profile-picture" />
-            <h2>{user.name}</h2>
-            <p>Email: {user.email}</p>
-            <p>Bio: {user.bio}</p>
-            <p>Location: {user.location}</p>
-            <h3>Skills</h3>
-            <ul>
-              {user.skills.map(skill => (
-                <li key={skill}>{skill}</li>
-              ))}
-            </ul>
-            <h3>Education</h3>
-            {user.education.map(edu => (
-              <div key={edu.school}>
-                <p>School: {edu.school}</p>
-                <p>Degree: {edu.degree}</p>
-                <p>Year: {edu.year}</p>
+      <div className="card-columns">
+        <div className="card-column">
+          <div className="card card-span-4">
+            <div className="profile-content-container">
+              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
+                <img src={pfpImage} alt="Profile" />
+                <div className="edit-overlay">Edit</div>
               </div>
-            ))}
-            <div className="social-links">
-              <a href={user.social.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href={user.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <div className="profile-text-container">
+                <h1>Ian</h1>
+                <p>{'{Insert Role at Company}'}</p>
+                <p>Since Jan 1st 1999</p>
+              </div>
+            </div>
+            <div className="card-header">
+              {TABS.map((tab) => (
+                <button
+                  key={tab}
+                  className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+                  onClick={() => handleTabClick(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+            <div className="divider" />
+            <div className="card-content">
+              {renderTabContent()}
             </div>
           </div>
-        ) : (
-          <p>Loading user data...</p>
-        )}
+        </div>
       </div>
     </React.Fragment>
   );
