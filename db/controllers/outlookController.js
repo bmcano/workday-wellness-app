@@ -1,5 +1,6 @@
 import settings from '../outlookSettings.js';
 import * as graphHelper from '../graphHelper.js';
+import UserModel from '../models/Users.js';
 
 /**
  * Job: Backend API for any calls related to the Microsoft Graph API.
@@ -37,5 +38,34 @@ export const getOutlookCalendar = async (req, res) => {
         return res
             .status(500)
             .json({ error: "Error connecting to Outlook."});
+    }
+}
+
+
+export const getCalendarData = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        const calendar = user.calendar;
+        return res.json({ success: true, calendar: calendar });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Internal server error."});
+    }
+}
+
+export const saveCalendarData = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        user.calendar = req.body.calendar;
+        console.log(user.calendar)
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Internal server error."});
     }
 }

@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { apiGet } from "../api/serverApiCalls.tsx";
+import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { convertOutlookPayload } from "../util/convertOutlookPayload.ts";
 import FullCalendar from '@fullcalendar/react'
@@ -12,7 +12,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
-
+import UpcomingEvents from "../components/UpcomingEvents.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -22,12 +22,20 @@ const Calendar: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
+        apiGet('http://localhost:3001/get_calendar_data')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) setEvents(data.calendar)
+            })
+            .catch(error => console.log(error));
+
         apiGet('http://localhost:3001/check_outlook_client')
             .then(res => res.json())
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
             })
+            .catch(error => console.log(error));
     }, [navigate])
 
     const handleOutlookLogin = () => {
@@ -62,36 +70,53 @@ const Calendar: React.FC = () => {
             })
     }
 
+    const handleSaveEvents = () => {
+        const jsonData = JSON.stringify({ calendar: events })
+        console.log(jsonData);
+        apiPost('http://localhost:3001/save_calendar_data', jsonData)
+            .catch(error => console.log(error));
+    }
+
     return (
         <React.Fragment>
             <Navbar />
             <div className="card">
                 <div className="card-item">
-                    <div className="card-text">{getCurrentFormattedDate()}</div>
+                    <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin} >Login to Outlook</Button>
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleCalendarSync} disabled={!loggedIn}>Sync Calendar</Button>
+                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents} disabled={!loggedIn}>Save Events</Button>
                     </div>
                 </div>
             </div>
-            <div className="box-card">
-                <div className="calendar">
-                    <FullCalendar
-                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                        headerToolbar={{
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                        }}
-                        initialView='dayGridMonth'
-                        editable={true}
-                        selectable={true}
-                        selectMirror={true}
-                        dayMaxEvents={true}
-                        weekends={false}
-                        initialEvents={events}
-                        events={events}
-                    />
+            <div className="card-columns">
+                <div className="card-column">
+                    <div className="card">
+                        <div className="calendar">
+                            <FullCalendar
+                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                headerToolbar={{
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                                }}
+                                initialView='dayGridMonth'
+                                editable={true}
+                                selectable={true}
+                                selectMirror={true}
+                                dayMaxEvents={true}
+                                weekends={false}
+                                initialEvents={events}
+                                events={events}
+                                eventColor="red"
+                                eventBackgroundColor="red"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="card-column">
+                    <UpcomingEvents events={events} />
                 </div>
             </div>
         </React.Fragment>
