@@ -1,9 +1,14 @@
 import '../App.css';
 import React, { useState } from 'react';
 import logoImage from '../static/images/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { handleLogout } from '../api/Logout.tsx';
 import ProfilePicture from './ProfilePicture.tsx';
+import { ReactComponent as HomeIcon } from "../static/assets/home-icon.svg"
+import { ReactComponent as ExerciseIcon } from "../static/assets/running-icon.svg"
+import { ReactComponent as ChatIcon } from "../static/assets/speaking-bubbles-b-icon.svg"
+import { ReactComponent as CalendarIcon } from "../static/assets/calendar-icon.svg"
+import { ReactComponent as NotificationIcon } from "../static/assets/bell-icon.svg"
 
 const Navbar = () => {
 
@@ -17,22 +22,19 @@ const Navbar = () => {
         handleLogout(navigate)
     }
 
+    const location = useLocation();
+
     return (
         <div className="navbar">
             <div className="logo">
                 <img src={logoImage} alt="logo" />
             </div>
             <div className="nav-links">
-                <a href="/">Home</a>
-                <a href="/exercises">Exercises</a>
-                <a href="/chat">Chat</a>
-                <a href="/calendar">Calendar</a>
-                <a href="/notifications">
-                    <span role="img" aria-label="bell icon">
-                        🔔 {/** will probably want a proper icon since we will need to have the little dot/number to show a user has a notificaiton */}
-                    </span>
-                    Notification {/** likewise, this text might disappear later on*/}
-                </a>
+            <a href="/" className={location.pathname === '/' ? 'active-icon' : ''}><HomeIcon className="nav-icon" /></a>
+            <a href="/exercises" className={location.pathname === '/exercises' ? 'active-icon' : ''}><ExerciseIcon className="nav-icon" /></a>
+            <a href="/chat" className={location.pathname === '/chat' ? 'active-icon' : ''}><ChatIcon className="nav-icon" /></a>
+            <a href="/calendar" className={location.pathname === '/calendar' ? 'active-icon' : ''}><CalendarIcon className="nav-icon" /></a>
+            <a href="/notifications" className={location.pathname === '/notifications' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
                 <div className="subnav">
                     <a onClick={toggleSubMenu} role="button">
                         <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true}/>
