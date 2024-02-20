@@ -7,7 +7,13 @@ import authProviders from '@microsoft/microsoft-graph-client/authProviders/azure
 const userClients = {};
 
 export function checkIfClientExist(user_id) {
-    return !!userClients[user_id];
+    if (userClients[user_id] !== undefined) {
+        if (userClients[user_id].httpClient.middleware.authenticationProvider.tokenCredential.msalFlow.account !== undefined) {
+            console.log("User is logged into Outlook.");
+            return true;
+        }
+    }
+    return false;
 }
 
 export function initializeGraphForUserAuth(user_id, settings, deviceCodePrompt) {
@@ -50,15 +56,19 @@ export async function getCalendarAysnc(user_id, email) {
         throw new Error('Graph has not been initialized for user auth');
     }
 
+    const date = new Date();
+    const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
     const scheduleInformation = {
         schedules: [email],
         startTime: {
-            dateTime: '2024-02-01',
-            timeZone: 'Pacific Standard Time'
+            dateTime: startDate,
+            timeZone: 'Central Standard Time'
         },
         endTime: {
-            dateTime: '2024-02-28',
-            timeZone: 'Pacific Standard Time'
+            dateTime: endDate,
+            timeZone: 'Central Standard Time'
         },
         availabilityViewInterval: 60
     };

@@ -7,6 +7,10 @@ import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
+import Typography from "@mui/material/Typography";
+
+const enabledText = "#212121"
+const disabledText = "#e4e3e3"
 
 const Exercises: React.FC = () => {
 
@@ -91,7 +95,7 @@ const Exercises: React.FC = () => {
                             onChange={() => handleCheckboxChange(index)} />
                     </div>
                     <div className="card-text">
-                        {`${exercise.name}: `}
+                        <Typography component="h4" variant="inherit" color={checkboxStates[index] ? enabledText : disabledText}>{`${exercise.name}: `}</Typography>
                     </div>
                     <div className="card-button">
                         {exercise.values.time && (

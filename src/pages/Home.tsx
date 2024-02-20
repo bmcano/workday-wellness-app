@@ -3,28 +3,36 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+// @ts-ignore
+import messageSound from '../static/sounds/popcorn.mp3' 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { apiGet } from "../api/serverApiCalls.tsx";
+import UpcomingEvents from "../components/UpcomingEvents.tsx";
+import { EventInput } from "@fullcalendar/core";
 
 let intervalId: number | null = null;
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const audioRef = new Audio(messageSound);
+
   const [name, setName] = useState("");
   const [duration, setDuration] = useState<number>(60);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [statuses, setStatuses] = useState<string[]>([]);
+  const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
 
   useEffect(() => {
     AuthorizedUser(navigate);
     apiGet('http://localhost:3001/get_user')
       .then(res => res.json())
       .then(data => {
-          if (data.authorized) {
-            setName(data.user.first_name);
-          }
+        if (data.authorized) {
+          setName(data.user.first_name);
+          setTodaysEvents(data.user.calendar);
+        }
       })
       .catch(error => console.log(error));
     // Cleanup function to clear the interval when the component unmounts
@@ -65,6 +73,7 @@ const Home: React.FC = () => {
 
         if (newTime <= 0) {
           clearInterval(intervalId as number);
+          audioRef.play();
           intervalId = null;
         }
 
@@ -141,13 +150,8 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="card-column">
-          <div className="card">
-            <p className="card-inside-header-text">Reminders</p>
-            <Button variant="contained" color="primary" onClick={startTimer}>Add Reminder</Button>
-            <div>
-              {/* Placeholder for reminders */}
-              <p>No reminders yet.</p>
-            </div>
+          <div>
+            <UpcomingEvents events={todaysEvent} />
           </div>
         </div>
       </div>
