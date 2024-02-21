@@ -29,14 +29,20 @@ const Calendar: React.FC = () => {
             })
             .catch(error => console.log(error));
 
+        checkOutlookClient();
+    }, [navigate])
+
+    const checkOutlookClient = (): boolean => {
         apiGet('http://localhost:3001/check_outlook_client')
             .then(res => res.json())
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
+                return data.authorized;
             })
             .catch(error => console.log(error));
-    }, [navigate])
+        return false;
+    }
 
     const handleOutlookLogin = () => {
         apiGet("http://localhost:3001/initalize_outlook")
@@ -56,6 +62,10 @@ const Calendar: React.FC = () => {
     }
 
     const handleCalendarSync = () => {
+        if (!checkOutlookClient()) {
+            alert("Can not sync calendar, Outlook is not properly connected.");
+            return;
+        }
         apiGet('http://localhost:3001/sync_calendar')
             .then(res => res.json())
             .then(data => {
@@ -75,6 +85,7 @@ const Calendar: React.FC = () => {
         console.log(jsonData);
         apiPost('http://localhost:3001/save_calendar_data', jsonData)
             .catch(error => console.log(error));
+        alert("Events have been saved.");
     }
 
     return (
@@ -84,9 +95,9 @@ const Calendar: React.FC = () => {
                 <div className="card-item">
                     <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
                     <div className="card-button">
-                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin} >Login to Outlook</Button>
+                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin}>Login to Outlook</Button>
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleCalendarSync} disabled={!loggedIn}>Sync Calendar</Button>
-                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents} disabled={!loggedIn}>Save Events</Button>
+                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>
                 </div>
             </div>

@@ -69,3 +69,17 @@ export const saveCalendarData = async (req, res) => {
             .json({ error: "Internal server error."});
     }
 }
+
+export const addCalendarData = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        user.calendar.push(req.body.event);
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Internal server error."});
+    }
+}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
+import AddEventModal from './AddEventModal.tsx';
 
 interface Props {
     events: EventInput[];
@@ -12,13 +13,29 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
     const cstDate = new Date(now.getTime() + cstOffset);
     const todayDate = cstDate.toISOString().split('T')[0];
     const upcomingEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSaveEvent = (eventData: any) => {
+        console.log('Event saved: ', eventData);
+        window.location.reload();
+        handleCloseModal();
+    };
 
     return (
         <div className="card">
             <div className="card-item">
                 <div className="card-inside-header-text">Upcoming Events for Today</div>
                 <div className="card-button">
-                    <Button variant="text" color="primary" onClick={() => { } /** TODO - be able to manually add exercise events */}>Add Event</Button>
+                    <Button variant="text" color="primary" onClick={handleOpenModal}>Add Event</Button>
+                    <AddEventModal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveEvent} />
                 </div>
             </div>
             <div className="card-list">
