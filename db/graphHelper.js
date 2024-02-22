@@ -76,3 +76,41 @@ export async function getCalendarAysnc(user_id, email) {
     return userClient.api('/me/calendar/getSchedule')
         .post(scheduleInformation);
 }
+
+export async function addOutlookEvent(user_id, email, name, eventData) {
+    const userClient = userClients[user_id];
+    if (!userClient) {
+        throw new Error('Graph has not been initialized for user auth');
+    }
+    const event = {
+        subject: eventData.title,
+        body: {
+            contentType: 'HTML',
+            content: 'Sent from Workday Wellness'
+        },
+        start: {
+            dateTime: eventData.start,
+            timeZone: 'Central Standard Time'
+        },
+        end: {
+            dateTime: eventData.end,
+            timeZone: 'Central Standard Time'
+        },
+        location: {
+            displayName: ''
+        },
+        attendees: [
+            {
+                emailAddress: {
+                    address: email,
+                    name: name
+                },
+                type: 'required'
+            }
+        ],
+        allowNewTimeProposals: false
+    };
+
+    await userClient.api('/me/events')
+        .post(event);
+}

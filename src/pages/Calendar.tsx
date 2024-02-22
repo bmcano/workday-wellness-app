@@ -32,16 +32,14 @@ const Calendar: React.FC = () => {
         checkOutlookClient();
     }, [navigate])
 
-    const checkOutlookClient = (): boolean => {
+    const checkOutlookClient = () => {
         apiGet('http://localhost:3001/check_outlook_client')
             .then(res => res.json())
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
-                return data.authorized;
             })
             .catch(error => console.log(error));
-        return false;
     }
 
     const handleOutlookLogin = () => {
@@ -62,10 +60,7 @@ const Calendar: React.FC = () => {
     }
 
     const handleCalendarSync = () => {
-        if (!checkOutlookClient()) {
-            alert("Can not sync calendar, Outlook is not properly connected.");
-            return;
-        }
+        checkOutlookClient();
         apiGet('http://localhost:3001/sync_calendar')
             .then(res => res.json())
             .then(data => {

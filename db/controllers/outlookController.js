@@ -23,7 +23,7 @@ export const initalizeOutlookClient = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Error connecting to Outlook."});
+            .json({ error: "Error connecting to Outlook." });
     }
 }
 
@@ -37,7 +37,7 @@ export const getOutlookCalendar = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Error connecting to Outlook."});
+            .json({ error: "Error connecting to Outlook." });
     }
 }
 
@@ -51,7 +51,7 @@ export const getCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
     }
 }
 
@@ -66,7 +66,7 @@ export const saveCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
     }
 }
 
@@ -80,6 +80,21 @@ export const addCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
+    }
+}
+
+export const addOutlookEvent = async (req, res) => {
+    try {
+        const user = await graphHelper.getUserAsync(req.session._id);
+        const email = user.mail;
+        const name = user.displayName;
+        const calendar = await graphHelper.addOutlookEvent(req.session._id, email, name, req.body.event);
+        return res.json({ authorized: true, calendar: calendar });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Error connecting to Outlook." });
     }
 }

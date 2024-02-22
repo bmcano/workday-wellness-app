@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { apiPost } from '../api/serverApiCalls.tsx';
-import { format } from 'date-fns';
 import { formatDateforDatabase } from '../util/dateUtils.ts';
 import { getExerciseMenuList } from '../util/getExerciseMenuList.ts';
 
@@ -35,7 +34,9 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
         const jsonData = JSON.stringify({ event: eventData })
         apiPost('http://localhost:3001/add_calendar_data', jsonData)
             .catch(error => console.log(error));
-        // TODO - check if outlook client is synced, if so, add the event to outlook, otherwise do nothing
+        // then save to the users outlook calendar, if not synced nothing will happen
+        apiPost('http://localhost:3001/add_outlook_event', jsonData)
+            .catch(error => console.log(error));
         onSave(eventData);
         onClose();
     };
