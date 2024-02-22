@@ -1,5 +1,6 @@
 import { EventInput } from '@fullcalendar/core'
 
+//convert the outlook payload to an array of EventInput
 export const convertOutlookPayload = (payload: any): EventInput[] => {
     const { scheduleItems } = payload;
 
@@ -16,4 +17,10 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     });
 
     return events;
+}
+
+//fetch the user email from the payload
+export const getUserEmailFromPayload = (payload: any): string => {
+    const { attendees } = payload;
+    return attendees[0].emailAddress.address;
 }
