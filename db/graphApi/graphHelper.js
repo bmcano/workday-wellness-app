@@ -1,7 +1,7 @@
 import { DeviceCodeCredential } from '@azure/identity';
 import { Client } from '@microsoft/microsoft-graph-client';
 import authProviders from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials/index.js';
-import { recurringEvent, singleEvent } from './graphApi/outlookEventOutline.js';
+import { recurringEvent, singleEvent } from './outlookEventOutline.js';
 
 // File originated from Microsoft Corporation, but has since been modified for our need.
 

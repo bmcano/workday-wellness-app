@@ -1,5 +1,5 @@
-import settings from '../outlookSettings.js';
-import * as graphHelper from '../graphHelper.js';
+import settings from '../graphApi/outlookSettings.js';
+import * as graphHelper from '../graphApi/graphHelper.js';
 import UserModel from '../models/Users.js';
 
 /**
