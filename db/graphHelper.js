@@ -1,6 +1,7 @@
 import { DeviceCodeCredential } from '@azure/identity';
 import { Client } from '@microsoft/microsoft-graph-client';
 import authProviders from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials/index.js';
+import { recurringEvent, singleEvent } from './graphApi/outlookEventOutline.js';
 
 // File originated from Microsoft Corporation, but has since been modified for our need.
 
@@ -82,34 +83,13 @@ export async function addOutlookEvent(user_id, email, name, eventData) {
     if (!userClient) {
         throw new Error('Graph has not been initialized for user auth');
     }
-    const event = {
-        subject: eventData.title,
-        body: {
-            contentType: 'HTML',
-            content: 'Sent from Workday Wellness'
-        },
-        start: {
-            dateTime: eventData.start,
-            timeZone: 'Central Standard Time'
-        },
-        end: {
-            dateTime: eventData.end,
-            timeZone: 'Central Standard Time'
-        },
-        location: {
-            displayName: ''
-        },
-        attendees: [
-            {
-                emailAddress: {
-                    address: email,
-                    name: name
-                },
-                type: 'required'
-            }
-        ],
-        allowNewTimeProposals: false
-    };
+
+    let event = {}
+    if (eventData.recurrence === "") {
+        event = singleEvent(eventData, email, name);
+    } else {
+        event = recurringEvent(eventData, email, name);
+    }
 
     await userClient.api('/me/events')
         .post(event);

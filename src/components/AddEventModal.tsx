@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import CheckBox from "@mui/material/Checkbox";
 import { apiPost } from '../api/serverApiCalls.tsx';
 import { formatDateforDatabase } from '../util/dateUtils.ts';
 import { getExerciseMenuList } from '../util/getExerciseMenuList.ts';
@@ -19,6 +20,7 @@ interface AddEventModalProps {
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
     const [startDate, setStartDate] = useState(new Date());
+    const [recurrencePattern, setRecurrencePattern] = useState('');
     const [endDate, setEndDate] = useState(new Date());
 
     const exercises = getExerciseMenuList();
@@ -27,7 +29,8 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
         const eventData: EventInput = {
             title: selectedItem,
             start: formatDateforDatabase(startDate),
-            end: formatDateforDatabase(endDate)
+            end: formatDateforDatabase(endDate),
+            recurrence: recurrencePattern
         };
 
         // save to database first
@@ -41,6 +44,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
         onClose();
     };
 
+    const marginTLR = { marginTop: '16px', marginLeft: '16px', marginRight: '16px' }
     const customModalStyle = {
         content: {
             width: '50%',
@@ -57,8 +61,6 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             zIndex: 99, // this ensures the overlay is over all other components
         },
     };
-
-    const marginTLR = { marginTop: '16px', marginLeft: '16px', marginRight: '16px' }
 
     return (
         <Modal
@@ -83,19 +85,34 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                             >
                                 <MenuItem value=""><em>Select Item</em></MenuItem>
                                 {exercises.map(item => (
-                                    <MenuItem value={item}>{item}</MenuItem>
+                                    <MenuItem key={item} value={item}>{item}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
                     </div>
                     <div className='card-item' style={marginTLR}>
-                        <div className='card-text'>Start Date:</div>
+                        <div>Date and time:</div>
                         <div className='card-button'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} showTimeSelect dateFormat="Pp" />
                         </div>
                     </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-text'>End Date:</div>
+                    <div className='card-item' style={{ marginTop: '16px', marginRight: '16px' }}>
+                        <FormControl variant="standard" fullWidth style={{ marginLeft: '16px', marginRight: '16px' }}>
+                            <InputLabel id="select-item-label">Reccurrence</InputLabel>
+                            <Select
+                                labelId="recurrencePattern"
+                                id="recurrencePattern"
+                                label="Reccurrence"
+                                value={recurrencePattern}
+                                fullWidth
+                                onChange={(e) => setRecurrencePattern(e.target.value as string)}
+                            >
+                                <MenuItem value=""><em>Does not repeat</em></MenuItem>
+                                <MenuItem value="daily">Daily</MenuItem>
+                                <MenuItem value="weekly">Weekly</MenuItem>
+                                {/* <MenuItem value="monthly">Monthly</MenuItem> */}
+                            </Select>
+                        </FormControl>
                         <div className='card-button'>
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} showTimeSelect dateFormat="Pp" />
                         </div>
