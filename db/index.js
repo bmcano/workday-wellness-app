@@ -4,7 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import { checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData } from './controllers/outlookController.js';
+import { checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, sendEmail } from './controllers/outlookController.js';
 import { checkSession, login, logout, registerAccount } from './controllers/sessionController.js';
 import { uploadProfilePicture, getUser, getExerciseInformation, updateExerciseInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, searchFriendsList, searchUsersList, viewUserProfile } from './controllers/friendsController.js';
