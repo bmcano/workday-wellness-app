@@ -25,11 +25,14 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
     const exercises = getExerciseMenuList();
 
     const handleSave = () => {
+        const end = new Date(startDate);
+        end.setMinutes(end.getMinutes() + 5);
         const eventData: EventInput = {
             title: selectedItem,
             start: formatDateforDatabase(startDate),
-            end: formatDateforDatabase(endDate),
-            recurrence: recurrencePattern
+            end: formatDateforDatabase(end),
+            recurrence: recurrencePattern,
+            endRecurrene: formatDateforDatabase(endDate)
         };
 
         // save to database first
