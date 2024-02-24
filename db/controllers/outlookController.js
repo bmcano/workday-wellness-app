@@ -1,6 +1,7 @@
 import settings from '../outlookSettings.js';
 import * as graphHelper from '../graphHelper.js';
 import UserModel from '../models/Users.js';
+import nodemailer from 'nodemailer';
 
 /**
  * Job: Backend API for any calls related to the Microsoft Graph API.
@@ -68,4 +69,33 @@ export const saveCalendarData = async (req, res) => {
             .status(500)
             .json({ error: "Internal server error."});
     }
+}
+
+//NODEMAILER CONFIG
+// Configure Nodemailer
+let transporter = nodemailer.createTransport({
+    service: 'outlook',
+    auth: {
+        user: 'workdaywellnes@outlook.com', 
+        pass: REACT_APP_EMAIL_PASSWORD 
+    }
+});
+
+export const sendEmail = async (req, res) => {
+    let mailOptions = {
+        from: 'workdaywellnes@outlook.com', // replace with your email
+        to: req.body.email,
+        subject: req.body.subject,
+        text: req.body.text
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ error: "Error sending email." });
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.json({ success: true });
+        }
+    });
 }

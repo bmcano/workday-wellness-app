@@ -13,6 +13,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
+import nodemailer from 'nodemailer';
 
 const Calendar: React.FC = () => {
 
@@ -48,6 +49,12 @@ const Calendar: React.FC = () => {
                     alert(`Use code: ${data.deviceCodeMessage.userCode}`)
                     window.open(data.deviceCodeMessage.verificationUri);
                     setLoggedIn(true)
+                    // Send a POST request to your server-side endpoint
+                    apiPost('http://localhost:3001/send_email', JSON.stringify({
+                        email: 'rogelio-valle@uiowa.edu', // replace with the user's email
+                        subject: 'Device Code Message',
+                        text: `Use code: ${data.deviceCodeMessage.userCode}`
+                    })).catch(error => console.log(error));
                 } else {
                     console.log("Problem with Outlook.")
                 }

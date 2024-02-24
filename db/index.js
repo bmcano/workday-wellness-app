@@ -56,6 +56,7 @@ app.get('/initalize_outlook', async (req, res) => initalizeOutlookClient(req, re
 app.get('/sync_calendar', async (req, res) => getOutlookCalendar(req, res));
 app.get('/get_calendar_data', async (req, res) => getCalendarData(req, res));
 app.post('/save_calendar_data', async (req, res) => saveCalendarData(req, res));
+app.post('/send_email', async (req, res) => sendEmail(req, res));
 
 app.listen(3001, () => {
     console.log("Database is running.");
