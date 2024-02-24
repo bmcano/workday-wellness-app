@@ -2,6 +2,8 @@ import settings from '../outlookSettings.js';
 import * as graphHelper from '../graphHelper.js';
 import UserModel from '../models/Users.js';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * Job: Backend API for any calls related to the Microsoft Graph API.
@@ -77,7 +79,7 @@ let transporter = nodemailer.createTransport({
     service: 'outlook',
     auth: {
         user: 'workdaywellnes@outlook.com', 
-        pass: REACT_APP_EMAIL_PASSWORD 
+        pass: process.env.REACT_APP_EMAIL_PASSWORD 
     }
 });
 
