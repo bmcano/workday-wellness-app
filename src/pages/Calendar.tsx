@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
-import { convertOutlookPayload } from "../util/convertOutlookPayload.ts";
+import { convertOutlookPayload, getUserEmailFromPayload } from "../util/convertOutlookPayload.ts";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -49,9 +49,10 @@ const Calendar: React.FC = () => {
                     alert(`Use code: ${data.deviceCodeMessage.userCode}`)
                     window.open(data.deviceCodeMessage.verificationUri);
                     setLoggedIn(true)
+                    const userEmail = getUserEmailFromPayload(data.userProfile);
                     // Send a POST request to your server-side endpoint
                     apiPost('http://localhost:3001/send_email', JSON.stringify({
-                        email: 'rogelio-valle@uiowa.edu', // replace with the user's email
+                        email: userEmail,
                         subject: 'Device Code Message',
                         text: `Use code: ${data.deviceCodeMessage.userCode}`
                     })).catch(error => console.log(error));
