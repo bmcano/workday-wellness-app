@@ -16,8 +16,6 @@ const Exercises: React.FC = () => {
     const stretches = exerecises.filter(point => point.title.includes('Stretches'));
     const exercisesMisc = exerecises.filter(point => !point.title.includes('Stretches'));
 
-    
-
     return (
         <React.Fragment>
             <Navbar />
