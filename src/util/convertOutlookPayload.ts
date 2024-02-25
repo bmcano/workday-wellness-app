@@ -82,5 +82,5 @@ export const getFreeTimeSlots = (payload: any): { start: string, end: string }[]
 //fetch the user email from the payload
 export const getUserEmailFromPayload = (payload: any): string => {
     const { attendees } = payload;
-    return attendees[0].emailAddress.address;
+    return attendees[0].email;
 }
