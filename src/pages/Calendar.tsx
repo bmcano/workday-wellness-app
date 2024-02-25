@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
-import { convertOutlookPayload, getUserEmailFromPayload } from "../util/convertOutlookPayload.ts";
+import { convertOutlookPayload } from "../util/convertOutlookPayload.ts";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
