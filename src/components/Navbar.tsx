@@ -9,6 +9,7 @@ import { ReactComponent as ExerciseIcon } from "../static/assets/running-icon.sv
 import { ReactComponent as ChatIcon } from "../static/assets/speaking-bubbles-b-icon.svg"
 import { ReactComponent as CalendarIcon } from "../static/assets/calendar-icon.svg"
 import { ReactComponent as NotificationIcon } from "../static/assets/bell-icon.svg"
+import { ReactComponent as SFLogo } from "../static/assets/statefarmsmall.svg"
 
 const Navbar = () => {
 
@@ -26,8 +27,8 @@ const Navbar = () => {
 
     return (
         <div className="navbar">
-            <div className="logo">
-                <img src={logoImage} alt="logo" />
+            <div className="logo-resize">
+                <SFLogo/>
             </div>
             <div className="nav-links">
             <a href="/" className={location.pathname === '/' ? 'active-icon' : ''}><HomeIcon className="nav-icon" /></a>

@@ -467,3 +467,9 @@
 .active-icon .nav-icon {
   fill: var(--black); 
 }
+
+.logo-resize {
+  width: 2px;
+  height: auto;
+  
+}
