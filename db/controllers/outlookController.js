@@ -83,11 +83,12 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+//SEND AN EMAIL 
 export const sendEmail = async (req, res) => {
     let mailOptions = {
         from: 'workdaywellnes@outlook.com', // replace with your email
         to: req.body.email,
-        subject: req.body.subject,
+        subject: "DO NOT REPLY " + req.body.subject,
         text: req.body.text
     };
 

@@ -13,7 +13,6 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
-import nodemailer from 'nodemailer';
 
 
 
