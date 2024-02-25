@@ -13,13 +13,22 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
-
-
+import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
 
 const Calendar: React.FC = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [events, setEvents] = useState<EventInput[]>([])
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [deviceCodeMessage, setDeviceCodeMessage] = useState("");
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -51,8 +60,8 @@ const Calendar: React.FC = () => {
                 console.log(data)
                 if (data.authorized) {
                     console.log(data.deviceCodeMessage.message);
-                    alert(`Use code: ${data.deviceCodeMessage.userCode}`)
-                    window.open(data.deviceCodeMessage.verificationUri);
+                    setDeviceCodeMessage(data.deviceCodeMessage);
+                    handleOpenModal();
                     setLoggedIn(true);
                 } else {
                     console.log("Problem with Outlook.")
@@ -93,6 +102,7 @@ const Calendar: React.FC = () => {
                     <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin}>Login to Outlook</Button>
+                        <DeviceCodeModal isOpen={isModalOpen} onClose={handleCloseModal} deviceCodeMessage={deviceCodeMessage} />
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleCalendarSync} disabled={!loggedIn}>Sync Calendar</Button>
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>

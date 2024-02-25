@@ -4,9 +4,10 @@ import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { apiPost } from '../api/serverApiCalls.tsx';
-import { formatDateforDatabase } from '../util/dateUtils.ts';
-import { getExerciseMenuList } from '../util/getExerciseMenuList.ts';
+import { apiPost } from '../../api/serverApiCalls.tsx';
+import { formatDateforDatabase } from '../../util/dateUtils.ts';
+import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
+import { customModalStyle, marginTLR } from './modalStyles.ts';
 
 Modal.setAppElement('#root');
 
@@ -44,24 +45,6 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             .catch(error => console.log(error));
         onSave(eventData);
         onClose();
-    };
-
-    const marginTLR = { marginTop: '16px', marginLeft: '16px', marginRight: '16px' }
-    const customModalStyle = {
-        content: {
-            width: '50%',
-            margin: 'auto',
-            maxHeight: '80%',
-            overflow: 'auto',
-            zIndex: 99,
-            display: 'flex',
-            flexDirection: 'column',
-            border: 'none',
-            background: 'none'
-        },
-        overlay: {
-            zIndex: 99, // this ensures the overlay is over all other components
-        },
     };
 
     return (

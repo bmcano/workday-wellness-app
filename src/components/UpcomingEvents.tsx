@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
-import AddEventModal from './AddEventModal.tsx';
+import AddEventModal from './modals/AddEventModal.tsx';
 import { isEventOccuringNow } from '../util/dateUtils.ts';
 
 interface Props {
