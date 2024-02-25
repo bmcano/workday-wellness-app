@@ -18,20 +18,6 @@ export const getUser = async (req, res) => {
     }
 }
 
-export const getUserEmail = async (req, res) => {
-    try {
-        if (req.session._id) {
-            const user = await UserModel.findById(req.session._id).lean();
-            return res.json({ authorized: true, email: user.email });
-        } else {
-            return res.json({ authorized: false });
-        }
-    } catch (error) {
-        console.log(error);
-        return res.json({ authorized: false });
-    }
-}
-
 export const uploadProfilePicture = async (req, res) => {
     try {
         const base64Image = req.body.base64Image;

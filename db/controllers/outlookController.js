@@ -9,6 +9,16 @@ dotenv.config();
  * Job: Backend API for any calls related to the Microsoft Graph API.
  */
 
+// NODEMAILER CONFIG
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'outlook',
+    auth: {
+        user: 'workdaywellnes@outlook.com',
+        pass: process.env.REACT_APP_EMAIL_PASSWORD
+    }
+});
+
 export const checkIfOutlookClientExist = (req, res) => {
     const result = graphHelper.checkIfClientExist(req.session._id);
     return res.json({ authorized: result });
@@ -26,7 +36,7 @@ export const initalizeOutlookClient = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Error connecting to Outlook."});
+            .json({ error: "Error connecting to Outlook." });
     }
 }
 
@@ -40,10 +50,9 @@ export const getOutlookCalendar = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Error connecting to Outlook."});
+            .json({ error: "Error connecting to Outlook." });
     }
 }
-
 
 export const getCalendarData = async (req, res) => {
     try {
@@ -54,7 +63,7 @@ export const getCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
     }
 }
 
@@ -69,19 +78,9 @@ export const saveCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
     }
 }
-
-//NODEMAILER CONFIG
-// Configure Nodemailer
-let transporter = nodemailer.createTransport({
-    service: 'outlook',
-    auth: {
-        user: 'workdaywellnes@outlook.com', 
-        pass: process.env.REACT_APP_EMAIL_PASSWORD 
-    }
-});
 
 //SEND AN EMAIL 
 export const sendEmail = async (req, res) => {

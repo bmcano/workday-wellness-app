@@ -49,24 +49,7 @@ const Calendar: React.FC = () => {
                     console.log(data.deviceCodeMessage.message);
                     alert(`Use code: ${data.deviceCodeMessage.userCode}`)
                     window.open(data.deviceCodeMessage.verificationUri);
-                    setLoggedIn(true)
-                    // Fetch the user email from the server
-                    apiGet('http://localhost:3001/api/getUserEmail')
-                        .then(response => response.json())
-                        .then(emailData => {
-                            if (emailData.authorized) {
-                                const userEmail = emailData.email;
-                                alert(`Use code: ${data.deviceCodeMessage.userCode}`)
-                                console.log('user email: ' + userEmail);
-                                // Send a POST request to your server-side endpoint
-                                apiPost('http://localhost:3001/send_email', JSON.stringify({
-                                    email: userEmail,
-                                    subject: 'Device Code Message',
-                                    text: `Use code: ${data.deviceCodeMessage.userCode}`
-                                })).catch(error => console.log(error));
-                            }
-                        })
-                        .catch(error => console.log(error));
+                    setLoggedIn(true);
                 } else {
                     console.log("Problem with Outlook.")
                 }
