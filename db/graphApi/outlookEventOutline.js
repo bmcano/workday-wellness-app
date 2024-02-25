@@ -37,7 +37,7 @@ export const recurringEvent = (eventData, email, name) => {
         const today = new Date();
         const dayOfWeek = today.getDay();
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        daysOfWeek = [ days[dayOfWeek] ];
+        daysOfWeek = [days[dayOfWeek]];
     }
 
     return {
@@ -51,7 +51,7 @@ export const recurringEvent = (eventData, email, name) => {
             timeZone: 'Central Standard Time'
         },
         end: {
-            dateTime: eventData.start,
+            dateTime: eventData.end,
             timeZone: 'Central Standard Time'
         },
         recurrence: {
@@ -63,7 +63,7 @@ export const recurringEvent = (eventData, email, name) => {
             range: {
                 type: 'endDate',
                 startDate: eventData.start.substring(0, 10),
-                endDate: eventData.end.substring(0, 10)
+                endDate: eventData.endReccurence.substring(0, 10)
             }
         },
         location: {
