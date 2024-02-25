@@ -1,5 +1,5 @@
-import settings from '../outlookSettings.js';
-import * as graphHelper from '../graphHelper.js';
+import settings from '../graphApi/outlookSettings.js';
+import * as graphHelper from '../graphApi/graphHelper.js';
 import UserModel from '../models/Users.js';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
@@ -79,25 +79,35 @@ export const saveCalendarData = async (req, res) => {
         return res
             .status(500)
             .json({ error: "Internal server error." });
+            .json({ error: "Internal server error." });
     }
 }
 
-//SEND AN EMAIL 
-export const sendEmail = async (req, res) => {
-    let mailOptions = {
-        from: 'workdaywellnes@outlook.com', // replace with your email
-        to: req.body.email,
-        subject: "DO NOT REPLY " + req.body.subject,
-        text: req.body.text
-    };
+export const addCalendarData = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        user.calendar.push(req.body.event);
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Internal server error." });
+    }
+}
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-            res.status(500).json({ error: "Error sending email." });
-        } else {
-            console.log('Email sent: ' + info.response);
-            res.json({ success: true });
-        }
-    });
+export const addOutlookEvent = async (req, res) => {
+    try {
+        const user = await graphHelper.getUserAsync(req.session._id);
+        const email = user.mail;
+        const name = user.displayName;
+        const calendar = await graphHelper.addOutlookEvent(req.session._id, email, name, req.body.event);
+        return res.json({ authorized: true, calendar: calendar });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Error connecting to Outlook." });
+    }
 }
