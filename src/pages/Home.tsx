@@ -98,10 +98,10 @@ const Home: React.FC = () => {
               <div className="timer__circle">
                 <svg className="timer__svg" viewBox="0 0 100 100">
                   <g className="timer__circle-track">
-                    <circle className="timer__path-elapsed" stroke-dasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></circle>
+                    <circle className="timer__path-elapsed" strokeDasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></circle>
                   </g>
                   <g className="timer__circle-progress">
-                    <path className="timer__path-remaining" stroke-dasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></path>
+                    <path className="timer__path-remaining" strokeDasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></path>
                   </g>
                 </svg>
               </div>
