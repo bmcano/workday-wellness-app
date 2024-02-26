@@ -31,7 +31,7 @@ const ForgotPassword: React.FC = () => {
                     alert("Incorrect email");
                 }
             })
-            .catch(() => alert("Login failed."));
+            .catch(() => alert("Email failed."));
     };
 
     return (
