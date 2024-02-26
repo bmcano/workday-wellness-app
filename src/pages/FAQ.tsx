@@ -77,7 +77,6 @@ const Profile: React.FC = () => {
             <div className="profile-content-container">
               <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
                 {renderProfilePic()}
-                <div className="edit-overlay">Edit</div>
               </div>
               <div className="profile-text-container">
                 <h1>Ian</h1>
