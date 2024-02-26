@@ -25,24 +25,24 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
 
     const freeTimeSlots: { start: string, end: string }[] = [];
 
-    const workdayStart = new Date(events[0].start);
+    const workdayStart = new Date(events[0].start as string);
     workdayStart.setUTCHours(workStartHour, 0, 0, 0);
 
-    const workdayEnd = new Date(events[0].start);
+    const workdayEnd = new Date(events[0].start as string);
     workdayEnd.setUTCHours(workEndHour, 0, 0, 0);
 
-    if (new Date(events[0].start).getTime() > workdayStart.getTime()) {
+    if (events[0].start && new Date(events[0].start as string).getTime() > workdayStart.getTime()) {
         freeTimeSlots.push({
             start: workdayStart.toISOString(),
-            end: events[0].start
+            end: events[0].start as string
         });
     }
 
     for (let i = 0; i < events.length - 1; i++) {
-        if (new Date(events[i].end).getTime() < new Date(events[i + 1].start).getTime()) {
+        if (new Date(events[i].end as string).getTime() < new Date(events[i + 1].start as string).getTime()) {
             freeTimeSlots.push({
-                start: events[i].end,
-                end: events[i + 1].start
+                start: events[i].end as string,
+                end: events[i + 1].start as string
             });
         }
     }
