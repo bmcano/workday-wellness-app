@@ -16,17 +16,17 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        updateEvents();
-        // update events every minute
-        const intervalId = setInterval(updateEvents, 1000 * 60);
-        return () => clearInterval(intervalId);
-    }, []);
-
-    const updateEvents = () => {
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
         setUpcomingEvents(updatedEvents);
-    };
-
+        
+        const intervalId = setInterval(() => {
+            const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+            setUpcomingEvents(updatedEvents);
+        }, 1000 * 60); // checks the event time every minute to update highlighting
+    
+        return () => clearInterval(intervalId);
+    }, [events, todayDate]);
+    
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
