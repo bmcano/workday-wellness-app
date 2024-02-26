@@ -52,8 +52,8 @@ const Profile: React.FC = () => {
                         <PrivacyIcon />
                         <p>Privacy Settings</p>
                     </div>
-                    <div className="settings-option">
-                        <div className="icon support"></div>
+                    <div className="settings-option" onClick={() => handleClick("/aboutpage")}>
+                        <div className="icon support" ></div>
                         <SupportIcon />
                         <p>Contact Support</p>
                     </div>

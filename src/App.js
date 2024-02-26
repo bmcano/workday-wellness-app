@@ -16,6 +16,7 @@ import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import UserSearch from './pages/UserSearch.tsx';
+import AboutPage from './pages/FAQ.tsx';
 
 const App = () => {
 
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<Edit />} />
+          <Route path="/aboutpage" exact element={<AboutPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
