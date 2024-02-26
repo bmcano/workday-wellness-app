@@ -38,6 +38,7 @@ const App = () => {
         <Routes>
           <Route path="/login" exact element={<Login />} />
           <Route path="/create_account" exact element={<CreateAccount />} />
+          <Route path="/forgot_password" exact element={<ForgotPassword />} />
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<Edit />} />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
