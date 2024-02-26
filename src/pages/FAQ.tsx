@@ -10,7 +10,7 @@ import rogpfp from '../static/images/rogeliopfp.jpeg';
 // @ts-ignore
 import brandonpfp from '../static/images/brandonpfp.jpeg';
 // @ts-ignore
-import ianpfp from '../static/images/default_profile_picture.png';
+import ianpfp from '../static/images/ianpfp.jpeg';
 // @ts-ignore
 import linkedinicon from '../static/images/linkedin image.png';
 // @ts-ignore
