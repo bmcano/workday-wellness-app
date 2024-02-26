@@ -466,6 +466,21 @@
   padding: 16px;
 }
 
+.navbar .nav-icon {
+  width: 24px; 
+  height: 24px; 
+  fill: var(--white);
+}
+
+.active-icon .nav-icon {
+  fill: var(--black); 
+}
+
+.logo-resize {
+  width: 2px;
+  height: auto;
+}
+
 .react-datepicker {
   border: 1px solid var(--dark-gray);
   border-radius: 4px;
