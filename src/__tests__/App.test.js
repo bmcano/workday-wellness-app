@@ -34,11 +34,10 @@ test('test when a user is free', () => {
       "end": "2024-02-26T20:30:00.000Z" // 2:30pm
     },
     {
-      "start": "2024-02-26T21:30:00.000Z", // 3pm
+      "start": "2024-02-26T21:00:00.000Z", // 3pm
       "end": "2024-02-26T23:00:00.000Z" // 5pm
     }
   ];
   const result = getFreeTimeSlots(input);
   expect(result).toEqual(expectedResult);
-  console.log(result);
 });
