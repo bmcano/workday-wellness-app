@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
 import AddEventModal from './modals/AddEventModal.tsx';
@@ -10,11 +10,22 @@ interface Props {
 
 const UpcomingEvents: React.FC<Props> = ({ events }) => {
     const now = new Date();
-    const cstOffset = -6 * 60 * 60 * 1000; // CST is UTC - 6 hours
-    const cstDate = new Date(now.getTime() + cstOffset);
+    const cstDate = new Date(now.getTime());
     const todayDate = cstDate.toISOString().split('T')[0];
-    const upcomingEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+    const [upcomingEvents, setUpcomingEvents] = useState<EventInput[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        updateEvents();
+        // update events every minute
+        const intervalId = setInterval(updateEvents, 1000 * 60);
+        return () => clearInterval(intervalId);
+    }, []);
+
+    const updateEvents = () => {
+        const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+        setUpcomingEvents(updatedEvents);
+    };
 
     const handleOpenModal = () => {
         setIsModalOpen(true);

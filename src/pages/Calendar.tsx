@@ -14,6 +14,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
+import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -21,6 +22,7 @@ const Calendar: React.FC = () => {
     const [events, setEvents] = useState<EventInput[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [deviceCodeMessage, setDeviceCodeMessage] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -36,9 +38,12 @@ const Calendar: React.FC = () => {
         apiGet('http://localhost:3001/get_calendar_data')
             .then(res => res.json())
             .then(data => {
-                if (data.success) setEvents(data.calendar)
+                if (data.success) {
+                    setEvents(data.calendar)
+                }
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false));
 
         checkOutlookClient();
     }, [navigate])
@@ -134,7 +139,7 @@ const Calendar: React.FC = () => {
                     </div>
                 </div>
                 <div className="card-column">
-                    <UpcomingEvents events={events} />
+                    {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={events} />)}
                 </div>
             </div>
         </React.Fragment>
