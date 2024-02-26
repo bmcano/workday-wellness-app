@@ -517,3 +517,16 @@
 .react-datepicker__input-container input:hover {
   border: 1px solid var(--dark-gray);
 }
+
+.social-icon {
+  width: 24px; 
+  height: 24px;
+  object-fit: contain; 
+}
+
+.social-links-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 10px; 
+}
