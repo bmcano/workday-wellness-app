@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR } from './modalStyles.ts';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 interface AddEventModalProps {
     isOpen: boolean;

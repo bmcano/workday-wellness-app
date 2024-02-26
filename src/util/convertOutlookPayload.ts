@@ -22,24 +22,24 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
 // This function returns an array of free time slots, where each slot is an object with start and 
 // end properties indicating the start and end times of the free slot. The function assumes 
 // that the workday is from 8am to 5pm. The workday start and end times can be customized
-export const getFreeTimeSlots = (payload: any, workStartHour: number = 8, workEndHour: number = 17): { start: string, end: string }[] => {
-    const { scheduleItems } = payload;
+export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 8, workEndHour: number = 17): { start: string, end: string }[] => {
+    // const { scheduleItems } = payload;
 
     // Get the current date
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
     // Filter the schedule items by the current day and convert them to an array of events with start and end times
-    const events: EventInput[] = scheduleItems
+    const events: EventInput[] = payload
         .filter(item => {
-            const startDate = new Date(item.start);
+            const startDate = new Date(item.start as Date);
             return startDate.getDate() === currentDate.getDate() &&
                 startDate.getMonth() === currentDate.getMonth() &&
                 startDate.getFullYear() === currentDate.getFullYear();
         })
         .map(item => {
-            const startDateUTC = new Date(item.start);
-            const endDateUTC = new Date(item.end);
+            const startDateUTC = new Date(item.start as Date);
+            const endDateUTC = new Date(item.end as Date);
             const startDateCST = new Date(startDateUTC.getTime() - (6 * 60 * 60 * 1000)).toISOString();
             const endDateCST = new Date(endDateUTC.getTime() - (6 * 60 * 60 * 1000)).toISOString();
             return {
