@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 // @ts-ignore
 import pfpImage from '../static/images/default_profile_picture.png';
+import pfpImage2 from 'src/static/images/NateGriffin.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
 
@@ -26,7 +27,7 @@ const Profile: React.FC = () => {
       case 'Alex':
         return <img src={pfpImage} alt="Profile" />;
       case 'Brandon':
-        return <img src={pfpImage} alt="Profile" />;
+        return <img src={pfpImage2} alt="Profile" />;
       case 'Ian':
         return <img src={pfpImage} alt="Profile" />;
       case 'Rogelio':
