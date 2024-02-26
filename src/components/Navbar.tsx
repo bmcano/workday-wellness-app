@@ -9,7 +9,7 @@ import { ReactComponent as ExerciseIcon } from "../static/assets/running-icon.sv
 import { ReactComponent as ChatIcon } from "../static/assets/speaking-bubbles-b-icon.svg"
 import { ReactComponent as CalendarIcon } from "../static/assets/calendar-icon.svg"
 import { ReactComponent as NotificationIcon } from "../static/assets/bell-icon.svg"
-import { ReactComponent as SFLogo } from "../static/assets/statefarmsmall.svg"
+import { ReactComponent as SFLogo } from "../static/assets/SFRED2.svg"
 
 const Navbar = () => {
 
