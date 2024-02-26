@@ -18,11 +18,11 @@ import githubicon from '../static/images/github image.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
 
-const TABS = ['Alex', 'Brandon', 'Ian', 'Rogelio']; 
+const TABS = ['Alex', 'Brandon', 'Ian', 'Rogelio'];
 
 const Profile: React.FC = () => {
 
-  const [activeTab, setActiveTab] = useState(TABS[0]); 
+  const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Profile: React.FC = () => {
         return (
           <div className="social-links-container">
             <a href={"https://github.com/AlexErrand"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon"/>
+              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
             </a>
             <a href={"https://www.linkedin.com/in/michael-arand/"} target="_blank" rel="noopener noreferrer">
               <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
@@ -65,10 +65,10 @@ const Profile: React.FC = () => {
         return (
           <div className="social-links-container">
             <a href={"https://github.com/bmcano"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon"/>
+              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
             </a>
             <a href={"https://www.linkedin.com/in/brandon-cano/"} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon"/>
+              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
             </a>
           </div>
         );
@@ -76,10 +76,10 @@ const Profile: React.FC = () => {
         return (
           <div className="social-links-container">
             <a href={"https://github.com/IanKuk"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon"/>
+              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
             </a>
             <a href={""} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon"/>
+              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
             </a>
           </div>
         );
@@ -87,10 +87,10 @@ const Profile: React.FC = () => {
         return (
           <div className="social-links-container">
             <a href={"https://github.com/RedJelloooo"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon"/>
+              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
             </a>
             <a href={"https://www.linkedin.com/in/rvalleia/"} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon"/>
+              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
             </a>
           </div>
         );
@@ -146,7 +146,7 @@ const Profile: React.FC = () => {
       <div className="card-columns">
         <div className="card-column">
           <div className="card card-span-4">
-          <h1>Meet the developers!</h1>
+            <h1>Meet the developers!</h1>
             <div className="card-header">
               {TABS.map((tab) => (
                 <button
@@ -160,7 +160,7 @@ const Profile: React.FC = () => {
             </div>
             <div className="divider" />
             <div className="profile-content-container">
-              
+
               <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
                 {renderProfilePic()}
               </div>
@@ -172,13 +172,25 @@ const Profile: React.FC = () => {
               </div>
             </div>
             <div className="card-content">
-              <p>This project was create for our senior design project at the University of Iowa. The original proposal and project is being sponsored by State Farm.
+              <h2>About the Project</h2>
+              <p>
+                <strong>University of Iowa Senior Design Project</strong><br />
+                This project was created for our senior design project at the University of Iowa. Sponsored by State Farm, it represents a collaborative effort between students and industry professionals.
+              </p>
 
-                  add description of what app does
+              <h3>Application Overview</h3>
+              <p>
+               
+              </p>
 
-                  add faqs as we think of them
+              <h3>Frequently Asked Questions (FAQs)</h3>
+              <p>
+                
+              </p>
 
-                  disclaimer about how we are not medical professionals and that the recommendations are by our best guesses
+              <h3>Medical Disclaimer</h3>
+              <p>
+                Please note that we are not medical professionals. The recommendations provided by this application are based on our best guesses and should not be taken as professional medical advice.
               </p>
             </div>
           </div>
