@@ -19,7 +19,7 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     return events;
 }
 
-export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 8, workEndHour: number = 17): { start: string, end: string }[] => {
+export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 14, workEndHour: number = 23): { start: string, end: string }[] => {
     const events: EventInput[] = [...payload];
     events.sort((a, b) => new Date(a.start as string).getTime() - new Date(b.start as string).getTime());
 
