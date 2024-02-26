@@ -44,7 +44,7 @@ export const getOutlookCalendar = async (req, res) => {
     try {
         const user = await graphHelper.getUserAsync(req.session._id);
         const email = user.mail;
-        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email);
+        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email, req.body);
         return res.json({ authorized: true, calendar: calendar });
     } catch (error) {
         console.log(error);

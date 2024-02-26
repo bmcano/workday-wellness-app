@@ -53,8 +53,8 @@ app.post('/remove_friend', async (req, res) => removeFriend(req, res));
 // see ./controllers/outlookController.js for more details
 app.get('/check_outlook_client', async (req, res) => checkIfOutlookClientExist(req, res));
 app.get('/initalize_outlook', async (req, res) => initalizeOutlookClient(req, res));
-app.get('/sync_calendar', async (req, res) => getOutlookCalendar(req, res));
 app.get('/get_calendar_data', async (req, res) => getCalendarData(req, res));
+app.post('/sync_calendar', async (req, res) => getOutlookCalendar(req, res));
 app.post('/save_calendar_data', async (req, res) => saveCalendarData(req, res));
 app.post('/send_email', async (req, res) => sendEmail(req, res));
 app.post('/add_calendar_data', async (req, res) => addCalendarData(req, res));
