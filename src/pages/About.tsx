@@ -55,7 +55,7 @@ const About: React.FC = () => {
           <img src={githubicon} alt="GitHub Profile" className="social-icon" />
         </a>
         <a href={linkedIn} target="_blank" rel="noopener noreferrer">
-           <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
+          <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
         </a>
       </div>
     );
@@ -66,11 +66,11 @@ const About: React.FC = () => {
       case 'Alex':
         return linkContainer("https://github.com/AlexErrand", "https://www.linkedin.com/in/michael-arand/");
       case 'Brandon':
-        return linkContainer("https://github.com/bmcano","https://www.linkedin.com/in/brandon-cano/");
+        return linkContainer("https://github.com/bmcano", "https://www.linkedin.com/in/brandon-cano/");
       case 'Ian':
-        return linkContainer("https://github.com/IanKuk","");
+        return linkContainer("https://github.com/IanKuk", "");
       case 'Rogelio':
-        return linkContainer("https://github.com/RedJelloooo","https://www.linkedin.com/in/rvalleia/");
+        return linkContainer("https://github.com/RedJelloooo", "https://www.linkedin.com/in/rvalleia/");
       default:
         <img src={pfpImage} alt="Profile" />;
     }
@@ -137,17 +137,19 @@ const About: React.FC = () => {
             </div>
             <div className="divider" />
             <div className="profile-content-container">
-
               <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
                 {renderProfilePic()}
               </div>
-              <div className="profile-text-container">
+              <div className="profile-info-container"> {/* Adjusted the class name */}
                 {renderBasicInfo()}
+                <div className="social-links-container"> {/* This should be the class you've provided for social links */}
+                  {renderSocials()}
+                </div>
+                
               </div>
-              <div className="profile-text-container">
-                {renderSocials()}
-              </div>
+              
             </div>
+            <div className="divider" />  
             <div className="card-content">
               <h2>About the Project</h2>
               <p>
@@ -157,12 +159,12 @@ const About: React.FC = () => {
 
               <h3>Application Overview</h3>
               <p>
-               
+
               </p>
 
               <h3>Frequently Asked Questions (FAQs)</h3>
               <p>
-                
+
               </p>
 
               <h3>Medical Disclaimer</h3>
@@ -173,6 +175,7 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
+
     </React.Fragment>
   );
 };
