@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 // @ts-ignore
-import messageSound from '../static/sounds/popcorn.mp3' 
+import messageSound from '../static/sounds/popcorn.mp3'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
+import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 
 let intervalId: number | null = null;
 
@@ -23,6 +24,7 @@ const Home: React.FC = () => {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -34,7 +36,8 @@ const Home: React.FC = () => {
           setTodaysEvents(data.user.calendar);
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(() => setLoading(false));
     // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (intervalId !== null) clearInterval(intervalId);
@@ -151,7 +154,7 @@ const Home: React.FC = () => {
         </div>
         <div className="card-column">
           <div>
-            <UpcomingEvents events={todaysEvent} />
+            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
           </div>
         </div>
       </div>

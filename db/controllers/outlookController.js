@@ -34,9 +34,10 @@ export const initalizeOutlookClient = async (req, res) => {
         await graphHelper.getUserAsync(req.session._id);
     } catch (error) {
         console.log(error);
-        return res
-            .status(500)
-            .json({ error: "Error connecting to Outlook." });
+        if (error.code === 'AuthenticationRequiredError') {
+            console.log("User did not log into outlook");
+        }
+        // intionally omitted the return statment as it crashes server if the user does not login after return in the try block
     }
 }
 
@@ -44,7 +45,7 @@ export const getOutlookCalendar = async (req, res) => {
     try {
         const user = await graphHelper.getUserAsync(req.session._id);
         const email = user.mail;
-        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email);
+        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email, req.body);
         return res.json({ authorized: true, calendar: calendar });
     } catch (error) {
         console.log(error);
