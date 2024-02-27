@@ -16,7 +16,7 @@ import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import UserSearch from './pages/UserSearch.tsx';
-import AboutPage from './pages/FAQ.tsx';
+import AboutPage from './pages/About.tsx';
 
 const App = () => {
 

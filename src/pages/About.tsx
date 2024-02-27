@@ -20,7 +20,7 @@ import "../App.css";
 
 const TABS = ['Alex', 'Brandon', 'Ian', 'Rogelio'];
 
-const Profile: React.FC = () => {
+const About: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
@@ -200,4 +200,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default About;
