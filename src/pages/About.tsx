@@ -48,52 +48,29 @@ const About: React.FC = () => {
     }
   };
 
+  const linkContainer = (github: string, linkedIn: string) => {
+    return (
+      <div className="social-links-container">
+        <a href={github} target="_blank" rel="noopener noreferrer">
+          <img src={githubicon} alt="GitHub Profile" className="social-icon" />
+        </a>
+        <a href={linkedIn} target="_blank" rel="noopener noreferrer">
+           <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
+        </a>
+      </div>
+    );
+  }
+
   const renderSocials = () => {
     switch (activeTab) {
       case 'Alex':
-        return (
-          <div className="social-links-container">
-            <a href={"https://github.com/AlexErrand"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
-            </a>
-            <a href={"https://www.linkedin.com/in/michael-arand/"} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
-            </a>
-          </div>
-        );
+        return linkContainer("https://github.com/AlexErrand", "https://www.linkedin.com/in/michael-arand/");
       case 'Brandon':
-        return (
-          <div className="social-links-container">
-            <a href={"https://github.com/bmcano"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
-            </a>
-            <a href={"https://www.linkedin.com/in/brandon-cano/"} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
-            </a>
-          </div>
-        );
+        return linkContainer("https://github.com/bmcano","https://www.linkedin.com/in/brandon-cano/");
       case 'Ian':
-        return (
-          <div className="social-links-container">
-            <a href={"https://github.com/IanKuk"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
-            </a>
-            <a href={""} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
-            </a>
-          </div>
-        );
+        return linkContainer("https://github.com/IanKuk","");
       case 'Rogelio':
-        return (
-          <div className="social-links-container">
-            <a href={"https://github.com/RedJelloooo"} target="_blank" rel="noopener noreferrer">
-              <img src={githubicon} alt="GitHub Profile" className="social-icon" />
-            </a>
-            <a href={"https://www.linkedin.com/in/rvalleia/"} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinicon} alt="LinkedIn Profile" className="social-icon" />
-            </a>
-          </div>
-        );
+        return linkContainer("https://github.com/RedJelloooo","https://www.linkedin.com/in/rvalleia/");
       default:
         <img src={pfpImage} alt="Profile" />;
     }
