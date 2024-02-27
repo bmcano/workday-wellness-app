@@ -31,6 +31,7 @@ const Calendar: React.FC = () => {
     };
 
     const handleDateOpenModal = () => {
+        checkOutlookClient();
         setIsDateModalOpen(true);
     }
 
@@ -61,6 +62,7 @@ const Calendar: React.FC = () => {
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
+                setIsDateModalOpen(data.authorized)
             })
             .catch(error => console.log(error));
     }
@@ -83,8 +85,6 @@ const Calendar: React.FC = () => {
     }
 
     const handleCalendarSync = (start: Date, end: Date) => {
-        checkOutlookClient();
-
         const jsonData = JSON.stringify({ start: start, end: end });
         apiPost('http://localhost:3001/sync_calendar', jsonData)
             .then(res => res.json())
