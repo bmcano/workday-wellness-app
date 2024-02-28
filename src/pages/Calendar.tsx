@@ -14,20 +14,30 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { EventInput } from '@fullcalendar/core'
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
+import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
+import DateRangeModal from "../components/modals/DateRangeModal.tsx";
 
 const Calendar: React.FC = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [events, setEvents] = useState<EventInput[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDateModalOpen, setIsDateModalOpen] = useState(false);
     const [deviceCodeMessage, setDeviceCodeMessage] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
 
+    const handleDateOpenModal = () => {
+        checkOutlookClient();
+        setIsDateModalOpen(true);
+    }
+
     const handleCloseModal = () => {
         setIsModalOpen(false);
+        setIsDateModalOpen(false);
     };
 
     const navigate = useNavigate()
@@ -36,9 +46,12 @@ const Calendar: React.FC = () => {
         apiGet('http://localhost:3001/get_calendar_data')
             .then(res => res.json())
             .then(data => {
-                if (data.success) setEvents(data.calendar)
+                if (data.success) {
+                    setEvents(data.calendar)
+                }
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false));
 
         checkOutlookClient();
     }, [navigate])
@@ -49,6 +62,7 @@ const Calendar: React.FC = () => {
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
+                setIsDateModalOpen(data.authorized)
             })
             .catch(error => console.log(error));
     }
@@ -70,9 +84,9 @@ const Calendar: React.FC = () => {
             .catch(error => console.log(error));
     }
 
-    const handleCalendarSync = () => {
-        checkOutlookClient();
-        apiGet('http://localhost:3001/sync_calendar')
+    const handleCalendarSync = (start: Date, end: Date) => {
+        const jsonData = JSON.stringify({ start: start, end: end });
+        apiPost('http://localhost:3001/sync_calendar', jsonData)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -103,7 +117,8 @@ const Calendar: React.FC = () => {
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin}>Login to Outlook</Button>
                         <DeviceCodeModal isOpen={isModalOpen} onClose={handleCloseModal} deviceCodeMessage={deviceCodeMessage} />
-                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleCalendarSync} disabled={!loggedIn}>Sync Calendar</Button>
+                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleDateOpenModal} disabled={!loggedIn}>Sync Calendar</Button>
+                        <DateRangeModal isOpen={isDateModalOpen} onClose={handleCloseModal} onSave={handleCalendarSync} />
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>
                 </div>
@@ -134,7 +149,7 @@ const Calendar: React.FC = () => {
                     </div>
                 </div>
                 <div className="card-column">
-                    <UpcomingEvents events={events} />
+                    {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={events} />)}
                 </div>
             </div>
         </React.Fragment>

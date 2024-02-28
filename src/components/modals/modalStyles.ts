@@ -1,4 +1,5 @@
 export const marginTLR = { marginTop: '16px', marginLeft: '16px', marginRight: '16px' }
+export const dividerMargin = { marginTop: '24px', marginLeft: '16px', marginRight: '16px'}
 export const customModalStyle = {
     content: {
         width: '40%',

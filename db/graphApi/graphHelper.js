@@ -51,24 +51,20 @@ export async function getUserAsync(user_id) {
         .get();
 }
 
-export async function getCalendarAysnc(user_id, email) {
+export async function getCalendarAysnc(user_id, email, body) {
     const userClient = userClients[user_id];
     if (!userClient) {
         throw new Error('Graph has not been initialized for user auth');
     }
 
-    const date = new Date();
-    const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
     const scheduleInformation = {
         schedules: [email],
         startTime: {
-            dateTime: startDate,
+            dateTime: body.start,
             timeZone: 'Central Standard Time'
         },
         endTime: {
-            dateTime: endDate,
+            dateTime: body.end,
             timeZone: 'Central Standard Time'
         },
         availabilityViewInterval: 60
