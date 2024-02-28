@@ -1,8 +1,9 @@
 import { NavigateFunction } from "react-router-dom"
+import { getServerCall } from "../util/getFullAppLink.ts"
 
 export const handleLogout = async (navigate: NavigateFunction) => {
     await fetch(
-        'http://localhost:3001/logout', {
+        getServerCall("/logout"), {
         method: "post",
         credentials: 'include',
         mode: "cors",

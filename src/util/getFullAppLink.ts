@@ -5,3 +5,8 @@ export const getFullAppLink = (link: string): string => {
     const public_url = process.env.PUBLIC_URL;
     return `${public_url}${link}`;
 }
+
+export const getServerCall = (link: string): string => {
+    const server_url = process.env.REACT_APP_SERVER_URL;
+    return `${server_url}${link}`;
+}

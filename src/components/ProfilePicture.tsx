@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "./DefaultProfile.tsx";
+import { getServerCall } from "../util/getFullAppLink.ts";
 
 interface ImageStyle {
     width: string;
@@ -35,7 +36,7 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
 
     useEffect(() => {
         if (isUserProfile) {
-            apiGet('http://localhost:3001/get_user')
+            apiGet(getServerCall("/get_user"))
                 .then(res => res.json())
                 .then(data => {
                     if (data.authorized) {

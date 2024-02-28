@@ -14,7 +14,7 @@ import { addFriend, removeFriend, searchFriendsList, searchUsersList, viewUserPr
  */
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.REACT_APP_WEBSITE_URL,
     methods: ["POST", "GET"],
     credentials: true
 }));

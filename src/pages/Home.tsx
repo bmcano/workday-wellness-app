@@ -12,6 +12,7 @@ import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
+import { getServerCall } from "../util/getFullAppLink.ts";
 
 let intervalId: number | null = null;
 
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     AuthorizedUser(navigate);
-    apiGet('http://localhost:3001/get_user')
+    apiGet(getServerCall("/get_user"))
       .then(res => res.json())
       .then(data => {
         if (data.authorized) {

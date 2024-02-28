@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage.tsx";
 import imageCompression from "browser-image-compression";
 import { apiPost } from "../api/serverApiCalls.tsx";
+import { getServerCall } from "../util/getFullAppLink.ts";
 
 const EditProfile: React.FC = () => {
 
@@ -33,7 +34,7 @@ const EditProfile: React.FC = () => {
             }
 
             const jsonData = JSON.stringify({ base64Image: base64Image });
-            apiPost('http://localhost:3001/upload', jsonData);
+            apiPost(getServerCall("/upload"), jsonData);
             console.log("Photo saved successfully.");
         } catch (error) {
             console.error('Error saving image to database:', error);
