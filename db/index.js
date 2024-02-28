@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '125kb' }));
 app.use(json());
 app.use(cookieParser());
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'default_secret',
+    secret: process.env.REACT_APP_SESSION_SECRET || 'default_secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
