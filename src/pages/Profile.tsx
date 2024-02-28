@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
         <div className="card-column">
           <div className="card card-span-4">
             <div className="profile-content-container">
-              <div className="profile-picture-page" onClick={() => navigate(getFullAppLink("/profile/edit"))}>
+              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
                 <img src={pfpImage} alt="Profile" />
                 <div className="edit-overlay">Edit</div>
               </div>
