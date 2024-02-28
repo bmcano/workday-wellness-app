@@ -13,13 +13,14 @@ import { ReactComponent as LifeStatsIcon } from "../static/assets/bar-chart-outl
 
 const Profile: React.FC = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
         AuthorizedUser(navigate)
-    }, [navigate])
+    }, [navigate]);
 
     const handleClick = (link: string) => {
-        navigate(link)
+        // Note: we do not need to call getFullAppLink since it stacking on settings
+        navigate(link);
     }
 
     return (
@@ -53,8 +54,8 @@ const Profile: React.FC = () => {
                         <PrivacyIcon />
                         <p>Privacy Settings</p>
                     </div>
-                    <div className="settings-option" onClick={() => handleClick("/aboutpage")}>
-                        <div className="icon support" ></div>
+                    <div className="settings-option" onClick={() => handleClick("/about")}>
+                        <div className="icon support"></div>
                         <SupportIcon />
                         <p>Contact Support</p>
                     </div>

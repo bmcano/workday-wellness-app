@@ -76,46 +76,30 @@ const About: React.FC = () => {
     }
   };
 
+  const basicInfo = (name: string, degree: string, graduation: string) => {
+    return (
+      <div>
+        <h1>{name}</h1>
+        <p>{"Major: " + degree}</p>
+        <p>{"Graduating: " + graduation}</p>
+      </div>
+    );
+  }
+
   const renderBasicInfo = () => {
     switch (activeTab) {
       case 'Alex':
-        return (
-          <>
-            <h1>Alex</h1>
-            <p>{'Front End'}</p>
-            <p>Since January 2024</p>
-          </>
-        );
+        return (basicInfo("Alex", "B.S.E Computer Science and Engineering", "May, 2024"));
       case 'Brandon':
-        return (
-          <>
-            <h1>Brandon</h1>
-            <p>{'{Insert Role at Company}'}</p>
-            <p>Since Jan 1st 1999</p>
-          </>
-        );
+        return (basicInfo("Brandon", "B.S.E Computer Science and Engineering", "May, 2024"));
       case 'Ian':
-        return (
-          <>
-            <h1>Ian</h1>
-            <p>{'{Insert Role at Company}'}</p>
-            <p>Since Jan 1st 1999</p>
-          </>
-        );
+        return (basicInfo("Ian", "B.S.E Computer Science and Engineering", "December, 2024"));
       case 'Rogelio':
-        return (
-          <>
-            <h1>Rogelio</h1>
-            <p>{'{Insert Role at Company}'}</p>
-            <p>Since Jan 1st 1999</p>
-          </>
-        );
+        return (basicInfo("Rogelio", "B.S.E Computer Science and Engineering", "May, 2024"));
       default:
         return <div>Select a tab.</div>;
     }
   };
-
-
 
   return (
     <React.Fragment>
@@ -137,39 +121,36 @@ const About: React.FC = () => {
             </div>
             <div className="divider" />
             <div className="profile-content-container">
-              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
+              <div className="profile-picture-page">
                 {renderProfilePic()}
               </div>
-              <div className="profile-info-container"> {/* Adjusted the class name */}
-                {renderBasicInfo()}
-                <div className="social-links-container"> {/* This should be the class you've provided for social links */}
+              <div className="card-list">
+                <div className="profile-info-container">
+                  {renderBasicInfo()}
+                </div>
+                <div className="social-links-container">
                   {renderSocials()}
                 </div>
-                
               </div>
-              
             </div>
-            <div className="divider" />  
+            <div className="divider" />
             <div className="card-content">
               <h2>About the Project</h2>
+              <h3>University of Iowa Senior Design Project</h3>
               <p>
-                <strong>University of Iowa Senior Design Project</strong><br />
                 This project was created for our senior design project at the University of Iowa. Sponsored by State Farm, it represents a collaborative effort between students and industry professionals.
               </p>
-
               <h3>Application Overview</h3>
               <p>
-
+                Application Overview - will be added later
               </p>
-
               <h3>Frequently Asked Questions (FAQs)</h3>
               <p>
-
+                FAQs - will be added later
               </p>
-
               <h3>Medical Disclaimer</h3>
               <p>
-                Please note that we are not medical professionals. The recommendations provided by this application are based on our best guesses and should not be taken as professional medical advice.
+                Please note that we are not medical professionals. This application was made purely as a prototype. The recommendations provided by this application are based on our best guesses and should not be taken as professional medical advice.
               </p>
             </div>
           </div>
