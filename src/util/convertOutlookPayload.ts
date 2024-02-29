@@ -21,6 +21,16 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
 
 export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 14, workEndHour: number = 23): { start: string, end: string }[] => {
     const events: EventInput[] = [...payload];
+
+    //no events, return the entire workday as free time
+    if (events.length === 0) {
+        const workdayStart = new Date();
+        workdayStart.setUTCHours(workStartHour, 0, 0, 0);
+        const workdayEnd = new Date();
+        workdayEnd.setUTCHours(workEndHour, 0, 0, 0);
+        return [{ start: workdayStart.toISOString(), end: workdayEnd.toISOString() }];
+    }
+
     events.sort((a, b) => new Date(a.start as string).getTime() - new Date(b.start as string).getTime());
 
     const freeTimeSlots: { start: string, end: string }[] = [];
