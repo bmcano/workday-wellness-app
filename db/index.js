@@ -32,7 +32,8 @@ app.use(session({
     }
 }));
 
-connect("mongodb://localhost:27017/wellness-app")
+// connect("mongodb://localhost:27017/wellness-app")
+connect(process.env.REACT_APP_MONGO_ATLAS)
 
 // see ./controllers/sessionController.js for more details.
 app.post('/register', async (req, res) => registerAccount(req, res));
