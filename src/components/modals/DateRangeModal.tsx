@@ -4,16 +4,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR, dividerMargin } from './modalStyles.ts';
+import { DateRangeModalProps } from './OpenSaveCloseModalProps.ts';
 
-Modal.setAppElement('#root');
-
-interface AddEventModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (start: Date, end: Date) => void;
-}
-
-const DateRangeModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
+const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave }) => {
     const [startDate, setStartDate] = useState(() => {
         const firstDayOfMonth = new Date();
         firstDayOfMonth.setDate(1);
