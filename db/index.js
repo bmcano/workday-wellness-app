@@ -39,7 +39,7 @@ connect(process.env.REACT_APP_MONGO_ATLAS)
 app.post('/register', async (req, res) => registerAccount(req, res));
 app.post('/login', async (req, res) => login(req, res));
 app.post('/logout', (req, res) => logout(req, res));
-app.get('/', (req, res) => checkSession(req, res));
+app.post('/', (req, res) => checkSession(req, res));
 // see ./controllers/profileController.js for more details.
 app.get('/get_user', async (req, res) => getUser(req, res));
 app.post('/upload', async (req, res) => uploadProfilePicture(req, res));

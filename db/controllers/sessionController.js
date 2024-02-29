@@ -53,11 +53,11 @@ export const login = async (req, res) => {
         if (user.stub_data && user.password === password) {
             console.log("STUB_DATA");
             req.session._id = id;
-            return res.json({ success: true });
+            return res.json({ success: true, token: id });
         }
         if (await bcrypt.compare(password, user.password)) {
             req.session._id = id;
-            return res.json({ success: true });
+            return res.json({ success: true, token: id });
         }
         return res
             .status(400)
@@ -83,9 +83,9 @@ export const logout = (req, res) => {
 }
 
 export const checkSession = (req, res) => {
-    console.log("Session: ", req.session._id);
-    if (req.session._id) {
-        return res.json({ authorized: true, id: req.session._id });
+    console.log("Session: ", req.body.token);
+    if (req.body.token) {
+        return res.json({ authorized: true, id: req.body.token });
     } else {
         return res.json({ authorized: false });
     }

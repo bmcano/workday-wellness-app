@@ -2,6 +2,7 @@ import { NavigateFunction } from "react-router-dom"
 import { getServerCall } from "../util/getFullAppLink.ts"
 
 export const handleLogout = async (navigate: NavigateFunction) => {
+    localStorage.clear();
     await fetch(
         getServerCall("/logout"), {
         method: "post",

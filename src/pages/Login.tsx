@@ -28,6 +28,7 @@ const Login: React.FC = () => {
             .then(data => {
                 if (data.success) {
                     console.log("Login successful");
+                    localStorage.setItem('token', data.token);
                     navigate('/');
                 } else {
                     alert("Incorrect email or password.");
