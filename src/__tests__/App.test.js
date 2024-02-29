@@ -6,6 +6,8 @@ test('test when a user is free', () => {
   // render(<App />);
   // const linkElement = screen.getByText(/Home/i);
   // expect(linkElement).toBeInTheDocument();
+
+  //basic test case with a few meetings in the day 
   const input = [
     {
       "title": "Meeting 1",
