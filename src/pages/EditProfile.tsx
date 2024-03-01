@@ -90,22 +90,6 @@ const EditProfile: React.FC = () => {
         }));
     };
 
-    const getCurrentWeekRange = () => {
-        const currentDate = new Date();
-        const firstDayOfWeek = new Date(currentDate);
-        firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
-    
-        const lastDayOfWeek = new Date(firstDayOfWeek);
-        lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
-    
-        const firstDay = firstDayOfWeek.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-        const lastDay = lastDayOfWeek.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-    
-        return `${firstDay} - ${lastDay}`;
-    };
-
-    const weekRange = getCurrentWeekRange();
-
     return (
         <React.Fragment>
             <h1>Edit Profile</h1>
@@ -124,7 +108,7 @@ const EditProfile: React.FC = () => {
                     </div>
                     <div className="card-column">
                         <div className="card">
-                        <Typography variant="h5" style={{ marginBottom: '20px' }}>Week: {weekRange}</Typography>
+                        
                             {Object.keys(workHours).map((day) => (
                                 <div key={day}>
                                     <Typography variant="body1">{day}</Typography>
