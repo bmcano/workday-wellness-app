@@ -137,7 +137,7 @@ const About: React.FC = () => {
             </div>
             <div className="divider" />
             <div className="profile-content-container">
-              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
+              <div className="profile-picture-page" >
                 {renderProfilePic()}
               </div>
               <div className="profile-info-container"> {/* Adjusted the class name */}
