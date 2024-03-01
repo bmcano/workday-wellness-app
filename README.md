@@ -33,7 +33,7 @@ The following steps will guide you through the installation guide to start devel
 
 7. Run the command `npm start` which will run the project on [http://localhost:3000](http://localhost:3000) to verify everything is working properly
 
-## MongoDB Setup
+## Server and MongoDB Setup
 
 1. Download and intall Mongo Community Server, Mongosh, and MongoDB Compass
 
@@ -77,7 +77,7 @@ The following steps will guide you through the installation guide to start devel
 
 2. In the project directory: `pip install graphviz`
 
-3. Follow instructions from [here](https://pypi.org/project/graphviz/) to set the PATH enviorment variables
+3. Follow instructions from [here](https://pypi.org/project/graphviz/) to set the `PATH` enviorment variables
 
 4. A computer restart will be required
 
@@ -106,16 +106,6 @@ Launches the test runner in the interactive watch mode.
 Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
 ### `npm run seed`
 
 Will run the python script to seed all the stub data into the MongoDB database.
@@ -128,6 +118,21 @@ In the project directory this will first seed the data then start the server on 
 
 This will run everything in one command to get the server up, the seeding script, start the database server, start the front-end server, then open the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+### `npm run nav`
+
+This will create a `pdf` of the navigation graph that is manually updated for the sake of documentation.
+The `pdf` can be found at `src/static/navigation/navigation.gv.pdf`.
+
+### `npm run predeploy`
+
+Builds the app for production to the `build` folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+### `npm run deploy`
+
+Builds the app for production to the `build` folder.
+Then will push the build to the `gh-pages` branch and start the deployment of the front-end application
+
 ### In the `db` directory, you can run:
 
 ### `npm run seed`
@@ -137,33 +142,3 @@ Will run the python script to seed all the stub data into the MongoDB database.
 ### `npm run start:db`
 
 In the `db` directory this will start the server on `port:3001`. Open [http://localhost:3001](http://localhost:3001) to view it in your browser. This will not seed the data.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
