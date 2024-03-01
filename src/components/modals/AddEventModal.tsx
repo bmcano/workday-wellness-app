@@ -9,7 +9,7 @@ import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 interface AddEventModalProps {
     isOpen: boolean;
