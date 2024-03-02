@@ -1,8 +1,10 @@
 import { applyExercises, splitUpMisc, splitUpStretches } from '../util/exerciseReccomendations.ts';
 const exercises: string[] = [];
-const mode: number[] = [1, 2, 3];
-const exerciseArray: string[] = ['test','other test','extra test']
-const neckStretch: string[] = ['neck test','neck other test','neck extra test']
+const mode: number[] = [1, 3, 3];
+//const exerciseArray: string[] = ['test','other test','extra test']
+const exerciseArray: string[] = []
+//const neckStretch: string[] = ['neck test','neck other test','neck extra test']
+const neckStretch: string[] = []
 const backStretch: string[] = ['back test','back other test','back extra test']
 const wristStretch: string[] = ['wrist test','wrist other test','wrist extra test']
 const miscArray: string[] = ['misc test','misc other test','misc extra test']
