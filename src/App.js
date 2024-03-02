@@ -2,6 +2,7 @@ import Login from './pages/Login.tsx';
 import CreateAccount from './pages/CreateAccount.tsx';
 import Home from './pages/Home.tsx';
 import Profile from './pages/Profile.tsx';
+import ForgotPassword from './pages/ForgotPassword.tsx';
 import EditProfile from './pages/EditProfile.tsx';
 import Friends from './pages/Friends.tsx';
 import UserProfile from './pages/UserProfile.tsx';
@@ -39,6 +40,7 @@ const App = () => {
         <Routes>
           <Route path="/login" exact element={<Login />} />
           <Route path="/create_account" exact element={<CreateAccount />} />
+          <Route path="/forgot_password" exact element={<ForgotPassword />} />
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />

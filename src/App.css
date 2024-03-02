@@ -466,6 +466,14 @@
   padding: 16px;
 }
 
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .navbar .nav-icon {
   width: 24px; 
   height: 24px; 
