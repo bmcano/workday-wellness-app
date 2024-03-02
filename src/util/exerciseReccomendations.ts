@@ -6,7 +6,7 @@ const neckStretch: string[] = ['neck test','neck other test','neck extra test']
 const backStretch: string[] = ['back test','back other test','back extra test']
 const wristStretch: string[] = ['wrist test','wrist other test','wrist extra test']
 // Function to perform exercises
-function performExercises(exerciseArray: string[], times: number, exercises: string[]): void {
+function performExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
     if (exerciseArray.length >= mode[0])
     {
         for (let i =0; i<mode[0]; i++)
@@ -33,6 +33,34 @@ function performExercises(exerciseArray: string[], times: number, exercises: str
     }
 }
 
+function performStretches(stretchArray: string[],  strectchSubArray: number, exercises: string[]){
+    let extra = 0;
+    if (stretchArray.length >= strectchSubArray)
+    {
+        for (let i =0; i<strectchSubArray; i++)
+        {
+            const randomPoint = Math.floor(Math.random() * stretchArray.length)
+            const randomExercise = stretchArray[randomPoint];
+            exercises.push(randomExercise);
+            stretchArray.splice(randomPoint, 1);
+        }
+    }
+    if (stretchArray.length < strectchSubArray && stretchArray.length != 0){
+        extra = strectchSubArray - stretchArray.length
+        for (let i =0; i<stretchArray.length; i++)
+        {
+            const randomPoint = Math.floor(Math.random() * stretchArray.length)
+            const randomExercise = stretchArray[randomPoint];
+            exercises.push(randomExercise);
+            stretchArray.splice(randomPoint, 1);
+        }
+    }
+    else{
+        extra = strectchSubArray
+    }
+    return ([stretchArray,extra])
+}
+
 // Function to apply the base and remainder logic
 function applyBaseAndRemainderLogic(stretchValue: number, array: number[]): void {
   let remainder = stretchValue % 3; //finds remainder after dividing by 3
@@ -49,10 +77,7 @@ function applyBaseAndRemainderLogic(stretchValue: number, array: number[]): void
 
 
   // Implement exercise logic by looping with subarray [0, 6]
-  for (let i = 0; i < 6; i++) {
-    const exerciseSubArray = array.slice(0, 6);
-    performExercises(exerciseSubArray, exerciseSubArray[0]);
-  }
+  performStretches(backStretch,splitStretches[0],exercises)
 }
 
 // Perform exercises from the easy array
