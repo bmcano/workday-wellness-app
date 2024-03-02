@@ -62,11 +62,10 @@ function performStretches(stretchArray: string[],  strectchSubArray: number, exe
 }
 
 // Function to apply the base and remainder logic
-function applyBaseAndRemainderLogic(stretchValue: number, array: number[]): void {
+function applyBaseAndRemainderLogic(mode: number[], exercises: string[]): void {
   let extra =0
-  let remainder = stretchValue % 3; //finds remainder after dividing by 3
-  let base = Math.floor(stretchValue /3); //three main stretch types want to give all of them the same base even amount
-  let counter = 1;
+  let remainder = mode[1] % 3; //finds remainder after dividing by 3
+  let base = Math.floor(mode[1] /3); //three main stretch types want to give all of them the same base even amount
   const splitStretches: number[] = [base,base,base]
 
   if (remainder >= 1) {
@@ -80,7 +79,13 @@ function applyBaseAndRemainderLogic(stretchValue: number, array: number[]): void
   // Implement exercise logic by looping with subarray [0, 6]
   extra += performStretches(backStretch,splitStretches[0],exercises)
   extra += performStretches(neckStretch,splitStretches[1],exercises)
-  extra += performStretches(backStretch,splitStretches[2],exercises)
+  extra += performStretches(wristStretch,splitStretches[2],exercises)
+  let allStretches = backStretch.concat(neckStretch, wristStretch);
+  let leftover =  performStretches(allStretches,extra,exercises)
+  if (leftover > 0) {
+    mode[2] += leftover * 2
+  }
+  
 
 }
 
