@@ -1,5 +1,9 @@
 // Define the exercises array and the easy array
 
+//easy mode[1,2,3]
+//medium mode[2,4,5]
+//hard mode[3,6,7]
+
 // Function to perform exercises
 export function applyExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
     //console.log("exercisearray length "+ exerciseArray.length);
