@@ -11,16 +11,18 @@ describe('applyExercises', () => {
   });
 
   test('with fewer exercises available than assigned', () => {
+    const mode2: number[] = [2, 3, 3];
     const exerciseArray2: string[] = ['test'];
-    applyExercises(exerciseArray2, mode, exercises);
-    expect(exercises.length).toBe(mode[0]);
-    expect(mode[1]).toBe(2);
+    const exercises2: string[] = [];
+    applyExercises(exerciseArray2, mode2, exercises2);
+    expect(exercises2.length).toBe(1);
+    expect(mode2[1]).toBe(5);
   });
 
   test('with no exercises available', () => {
     const exerciseArray3: string[] = [];
     applyExercises(exerciseArray3, mode, exercises);
-    expect(mode[1]).toBe(6);
+    expect(mode[1]).toBe(5);
   });
 });
 
@@ -39,22 +41,25 @@ describe('splitUpStretches', () => {
   });
 
   test('with base and remainder 1', () => {
+    const exercises: string[] = [];
     splitUpStretches(mode, backStretch, neckStretch, wristStretch, exercises);
-    expect(exercises.length).toBe(mode[1] + 1);
+    expect(exercises.length).toBe(mode[1]);
   });
 
   test('with base and remainder 2', () => {
+    const exercises: string[] = [];
     const modeWithRemainder2: number[] = [1, 2, 0];
     splitUpStretches(modeWithRemainder2, backStretch, neckStretch, wristStretch, exercises);
-    expect(exercises.length).toBe(modeWithRemainder2[1] + 2);
+    expect(exercises.length).toBe(modeWithRemainder2[1]);
   });
 
   test('with no stretches available', () => {
+    const exercises: string[] = [];
     const backStretchEmpty: string[] = [];
     const neckStretchEmpty: string[] = [];
     const wristStretchEmpty: string[] = [];
     splitUpStretches(mode, backStretchEmpty, neckStretchEmpty, wristStretchEmpty, exercises);
-    expect(exercises.length).toBe(mode[1] + mode[2]);
+    expect(exercises.length).toBe(0);
   });
 });
 
@@ -69,6 +74,7 @@ describe('splitUpMisc', () => {
   });
 
   test('with no misc exercises available', () => {
+    const exercises: string[] = [];
     const miscArrayEmpty: string[] = [];
     splitUpMisc(miscArrayEmpty, mode, exercises);
     expect(exercises.length).toBe(0);
