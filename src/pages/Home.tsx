@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 // @ts-ignore
-import messageSound from '../static/sounds/popcorn.mp3' 
+import messageSound from '../static/sounds/popcorn.mp3'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
@@ -12,6 +12,7 @@ import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import Drawer from '@mui/material/Drawer';
+import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 let intervalId: number | null = null;
 
 const Home: React.FC = () => {
@@ -24,6 +25,7 @@ const Home: React.FC = () => {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -35,7 +37,8 @@ const Home: React.FC = () => {
           setTodaysEvents(data.user.calendar);
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .finally(() => setLoading(false));
     // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (intervalId !== null) clearInterval(intervalId);
@@ -108,10 +111,10 @@ const Home: React.FC = () => {
               <div className="timer__circle">
                 <svg className="timer__svg" viewBox="0 0 100 100">
                   <g className="timer__circle-track">
-                    <circle className="timer__path-elapsed" stroke-dasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></circle>
+                    <circle className="timer__path-elapsed" strokeDasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></circle>
                   </g>
                   <g className="timer__circle-progress">
-                    <path className="timer__path-remaining" stroke-dasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></path>
+                    <path className="timer__path-remaining" strokeDasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></path>
                   </g>
                 </svg>
               </div>
@@ -161,7 +164,7 @@ const Home: React.FC = () => {
         </div>
         <div className="card-column">
           <div>
-            <UpcomingEvents events={todaysEvent} />
+            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
           </div>
           <Button variant="outlined" color="primary" onClick={handleDrawerOpen}>
             Talk with the Workday Wellness Assistant!

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+// @ts-ignore
 import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
+import { getFullAppLink } from '../util/getFullAppLink.ts';
 
 const TABS = ['About', 'Latest Activity', 'Posts', 'Status']; 
 
@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
         <div className="card-column">
           <div className="card card-span-4">
             <div className="profile-content-container">
-              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
+              <div className="profile-picture-page" onClick={() => navigate(getFullAppLink("/profile/edit"))}>
                 <img src={pfpImage} alt="Profile" />
                 <div className="edit-overlay">Edit</div>
               </div>
