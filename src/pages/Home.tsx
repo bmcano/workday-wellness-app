@@ -13,6 +13,8 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import Drawer from '@mui/material/Drawer';
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
+import Footer from "../pages/Footer.tsx";
+
 let intervalId: number | null = null;
 
 const Home: React.FC = () => {
@@ -44,14 +46,6 @@ const Home: React.FC = () => {
       if (intervalId !== null) clearInterval(intervalId);
     };
   }, [navigate]);
-
-  //drawers for AI chat bot
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
   
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -166,21 +160,9 @@ const Home: React.FC = () => {
           <div>
             {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
           </div>
-          <Button variant="outlined" color="primary" onClick={handleDrawerOpen}>
-            Talk with the Workday Wellness Assistant!
-          </Button>
-          <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
-           <div
-              dangerouslySetInnerHTML={{
-                __html: `<iframe id="UTUFTPWDEN" loading="eager" src="https://embed.pickaxeproject.com/axe?id=Workday_Wellness_Assistant_LGKZX&mode=embed_gold&host=beta&theme=custom&opacity=100&font_header=Real+Head+Pro&size_header=30&font_body=Real+Head+Pro&size_body=16&font_labels=Real+Head+Pro&size_labels=14&font_button=Real+Head+Pro&size_button=16&c_fb=&c_ff=F01716&c_fbd=F01716&c_bb=F01716&c_bt=FFFFFF&c_t=000000&s_ffo=100&s_bbo=100&s_f=minimalist&s_b=filled&s_t=2&s_to=1&s_r=2" width="100%" height="850px" onMouseOver="this.style.boxShadow='0px 6px 6px -3px rgba(0,0,0,0.1)'" onMouseOut="this.style.boxShadow='none'" style="border:1px solid rgba(0, 0, 0, 1);transition:.3s;border-radius:4px;" frameBorder="0"></iframe>`
-              }}
-            ></div>
-            <Button onClick={handleDrawerClose} color="primary">
-              Close
-            </Button>
-          </Drawer>
         </div>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };
