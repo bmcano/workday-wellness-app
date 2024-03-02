@@ -62,7 +62,7 @@ function applyStretches(stretchArray: string[],  strectchSubArray: number, exerc
 }
 
 // Function to apply the base and remainder logic
-function splitUpStretches(mode: number[], exercises: string[]): void {
+function splitUpStretches(mode: number[], backStretch: string[], neckStretch: string[], wristStretch: string[] ,exercises: string[]): void {
   let extra =0
   let remainder = mode[1] % 3; //finds remainder after dividing by 3
   let base = Math.floor(mode[1] /3); //three main stretch types want to give all of them the same base even amount
@@ -82,6 +82,20 @@ function splitUpStretches(mode: number[], exercises: string[]): void {
   if (leftover > 0) {
     mode[2] += leftover * 2 //gives extra to meditation area
   }  
+}
+function sliptUpMisc(miscArray: string[] , mode: number[], exercise: string[]): void{
+    if(miscArray.length > 0){
+        for (let i =0; i<mode[3]; i++)
+        {
+            const randomPoint = Math.floor(Math.random() * miscArray.length)
+            const randomExercise = miscArray[randomPoint];
+            exercises.push(randomExercise);
+        }
+    }
+    else{
+        console.log(mode[3])
+    }
+
 }
 
 // Perform exercises from the easy array
