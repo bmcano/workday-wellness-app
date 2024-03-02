@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
 
 const Login: React.FC = () => {
 
@@ -77,7 +78,7 @@ const Login: React.FC = () => {
                                 <Link href="/forgot_password" variant="body2">Forgot password?</Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/create_account" variant="body2">Don't have an account?</Link>
+                                <Link href={getFullAppLink("/create_account")} variant="body2">Don't have an account?</Link>
                             </Grid>
                         </Grid>
                     </Box>

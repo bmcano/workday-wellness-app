@@ -3,22 +3,24 @@ import React, { useEffect } from 'react';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as PrivacyIcon } from "../static/assets/finger-print-outline.svg"
-import { ReactComponent as SupportIcon } from "../static/assets/information-circle-outline.svg"
-import { ReactComponent as FriendsIcon } from "../static/assets/people-outline.svg"
-import { ReactComponent as EditProfileIcon } from "../static/assets/person-circle-outline.svg"
-import { ReactComponent as ExercisesIcon } from "../static/assets/walk-outline.svg"
+// @ts-ignore
+import { ReactComponent as PrivacyIcon } from "../static/assets/finger-print-outline.svg" // @ts-ignore
+import { ReactComponent as SupportIcon } from "../static/assets/information-circle-outline.svg" // @ts-ignore
+import { ReactComponent as FriendsIcon } from "../static/assets/people-outline.svg" // @ts-ignore
+import { ReactComponent as EditProfileIcon } from "../static/assets/person-circle-outline.svg" // @ts-ignore
+import { ReactComponent as ExercisesIcon } from "../static/assets/walk-outline.svg" // @ts-ignore
 import { ReactComponent as LifeStatsIcon } from "../static/assets/bar-chart-outline.svg"
 
 const Profile: React.FC = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
         AuthorizedUser(navigate)
-    }, [navigate])
+    }, [navigate]);
 
     const handleClick = (link: string) => {
-        navigate(link)
+        // Note: we do not need to call getFullAppLink since it stacking on settings
+        navigate(link);
     }
 
     return (
@@ -52,7 +54,7 @@ const Profile: React.FC = () => {
                         <PrivacyIcon />
                         <p>Privacy Settings</p>
                     </div>
-                    <div className="settings-option">
+                    <div className="settings-option" onClick={() => handleClick("/about")}>
                         <div className="icon support"></div>
                         <SupportIcon />
                         <p>Contact Support</p>

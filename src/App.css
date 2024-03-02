@@ -466,6 +466,29 @@
   padding: 16px;
 }
 
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar .nav-icon {
+  width: 24px; 
+  height: 24px; 
+  fill: var(--white);
+}
+
+.active-icon .nav-icon {
+  fill: var(--black); 
+}
+
+.logo-resize {
+  width: 2px;
+  height: auto;
+}
+
 .react-datepicker {
   border: 1px solid var(--dark-gray);
   border-radius: 4px;
@@ -501,4 +524,18 @@
 
 .react-datepicker__input-container input:hover {
   border: 1px solid var(--dark-gray);
+}
+
+.social-icon {
+  width: 24px; 
+  height: 24px;
+  object-fit: contain; 
+}
+
+.social-links-container {
+  display: flex;
+  justify-content: center; 
+  margin-right: auto;
+  gap: 10px;
+  margin-top: 10px;
 }

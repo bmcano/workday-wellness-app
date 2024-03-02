@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
 
 const CreateAccount: React.FC = () => {
 
@@ -102,7 +103,7 @@ const CreateAccount: React.FC = () => {
                                 <Link href="" variant="body2">Forgot password?</Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/login" variant="body2">Already have an account?</Link>
+                                <Link href={getFullAppLink("/login")} variant="body2">Already have an account?</Link>
                             </Grid>
                         </Grid>
                     </Box>

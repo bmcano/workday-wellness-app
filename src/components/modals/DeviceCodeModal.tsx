@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR } from './modalStyles.ts';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 interface AddEventModalProps {
     isOpen: boolean;
@@ -24,7 +24,7 @@ const DeviceCodeModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, device
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
-            contentLabel="Add Event Modal"
+            contentLabel="Device Code Modal"
             style={customModalStyle}
         >
             <div className='card'>
@@ -37,7 +37,7 @@ const DeviceCodeModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, device
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleCopy}>Copy & Open</Button>
-                            <Button variant="text" onClick={onClose}>Cancel</Button>
+                            <Button variant="text" onClick={onClose}>Close</Button>
                         </div>
                     </div>
                 </div>
