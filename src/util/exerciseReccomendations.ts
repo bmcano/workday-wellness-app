@@ -2,7 +2,9 @@
 const exercises: string[] = [];
 const mode: number[] = [1, 2, 3];
 const exerciseArray: string[] = ['test','other test','extra test']
-
+const neckStretch: string[] = ['neck test','neck other test','neck extra test']
+const backStretch: string[] = ['back test','back other test','back extra test']
+const wristStretch: string[] = ['wrist test','wrist other test','wrist extra test']
 // Function to perform exercises
 function performExercises(exerciseArray: string[], times: number, exercises: string[]): void {
     if (exerciseArray.length >= mode[0])
@@ -32,18 +34,19 @@ function performExercises(exerciseArray: string[], times: number, exercises: str
 }
 
 // Function to apply the base and remainder logic
-function applyBaseAndRemainderLogic(baseValue: number, array: number[]): void {
-  const remainder = array[1] % 3;
-  let base = baseValue;
+function applyBaseAndRemainderLogic(stretchValue: number, array: number[]): void {
+  let remainder = stretchValue % 3; //finds remainder after dividing by 3
+  let base = Math.floor(stretchValue /3); //three main stretch types want to give all of them the same base even amount
   let counter = 1;
+  const splitStretches: number[] = [base,base,base]
 
-  if (remainder === 1) {
-    counter = 1;
-  } else if (remainder === 2) {
-    counter = 2;
+  if (remainder >= 1) {
+     splitStretches[0] += 1; //if theres one remainder give it to back
+  } 
+  if (remainder >= 2) {
+    splitStretches[1] += 1; //if theres two reaminder give one to back and one to neck
   }
 
-  array[1] += counter;
 
   // Implement exercise logic by looping with subarray [0, 6]
   for (let i = 0; i < 6; i++) {
