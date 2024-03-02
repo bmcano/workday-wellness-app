@@ -11,7 +11,6 @@ import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
-import { Helmet } from 'react-helmet';
 
 let intervalId: number | null = null;
 
@@ -85,10 +84,6 @@ const Home: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Helmet>
-        <link rel="stylesheet" href="https://embed.pickaxeproject.com/axe/scripts/fab/styles.css" />
-        <script src="https://embed.pickaxeproject.com/axe/scripts/fab/bundle.js"></script>
-      </Helmet>
       <Navbar />
       <div className="card">
         <div className="card-item">
