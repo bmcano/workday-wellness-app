@@ -6,10 +6,10 @@ const neckStretch: string[] = ['neck test','neck other test','neck extra test']
 const backStretch: string[] = ['back test','back other test','back extra test']
 const wristStretch: string[] = ['wrist test','wrist other test','wrist extra test']
 // Function to perform exercises
-function performExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
-    if (exerciseArray.length >= mode[0])
+function applyExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
+    if (exerciseArray.length >= mode[0]) //if there are more exercises avaiable than there are assigned
     {
-        for (let i =0; i<mode[0]; i++)
+        for (let i =0; i<mode[0]; i++) //randomly get as many exercises as there are assigned and then delete the exercise for the array to make sure no duplicates
         {
             const randomPoint = Math.floor(Math.random() * exerciseArray.length)
             const randomExercise = exerciseArray[randomPoint];
@@ -17,7 +17,7 @@ function performExercises(exerciseArray: string[], mode: number[], exercises: st
             exerciseArray.splice(randomPoint, 1);
         }
     }
-    if (exerciseArray.length < mode[0] && exerciseArray.length != 0){
+    if (exerciseArray.length < mode[0] && exerciseArray.length != 0){ //if there are more exercises assigned than there is available then just do as many as available and send the extra to stretches
         const extra = mode[0] - exerciseArray.length
         mode[1] += 2*extra
         for (let i =0; i<exerciseArray.length; i++)
@@ -29,11 +29,11 @@ function performExercises(exerciseArray: string[], mode: number[], exercises: st
         }
     }
     else{
-        mode[1] += 2* mode[0]
+        mode[1] += 2* mode[0] //if no exercsise available send to stretches
     }
 }
 
-function performStretches(stretchArray: string[],  strectchSubArray: number, exercises: string[]){
+function applyStretches(stretchArray: string[],  strectchSubArray: number, exercises: string[]){ //same logic as exercises but instead of instantly passing off extra it collect it
     let extra = 0;
     if (stretchArray.length >= strectchSubArray)
     {
@@ -62,7 +62,7 @@ function performStretches(stretchArray: string[],  strectchSubArray: number, exe
 }
 
 // Function to apply the base and remainder logic
-function applyBaseAndRemainderLogic(mode: number[], exercises: string[]): void {
+function splitUpStretches(mode: number[], exercises: string[]): void {
   let extra =0
   let remainder = mode[1] % 3; //finds remainder after dividing by 3
   let base = Math.floor(mode[1] /3); //three main stretch types want to give all of them the same base even amount
@@ -74,19 +74,14 @@ function applyBaseAndRemainderLogic(mode: number[], exercises: string[]): void {
   if (remainder >= 2) {
     splitStretches[1] += 1; //if theres two reaminder give one to back and one to neck
   }
-
-
-  // Implement exercise logic by looping with subarray [0, 6]
-  extra += performStretches(backStretch,splitStretches[0],exercises)
-  extra += performStretches(neckStretch,splitStretches[1],exercises)
-  extra += performStretches(wristStretch,splitStretches[2],exercises)
-  let allStretches = backStretch.concat(neckStretch, wristStretch);
-  let leftover =  performStretches(allStretches,extra,exercises)
+  extra += applyStretches(backStretch,splitStretches[0],exercises) //adds back stretches to exercise array and gets back extra if there are more to do than there are strectches
+  extra += applyStretches(neckStretch,splitStretches[1],exercises) //adds neck stretches to exercise array and gets back extra if there are more to do than there are strectches
+  extra += applyStretches(wristStretch,splitStretches[2],exercises) //adds wrist stretches to exercise array and gets back extra if there are more to do than there are strectches
+  let allStretches = backStretch.concat(neckStretch, wristStretch); //combines all stretches in one array
+  let leftover =  applyStretches(allStretches,extra,exercises) //adds any extra stretches to exercise array returning if theres still some to do
   if (leftover > 0) {
-    mode[2] += leftover * 2
-  }
-  
-
+    mode[2] += leftover * 2 //gives extra to meditation area
+  }  
 }
 
 // Perform exercises from the easy array
