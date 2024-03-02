@@ -1,19 +1,34 @@
 // Define the exercises array and the easy array
 const exercises: string[] = [];
 const mode: number[] = [1, 2, 3];
-const exerciseArray: string[] = ['test','test','test']
+const exerciseArray: string[] = ['test','other test','extra test']
 
 // Function to perform exercises
 function performExercises(exerciseArray: string[], times: number, exercises: string[]): void {
     if (exerciseArray.length >= mode[0])
     {
-        for (let i =0; i<mode[0])
+        for (let i =0; i<mode[0]; i++)
+        {
+            const randomPoint = Math.floor(Math.random() * exerciseArray.length)
+            const randomExercise = exerciseArray[randomPoint];
+            exercises.push(randomExercise);
+            exerciseArray.splice(randomPoint, 1);
+        }
     }
-  for (let i = 0; i < times; i++) {
-    const randomExercise = exerciseArray[Math.floor(Math.random() * exerciseArray.length)];
-    exercises.push(randomExercise);
-    exerciseArray.splice(exerciseArray.indexOf(randomExercise), 1);
-  }
+    if (exerciseArray.length < mode[0] && exerciseArray.length != 0){
+        const extra = mode[0] - exerciseArray.length
+        mode[1] += 2*extra
+        for (let i =0; i<exerciseArray.length; i++)
+        {
+            const randomPoint = Math.floor(Math.random() * exerciseArray.length)
+            const randomExercise = exerciseArray[randomPoint];
+            exercises.push(randomExercise);
+            exerciseArray.splice(randomPoint, 1);
+        }
+    }
+    else{
+        mode[1] += 2* mode[0]
+    }
 }
 
 // Function to apply the base and remainder logic
