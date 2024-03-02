@@ -10,7 +10,7 @@ export const registerAccount = async (req, res) => {
     try {
         req.body.email = req.body.email.toLowerCase();
         const { email, password: plainTextPassword, first_name, last_name } = req.body;
-        const password = await bcrypt.hash(plainTextPassword, 10);
+        const password = await bcrypt.hash(plainTextPassword, process.env.REACT_APP_SESSION_SECRET || 10);
         const user = new UserModel({
             email: email,
             password: password,

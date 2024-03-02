@@ -1,10 +1,23 @@
-import settings from '../outlookSettings.js';
-import * as graphHelper from '../graphHelper.js';
+import settings from '../graphApi/outlookSettings.js';
+import * as graphHelper from '../graphApi/graphHelper.js';
 import UserModel from '../models/Users.js';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * Job: Backend API for any calls related to the Microsoft Graph API.
  */
+
+// NODEMAILER CONFIG
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'outlook',
+    auth: {
+        user: 'workdaywellnes@outlook.com',
+        pass: process.env.REACT_APP_EMAIL_PASSWORD
+    }
+});
 
 export const checkIfOutlookClientExist = (req, res) => {
     const result = graphHelper.checkIfClientExist(req.session._id);
@@ -21,9 +34,10 @@ export const initalizeOutlookClient = async (req, res) => {
         await graphHelper.getUserAsync(req.session._id);
     } catch (error) {
         console.log(error);
-        return res
-            .status(500)
-            .json({ error: "Error connecting to Outlook."});
+        if (error.code === 'AuthenticationRequiredError') {
+            console.log("User did not log into outlook");
+        }
+        // intionally omitted the return statment as it crashes server if the user does not login after return in the try block
     }
 }
 
@@ -31,16 +45,15 @@ export const getOutlookCalendar = async (req, res) => {
     try {
         const user = await graphHelper.getUserAsync(req.session._id);
         const email = user.mail;
-        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email);
+        const calendar = await graphHelper.getCalendarAysnc(req.session._id, email, req.body);
         return res.json({ authorized: true, calendar: calendar });
     } catch (error) {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Error connecting to Outlook."});
+            .json({ error: "Error connecting to Outlook." });
     }
 }
-
 
 export const getCalendarData = async (req, res) => {
     try {
@@ -51,7 +64,7 @@ export const getCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
     }
 }
 
@@ -66,6 +79,35 @@ export const saveCalendarData = async (req, res) => {
         console.log(error);
         return res
             .status(500)
-            .json({ error: "Internal server error."});
+            .json({ error: "Internal server error." });
+    }
+}
+
+export const addCalendarData = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        user.calendar.push(req.body.event);
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Internal server error." });
+    }
+}
+
+export const addOutlookEvent = async (req, res) => {
+    try {
+        const user = await graphHelper.getUserAsync(req.session._id);
+        const email = user.mail;
+        const name = user.displayName;
+        const calendar = await graphHelper.addOutlookEvent(req.session._id, email, name, req.body.event);
+        return res.json({ authorized: true, calendar: calendar });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ error: "Error connecting to Outlook." });
     }
 }

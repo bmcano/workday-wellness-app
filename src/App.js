@@ -16,6 +16,7 @@ import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import UserSearch from './pages/UserSearch.tsx';
+import AboutPage from './pages/About.tsx';
 
 const App = () => {
 
@@ -34,7 +35,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/login" exact element={<Login />} />
           <Route path="/create_account" exact element={<CreateAccount />} />
@@ -45,11 +46,12 @@ const App = () => {
           <Route path="/user/search/:id" element={<UserProfile />} />
           <Route path="/user/search" element={<UserSearch />} />
           <Route path="/notifications" exact element={<Notification />} />
-          <Route path="/chat" exact element={<Chat />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<Edit />} />
+          <Route path="/about" exact element={<AboutPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
