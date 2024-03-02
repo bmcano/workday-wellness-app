@@ -5,6 +5,7 @@ const exerciseArray: string[] = ['test','other test','extra test']
 const neckStretch: string[] = ['neck test','neck other test','neck extra test']
 const backStretch: string[] = ['back test','back other test','back extra test']
 const wristStretch: string[] = ['wrist test','wrist other test','wrist extra test']
+const miscArray: string[] = ['misc test','misc other test','misc extra test']
 // Function to perform exercises
 function applyExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
     if (exerciseArray.length >= mode[0]) //if there are more exercises avaiable than there are assigned
@@ -83,7 +84,7 @@ function splitUpStretches(mode: number[], backStretch: string[], neckStretch: st
     mode[2] += leftover * 2 //gives extra to meditation area
   }  
 }
-function sliptUpMisc(miscArray: string[] , mode: number[], exercise: string[]): void{
+function splitUpMisc(miscArray: string[] , mode: number[], exercises: string[]): void{
     if(miscArray.length > 0){
         for (let i =0; i<mode[3]; i++)
         {
@@ -97,6 +98,9 @@ function sliptUpMisc(miscArray: string[] , mode: number[], exercise: string[]): 
     }
 
 }
+applyExercises(exerciseArray,mode,exercises)
+splitUpStretches(mode,backStretch,neckStretch,wristStretch,exercises)
+splitUpMisc(miscArray,mode,exercises)
 
 // Perform exercises from the easy array
 //performExercises(easy, easy[0]);
@@ -104,5 +108,5 @@ function sliptUpMisc(miscArray: string[] , mode: number[], exercise: string[]): 
 // Apply the base and remainder logic
 //applyBaseAndRemainderLogic(easy[1], easy);
 
-//console.log(exercises);
+console.log(exercises);
 //console.log(easy);
