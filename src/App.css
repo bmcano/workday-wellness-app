@@ -472,6 +472,7 @@
   bottom: 0;
   display: flex;
   justify-content: flex-end;
+}
 
 .navbar .nav-icon {
   width: 24px; 
