@@ -1,13 +1,7 @@
 // Define the exercises array and the easy array
-const exercises: string[] = [];
-const mode: number[] = [1, 2, 3];
-const exerciseArray: string[] = ['test','other test','extra test']
-const neckStretch: string[] = ['neck test','neck other test','neck extra test']
-const backStretch: string[] = ['back test','back other test','back extra test']
-const wristStretch: string[] = ['wrist test','wrist other test','wrist extra test']
-const miscArray: string[] = ['misc test','misc other test','misc extra test']
+
 // Function to perform exercises
-function applyExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
+export function applyExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
     if (exerciseArray.length >= mode[0]) //if there are more exercises avaiable than there are assigned
     {
         for (let i =0; i<mode[0]; i++) //randomly get as many exercises as there are assigned and then delete the exercise for the array to make sure no duplicates
@@ -34,7 +28,7 @@ function applyExercises(exerciseArray: string[], mode: number[], exercises: stri
     }
 }
 
-function applyStretches(stretchArray: string[],  strectchSubArray: number, exercises: string[]){ //same logic as exercises but instead of instantly passing off extra it collect it
+export function applyStretches(stretchArray: string[],  strectchSubArray: number, exercises: string[]){ //same logic as exercises but instead of instantly passing off extra it collect it
     let extra = 0;
     if (stretchArray.length >= strectchSubArray)
     {
@@ -63,7 +57,7 @@ function applyStretches(stretchArray: string[],  strectchSubArray: number, exerc
 }
 
 // Function to apply the base and remainder logic
-function splitUpStretches(mode: number[], backStretch: string[], neckStretch: string[], wristStretch: string[] ,exercises: string[]): void {
+export function splitUpStretches(mode: number[], backStretch: string[], neckStretch: string[], wristStretch: string[] ,exercises: string[]): void {
   let extra =0
   let remainder = mode[1] % 3; //finds remainder after dividing by 3
   let base = Math.floor(mode[1] /3); //three main stretch types want to give all of them the same base even amount
@@ -84,7 +78,7 @@ function splitUpStretches(mode: number[], backStretch: string[], neckStretch: st
     mode[2] += leftover * 2 //gives extra to meditation area
   }  
 }
-function splitUpMisc(miscArray: string[] , mode: number[], exercises: string[]): void{
+export function splitUpMisc(miscArray: string[] , mode: number[], exercises: string[]): void{
     if(miscArray.length > 0){
         for (let i =0; i<mode[3]; i++)
         {
@@ -98,15 +92,4 @@ function splitUpMisc(miscArray: string[] , mode: number[], exercises: string[]):
     }
 
 }
-applyExercises(exerciseArray,mode,exercises)
-splitUpStretches(mode,backStretch,neckStretch,wristStretch,exercises)
-splitUpMisc(miscArray,mode,exercises)
 
-// Perform exercises from the easy array
-//performExercises(easy, easy[0]);
-
-// Apply the base and remainder logic
-//applyBaseAndRemainderLogic(easy[1], easy);
-
-console.log(exercises);
-//console.log(easy);
