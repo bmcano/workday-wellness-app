@@ -8,14 +8,7 @@ import { apiPost } from '../../api/serverApiCalls.tsx';
 import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
-
-// Modal.setAppElement('#root');
-
-interface AddEventModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (eventData: EventInput) => void;
-}
+import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');

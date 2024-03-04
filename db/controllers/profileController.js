@@ -60,3 +60,15 @@ export const updateExerciseInformation = async (req, res) => {
             .send("Error saving exercise information.");
     }
 }
+
+export const recommendationItems = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.session._id);
+        return res.json({ success: true, exercises: user.exercises, calendar: user.calendar });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error saving exercise information.");
+    }
+}

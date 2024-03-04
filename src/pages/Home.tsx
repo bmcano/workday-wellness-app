@@ -11,8 +11,8 @@ import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
-import Drawer from '@mui/material/Drawer';
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
+import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../pages/Footer.tsx";
 
 let intervalId: number | null = null;
@@ -157,9 +157,8 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="card-column">
-          <div>
-            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
-          </div>
+          <GenerateRecommendations />
+          {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
         </div>
       </div>
       <Footer />

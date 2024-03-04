@@ -37,7 +37,7 @@ const UserProfile: React.FC = () => {
                     setButtonText("Remove Friend");
                 }
             }).catch(err => console.log(err));
-    }, [navigate]);
+    }, [navigate, id]);
 
     const handleOnClick = () => {
         var link = "";

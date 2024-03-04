@@ -81,7 +81,7 @@ export async function addOutlookEvent(user_id, email, name, eventData) {
     }
 
     let event = {}
-    if (eventData.recurrence === "") {
+    if (!eventData.recurrence || eventData.recurrence === "") {
         event = singleEvent(eventData, email, name);
     } else {
         event = recurringEvent(eventData, email, name);

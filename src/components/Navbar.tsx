@@ -37,6 +37,7 @@ const Navbar = () => {
             <a href={getFullAppLink("/calendar")} className={location.pathname === '/calendar' ? 'active-icon' : ''}><CalendarIcon className="nav-icon" /></a>
             <a href={getFullAppLink("/notifications")} className={location.pathname === '/notifications' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
                 <div className="subnav">
+                    {/* eslint-disable-next-line */}
                     <a onClick={toggleSubMenu} role="button">
                         <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true}/>
                     </a>
