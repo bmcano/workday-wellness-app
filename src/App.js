@@ -2,6 +2,7 @@ import Login from './pages/Login.tsx';
 import CreateAccount from './pages/CreateAccount.tsx';
 import Home from './pages/Home.tsx';
 import Profile from './pages/Profile.tsx';
+import ForgotPassword from './pages/ForgotPassword.tsx';
 import EditProfile from './pages/EditProfile.tsx';
 import Friends from './pages/Friends.tsx';
 import UserProfile from './pages/UserProfile.tsx';
@@ -35,10 +36,11 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/login" exact element={<Login />} />
           <Route path="/create_account" exact element={<CreateAccount />} />
+          <Route path="/forgot_password" exact element={<ForgotPassword />} />
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
@@ -46,12 +48,12 @@ const App = () => {
           <Route path="/user/search/:id" element={<UserProfile />} />
           <Route path="/user/search" element={<UserSearch />} />
           <Route path="/notifications" exact element={<Notification />} />
-          <Route path="/chat" exact element={<Chat />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<Edit />} />
-          <Route path="/aboutpage" exact element={<AboutPage />} />
+          <Route path="/about" exact element={<AboutPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

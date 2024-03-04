@@ -1,7 +1,8 @@
 {
+  "homepage": "https://bmcano.github.io/workday-wellness-app",
   "name": "workday-wellness-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -37,11 +38,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "seed": "cd db && python seed.py",
     "start:db": "npm run seed && cd db && npm run start:db",
     "all": "concurrently \"npm run start:db\" \"npm start\"",
-    "nav": "cd src && python navigation.py"
+    "nav": "cd src && python navigation.py",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +66,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^8.2.2",
+    "gh-pages": "^6.1.1",
     "svg-url-loader": "^8.0.0"
   }
 }

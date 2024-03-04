@@ -7,9 +7,9 @@ import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material
 import { apiPost } from '../../api/serverApiCalls.tsx';
 import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
-import { customModalStyle, marginTLR } from './modalStyles.ts';
+import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 interface AddEventModalProps {
     isOpen: boolean;
@@ -108,7 +108,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
                     </div>
-                    <div className='divider' style={marginTLR} />
+                    <div className='divider' style={dividerMargin} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Save</Button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
 import AddEventModal from './modals/AddEventModal.tsx';
@@ -10,12 +10,23 @@ interface Props {
 
 const UpcomingEvents: React.FC<Props> = ({ events }) => {
     const now = new Date();
-    const cstOffset = -6 * 60 * 60 * 1000; // CST is UTC - 6 hours
-    const cstDate = new Date(now.getTime() + cstOffset);
+    const cstDate = new Date(now.getTime());
     const todayDate = cstDate.toISOString().split('T')[0];
-    const upcomingEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+    const [upcomingEvents, setUpcomingEvents] = useState<EventInput[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    useEffect(() => {
+        const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+        setUpcomingEvents(updatedEvents);
+        
+        const intervalId = setInterval(() => {
+            const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+            setUpcomingEvents(updatedEvents);
+        }, 1000 * 60); // checks the event time every minute to update highlighting
+    
+        return () => clearInterval(intervalId);
+    }, [events, todayDate]);
+    
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
