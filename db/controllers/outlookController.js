@@ -111,3 +111,42 @@ export const addOutlookEvent = async (req, res) => {
             .json({ error: "Error connecting to Outlook." });
     }
 }
+
+export const addUserRecommendations = async (req, res) => {
+    async function addToDatabase(req) {
+        try {
+            const user = await UserModel.findById(req.session._id);
+            user.calendar.push(...req.body.events);
+            await user.save();
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    async function addToOutlook(req) {
+        try {
+            const user = await graphHelper.getUserAsync(req.session._id);
+            const email = user.mail;
+            const name = user.displayName;
+            req.body.events.forEach(async (event) => {
+                await graphHelper.addOutlookEvent(req.session._id, email, name, event);
+            })
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    const db = addToDatabase(req);
+    const outlook = addToOutlook(req);
+    if (!db || !outlook) {
+        return res
+            .status(400)
+            .json({ error: "Error saving to database or outlook" });
+    }
+
+    return res.json({ success: true });
+}

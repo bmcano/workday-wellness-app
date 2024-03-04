@@ -11,7 +11,6 @@ import { getFreeTimeSlots } from '../../util/convertOutlookPayload.ts';
 import { applyExercises, getModeValues, splitExerciseData, splitUpMisc, splitUpStretches } from '../../util/exerciseReccomendations.ts';
 import { ExerciseCategories } from '../../types/ExerciseCategories.ts';
 import { distributeEvents } from '../../util/distributeEvents.ts';
-// import { utcToZonedTime } from 'date-fns-tz';
 
 Modal.setAppElement("#root")
 
@@ -19,8 +18,6 @@ interface TimeSlots {
     start: Date,
     end: Date
 }
-
-// const timeZone = 'America/Chicago'; // Central Standard Time (CST)
 
 const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -64,19 +61,16 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
         console.log(newEvents);
 
+        // TODO:
         // list events
         // accept/decline
         // if accept: send them all to the database/outlook 
         // if decline: regenerate items
 
         // save to database first
-        newEvents.forEach((event) => {
-            const jsonData = JSON.stringify({ event: event })
-            apiPost('http://localhost:3001/add_calendar_data', jsonData)
-                .catch(error => console.log(error));
-            // apiPost('http://localhost:3001/add_outlook_event', jsonData)
-            //     .catch(error => console.log(error));
-        });
+        const jsonData = JSON.stringify({ events: newEvents })
+        apiPost('http://localhost:3001/add_user_recommendations', jsonData)
+            .catch(error => console.log(error));
 
         onSave(newEvents);
         onClose();

@@ -4,7 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent } from './controllers/outlookController.js';
+import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent, addUserRecommendations } from './controllers/outlookController.js';
 import { checkSession, login, logout, registerAccount } from './controllers/sessionController.js';
 import { uploadProfilePicture, getUser, getExerciseInformation, updateExerciseInformation, recommendationItems } from './controllers/profileController.js';
 import { addFriend, removeFriend, searchFriendsList, searchUsersList, viewUserProfile } from './controllers/friendsController.js';
@@ -60,6 +60,7 @@ app.post('/save_calendar_data', async (req, res) => saveCalendarData(req, res));
 app.post('/send_email', async (req, res) => sendEmail(req, res));
 app.post('/add_calendar_data', async (req, res) => addCalendarData(req, res));
 app.post('/add_outlook_event', async (req, res) => addOutlookEvent(req, res));
+app.post('/add_user_recommendations', async (req, res) => addUserRecommendations(req, res));
 
 app.listen(3001, () => {
     console.log("Database is running.");
