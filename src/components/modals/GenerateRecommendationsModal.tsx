@@ -1,43 +1,87 @@
 import { EventInput } from '@fullcalendar/core'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button, FormControlLabel, Radio, RadioGroup } from '@mui/material';
-// import { apiPost } from '../../api/serverApiCalls.tsx';
-import { formatDateforDatabase } from '../../util/dateUtils.ts';
-// import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
+import { apiPost, apiGet } from '../../api/serverApiCalls.tsx';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 import { GenerateRecommendationsModalProps } from './OpenSaveCloseModalProps.ts';
+import { getFreeTimeSlots } from '../../util/convertOutlookPayload.ts';
+import { applyExercises, getModeValues, splitExerciseData, splitUpMisc, splitUpStretches } from '../../util/exerciseReccomendations.ts';
+import { ExerciseCategories } from '../../types/ExerciseCategories.ts';
+import { distributeEvents } from '../../util/distributeEvents.ts';
+// import { utcToZonedTime } from 'date-fns-tz';
+
+Modal.setAppElement("#root")
+
+interface TimeSlots {
+    start: Date,
+    end: Date
+}
+
+// const timeZone = 'America/Chicago'; // Central Standard Time (CST)
 
 const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
     const [date, setDate] = useState(new Date());
     const [intensity, setIntensity] = useState('low');
+    const [events, setEvents] = useState<EventInput[]>([])
+    const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
+
+
+    useEffect(() => {
+        apiGet("http://localhost:3001/recommendation_items")
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setEvents(data.calendar)
+                    const categories = splitExerciseData(data.exercises);
+                    console.log(categories);
+                    setExerciseData(categories);
+                }
+            })
+            .catch(error => console.log(error));
+    }, [])
 
     const handleSave = () => {
-        // TODO - call function that gets free time
+        // get events from selected date
+        const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
+        const isoDate = date.toISOString().split('T')[0];
+        const updatedEvents = events.filter(event => event.start?.toString().startsWith(isoDate));
+        console.log(updatedEvents)
+        // get free time for selected date
+        const freeTime = getFreeTimeSlots(updatedEvents)
+        console.log(freeTime);
+        // get recommendations from intensity level
+        const exercises: string[] = [];
+        const mode = getModeValues(intensity);
+        applyExercises(exerciseData.exercise, mode, exercises)
+        splitUpStretches(mode, exerciseData.back, exerciseData.neck, exerciseData.wrist, exercises)
+        splitUpMisc(exerciseData.misc, mode, exercises)
+        console.log(exercises)
+        // pair recommendations within an even(ish) intervals between them during free time slots
+        const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
+        console.log(newEvents);
 
-        // will need to modify this to create the section of times and events once the list is received
-        setSelectedItem("")
-        const end = new Date(date);
-        end.setMinutes(end.getMinutes() + 5);
-        const eventData: EventInput = {
-            title: selectedItem,
-            start: formatDateforDatabase(date),
-            end: formatDateforDatabase(end)
-        };
+        // list events
+        // accept/decline
+        // if accept: send them all to the database/outlook 
+        // if decline: regenerate items
 
         // save to database first
-        // const jsonData = JSON.stringify({ event: eventData })
-        // apiPost('http://localhost:3001/add_calendar_data', jsonData)
-        //     .catch(error => console.log(error));
-        // // then save to the users outlook calendar, if not synced nothing will happen
-        // apiPost('http://localhost:3001/add_outlook_event', jsonData)
-        //     .catch(error => console.log(error));
-        onSave(eventData);
+        newEvents.forEach((event) => {
+            const jsonData = JSON.stringify({ event: event })
+            apiPost('http://localhost:3001/add_calendar_data', jsonData)
+                .catch(error => console.log(error));
+            // apiPost('http://localhost:3001/add_outlook_event', jsonData)
+            //     .catch(error => console.log(error));
+        });
+
+        onSave(newEvents);
         onClose();
     };
+
 
     return (
         <Modal

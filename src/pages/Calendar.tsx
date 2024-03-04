@@ -63,7 +63,10 @@ const Calendar: React.FC = () => {
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
-                setIsDateModalOpen(data.authorized)
+                if (!data.authorized) {
+                    setIsDateModalOpen(false)
+                }
+                
             })
             .catch(error => console.log(error));
     }

@@ -11,7 +11,6 @@ import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
-import Drawer from '@mui/material/Drawer';
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../pages/Footer.tsx";
