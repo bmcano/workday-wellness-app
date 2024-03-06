@@ -13,12 +13,15 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
+import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
+import Footer from "../pages/Footer.tsx";
 
 let intervalId: number | null = null;
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const audioRef = new Audio(messageSound);
+  const [open, setOpen] = useState(false);
 
   const [name, setName] = useState("");
   const [duration, setDuration] = useState<number>(60);
@@ -29,7 +32,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     AuthorizedUser(navigate);
-    apiGet(getServerCall("/get_user"))
+    apiGet(getServerCall("/user"))
       .then(res => res.json())
       .then(data => {
         if (data.authorized) {
@@ -44,6 +47,7 @@ const Home: React.FC = () => {
       if (intervalId !== null) clearInterval(intervalId);
     };
   }, [navigate]);
+  
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -154,11 +158,11 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="card-column">
-          <div>
-            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
-          </div>
+          <GenerateRecommendations />
+          {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
         </div>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };

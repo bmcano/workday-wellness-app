@@ -1,18 +1,35 @@
 import "../App.css";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage.tsx";
 import imageCompression from "browser-image-compression";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const EditProfile: React.FC = () => {
+    const navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [birthday, setBirthday] = useState('');
+    const [password, setPassword] = useState('');
+    const [bio, setBio] = useState('');
+    const [linkedinLink, setLinkedinLink] = useState('');
+    const [workHours, setWorkHours] = useState({
+        Monday: { start: '', end: '' },
+        Tuesday: { start: '', end: '' },
+        Wednesday: { start: '', end: '' },
+        Thursday: { start: '', end: '' },
+        Friday: { start: '', end: '' },
+        Saturday: { start: '', end: '' },
+        Sunday: { start: '', end: '' },
+    });
 
-    const navigate = useNavigate()
     useEffect(() => {
-        AuthorizedUser(navigate)
-    }, [navigate])
+        AuthorizedUser(navigate);
+    }, [navigate]);
 
     const handleImageUpload = async (image: File) => {
         try {
@@ -50,14 +67,77 @@ const EditProfile: React.FC = () => {
         });
     };
 
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const profileData = {
+            name,
+            birthday,
+            password,
+            bio,
+            linkedinLink,
+            workHours
+        };
+
+        console.log(profileData);
+    };
+
+    const handleWorkHoursChange = (day: string, type: 'start' | 'end', value: string) => {
+        setWorkHours(prevHours => ({
+            ...prevHours,
+            [day]: {
+                ...prevHours[day],
+                [type]: value
+            }
+        }));
+    };
+
     return (
         <React.Fragment>
-            {/* <Navbar /> Probably wont have navbar for edit pages */}
             <h1>Edit Profile</h1>
-            <h3>Image Upload</h3>
-            <UploadImage handleImageUpload={handleImageUpload} />
+            <form onSubmit={handleSubmit}>
+                <div className="card-columns">
+                    <div className="card-column">
+                        <div className="card">
+                            <h3>Image Upload</h3>
+                            <UploadImage handleImageUpload={handleImageUpload} />
+                            <TextField label="Name" value={name} onChange={e => setName(e.target.value)} fullWidth margin="normal" />
+                            <TextField label="Birthday" type="date" value={birthday} onChange={e => setBirthday(e.target.value)} InputLabelProps={{ shrink: true }} fullWidth margin="normal" />
+                            <TextField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} fullWidth margin="normal" />
+                            <TextField label="Bio" multiline rows={4} value={bio} onChange={e => setBio(e.target.value)} fullWidth margin="normal" />
+                            <TextField label="LinkedIn Link" value={linkedinLink} onChange={e => setLinkedinLink(e.target.value)} fullWidth margin="normal" />
+                        </div>
+                    </div>
+                    <div className="card-column">
+                        <div className="card">
+                        
+                            {Object.keys(workHours).map((day) => (
+                                <div key={day}>
+                                    <Typography variant="body1">{day}</Typography>
+                                    <TextField
+                                        label="Start Time"
+                                        type="time"
+                                        value={workHours[day].start}
+                                        onChange={(e) => handleWorkHoursChange(day, 'start', e.target.value)}
+                                        InputLabelProps={{ shrink: true }}
+                                        margin="normal"
+                                    />
+                                    <TextField
+                                        label="End Time"
+                                        type="time"
+                                        value={workHours[day].end}
+                                        onChange={(e) => handleWorkHoursChange(day, 'end', e.target.value)}
+                                        InputLabelProps={{ shrink: true }}
+                                        margin="normal"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Save Profile</Button>
+            </form>
         </React.Fragment>
-    )
-}
+    );
+};
 
 export default EditProfile;

@@ -1,6 +1,8 @@
+import { Styles } from "react-modal";
+
 export const marginTLR = { marginTop: '16px', marginLeft: '16px', marginRight: '16px' }
 export const dividerMargin = { marginTop: '24px', marginLeft: '16px', marginRight: '16px'}
-export const customModalStyle = {
+export const customModalStyle: Styles = {
     content: {
         width: '40%',
         margin: 'auto',

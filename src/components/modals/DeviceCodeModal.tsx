@@ -3,16 +3,9 @@ import Modal from 'react-modal';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR } from './modalStyles.ts';
+import { DeviceCodeModalProps } from './OpenSaveCloseModalProps.ts';
 
-Modal.setAppElement('#root');
-
-interface AddEventModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    deviceCodeMessage: any;
-}
-
-const DeviceCodeModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
+const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
 
     const handleCopy = () => {
         console.log(deviceCodeMessage.userCode);

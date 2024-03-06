@@ -17,6 +17,7 @@ import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import DateRangeModal from "../components/modals/DateRangeModal.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
+import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -47,7 +48,7 @@ const Calendar: React.FC = () => {
         apiGet(getServerCall("/get_calendar_data"))
             .then(res => res.json())
             .then(data => {
-                if (data.success) {
+                if (data.authorized) {
                     setEvents(data.calendar)
                 }
             })
@@ -63,7 +64,10 @@ const Calendar: React.FC = () => {
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
-                setIsDateModalOpen(data.authorized)
+                if (!data.authorized) {
+                    setIsDateModalOpen(false)
+                }
+                
             })
             .catch(error => console.log(error));
     }
@@ -150,6 +154,7 @@ const Calendar: React.FC = () => {
                     </div>
                 </div>
                 <div className="card-column">
+                    <GenerateRecommendations />
                     {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={events} />)}
                 </div>
             </div>

@@ -28,17 +28,18 @@ const UserProfile: React.FC = () => {
         apiPost(getServerCall("/view_profile"), jsonData)
             .then(res => res.json())
             .then(data => {
-                setFristName(data.first_name);
-                setLastName(data.last_name);
-                setBase64Image(data.profile_picture === "" ? DefaultProfile : data.profile_picture);
+                const public_user = data.user;
+                setFristName(public_user.first_name);
+                setLastName(public_user.last_name);
+                setBase64Image(public_user.profile_picture === "" ? DefaultProfile : public_user.profile_picture);
                 const user = data.auth_user;
                 setUserId(user._id);
-                if (user.friends.includes(data.email)) {
+                if (user.friends.includes(public_user.email)) {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
             }).catch(err => console.log(err));
-    }, [navigate]);
+    }, [navigate, id]);
 
     const handleOnClick = () => {
         var link = "";

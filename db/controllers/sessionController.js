@@ -1,10 +1,46 @@
 import UserModel from '../models/Users.js';
 import bcrypt from 'bcrypt';
 import exercises from '../stub_data/exercises/exercises_00.json' assert { type: "json" };
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
- * Job: Backend API calls for anything related to the user account, creation, and login/session management. 
+ * (NOT AN API CALL) => getUserInformation(token) - retrieves the user's _id and email after a login
+ * 
+ * GET:
+ *  "/" => checkSession(req, res) - validates JWT token to see if user is logged in
+ * POST:
+ *  "/register" => registerAccount(req, res) - creates a new account to the database with default configurations
+ *  "/login" => login(res, res) - validates a user login and creates a JWT token
  */
+
+export const getUserInformation = (token) => {
+    const key = process.env.REACT_APP_SESSION_SECRET;
+    try {
+        const decoded = jwt.verify(token, key);
+        return { _id: decoded._id, email: decoded.email };
+    } catch (error) {
+        // If the token is invalid or expired, return null
+        console.error('Error decoding token:', error);
+        return null;
+    }
+}
+
+export const checkSession = (req, res) => {
+    // formated as 'Bearer {token}'
+    const token = req.headers.authorization.split(' ')[1];
+    const key = process.env.REACT_APP_SESSION_SECRET;
+    jwt.verify(token, key, (error, decoded) => {
+        if (error) {
+            console.log(error);
+            return res.json({ authorized: false, message: 'Invalid token' });
+        } else {
+            console.log(decoded);
+            return res.json({ authorized: true });
+        }
+    });
+}
 
 export const registerAccount = async (req, res) => {
     try {
@@ -18,7 +54,7 @@ export const registerAccount = async (req, res) => {
             last_name: last_name,
             profile_picture: "", // if empty we check for default profile picture elsewhere
             exercises: exercises[0], // the first item in this stub_data will be our defaults
-            calendar: []
+            calendar: [] // calendar should be empty by default
         });
         let result = await user.save();
         result = result.toObject();
@@ -49,15 +85,38 @@ export const login = async (req, res) => {
                 .status(400)
                 .json({ success: false, message: "Email or password does not match" });
         }
-        const id = user._id.toString();
+
         if (user.stub_data && user.password === password) {
             console.log("STUB_DATA");
-            req.session._id = id;
-            return res.json({ success: true, token: id });
+            const user_data = {
+                _id: user._id.toString(),
+                email: user.email
+            }
+            console.log("ID: ", user._id.toString())
+            const key = process.env.REACT_APP_SESSION_SECRET
+            jwt.sign(user_data, key, (err, token) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Failed to generate token' });
+                } else {
+                    return res.json({ success: true, token: token });
+                }
+            });
+            return;
         }
         if (await bcrypt.compare(password, user.password)) {
-            req.session._id = id;
-            return res.json({ success: true, token: id });
+            const user_data = {
+                id: user._id.toString(),
+                email: user.email
+            }
+            const key = process.env.REACT_APP_SESSION_SECRET
+            jwt.sign(user_data, key, (err, token) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Failed to generate token' });
+                } else {
+                    return res.json({ success: true, token: token });
+                }
+            });
+            return;
         }
         return res
             .status(400)
@@ -67,26 +126,5 @@ export const login = async (req, res) => {
         return res
             .status(500)
             .json({ error: "Internal Server Error" });
-    }
-}
-
-export const logout = (req, res) => {
-    req.session.destroy((error) => {
-        if (error) {
-            console.error('Session destruction error:', error);
-            return res
-                .status(500)
-                .json({ error: "Internal Server Error" });
-        }
-        return res.json({ success: true });
-    });
-}
-
-export const checkSession = (req, res) => {
-    console.log("Session: ", req.body.token);
-    if (req.body.token) {
-        return res.json({ authorized: true, id: req.body.token });
-    } else {
-        return res.json({ authorized: false });
     }
 }
