@@ -1,5 +1,7 @@
 import UserModel from '../models/Users.js';
 import { getUserInformation } from './sessionController.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * GET:

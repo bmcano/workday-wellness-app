@@ -2,6 +2,8 @@ import UserModel from '../models/Users.js';
 import bcrypt from 'bcrypt';
 import exercises from '../stub_data/exercises/exercises_00.json' assert { type: "json" };
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * (NOT AN API CALL) => getUserInformation(token) - retrieves the user's _id and email after a login
