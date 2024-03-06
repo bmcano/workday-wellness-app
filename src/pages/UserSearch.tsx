@@ -15,7 +15,7 @@ const UserSearch: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet('http://localhost:3001/search_users')
+        apiGet('http://localhost:3001/users_list')
             .then(res => res.json())
             .then(data => {
                 setUserList(data)

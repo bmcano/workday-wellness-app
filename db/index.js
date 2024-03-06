@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent, addUserRecommendations } from './controllers/outlookController.js';
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
 import { uploadProfilePicture, getUser, updateExerciseInformation } from './controllers/profileController.js';
-import { addFriend, removeFriend, searchFriendsList, searchUsersList, viewUserProfile } from './controllers/friendsController.js';
+import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 
 /**
  * Server setup
@@ -44,8 +44,8 @@ app.get('/user', async (req, res) => getUser(req, res));
 app.post('/upload', async (req, res) => uploadProfilePicture(req, res));
 app.post('/update_exercise_information', async (req, res) => updateExerciseInformation(req, res));
 // see ./controllers/friendsController.js for more details.
-app.get('/search_users', async (req, res) => searchUsersList(req, res));
-app.get('/friends_list', async (req, res) => searchFriendsList(req, res));
+app.get('/users_list', async (req, res) => usersList(req, res));
+app.get('/friends_list', async (req, res) => friendsList(req, res));
 app.post('/view_profile', async (req, res) => viewUserProfile(req, res));
 app.post('/add_friend', async (req, res) => addFriend(req, res));
 app.post('/remove_friend', async (req, res) => removeFriend(req, res));
