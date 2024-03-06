@@ -1,7 +1,6 @@
 import express, { json } from 'express';
 import { connect } from 'mongoose';
 import cors from 'cors';
-import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent, addUserRecommendations } from './controllers/outlookController.js';
@@ -22,16 +21,6 @@ app.use(bodyParser.json({ limit: '125kb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '125kb' }));
 app.use(json());
 app.use(cookieParser());
-// TODO - check if this is needed
-app.use(session({
-    secret: process.env.REACT_APP_SESSION_SECRET || 'default_secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24
-    }
-}));
 
 connect("mongodb://localhost:27017/wellness-app");
 

@@ -164,9 +164,18 @@ export const addOutlookEvent = async (req, res) => {
 }
 
 export const addUserRecommendations = async (req, res) => {
-    async function addToDatabase(req) {
+    const token = req.headers.authorization.split(' ')[1];
+    const data = getUserInformation(token);
+    let user_id = undefined;
+    if (data) {
+        user_id = data._id;
+    } else {
+        return res.json({ authorized: false });
+    }
+
+    async function addToDatabase(req, _id) {
         try {
-            const user = await UserModel.findById(req.session._id);
+            const user = await UserModel.findById(_id);
             user.calendar.push(...req.body.events);
             await user.save();
             return true;
@@ -176,13 +185,13 @@ export const addUserRecommendations = async (req, res) => {
         }
     }
 
-    async function addToOutlook(req) {
+    async function addToOutlook(req, _id) {
         try {
-            const user = await graphHelper.getUserAsync(req.session._id);
+            const user = await graphHelper.getUserAsync(_id);
             const email = user.mail;
             const name = user.displayName;
             req.body.events.forEach(async (event) => {
-                await graphHelper.addOutlookEvent(req.session._id, email, name, event);
+                await graphHelper.addOutlookEvent(_id, email, name, event);
             })
             return true;
         } catch (error) {
@@ -191,8 +200,8 @@ export const addUserRecommendations = async (req, res) => {
         }
     }
 
-    const db = addToDatabase(req);
-    const outlook = addToOutlook(req);
+    const db = addToDatabase(req, user_id);
+    const outlook = addToOutlook(req, user_id);
     if (!db || !outlook) {
         return res
             .status(400)
