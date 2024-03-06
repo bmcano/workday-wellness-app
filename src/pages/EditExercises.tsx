@@ -19,13 +19,15 @@ const Exercises: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-        apiGet('http://localhost:3001/get_exercise_information')
+        apiGet('http://localhost:3001/user')
             .then(res => res.json())
             .then(data => {
-                setExerciseData(data)
-                console.log(data)
-                const states: boolean[] = Object.keys(data).map(key => data[key].isEnabled);
-                setCheckboxStates(states);
+                if (data.authorized) {
+                    const items = data.user.exercises;
+                    setExerciseData(items);
+                    const states: boolean[] = Object.keys(items).map(key => items[key].isEnabled);
+                    setCheckboxStates(states);
+                }
             })
             .catch(error => console.log(error));
     }, [navigate])

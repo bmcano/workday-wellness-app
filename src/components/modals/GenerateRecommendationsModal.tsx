@@ -28,12 +28,12 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
 
     useEffect(() => {
-        apiGet("http://localhost:3001/recommendation_items")
+        apiGet("http://localhost:3001/user")
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    setEvents(data.calendar)
-                    const categories = splitExerciseData(data.exercises);
+                    setEvents(data.user.calendar)
+                    const categories = splitExerciseData(data.user.exercises);
                     console.log(categories);
                     setExerciseData(categories);
                 }
