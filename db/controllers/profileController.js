@@ -1,13 +1,22 @@
 import UserModel from '../models/Users.js';
+import { getUserInformation } from './sessionController.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
- * Job: Backend API calls directly regarding the user profile.
+ * GET:
+ *  "/user" => getUser(req, res) - gets all items of a user thats in the users document from their unique id
+ * POST:
+ *  "/upload" => uploadProfilePicture(req, res) - updates the profile picture in the database
+ *  "/update_exercise_information" => updateExerciseInformation(req, res) - updates all the exercises preferences
  */
 
 export const getUser = async (req, res) => {
     try {
-        if (req.session._id) {
-            const user = await UserModel.findOne({ _id: req.session._id }).lean();
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user = await UserModel.findOne({ _id: data._id }).lean();
             return res.json({ authorized: true, user: user });
         } else {
             return res.json({ authorized: false });
@@ -20,13 +29,17 @@ export const getUser = async (req, res) => {
 
 export const uploadProfilePicture = async (req, res) => {
     try {
-        const base64Image = req.body.base64Image;
-        const user = await UserModel.findById(req.session._id);
-        user.profile_picture = base64Image;
-        await user.save();
-        return res
-            .status(200)
-            .send("Image uploaded successfully");
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user = await UserModel.findOne({ _id: data._id });
+            const base64Image = req.body.base64Image;
+            user.profile_picture = base64Image;
+            await user.save();
+            return res.json({ success: true });
+        } else {
+            return res.json({ authorized: false });
+        }
     } catch (error) {
         console.error(error);
         return res
@@ -35,24 +48,18 @@ export const uploadProfilePicture = async (req, res) => {
     }
 }
 
-export const getExerciseInformation = async (req, res) => {
-    try {
-        const user = await UserModel.findById(req.session._id);
-        return res.json(user.exercises);
-    } catch (error) {
-        console.error(error);
-        return res
-            .status(500)
-            .send("Error finding user information.");
-    }
-}
-
 export const updateExerciseInformation = async (req, res) => {
     try {
-        const user = await UserModel.findById(req.session._id);
-        user.exercises = req.body.exerciseData;
-        await user.save();
-        return res.json({ success: true });
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user = await UserModel.findOne({ _id: data._id });
+            user.exercises = req.body.exerciseData;
+            await user.save();
+            return res.json({ success: true });
+        } else {
+            return res.json({ authorized: false });
+        }
     } catch (error) {
         console.error(error);
         return res

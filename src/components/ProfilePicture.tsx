@@ -35,7 +35,7 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
 
     useEffect(() => {
         if (isUserProfile) {
-            apiGet('http://localhost:3001/get_user')
+            apiGet('http://localhost:3001/user')
                 .then(res => res.json())
                 .then(data => {
                     if (data.authorized) {
