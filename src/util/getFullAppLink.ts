@@ -8,8 +8,6 @@ export const getFullAppLink = (link: string): string => {
 
 export const getServerCall = (link: string): string => {
     // const server_url = process.env.REACT_APP_SERVER_URL;
-    // console.log(server_url);
-    // http://localhost:3001
-    // https://workday-wellness-app.onrender.com
+    // return `http://localhost:3001${link}`;
     return `https://workday-wellness-app.onrender.com${link}`;
 }

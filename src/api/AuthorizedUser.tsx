@@ -6,12 +6,15 @@ export const AuthorizedUser = (navigate: NavigateFunction) => {
     apiGet(getServerCall("/"))
         .then(res => res.json())
         .then(data => {
-            console.log(data.authorized)
+            console.log(data.authorized);
             if (data.authorized) {
                 console.log("User authorized.");
             } else {
                 navigate('/login');
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            navigate('/login');
+        });
 }
