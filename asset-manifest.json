@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/workday-wellness-app/static/css/main.108a19e5.css",
-    "main.js": "/workday-wellness-app/static/js/main.3bd2c543.js",
+    "main.css": "/workday-wellness-app/static/css/main.6a72103d.css",
+    "main.js": "/workday-wellness-app/static/js/main.eedebe99.js",
     "static/js/592.d12f7eed.chunk.js": "/workday-wellness-app/static/js/592.d12f7eed.chunk.js",
     "static/media/alexpfp.jpeg": "/workday-wellness-app/static/media/alexpfp.3ab2eb8c80061bf0036a.jpeg",
     "static/media/SFRED.svg": "/workday-wellness-app/static/media/SFRED.6dc8441eb62dc0975bdf34b697352512.svg",
@@ -20,12 +20,12 @@
     "static/media/home-icon.svg": "/workday-wellness-app/static/media/home-icon.0a0b8c9e47cd811f1e32ac82faa26e6b.svg",
     "static/media/information-circle-outline.svg": "/workday-wellness-app/static/media/information-circle-outline.8f3478851a8ac86cd04e8f4109c0634c.svg",
     "static/media/walk-outline.svg": "/workday-wellness-app/static/media/walk-outline.2682a11aaba229652f0f9e8199a6a0a9.svg",
-    "main.108a19e5.css.map": "/workday-wellness-app/static/css/main.108a19e5.css.map",
-    "main.3bd2c543.js.map": "/workday-wellness-app/static/js/main.3bd2c543.js.map",
+    "main.6a72103d.css.map": "/workday-wellness-app/static/css/main.6a72103d.css.map",
+    "main.eedebe99.js.map": "/workday-wellness-app/static/js/main.eedebe99.js.map",
     "592.d12f7eed.chunk.js.map": "/workday-wellness-app/static/js/592.d12f7eed.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.108a19e5.css",
-    "static/js/main.3bd2c543.js"
+    "static/css/main.6a72103d.css",
+    "static/js/main.eedebe99.js"
   ]
 }
