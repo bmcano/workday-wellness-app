@@ -9,6 +9,7 @@ import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
+import { getServerCall } from '../../util/getFullAppLink.ts';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
