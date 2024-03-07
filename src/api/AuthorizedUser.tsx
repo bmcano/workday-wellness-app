@@ -1,11 +1,9 @@
 import { NavigateFunction } from "react-router-dom";
-import { apiPost } from "./serverApiCalls.tsx";
+import { apiGet } from "./serverApiCalls.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
 
 export const AuthorizedUser = (navigate: NavigateFunction) => {
-    const token = localStorage.getItem('token');
-    const jsonData = JSON.stringify({ token: token });
-    apiPost(getServerCall("/"), jsonData)
+    apiGet(getServerCall("/"))
         .then(res => res.json())
         .then(data => {
             console.log(data.authorized)
