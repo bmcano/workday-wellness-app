@@ -32,7 +32,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         apiGet(getServerCall("/user"))
             .then(res => res.json())
             .then(data => {
-                if (data.success) {
+                if (data.authorized) {
                     setEvents(data.user.calendar)
                     const categories = splitExerciseData(data.user.exercises);
                     console.log(categories);
