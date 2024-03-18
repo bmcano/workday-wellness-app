@@ -14,7 +14,6 @@ class Navigation:
         self.destination = destination
 
 CALENDAR = "Calendar"
-CHAT = "Chat"
 CREATE_ACCOUNT = "CreateAccount"
 EDIT_PROFILE = "EditProfile"
 EXERCISES = "Exercises"
@@ -33,7 +32,6 @@ NAVBAR = "Navbar"
 # from the src/pages directory, add in alphabetical order
 pages = [
     CALENDAR,
-    CHAT, 
     CREATE_ACCOUNT, 
     EDIT_PROFILE, 
     EXERCISES, 
@@ -56,8 +54,6 @@ actions = [
 # Includes items that have not been implemented yet, but will be eventually, unsure items are commented out
 navigations = [
     Navigation(CALENDAR, NAVBAR),
-    Navigation(CHAT, NAVBAR),
-    Navigation(CHAT, USER_PROFILE), # NOT IMPLEMENTED YET
     Navigation(CREATE_ACCOUNT, LOGIN),
     # Navigation(CREATE_ACCOUNT, FORGOT_PASSOWRD), 
     Navigation(EDIT_PROFILE, SETTINGS),
@@ -72,7 +68,6 @@ navigations = [
     Navigation(LOGOUT, LOGIN),
     Navigation(NAVBAR, HOME),
     Navigation(NAVBAR, EXERCISES),
-    Navigation(NAVBAR, CHAT),
     Navigation(NAVBAR, CALENDAR),
     Navigation(NAVBAR, NOTIFICATIONS),
     Navigation(NAVBAR, PROFILE),
