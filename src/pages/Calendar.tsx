@@ -16,6 +16,7 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import DateRangeModal from "../components/modals/DateRangeModal.tsx";
+import { getServerCall } from "../util/getFullAppLink.ts";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 
 const Calendar: React.FC = () => {
@@ -44,7 +45,7 @@ const Calendar: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-        apiGet('http://localhost:3001/get_calendar_data')
+        apiGet(getServerCall("/get_calendar_data"))
             .then(res => res.json())
             .then(data => {
                 if (data.authorized) {
@@ -58,7 +59,7 @@ const Calendar: React.FC = () => {
     }, [navigate])
 
     const checkOutlookClient = () => {
-        apiGet('http://localhost:3001/check_outlook_client')
+        apiGet(getServerCall("/check_outlook_client"))
             .then(res => res.json())
             .then(data => {
                 console.log("Outlook Client: ", data)
@@ -72,7 +73,7 @@ const Calendar: React.FC = () => {
     }
 
     const handleOutlookLogin = () => {
-        apiGet("http://localhost:3001/initalize_outlook")
+        apiGet(getServerCall("/initalize_outlook"))
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -90,7 +91,7 @@ const Calendar: React.FC = () => {
 
     const handleCalendarSync = (start: Date, end: Date) => {
         const jsonData = JSON.stringify({ start: start, end: end });
-        apiPost('http://localhost:3001/sync_calendar', jsonData)
+        apiPost(getServerCall("/sync_calendar"), jsonData)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -107,7 +108,7 @@ const Calendar: React.FC = () => {
     const handleSaveEvents = () => {
         const jsonData = JSON.stringify({ calendar: events })
         console.log(jsonData);
-        apiPost('http://localhost:3001/save_calendar_data', jsonData)
+        apiPost(getServerCall("/save_calendar_data"), jsonData)
             .catch(error => console.log(error));
         alert("Events have been saved.");
     }

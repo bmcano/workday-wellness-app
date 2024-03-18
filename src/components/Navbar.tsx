@@ -46,7 +46,7 @@ const Navbar = () => {
                             <a href={getFullAppLink("/profile")}>Profile</a>
                             <a href={getFullAppLink("/user/search")}>Find Friends</a>
                             <a href={getFullAppLink("/settings")}>Settings</a>
-                            <a href={getFullAppLink("#/")} onClick={logout}>Logout</a>
+                            <a href={getFullAppLink("/login")} onClick={logout}>Logout</a>
                         </div>
                     )}
                 </div>
