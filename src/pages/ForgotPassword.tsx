@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
+import { getServerCall } from "../util/getFullAppLink.ts";
 
 const ForgotPassword: React.FC = () => {
 
@@ -21,7 +22,7 @@ const ForgotPassword: React.FC = () => {
         const jsonData = JSON.stringify({ email})
         console.log(jsonData);
 
-        apiPost('http://localhost:3001/login', jsonData)
+        apiPost(getServerCall('/login'), jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {

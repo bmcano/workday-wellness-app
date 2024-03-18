@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
+import { getServerCall } from "../util/getFullAppLink.ts";
 
 const enabledText = "#212121"
 const disabledText = "#e4e3e3"
@@ -19,7 +20,7 @@ const Exercises: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-        apiGet('http://localhost:3001/user')
+        apiGet(getServerCall("/user"))
             .then(res => res.json())
             .then(data => {
                 if (data.authorized) {
@@ -70,7 +71,7 @@ const Exercises: React.FC = () => {
         });
         console.log(exerciseData)
         const jsonData = JSON.stringify({ exerciseData })
-        apiPost('http://localhost:3001/update_exercise_information', jsonData)
+        apiPost(getServerCall("/update_exercise_information"), jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {

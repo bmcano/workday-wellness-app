@@ -13,7 +13,7 @@ import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from
  */
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.REACT_APP_WEBSITE_URL,
     methods: ["POST", "GET"],
     credentials: true
 }));
@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '125kb' }));
 app.use(json());
 app.use(cookieParser());
 
-connect("mongodb://localhost:27017/wellness-app");
+// connect("mongodb://localhost:27017/wellness-app");
+connect(process.env.REACT_APP_MONGO_ATLAS);
 
 // see ./controllers/sessionController.js for more details.
 app.get('/', (req, res) => checkSession(req, res));
