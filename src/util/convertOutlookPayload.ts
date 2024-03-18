@@ -71,6 +71,7 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
 //Function to get the time until the next event for the timer
 export const getTimeUntilNextEvent = (payload: EventInput[]): number | null => {
     const events: EventInput[] = [...payload];
+    if(events === null) return 0;
 
     // If there are no events, return null
     if (events.length === 0) {
