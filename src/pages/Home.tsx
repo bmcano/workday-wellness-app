@@ -14,7 +14,7 @@ import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
-import Footer from "../pages/Footer.tsx";
+import Footer from "../components/Footer.tsx";
 
 let intervalId: number | null = null;
 
