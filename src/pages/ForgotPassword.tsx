@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
+import { sendPasswordResetEmail } from "../util/email.ts";
 
 const ForgotPassword: React.FC = () => {
 
@@ -21,10 +22,10 @@ const ForgotPassword: React.FC = () => {
         const email = data.get('email');
         const jsonData = JSON.stringify({ email})
         console.log(jsonData);
-        if ('check email'
+        if ('check email')
         {
-            
-        })
+            sendPasswordResetEmail(email,token)
+        }
         // apiPost(getServerCall('/login'), jsonData)
         //     .then(res => res.json())
         //     .then(data => {
