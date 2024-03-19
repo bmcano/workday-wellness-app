@@ -9,6 +9,7 @@ import { getServerCall } from "../util/getFullAppLink.ts";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Navbar from "../components/Navbar.tsx";
 
 const EditProfile: React.FC = () => {
     const navigate = useNavigate();
@@ -93,13 +94,16 @@ const EditProfile: React.FC = () => {
 
     return (
         <React.Fragment>
-            <h1>Edit Profile</h1>
+            <Navbar />
+            <div className="card">
+                <h3>Image Upload</h3>
+                <UploadImage handleImageUpload={handleImageUpload} />
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className="card-columns">
                     <div className="card-column">
                         <div className="card">
-                            <h3>Image Upload</h3>
-                            <UploadImage handleImageUpload={handleImageUpload} />
+                            <h3>Profile Information</h3>
                             <TextField label="Name" value={name} onChange={e => setName(e.target.value)} fullWidth margin="normal" />
                             <TextField label="Birthday" type="date" value={birthday} onChange={e => setBirthday(e.target.value)} InputLabelProps={{ shrink: true }} fullWidth margin="normal" />
                             <TextField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} fullWidth margin="normal" />
@@ -109,7 +113,7 @@ const EditProfile: React.FC = () => {
                     </div>
                     <div className="card-column">
                         <div className="card">
-                        
+
                             {Object.keys(workHours).map((day) => (
                                 <div key={day}>
                                     <Typography variant="body1">{day}</Typography>
