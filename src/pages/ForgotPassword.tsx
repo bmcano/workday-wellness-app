@@ -19,23 +19,18 @@ const ForgotPassword: React.FC = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
-        const jsonData = JSON.stringify({ email})
+        const jsonData = JSON.stringify({ email })
         console.log(jsonData);
-        if ('check email'
-        {
-            
-        })
-        // apiPost(getServerCall('/login'), jsonData)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         if (data.success) {
-        //             console.log("Email Sent");
-        //             navigate('/');
-        //         } else {
-        //             alert("Incorrect email");
-        //         }
-        //     })
-        //     .catch(() => alert("Email failed."));
+        apiPost(getServerCall('/does_email_exist'), jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // do whatever is needed to send email
+                } else {
+                    alert("Email does not exist");
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     return (

@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent, addUserRecommendations } from './controllers/outlookController.js';
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
-import { uploadProfilePicture, getUser, updateExerciseInformation } from './controllers/profileController.js';
+import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 
 /**
@@ -33,6 +33,7 @@ app.post('/login', async (req, res) => login(req, res));
 app.get('/user', async (req, res) => getUser(req, res));
 app.post('/upload', async (req, res) => uploadProfilePicture(req, res));
 app.post('/update_exercise_information', async (req, res) => updateExerciseInformation(req, res));
+app.post('/does_email_exist', async (req, res) => doesEmailExistInDatabase(req, res));
 // see ./controllers/friendsController.js for more details.
 app.get('/users_list', async (req, res) => usersList(req, res));
 app.get('/friends_list', async (req, res) => friendsList(req, res));

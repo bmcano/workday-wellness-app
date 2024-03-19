@@ -67,3 +67,19 @@ export const updateExerciseInformation = async (req, res) => {
             .send("Error saving exercise information.");
     }
 }
+
+export const doesEmailExistInDatabase = async (req, res) => {
+    try {
+        const email = req.body.email;
+        const user = await UserModel.findOne({ email: email });
+        if (user) {
+            return res.json({ success: true });
+        }
+        return res.json({ success: false });        
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error searching for user email");
+    }
+}
