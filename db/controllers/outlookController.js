@@ -14,21 +14,10 @@ dotenv.config();
  * POST:
  *  "/sync_calendar" => getOutlookCalendar(req, res) - grabs the calendar payload from outlook for a specified date range
  *  "/save_calendar_data" => saveCalendarData(req, res) - saves the calendar data to the users database
- *  "/send_email" => sendEmail(req, res) - sends an email to a user given a email (NOT IMPLEMENTED)
  *  "/add_calendar_data" => addCalendarData(req, res) - adds an individual event to the database
  *  "/add_outlook_event" => addOutlookEvent(req, res) - adds an individual event to outlook
  *  "/add_user_recommendations" => addUserRecommendations(req, res) - adds the set of events to both the database and outlook
  */
-
-// NODEMAILER CONFIG
-// Configure Nodemailer
-const transporter = nodemailer.createTransport({
-    service: 'outlook',
-    auth: {
-        user: 'workdaywellnes@outlook.com',
-        pass: process.env.REACT_APP_EMAIL_PASSWORD
-    }
-});
 
 export const checkIfOutlookClientExist = (req, res) => {
     const token = req.headers.authorization.split(' ')[1];

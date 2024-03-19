@@ -9,7 +9,19 @@ dotenv.config();
  * POST:
  *  "/upload" => uploadProfilePicture(req, res) - updates the profile picture in the database
  *  "/update_exercise_information" => updateExerciseInformation(req, res) - updates all the exercises preferences
+ *  "/does_email_exist" => doesEmailExistInDatabase(req, res) - checks if an email is in the DB
+ *  "/send_email" => sendEmail(req, res) - sends an email to a user given a email
  */
+
+// NODEMAILER CONFIG
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'outlook',
+    auth: {
+        user: 'workdaywellnes@outlook.com',
+        pass: process.env.REACT_APP_EMAIL_PASSWORD
+    }
+});
 
 export const getUser = async (req, res) => {
     try {
@@ -82,4 +94,23 @@ export const doesEmailExistInDatabase = async (req, res) => {
             .status(500)
             .send("Error searching for user email");
     }
+}
+
+export const sendEmail = async (req, res) => {
+    let mailOptions = {
+        from: 'workdaywellnes@outlook.com',
+        to: req.body.email,
+        subject: req.body.subject,
+        text: req.body.text
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).json({ error: "Error sending email." });
+        } else {
+            console.log('Email sent: ' + info.response);
+            return res.json({ success: true });
+        }
+    });
 }
