@@ -21,18 +21,21 @@ const ForgotPassword: React.FC = () => {
         const email = data.get('email');
         const jsonData = JSON.stringify({ email})
         console.log(jsonData);
-
-        apiPost(getServerCall('/login'), jsonData)
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Email Sent");
-                    navigate('/');
-                } else {
-                    alert("Incorrect email");
-                }
-            })
-            .catch(() => alert("Email failed."));
+        if ('check email'
+        {
+            
+        })
+        // apiPost(getServerCall('/login'), jsonData)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             console.log("Email Sent");
+        //             navigate('/');
+        //         } else {
+        //             alert("Incorrect email");
+        //         }
+        //     })
+        //     .catch(() => alert("Email failed."));
     };
 
     return (
