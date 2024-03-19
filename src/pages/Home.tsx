@@ -21,7 +21,6 @@ let intervalId: number | null = null;
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const audioRef = new Audio(messageSound);
-  const [open, setOpen] = useState(false);
 
   const [name, setName] = useState("");
   const [duration, setDuration] = useState<number>(60);
@@ -36,18 +35,22 @@ const Home: React.FC = () => {
       .then(res => res.json())
       .then(data => {
         if (data.authorized) {
+          console.log(data)
           setName(data.user.first_name);
           setTodaysEvents(data.user.calendar);
         }
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error);
+        navigate('/login');
+      })
       .finally(() => setLoading(false));
     // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (intervalId !== null) clearInterval(intervalId);
     };
   }, [navigate]);
-  
+
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -5,17 +5,34 @@ import Navbar from "../components/Navbar.tsx";
 import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
-import { getFullAppLink } from '../util/getFullAppLink.ts';
+import { getServerCall } from '../util/getFullAppLink.ts';
+import { apiGet } from '../api/serverApiCalls.tsx';
 
-const TABS = ['About', 'Latest Activity', 'Posts', 'Status']; 
+const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
 
 const Profile: React.FC = () => {
 
-  const [activeTab, setActiveTab] = useState(TABS[0]); 
+  const [name, setName] = useState("");
+  const [joinDate, setJoinDate] = useState<Date>("January 1st, 2024" as unknown as Date);
+  const [linkedIn, setLinkedIn] = useState("");
+  const [about, setAbout] = useState("User has not set any information.");
+  const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
 
   useEffect(() => {
     AuthorizedUser(navigate);
+    apiGet(getServerCall("/user"))
+      .then(res => res.json())
+      .then(data => {
+        if (data.authorized) {
+          setName(`${data.user.first_name} ${data.user.last_name}`);
+          // TODO - add DB items
+          setJoinDate("January 1st, 2024" as unknown as Date);
+          setLinkedIn("https://www.linkedin.com/in/brandon-cano/");
+          setAbout("I am a software engineer");
+        }
+      })
+      .catch(error => console.log(error))
   }, [navigate]);
 
   const handleTabClick = (tab: string) => {
@@ -25,7 +42,7 @@ const Profile: React.FC = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'About':
-        return <div>About content goes here.</div>;
+        return <div>{about}</div>;
       case 'Latest Activity':
         return <div>Latest Activity content goes here.</div>;
       case 'Posts':
@@ -49,9 +66,9 @@ const Profile: React.FC = () => {
                 <div className="edit-overlay">Edit</div>
               </div>
               <div className="profile-text-container">
-                <h1>Ian</h1>
-                <p>{'{Insert Role at Company}'}</p>
-                <p>Since Jan 1st 1999</p>
+                <h1>{name}</h1>
+                <p>Joined on {joinDate.toString()}</p>
+                <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
               </div>
             </div>
             <div className="card-header">

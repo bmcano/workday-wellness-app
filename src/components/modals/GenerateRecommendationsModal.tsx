@@ -21,12 +21,10 @@ interface TimeSlots {
 }
 
 const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> = ({ isOpen, onClose, onSave }) => {
-    const [selectedItem, setSelectedItem] = useState('');
     const [date, setDate] = useState(new Date());
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
-
 
     useEffect(() => {
         apiGet(getServerCall("/user"))
@@ -44,7 +42,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
     const handleSave = () => {
         // get events from selected date
-        const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
+        // const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
         const isoDate = date.toISOString().split('T')[0];
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(isoDate));
         console.log(updatedEvents)
