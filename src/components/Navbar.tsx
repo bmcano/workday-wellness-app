@@ -36,6 +36,7 @@ const Navbar = () => {
             <a href={getFullAppLink("/chat")} className={location.pathname === '/chat' ? 'active-icon' : ''}><ChatIcon className="nav-icon" /></a>
             <a href={getFullAppLink("/calendar")} className={location.pathname === '/calendar' ? 'active-icon' : ''}><CalendarIcon className="nav-icon" /></a>
             <a href={getFullAppLink("/notifications")} className={location.pathname === '/notifications' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
+            <a href={getFullAppLink("/leaderboard")} className={location.pathname === '/leaderboard' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
                 <div className="subnav">
                     <a onClick={toggleSubMenu} role="button">
                         <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true}/>

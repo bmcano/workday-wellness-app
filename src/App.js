@@ -18,6 +18,7 @@ import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import UserSearch from './pages/UserSearch.tsx';
 import AboutPage from './pages/About.tsx';
+import Leaderboard from './pages/Leaderboard.tsx';
 
 const App = () => {
 
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<Edit />} />
           <Route path="/about" exact element={<AboutPage />} />
+          <Route path="/leaderboard" exact element={<Leaderboard />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
