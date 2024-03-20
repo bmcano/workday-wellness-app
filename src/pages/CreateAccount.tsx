@@ -100,7 +100,7 @@ const CreateAccount: React.FC = () => {
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>Create Account</Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="" variant="body2">Forgot password?</Link>
+                                <Link href={getFullAppLink("/forgot_password")} variant="body2">Forgot password?</Link>
                             </Grid>
                             <Grid item>
                                 <Link href={getFullAppLink("/login")} variant="body2">Already have an account?</Link>
