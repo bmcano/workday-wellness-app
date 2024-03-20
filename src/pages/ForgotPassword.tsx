@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { apiPost } from "../api/serverApiCalls.tsx";
-import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
 import { v4 as uuidv4 } from 'uuid';
 
 const ForgotPassword: React.FC = () => {
@@ -19,15 +19,14 @@ const ForgotPassword: React.FC = () => {
         const email = data.get('email');
         const subject = "Reset Password"
         const token = uuidv4();
-        // TODO: update link to be with env variables
-        const text = `Please click the following link to reset your password http://localhost:3000${process.env.PUBLIC_URL}/reset-password/${token}`
+        const text = `Please click the following link to reset your password: ${process.env.REACT_APP_WEBSITE_URL}${process.env.PUBLIC_URL}/reset-password/${token}`
         const jsonData = JSON.stringify({ email, subject, text, token })
-        apiPost(getServerCall('/does_email_exist'), jsonData)
+        apiPost('/does_email_exist', jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    apiPost(getServerCall("/send_email"), jsonData).catch((error) => console.log(error));
-                    apiPost(getServerCall("/set_token"), jsonData).catch((error) => console.log(error));
+                    apiPost("/send_email", jsonData).catch((error) => console.log(error));
+                    apiPost("/set_token", jsonData).catch((error) => console.log(error));
                     alert("Email has been sent");
                 } else {
                     alert("Email does not exist");

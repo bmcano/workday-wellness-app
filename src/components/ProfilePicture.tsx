@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "./DefaultProfile.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 
 interface ImageStyle {
     width: string;
@@ -36,14 +35,13 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
 
     useEffect(() => {
         if (isUserProfile) {
-            apiGet(getServerCall("/user"))
-                .then(res => res.json())
+            apiGet("/user")
                 .then(data => {
                     if (data.authorized) {
                         setBase64Image(data.user.profile_picture === "" ? DefaultProfile : data.user.profile_picture);
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(error => console.log(error));
         } else {
             setBase64Image(base64Img)
         }

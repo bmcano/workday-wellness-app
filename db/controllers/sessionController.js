@@ -20,8 +20,8 @@ dotenv.config();
 const generateToken = (userData) => {
     const key = process.env.REACT_APP_SESSION_SECRET;
     return new Promise((resolve, reject) => {
-        jwt.sign(userData, key, (err, token) => {
-            if (err) {
+        jwt.sign(userData, key, (error, token) => {
+            if (error) {
                 reject('Failed to generate token');
             } else {
                 resolve(token);

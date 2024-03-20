@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import { useNavigate, useParams } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { isValidPassword } from "../util/createAccountUtils.ts";
-import { getServerCall } from "../util/getFullAppLink.ts";
+
 const ResetPassword: React.FC = () => {
 
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const ResetPassword: React.FC = () => {
         const data = new FormData(event.currentTarget);
         const token = id;
         const tokenJson = JSON.stringify({ token });
-        const emailResponse = await apiPost(getServerCall("/get_email_from_token"), tokenJson);
+        const emailResponse = await apiPost("/get_email_from_token", tokenJson);
         const emailData = await emailResponse.json();
         const email = emailData.email;
         const password = data.get('password');
@@ -33,12 +33,12 @@ const ResetPassword: React.FC = () => {
         if (!isValidPassword(password as string, confirmPassword as string, setPasswordError)) return;
 
         // take user data and post it to the database
-        apiPost(getServerCall("/reset_password"), jsonData)
+        apiPost("/reset_password", jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     alert("Password succesfully changed.");
-                    apiPost(getServerCall("/clear_token"), jsonData);
+                    apiPost("/clear_token", jsonData).catch(error => console.log(error));;
                     navigate('/login');
                 } else {
                     alert("Error changing password.");

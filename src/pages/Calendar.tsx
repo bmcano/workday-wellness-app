@@ -16,7 +16,6 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import DateRangeModal from "../components/modals/DateRangeModal.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 
 const Calendar: React.FC = () => {
@@ -45,8 +44,7 @@ const Calendar: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-        apiGet(getServerCall("/get_calendar_data"))
-            .then(res => res.json())
+        apiGet("/get_calendar_data")
             .then(data => {
                 if (data.authorized) {
                     setEvents(data.calendar)
@@ -59,10 +57,8 @@ const Calendar: React.FC = () => {
     }, [navigate])
 
     const checkOutlookClient = () => {
-        apiGet(getServerCall("/check_outlook_client"))
-            .then(res => res.json())
+        apiGet("/check_outlook_client")
             .then(data => {
-                console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
                 if (!data.authorized) {
                     setIsDateModalOpen(false)
@@ -73,12 +69,9 @@ const Calendar: React.FC = () => {
     }
 
     const handleOutlookLogin = () => {
-        apiGet(getServerCall("/initalize_outlook"))
-            .then(res => res.json())
+        apiGet("/initalize_outlook")
             .then(data => {
-                console.log(data)
                 if (data.authorized) {
-                    console.log(data.deviceCodeMessage.message);
                     setDeviceCodeMessage(data.deviceCodeMessage);
                     handleOpenModal();
                     setLoggedIn(true);
@@ -91,25 +84,23 @@ const Calendar: React.FC = () => {
 
     const handleCalendarSync = (start: Date, end: Date) => {
         const jsonData = JSON.stringify({ start: start, end: end });
-        apiPost(getServerCall("/sync_calendar"), jsonData)
+        apiPost("/sync_calendar", jsonData)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.authorized) {
                     const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
-                    console.log(outlookEvents)
+                    console.log(outlookEvents);
                     setEvents(outlookEvents);
                 } else {
                     console.log("Problem with Outlook.");
                 }
             })
+            .catch(error => console.log(error));
     }
 
     const handleSaveEvents = () => {
         const jsonData = JSON.stringify({ calendar: events })
-        console.log(jsonData);
-        apiPost(getServerCall("/save_calendar_data"), jsonData)
-            .catch(error => console.log(error));
+        apiPost("/save_calendar_data", jsonData).catch(error => console.log(error));
         alert("Events have been saved.");
     }
 
