@@ -1,7 +1,6 @@
 import settings from '../graphApi/outlookSettings.js';
 import * as graphHelper from '../graphApi/graphHelper.js';
 import UserModel from '../models/Users.js';
-import nodemailer from 'nodemailer';
 import { getUserInformation } from './sessionController.js';
 import dotenv from 'dotenv';
 dotenv.config();
