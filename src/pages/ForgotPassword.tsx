@@ -19,7 +19,7 @@ const ForgotPassword: React.FC = () => {
         const email = data.get('email');
         const subject = "Reset Password"
         const token = uuidv4();
-        const text = `Please click the following link to reset your password: ${process.env.REACT_APP_WEBSITE_URL}${process.env.PUBLIC_URL}/reset-password/${token}`
+        const text = `Please click the following link to reset your password: https://github.com/bmcano/workday-wellness-app/reset-password/${token}`
         const jsonData = JSON.stringify({ email, subject, text, token })
         apiPost('/does_email_exist', jsonData)
             .then(res => res.json())
