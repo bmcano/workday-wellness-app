@@ -122,7 +122,7 @@ export const resetPassword = async (req, res) => {
     try {
         const email = req.body.email;
         const user = await UserModel.findOne({ email: email });
-        const plainTextPassword = user.password;
+        const plainTextPassword = req.body.password;
         const password = await bcrypt.hash(plainTextPassword, 10);
         user.password = password;
         await user.save();
@@ -156,11 +156,12 @@ export const getEmailFromToken = async (req, res) => {
         const token = req.body.token;
         console.log("token !!!!!!!!!!!????????????????????????????????????????????? "+req.body.token)
         console.log("getEmail token " +token )
-        const user = await UserModel.findOne({ token: token });
-        
+        const user = await UserModel.findOne({password_reset: token });
+        //console.log("user " + user)
+        //console.log("user email !!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + user.email)
         if (user) {
-            console.log("testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  "  + user.email.toString)
-            return res.json(user.email.toString );
+            console.log("testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + user.email)  //+ user.email.toString)
+            return res.json({success: true, email: user.email });
         }
         return res.json({ success: false });
     } catch (error) {
