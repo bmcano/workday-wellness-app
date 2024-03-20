@@ -36,7 +36,6 @@ const ForgotPassword: React.FC = () => {
                     apiPost(getServerCall("/setToken"),jsonData)
                     
                 } else {
-                    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! error')
                     alert("Email does not exist");
                 }
             })
