@@ -66,8 +66,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
         // save to database first
         const jsonData = JSON.stringify({ events: newEvents })
-        apiPost("/add_user_recommendations", jsonData)
-            .catch(error => console.log(error));
+        apiPost("/add_user_recommendations", jsonData).catch(error => console.log(error));
 
         onSave(newEvents);
         onClose();

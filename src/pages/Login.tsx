@@ -34,7 +34,10 @@ const Login: React.FC = () => {
                     alert("Incorrect email or password.");
                 }
             })
-            .catch(() => alert("Login failed."));
+            .catch((error) => {
+                console.log(error);
+                alert("Login failed.");
+            });
     };
 
     return (

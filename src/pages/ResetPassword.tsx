@@ -38,7 +38,7 @@ const ResetPassword: React.FC = () => {
             .then(data => {
                 if (data.success) {
                     alert("Password succesfully changed.");
-                    apiPost("/clear_token", jsonData);
+                    apiPost("/clear_token", jsonData).catch(error => console.log(error));;
                     navigate('/login');
                 } else {
                     alert("Error changing password.");

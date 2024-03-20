@@ -19,7 +19,7 @@ const UserSearch: React.FC = () => {
             .then(data => {
                 setUserList(data)
             })
-            .catch(err => console.log(err))
+            .catch(error => console.log(error))
     }, [navigate]);
 
     return (

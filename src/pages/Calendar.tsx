@@ -93,19 +93,19 @@ const Calendar: React.FC = () => {
                 console.log(data)
                 if (data.authorized) {
                     const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
-                    console.log(outlookEvents)
+                    console.log(outlookEvents);
                     setEvents(outlookEvents);
                 } else {
                     console.log("Problem with Outlook.");
                 }
             })
+            .catch(error => console.log(error));
     }
 
     const handleSaveEvents = () => {
         const jsonData = JSON.stringify({ calendar: events })
         console.log(jsonData);
-        apiPost("/save_calendar_data", jsonData)
-            .catch(error => console.log(error));
+        apiPost("/save_calendar_data", jsonData).catch(error => console.log(error));
         alert("Events have been saved.");
     }
 

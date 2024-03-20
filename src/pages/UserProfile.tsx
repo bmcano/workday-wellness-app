@@ -37,7 +37,7 @@ const UserProfile: React.FC = () => {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            }).catch(err => console.log(err));
+            }).catch(error => console.log(error));
     }, [navigate, id]);
 
     const handleOnClick = () => {
@@ -59,7 +59,7 @@ const UserProfile: React.FC = () => {
                     setButtonText("Add Friend");
                 }
             })
-            .catch(err => console.log(err));
+            .catch(error => console.log(error));
     }
 
     return (

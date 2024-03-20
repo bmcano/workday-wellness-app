@@ -51,7 +51,7 @@ const EditProfile: React.FC = () => {
             }
 
             const jsonData = JSON.stringify({ base64Image: base64Image });
-            apiPost("/upload", jsonData);
+            apiPost("/upload", jsonData).catch(error => console.log(error));
             console.log("Photo saved successfully.");
         } catch (error) {
             console.error('Error saving image to database:', error);
