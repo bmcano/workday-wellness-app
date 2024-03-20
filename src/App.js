@@ -52,6 +52,7 @@ const App = () => {
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<Edit />} />
           <Route path="/about" exact element={<AboutPage />} />
+          <Route path="/reset-password?token=:id" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
