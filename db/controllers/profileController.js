@@ -153,8 +153,10 @@ export const getEmailFromToken = async (req, res) => {
     try {
         const token = req.body.token;
         const user = await UserModel.findOne({ token: token });
+        
         if (user) {
-            return res.json({ email: user.email });
+            console.log("testing  "  + user.email)
+            return res.json(user.email );
         }
         return res.json({ success: false });
     } catch (error) {

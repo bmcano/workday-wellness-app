@@ -26,14 +26,16 @@ const ResetPassword: React.FC = () => {
         const data = new FormData(event.currentTarget);
         //const email = data.get('email');
         const tokenJson = JSON.stringify({id})
-        const email = apiGet(getServerCall("/getEmailFromToken"))
+        console.log(tokenJson)
+        const email = await apiPost(getServerCall("/getEmailFromToken"),tokenJson)
+        console.log("am here " + email)
         const password = data.get('password');
         const confirmPassword = data.get('confirm_password');
         const jsonData = JSON.stringify({ email, password});
         console.log(jsonData);
 
         // validate user inputs
-        if (!isValidEmail(email as string, setEmailError)) return;
+        //if (!isValidEmail(email as string, setEmailError)) return;
         if (!isValidPassword(password as string, confirmPassword as string, setPasswordError)) return;
 
         // take user data and post it to the database
@@ -62,7 +64,7 @@ const ResetPassword: React.FC = () => {
                 }}>
                     <Typography component="h1" variant="h5">Change Password</Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate >
-                        <TextField
+                        {/* <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -72,7 +74,7 @@ const ResetPassword: React.FC = () => {
                             autoComplete="email"
                             autoFocus
                             error={emailError !== null}
-                            helperText={emailError} />
+                            helperText={emailError} /> */}
                         <TextField
                             margin="normal"
                             required

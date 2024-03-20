@@ -99,6 +99,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await UserModel.findOne({ email: email.toLowerCase() }).lean();
+        //console.log("in session controller " + user.email + "  " + user.password)
         if (!user) {
             return res
                 .status(400)
