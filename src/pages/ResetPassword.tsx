@@ -12,10 +12,10 @@ import { isValidPassword } from "../util/createAccountUtils.ts";
 import { getServerCall } from "../util/getFullAppLink.ts";
 const ResetPassword: React.FC = () => {
 
+    const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const [passwordError, setPasswordError] = useState<string | null>(null);
 
-    const navigate = useNavigate();
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // collect data from text fields
@@ -38,6 +38,7 @@ const ResetPassword: React.FC = () => {
             .then(data => {
                 if (data.success) {
                     alert("Password succesfully changed.");
+                    apiPost(getServerCall("/clear_token"), jsonData);
                     navigate('/login');
                 } else {
                     alert("Error changing password.");

@@ -15,6 +15,7 @@ dotenv.config();
  *  "/send_email" => sendEmail(req, res) - sends an email to a user given a email
  *  "/reset_password" => resetPassword(req, res) - updates a user password 
  *  "/set_token" => setToken(req, res) - sets the token in the users DB for when trying to reset a password
+ *  "/clear_token" => clearToken(req, res) - clears the token associated with the user to prevent potential attacks
  *  "/get_email_from_token" => getEmailFromToken(req, res) - gets user email that is trying to reset password
  */
 
@@ -141,6 +142,21 @@ export const setToken = async (req, res) => {
         const email = req.body.email;
         const user = await UserModel.findOne({ email: email });
         user.password_reset = req.body.token;
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error searching for user email");
+    }
+}
+
+export const clearToken = async (req, res) => {
+    try {
+        const email = req.body.email;
+        const user = await UserModel.findOne({ email: email });
+        user.password_reset = undefined;
         await user.save();
         return res.json({ success: true });
     } catch (error) {
