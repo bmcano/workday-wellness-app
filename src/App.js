@@ -1,3 +1,4 @@
+import './App.css';
 import Login from './pages/Login.tsx';
 import CreateAccount from './pages/CreateAccount.tsx';
 import Home from './pages/Home.tsx';
@@ -10,13 +11,13 @@ import Notification from './pages/Notifications.tsx';
 import Calendar from './pages/Calendar.tsx';
 import Settings from './pages/Settings.tsx';
 import Exercises from './pages/Exercises.tsx';
-import Edit from './pages/EditExercises.tsx';
+import EditExercises from './pages/EditExercises.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import UserSearch from './pages/UserSearch.tsx';
 import AboutPage from './pages/About.tsx';
+import ResetPassword from './pages/ResetPassword.tsx';
 
 const App = () => {
 
@@ -50,8 +51,9 @@ const App = () => {
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
-          <Route path="/exercises/edit" exact element={<Edit />} />
+          <Route path="/exercises/edit" exact element={<EditExercises />} />
           <Route path="/about" exact element={<AboutPage />} />
+          <Route path="/reset-password/:id" exact element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

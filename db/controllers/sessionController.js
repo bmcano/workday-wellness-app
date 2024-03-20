@@ -14,7 +14,7 @@ dotenv.config();
  *  "/" => checkSession(req, res) - validates JWT token to see if user is logged in
  * POST:
  *  "/register" => registerAccount(req, res) - creates a new account to the database with default configurations
- *  "/login" => login(res, res) - validates a user login and creates a JWT token
+ *  "/login" => login(req, res) - validates a user login and creates a JWT token
  */
 
 const generateToken = (userData) => {
@@ -126,7 +126,6 @@ export const login = async (req, res) => {
             .status(400)
             .json({ success: false, message: "Email or password does not match" });
     } catch (error) {
-        console.log(error);
         return res
             .status(500)
             .json({ error: "Internal Server Error" });
