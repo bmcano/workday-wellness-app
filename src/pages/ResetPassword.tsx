@@ -25,8 +25,9 @@ const ResetPassword: React.FC = () => {
         // collect data from text fields
         const data = new FormData(event.currentTarget);
         //const email = data.get('email');
-        const tokenJson = JSON.stringify({id})
-        console.log(tokenJson)
+        const token = id;
+        const tokenJson = JSON.stringify({token})
+        console.log("token in reset password !!!??????????/12213311435" +tokenJson)
         const email = await apiPost(getServerCall("/getEmailFromToken"),tokenJson)
         console.log("am here " + email)
         const password = data.get('password');

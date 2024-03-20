@@ -136,9 +136,11 @@ export const resetPassword = async (req, res) => {
 }
 
 export const setToken = async (req, res) => {
+    console.log("got inside set token")
     try {
         const email = req.body.email;
         const user = await UserModel.findOne({ email: email });
+        
         user.password_reset = req.body.token
         await user.save();
         return res.json({ success: true });
@@ -146,17 +148,19 @@ export const setToken = async (req, res) => {
         console.error(error);
         return res
             .status(500)
-            .send("Error searching for user email");
+            .send("Error searching for user email");g
     }
 }
 export const getEmailFromToken = async (req, res) => {
     try {
         const token = req.body.token;
+        console.log("token !!!!!!!!!!!????????????????????????????????????????????? "+req.body.token)
+        console.log("getEmail token " +token )
         const user = await UserModel.findOne({ token: token });
         
         if (user) {
-            console.log("testing  "  + user.email)
-            return res.json(user.email );
+            console.log("testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  "  + user.email.toString)
+            return res.json(user.email.toString );
         }
         return res.json({ success: false });
     } catch (error) {
