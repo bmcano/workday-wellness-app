@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent, addUserRecommendations } from './controllers/outlookController.js';
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
-import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken  } from './controllers/profileController.js';
+import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 
 /**
@@ -36,8 +36,8 @@ app.post('/update_exercise_information', async (req, res) => updateExerciseInfor
 app.post('/does_email_exist', async (req, res) => doesEmailExistInDatabase(req, res));
 app.post('/send_email', async (req, res) => sendEmail(req, res));
 app.post('/reset_password', async (req, res) => resetPassword(req, res));
-app.post('/getEmailFromToken', async (req, res) => getEmailFromToken(req,res));
-app.post('/setToken', async (req, res) => setToken(req,res));
+app.post('/set_token', async (req, res) => setToken(req, res));
+app.post('/get_email_from_token', async (req, res) => getEmailFromToken(req, res));
 // see ./controllers/friendsController.js for more details.
 app.get('/users_list', async (req, res) => usersList(req, res));
 app.get('/friends_list', async (req, res) => friendsList(req, res));

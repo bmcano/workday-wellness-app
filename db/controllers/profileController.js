@@ -14,6 +14,8 @@ dotenv.config();
  *  "/does_email_exist" => doesEmailExistInDatabase(req, res) - checks if an email is in the DB
  *  "/send_email" => sendEmail(req, res) - sends an email to a user given a email
  *  "/reset_password" => resetPassword(req, res) - updates a user password 
+ *  "/set_token" => setToken(req, res) - sets the token in the users DB for when trying to reset a password
+ *  "/get_email_from_token" => getEmailFromToken(req, res) - gets user email that is trying to reset password
  */
 
 // NODEMAILER CONFIG
@@ -112,7 +114,6 @@ export const sendEmail = async (req, res) => {
             console.log(error);
             return res.status(500).json({ error: "Error sending email." });
         } else {
-            console.log('Email sent: ' + info.response);
             return res.json({ success: true });
         }
     });
@@ -136,29 +137,26 @@ export const resetPassword = async (req, res) => {
 }
 
 export const setToken = async (req, res) => {
-    console.log("got inside set token")
     try {
         const email = req.body.email;
         const user = await UserModel.findOne({ email: email });
-        
-        user.password_reset = req.body.token
+        user.password_reset = req.body.token;
         await user.save();
         return res.json({ success: true });
     } catch (error) {
         console.error(error);
         return res
             .status(500)
-            .send("Error searching for user email");g
+            .send("Error searching for user email");
     }
 }
+
 export const getEmailFromToken = async (req, res) => {
     try {
         const token = req.body.token;
-        console.log("token !!!!!!!!!!!????????????????????????????????????????????? "+req.body.token)
-        console.log("getEmail token " +token )
-        const user = await UserModel.findOne({password_reset: token });
+        const user = await UserModel.findOne({ password_reset: token });
         if (user) {
-            return res.json({success: true, email: user.email });
+            return res.json({ success: true, email: user.email });
         }
         return res.json({ success: false });
     } catch (error) {

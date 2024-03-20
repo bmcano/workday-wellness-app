@@ -19,11 +19,9 @@ dotenv.config();
 
 const generateToken = (userData) => {
     const key = process.env.REACT_APP_SESSION_SECRET;
-    console.log("in generate token " + key)
     return new Promise((resolve, reject) => {
         jwt.sign(userData, key, (err, token) => {
             if (err) {
-                console.log(err)
                 reject('Failed to generate token');
             } else {
                 resolve(token);
@@ -101,13 +99,10 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await UserModel.findOne({ email: email.toLowerCase() }).lean();
-        console.log("in session controller " + user.email + "  " + user.password)
         if (!user) {
-            console.log("in !user")
             return res
                 .status(400)
                 .json({ success: false, message: "Email or password does not match" });
-        
         }
 
         if (user.stub_data && user.password === password) {
@@ -131,7 +126,6 @@ export const login = async (req, res) => {
             .status(400)
             .json({ success: false, message: "Email or password does not match" });
     } catch (error) {
-        console.log(error + "in errer");
         return res
             .status(500)
             .json({ error: "Internal Server Error" });

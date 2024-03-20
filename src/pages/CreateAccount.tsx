@@ -29,7 +29,6 @@ const CreateAccount: React.FC = () => {
         const first_name = data.get('first_name');
         const last_name = data.get('last_name');
         const jsonData = JSON.stringify({ email, password, first_name, last_name });
-        console.log(jsonData);
 
         // validate user inputs
         if (!isValidEmail(email as string, setEmailError)) return;
@@ -51,6 +50,7 @@ const CreateAccount: React.FC = () => {
                     setEmailError(data.message)
                 }
             })
+            .catch((error) => console.log(error));
     };
 
     return (
@@ -113,4 +113,4 @@ const CreateAccount: React.FC = () => {
     )
 }
 
-export default CreateAccount
+export default CreateAccount;
