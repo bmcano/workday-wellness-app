@@ -14,7 +14,7 @@ dotenv.config();
  *  "/" => checkSession(req, res) - validates JWT token to see if user is logged in
  * POST:
  *  "/register" => registerAccount(req, res) - creates a new account to the database with default configurations
- *  "/login" => login(res, res) - validates a user login and creates a JWT token
+ *  "/login" => login(req, res) - validates a user login and creates a JWT token
  */
 
 const generateToken = (userData) => {

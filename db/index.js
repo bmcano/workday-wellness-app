@@ -36,6 +36,8 @@ app.post('/update_exercise_information', async (req, res) => updateExerciseInfor
 app.post('/does_email_exist', async (req, res) => doesEmailExistInDatabase(req, res));
 app.post('/send_email', async (req, res) => sendEmail(req, res));
 app.post('/reset_password', async (req, res) => resetPassword(req, res));
+app.post('/getEmailFromToken', async (req, res) => getEmailFromToken(reg,res));
+app.post('/setToken', async (req, res) => setToken(reg,res));
 // see ./controllers/friendsController.js for more details.
 app.get('/users_list', async (req, res) => usersList(req, res));
 app.get('/friends_list', async (req, res) => friendsList(req, res));
