@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage.tsx";
 import imageCompression from "browser-image-compression";
 import { apiPost } from "../api/serverApiCalls.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
