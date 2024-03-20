@@ -16,6 +16,7 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        console.log(process.env.REACT_APP_SERVER_URL);
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
