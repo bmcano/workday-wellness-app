@@ -7,7 +7,6 @@ import { Friend } from "../types/Friend.tsx";
 import Typography from "@mui/material/Typography";
 import UserSearchList from "../components/UserSearchList.tsx";
 import { apiGet } from "../api/serverApiCalls.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 
 const Friends: React.FC = () => {
 
@@ -16,7 +15,7 @@ const Friends: React.FC = () => {
     const navigate = useNavigate();
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet(getServerCall("/friends_list"))
+        apiGet("/friends_list")
             .then(res => res.json())
             .then(data => {
                 setFriendsList(data)

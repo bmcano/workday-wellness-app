@@ -9,7 +9,6 @@ import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
-import { getServerCall } from '../../util/getFullAppLink.ts';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -32,10 +31,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
 
         // save to database first
         const jsonData = JSON.stringify({ event: eventData })
-        apiPost(getServerCall("/add_calendar_data"), jsonData)
+        apiPost("/add_calendar_data", jsonData)
             .catch(error => console.log(error));
         // then save to the users outlook calendar, if not synced nothing will happen
-        apiPost(getServerCall("/add_outlook_event"), jsonData)
+        apiPost("/add_outlook_event", jsonData)
             .catch(error => console.log(error));
         onSave(eventData);
         onClose();

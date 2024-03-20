@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
-import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
 
 const CreateAccount: React.FC = () => {
 
@@ -39,7 +39,7 @@ const CreateAccount: React.FC = () => {
         }
 
         // take user data and post it to the database
-        apiPost(getServerCall("/register"), jsonData)
+        apiPost("/register", jsonData)
             .then(res => res.json())
             .then(data => {
                 console.log(data);

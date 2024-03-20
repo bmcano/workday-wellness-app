@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 
 const UserProfile: React.FC = () => {
 
@@ -25,7 +24,7 @@ const UserProfile: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate);
         const jsonData = JSON.stringify({ _id: id });
-        apiPost(getServerCall("/view_profile"), jsonData)
+        apiPost("/view_profile", jsonData)
             .then(res => res.json())
             .then(data => {
                 const public_user = data.user;
@@ -44,9 +43,9 @@ const UserProfile: React.FC = () => {
     const handleOnClick = () => {
         var link = "";
         if (!isFriend) {
-            link = getServerCall("/add_friend");
+            link = "/add_friend";
         } else {
-            link = getServerCall("/remove_friend");
+            link = "/remove_friend";
         }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
         apiPost(link, jsonData)

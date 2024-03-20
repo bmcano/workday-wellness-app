@@ -11,7 +11,6 @@ import { getFreeTimeSlots } from '../../util/convertOutlookPayload.ts';
 import { applyExercises, getModeValues, splitExerciseData, splitUpMisc, splitUpStretches } from '../../util/exerciseReccomendations.ts';
 import { ExerciseCategories } from '../../types/ExerciseCategories.ts';
 import { distributeEvents } from '../../util/distributeEvents.ts';
-import { getServerCall } from '../../util/getFullAppLink.ts';
 
 Modal.setAppElement("#root")
 
@@ -27,7 +26,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
 
     useEffect(() => {
-        apiGet(getServerCall("/user"))
+        apiGet("/user")
             .then(res => res.json())
             .then(data => {
                 if (data.authorized) {
@@ -68,7 +67,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
         // save to database first
         const jsonData = JSON.stringify({ events: newEvents })
-        apiPost(getServerCall('/add_user_recommendations'), jsonData)
+        apiPost("/add_user_recommendations", jsonData)
             .catch(error => console.log(error));
 
         onSave(newEvents);

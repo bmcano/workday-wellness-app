@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import { Friend } from "../types/Friend.tsx";
 import UserSearchList from "../components/UserSearchList.tsx";
 import { apiGet } from "../api/serverApiCalls.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 
 const UserSearch: React.FC = () => {
 
@@ -16,7 +15,7 @@ const UserSearch: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet(getServerCall("/users_list"))
+        apiGet("/users_list")
             .then(res => res.json())
             .then(data => {
                 setUserList(data)
