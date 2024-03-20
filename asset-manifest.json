@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/workday-wellness-app/static/css/main.6a72103d.css",
-    "main.js": "/workday-wellness-app/static/js/main.3d5c5e6f.js",
+    "main.js": "/workday-wellness-app/static/js/main.7cdf6cef.js",
     "static/js/592.d12f7eed.chunk.js": "/workday-wellness-app/static/js/592.d12f7eed.chunk.js",
     "static/media/alexpfp.jpeg": "/workday-wellness-app/static/media/alexpfp.3ab2eb8c80061bf0036a.jpeg",
     "static/media/SFRED.svg": "/workday-wellness-app/static/media/SFRED.6dc8441eb62dc0975bdf34b697352512.svg",
@@ -9,7 +9,6 @@
     "static/media/popcorn.mp3": "/workday-wellness-app/static/media/popcorn.ef1252f5e4136ac213ba.mp3",
     "static/media/rogeliopfp.jpeg": "/workday-wellness-app/static/media/rogeliopfp.51bb4821067737ed89f6.jpeg",
     "static/media/calendar-icon.svg": "/workday-wellness-app/static/media/calendar-icon.a2019f650e1a0c2fb584de65e642e65a.svg",
-    "static/media/speaking-bubbles-b-icon.svg": "/workday-wellness-app/static/media/speaking-bubbles-b-icon.a1ee4e96336674e74b1aabe7feea2d92.svg",
     "static/media/finger-print-outline.svg": "/workday-wellness-app/static/media/finger-print-outline.7c5a380877e56a6841efee270c1b9e62.svg",
     "static/media/running-icon.svg": "/workday-wellness-app/static/media/running-icon.7bd118700900f991d19d8d64840ce268.svg",
     "index.html": "/workday-wellness-app/index.html",
@@ -21,11 +20,11 @@
     "static/media/information-circle-outline.svg": "/workday-wellness-app/static/media/information-circle-outline.8f3478851a8ac86cd04e8f4109c0634c.svg",
     "static/media/walk-outline.svg": "/workday-wellness-app/static/media/walk-outline.2682a11aaba229652f0f9e8199a6a0a9.svg",
     "main.6a72103d.css.map": "/workday-wellness-app/static/css/main.6a72103d.css.map",
-    "main.3d5c5e6f.js.map": "/workday-wellness-app/static/js/main.3d5c5e6f.js.map",
+    "main.7cdf6cef.js.map": "/workday-wellness-app/static/js/main.7cdf6cef.js.map",
     "592.d12f7eed.chunk.js.map": "/workday-wellness-app/static/js/592.d12f7eed.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6a72103d.css",
-    "static/js/main.3d5c5e6f.js"
+    "static/js/main.7cdf6cef.js"
   ]
 }
