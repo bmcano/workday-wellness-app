@@ -57,7 +57,7 @@ const ResetPassword: React.FC = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                    <Typography component="h1" variant="h5">Create Account</Typography>
+                    <Typography component="h1" variant="h5">Change Password</Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate >
                         <TextField
                             margin="normal"
@@ -90,7 +90,7 @@ const ResetPassword: React.FC = () => {
                             type="password"
                             id="confirm_password"
                             autoComplete="current-password" />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>Create Account</Button>
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>Change Password</Button>
 
                     </Box>
                 </Box>
