@@ -12,8 +12,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
 import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
-
 const ResetPassword: React.FC = () => {
+
     const { id } = useParams<{ id: string }>();
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
