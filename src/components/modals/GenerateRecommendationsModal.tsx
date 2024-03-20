@@ -31,7 +31,6 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                 if (data.authorized) {
                     setEvents(data.user.calendar)
                     const categories = splitExerciseData(data.user.exercises);
-                    console.log(categories);
                     setExerciseData(categories);
                 }
             })

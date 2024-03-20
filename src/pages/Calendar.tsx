@@ -59,7 +59,6 @@ const Calendar: React.FC = () => {
     const checkOutlookClient = () => {
         apiGet("/check_outlook_client")
             .then(data => {
-                console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
                 if (!data.authorized) {
                     setIsDateModalOpen(false)
@@ -72,9 +71,7 @@ const Calendar: React.FC = () => {
     const handleOutlookLogin = () => {
         apiGet("/initalize_outlook")
             .then(data => {
-                console.log(data)
                 if (data.authorized) {
-                    console.log(data.deviceCodeMessage.message);
                     setDeviceCodeMessage(data.deviceCodeMessage);
                     handleOpenModal();
                     setLoggedIn(true);
@@ -90,7 +87,6 @@ const Calendar: React.FC = () => {
         apiPost("/sync_calendar", jsonData)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.authorized) {
                     const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
                     console.log(outlookEvents);
@@ -104,7 +100,6 @@ const Calendar: React.FC = () => {
 
     const handleSaveEvents = () => {
         const jsonData = JSON.stringify({ calendar: events })
-        console.log(jsonData);
         apiPost("/save_calendar_data", jsonData).catch(error => console.log(error));
         alert("Events have been saved.");
     }

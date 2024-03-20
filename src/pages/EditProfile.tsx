@@ -36,7 +36,6 @@ const EditProfile: React.FC = () => {
             console.log(`File size: ${image.size / 1024} KB`);
             var base64Image = ""
             if (image.size > (100 * 1024)) {
-                console.log("Compressing Image.");
                 const options = {
                     maxSizeMB: 0.1,
                     maxWidthOrHeight: 1920,
@@ -45,14 +44,13 @@ const EditProfile: React.FC = () => {
 
                 const compressedFile = await imageCompression(image, options);
                 base64Image = await toBase64Encoding(compressedFile);
-                console.log(`compressedFile size ${compressedFile.size / 1024} KB`);
+                console.log(`Compressed file size: ${compressedFile.size / 1024} KB`);
             } else {
                 base64Image = await toBase64Encoding(image);
             }
 
             const jsonData = JSON.stringify({ base64Image: base64Image });
             apiPost("/upload", jsonData).catch(error => console.log(error));
-            console.log("Photo saved successfully.");
         } catch (error) {
             console.error('Error saving image to database:', error);
         }

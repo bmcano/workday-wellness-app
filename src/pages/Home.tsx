@@ -33,7 +33,6 @@ const Home: React.FC = () => {
     apiGet("/user")
       .then(data => {
         if (data.authorized) {
-          console.log(data)
           setName(data.user.first_name);
           setTodaysEvents(data.user.calendar);
         }

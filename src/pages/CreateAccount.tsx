@@ -42,7 +42,6 @@ const CreateAccount: React.FC = () => {
         apiPost("/register", jsonData)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     alert("Account created.")
                     navigate('/')

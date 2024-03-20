@@ -20,8 +20,7 @@ const Login: React.FC = () => {
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
         const password = data.get('password');
-        const jsonData = JSON.stringify({ email, password })
-        console.log(jsonData);
+        const jsonData = JSON.stringify({ email, password });
 
         apiPost("/login", jsonData)
             .then(res => res.json())

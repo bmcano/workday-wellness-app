@@ -41,7 +41,7 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
                         setBase64Image(data.user.profile_picture === "" ? DefaultProfile : data.user.profile_picture);
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(error => console.log(error));
         } else {
             setBase64Image(base64Img)
         }

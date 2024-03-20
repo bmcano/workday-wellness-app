@@ -53,8 +53,6 @@ const EditExercises: React.FC = () => {
 
         });
 
-        console.log(formData);
-
         Object.keys(exerciseData).forEach((key, index) => {
             if (key === "_id") return;
             const exercise = exerciseData[key];
@@ -67,7 +65,7 @@ const EditExercises: React.FC = () => {
             exerciseData[key].isEnabled = formData[exercise.id][2]
 
         });
-        console.log(exerciseData)
+
         const jsonData = JSON.stringify({ exerciseData })
         apiPost("/update_exercise_information", jsonData)
             .then(res => res.json())
