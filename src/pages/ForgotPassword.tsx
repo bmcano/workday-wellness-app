@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { getServerCall } from "../util/getFullAppLink.ts";
-import { sendPasswordResetEmail } from "../util/email.ts";
+//import { sendPasswordResetEmail } from "../util/email.ts";
 import { v4 as uuidv4 } from 'uuid';
 
 // Generate a unique token using UUID library
@@ -29,9 +29,11 @@ const ForgotPassword: React.FC = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    const token = uuidv4();
-                    sendPasswordResetEmail(email,token)
+                    apiPost(getServerCall("/send_email"),jsonData)
+                    //const token = uuidv4();
+                    //sendPasswordResetEmail(email,token)
                 } else {
+                    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! error')
                     alert("Email does not exist");
                 }
             })
