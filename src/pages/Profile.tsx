@@ -21,7 +21,6 @@ const Profile: React.FC = () => {
   useEffect(() => {
     AuthorizedUser(navigate);
     apiGet("/user")
-      .then(res => res.json())
       .then(data => {
         if (data.authorized) {
           setName(`${data.user.first_name} ${data.user.last_name}`);

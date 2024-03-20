@@ -3,7 +3,6 @@ import { apiGet } from "./serverApiCalls.tsx";
 
 export const AuthorizedUser = (navigate: NavigateFunction) => {
     apiGet("/")
-        .then(res => res.json())
         .then(data => {
             console.log(data.authorized);
             if (data.authorized) {
@@ -12,8 +11,8 @@ export const AuthorizedUser = (navigate: NavigateFunction) => {
                 navigate('/login');
             }
         })
-        .catch(err => {
-            console.log(err);
+        .catch(error => {
+            console.log(error);
             navigate('/login');
         });
 }

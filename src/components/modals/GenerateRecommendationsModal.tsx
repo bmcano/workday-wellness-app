@@ -27,7 +27,6 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
     useEffect(() => {
         apiGet("/user")
-            .then(res => res.json())
             .then(data => {
                 if (data.authorized) {
                     setEvents(data.user.calendar)

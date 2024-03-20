@@ -16,7 +16,6 @@ const Friends: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate);
         apiGet("/friends_list")
-            .then(res => res.json())
             .then(data => {
                 setFriendsList(data)
             }).catch(err => console.log(err));

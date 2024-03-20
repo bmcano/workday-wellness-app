@@ -31,7 +31,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     AuthorizedUser(navigate);
     apiGet("/user")
-      .then(res => res.json())
       .then(data => {
         if (data.authorized) {
           console.log(data)

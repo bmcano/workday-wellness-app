@@ -36,7 +36,6 @@ const ProfilePicture = ({ isUserProfile, base64Img, isSmallScreen }) => {
     useEffect(() => {
         if (isUserProfile) {
             apiGet("/user")
-                .then(res => res.json())
                 .then(data => {
                     if (data.authorized) {
                         setBase64Image(data.user.profile_picture === "" ? DefaultProfile : data.user.profile_picture);

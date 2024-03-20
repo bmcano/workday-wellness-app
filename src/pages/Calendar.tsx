@@ -45,7 +45,6 @@ const Calendar: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate)
         apiGet("/get_calendar_data")
-            .then(res => res.json())
             .then(data => {
                 if (data.authorized) {
                     setEvents(data.calendar)
@@ -59,7 +58,6 @@ const Calendar: React.FC = () => {
 
     const checkOutlookClient = () => {
         apiGet("/check_outlook_client")
-            .then(res => res.json())
             .then(data => {
                 console.log("Outlook Client: ", data)
                 setLoggedIn(data.authorized)
@@ -73,7 +71,6 @@ const Calendar: React.FC = () => {
 
     const handleOutlookLogin = () => {
         apiGet("/initalize_outlook")
-            .then(res => res.json())
             .then(data => {
                 console.log(data)
                 if (data.authorized) {

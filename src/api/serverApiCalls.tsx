@@ -25,4 +25,5 @@ export const apiGet = async (link: string) => {
             'Authorization': 'Bearer ' + token
         }
     })
+    .then(res => res.json());
 }
