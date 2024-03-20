@@ -1,0 +1,56 @@
+[
+  {
+    "email": "john@example.com",
+    "streak": 0,
+    "completed": {
+      "amount": 0,
+      "exercises": []
+    }
+  },
+  {
+    "email": "alice@example.com",
+    "streak": 10,
+    "completed": {
+      "amount": 12,
+      "exercises": [
+        {
+          "exercise": "wrist rolls",
+          "timestamp": "2024-03-04T14:00:00.000Z"
+        },
+        {
+          "exercise": "wrist rolls",
+          "timestamp": "2024-03-04T14:00:00.000Z"
+        }
+      ]
+    }
+  },
+  {
+    "email": "bob@example.com",
+    "streak": 5,
+    "completed": {
+      "amount": 5,
+      "exercises": [
+        {
+          "exercise": "wrist rolls",
+          "timestamp": "2024-03-04T14:00:00.000Z"
+        },
+        {
+          "exercise": "walk",
+          "timestamp": "2024-03-05T14:00:00.000Z"
+        },
+        {
+          "exercise": "posture reminder",
+          "timestamp": "2024-03-06T14:00:00.000Z"
+        },
+        {
+          "exercise": "wrist rolls",
+          "timestamp": "2024-03-07T14:00:00.000Z"
+        },
+        {
+          "exercise": "wrist rolls",
+          "timestamp": "2024-03-08T14:00:00.000Z"
+        }
+      ]
+    }
+  }
+]

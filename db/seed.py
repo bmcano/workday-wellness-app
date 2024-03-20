@@ -67,7 +67,10 @@ if __name__ == "__main__":
     db = client['wellness-app']
     user_collection = db['users']
     user_collection.delete_many({})
+    statistics_collection = db['statistics']
+    statistics_collection.delete_many({})
 
+    # open and load all data for the Users table
     with open('stub_data/users.json', 'r') as file:
         user_stubs = json.load(file)
 
@@ -82,5 +85,12 @@ if __name__ == "__main__":
         with open(calendar_file, 'r') as file:
             user['calendar'] = json.load(file)
         user_collection.insert_one(user)
+
+    # open and load all data for the Statistics table
+    with open('stub_data/statistics.json', 'r') as file:
+        statistics_stubs = json.load(file)
+    
+    for stat in statistics_stubs:
+        statistics_collection.insert_one(stat)
 
     print("Schema created")

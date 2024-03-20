@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import exercises from '../stub_data/exercises/exercises_00.json' assert { type: "json" };
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import StatisticsModel from '../models/Statistics.js';
 dotenv.config();
 
 /**
@@ -77,7 +78,19 @@ export const registerAccount = async (req, res) => {
         });
         let result = await user.save();
         result = result.toObject();
-        if (result) {
+
+        const statistics = new StatisticsModel({
+            email: email,
+            streak: 0,
+            completed: {
+                amount: 0,
+                exercises: []
+            }
+        })
+        let stat_result = await statistics.save();
+        stat_result = stat_result.toObject();
+
+        if (result && stat_result) {
             console.log(result); // will eventually remove
             return res.json({ success: true, message: "Account successfully created." });
         } else {
