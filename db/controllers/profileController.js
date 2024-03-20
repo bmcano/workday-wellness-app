@@ -12,6 +12,7 @@ dotenv.config();
  *  "/update_exercise_information" => updateExerciseInformation(req, res) - updates all the exercises preferences
  *  "/does_email_exist" => doesEmailExistInDatabase(req, res) - checks if an email is in the DB
  *  "/send_email" => sendEmail(req, res) - sends an email to a user given a email
+ *  "/reset_password" => resetPassword(req, res) - updates a user password 
  */
 
 // NODEMAILER CONFIG
@@ -88,7 +89,7 @@ export const doesEmailExistInDatabase = async (req, res) => {
         if (user) {
             return res.json({ success: true });
         }
-        return res.json({ success: false });        
+        return res.json({ success: false });
     } catch (error) {
         console.error(error);
         return res
@@ -114,4 +115,21 @@ export const sendEmail = async (req, res) => {
             return res.json({ success: true });
         }
     });
+}
+
+export const resetPassword = async (req, res) => {
+    try {
+        const email = req.body.email;
+        const user = await UserModel.findOne({ email: email });
+        const plainTextPassword = user.password;
+        const password = await bcrypt.hash(plainTextPassword, 10);
+        user.password = password;
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error saving exercise information.");
+    }
 }
