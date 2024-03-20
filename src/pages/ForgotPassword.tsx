@@ -25,7 +25,7 @@ const ForgotPassword: React.FC = () => {
         const subject = "Reset Password"
         const token = uuidv4();
         const text = `Please click the following link to reset your password http://localhost:3000${process.env.PUBLIC_URL}/reset-password/${token}`
-        const jsonData = JSON.stringify({ email,subject,text})
+        const jsonData = JSON.stringify({ email,subject,text,token})
         console.log(jsonData);
         apiPost(getServerCall('/does_email_exist'), jsonData)
             .then(res => res.json())
@@ -33,6 +33,7 @@ const ForgotPassword: React.FC = () => {
                 if (data.success) {
                     apiPost(getServerCall("/send_email"),jsonData)
                     alert("Email has been sent");
+                    apiPost(getServerCall("/setToken"),jsonData)
                     
                 } else {
                     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! error')

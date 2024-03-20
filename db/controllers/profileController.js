@@ -134,3 +134,33 @@ export const resetPassword = async (req, res) => {
             .send("Error saving exercise information.");
     }
 }
+
+export const setToken = async (req, res) => {
+    try {
+        const email = req.body.email;
+        const user = await UserModel.findOne({ email: email });
+        user.password_reset = req.body.token
+        await user.save();
+        return res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error searching for user email");
+    }
+}
+export const getEmailFromToken = async (req, res) => {
+    try {
+        const token = req.body.token;
+        const user = await UserModel.findOne({ token: token });
+        if (user) {
+            return res.json({ email: user.email });
+        }
+        return res.json({ success: false });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error searching for user email");
+    }
+}

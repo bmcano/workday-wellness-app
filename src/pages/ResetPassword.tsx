@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate, useParams } from "react-router-dom";
-import { apiPost } from "../api/serverApiCalls.tsx";
+import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
 import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
 const ResetPassword: React.FC = () => {
@@ -24,7 +24,9 @@ const ResetPassword: React.FC = () => {
         event.preventDefault();
         // collect data from text fields
         const data = new FormData(event.currentTarget);
-        const email = data.get('email');
+        //const email = data.get('email');
+        const tokenJson = JSON.stringify({id})
+        const email = apiGet(getServerCall("/getEmailFromToken"))
         const password = data.get('password');
         const confirmPassword = data.get('confirm_password');
         const jsonData = JSON.stringify({ email, password});
@@ -45,7 +47,8 @@ const ResetPassword: React.FC = () => {
                 } else {
                     alert("Error changing password")
                 }
-            })
+                
+                })
     };
 
     return (
