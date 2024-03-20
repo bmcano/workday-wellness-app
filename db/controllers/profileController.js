@@ -1,5 +1,6 @@
 import UserModel from '../models/Users.js';
 import { getUserInformation } from './sessionController.js';
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
 
