@@ -35,15 +35,15 @@ const ResetPassword: React.FC = () => {
         if (!isValidPassword(password as string, confirmPassword as string, setPasswordError)) return;
 
         // take user data and post it to the database
-        apiPost(getServerCall("/register"), jsonData)
+        apiPost(getServerCall("/reset_password"), jsonData)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 if (data.success) {
-                    alert("Account created.")
-                    navigate('/')
-                } else if (data.message === "Email is already in use.") {
-                    setEmailError(data.message)
+                    alert("Password Succesfully changed.")
+                    navigate('/login')
+                } else {
+                    alert("Error changing password")
                 }
             })
     };
