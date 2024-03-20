@@ -1,4 +1,4 @@
-//const { id } = useParams<{ id: string }>();
+
 import "../App.css";
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
@@ -8,13 +8,13 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
 import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
 
 const ResetPassword: React.FC = () => {
-
+    const { id } = useParams<{ id: string }>();
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
 
