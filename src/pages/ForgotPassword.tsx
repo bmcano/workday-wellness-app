@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
+import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
 import { v4 as uuidv4 } from 'uuid';
 
 // Generate a unique token using UUID library
@@ -70,6 +70,14 @@ const ForgotPassword: React.FC = () => {
                         >
                             Submit
                         </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href={getFullAppLink("/login")} variant="body2">Login</Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href={getFullAppLink("/create_account")} variant="body2">Don't have an account?</Link>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
             </Container>
