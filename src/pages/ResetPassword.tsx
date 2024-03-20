@@ -24,23 +24,16 @@ const ResetPassword: React.FC = () => {
         event.preventDefault();
         // collect data from text fields
         const data = new FormData(event.currentTarget);
-        //const email = data.get('email');
         const token = id;
-        //const emails = " ";
         const tokenJson = JSON.stringify({token})
-        console.log("token in reset password !!!??????????/12213311435" +tokenJson)
         const emailResponse = await apiPost(getServerCall("/getEmailFromToken"),tokenJson)
         const emailData = await emailResponse.json();
         const email = emailData.email;
-        //console.log("got out thingy");
-        //console.log("am here " + email)
         const password = data.get('password');
         const confirmPassword = data.get('confirm_password');
         const jsonData = JSON.stringify({ email, password});
-        console.log("password and email info" + jsonData);
 
         // validate user inputs
-        //if (!isValidEmail(email as string, setEmailError)) return;
         if (!isValidPassword(password as string, confirmPassword as string, setPasswordError)) return;
 
         // take user data and post it to the database

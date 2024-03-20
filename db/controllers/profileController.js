@@ -157,10 +157,7 @@ export const getEmailFromToken = async (req, res) => {
         console.log("token !!!!!!!!!!!????????????????????????????????????????????? "+req.body.token)
         console.log("getEmail token " +token )
         const user = await UserModel.findOne({password_reset: token });
-        //console.log("user " + user)
-        //console.log("user email !!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + user.email)
         if (user) {
-            console.log("testing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  " + user.email)  //+ user.email.toString)
             return res.json({success: true, email: user.email });
         }
         return res.json({ success: false });
