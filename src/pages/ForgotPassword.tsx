@@ -22,14 +22,18 @@ const ForgotPassword: React.FC = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
-        const jsonData = JSON.stringify({ email })
+        const subject = "Reset Password"
+        const token = uuidv4();
+        const text = `Please click the following link to reset your password http://localhost:3001/reset-password?token=${token}`
+        const jsonData = JSON.stringify({ email,subject,text})
         console.log(jsonData);
         apiPost(getServerCall('/does_email_exist'), jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // apiPost(getServerCall("/send_email"),jsonData)
-                    const token = uuidv4();
+                    apiPost(getServerCall("/send_email"),jsonData)
+                    alert("Email has been sent");
+                    
                 } else {
                     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! error')
                     alert("Email does not exist");
