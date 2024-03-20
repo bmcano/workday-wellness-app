@@ -5,6 +5,7 @@ import { CalendarSchema } from './Calendar.js';
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    password_reset: { type: String, required: false },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     // join_date: { type: Date, required: true },

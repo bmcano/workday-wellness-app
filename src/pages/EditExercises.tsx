@@ -13,7 +13,7 @@ import { getServerCall } from "../util/getFullAppLink.ts";
 const enabledText = "#212121"
 const disabledText = "#e4e3e3"
 
-const Exercises: React.FC = () => {
+const EditExercises: React.FC = () => {
 
     const [exerciseData, setExerciseData] = useState<Object>({});
     const [checkboxStates, setCheckboxStates] = useState<boolean[]>([]);
@@ -179,4 +179,4 @@ const Exercises: React.FC = () => {
     )
 }
 
-export default Exercises;
+export default EditExercises;
