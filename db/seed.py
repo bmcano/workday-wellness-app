@@ -67,7 +67,10 @@ if __name__ == "__main__":
     db = client['wellness-app']
     user_collection = db['users']
     user_collection.delete_many({})
+    statistics_collection = db['statistics']
+    statistics_collection.delete_many({})
 
+    # open and load all data for the Users table
     with open('stub_data/users.json', 'r') as file:
         user_stubs = json.load(file)
 
@@ -75,6 +78,9 @@ if __name__ == "__main__":
     generateCurrentMonthJsonEvents("..\\db\\stub_data\\calendars\\calendars_01.json")
 
     for user in user_stubs:
+        friends_file = user['friends']
+        with open(friends_file, 'r') as file:
+            user['friends'] = json.load(file)
         exercise_file = user['exercises']
         with open(exercise_file, 'r') as file:
             user['exercises'] = json.load(file)[0]
@@ -82,5 +88,17 @@ if __name__ == "__main__":
         with open(calendar_file, 'r') as file:
             user['calendar'] = json.load(file)
         user_collection.insert_one(user)
+
+    # open and load all data for the Statistics table
+    with open('stub_data/statistics.json', 'r') as file:
+        statistics_stubs = json.load(file)
+    
+    for stat in statistics_stubs:
+
+        statistics_file = stat['completed']
+        with open(statistics_file, 'r') as file:
+            stat['completed'] = json.load(file)
+
+        statistics_collection.insert_one(stat)
 
     print("Schema created")

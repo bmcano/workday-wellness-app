@@ -1,0 +1,45 @@
+{
+  "amount": 10,
+  "exercises": [
+    {
+      "exercise": "Neck flexion and extension",
+      "timestamp": "2024-03-04T14:00:00.000Z"
+    },
+    {
+      "exercise": "Horizontal abduction",
+      "timestamp": "2024-03-05T08:30:00.000Z"
+    },
+    {
+      "exercise": "Meditation",
+      "timestamp": "2024-03-06T12:45:00.000Z"
+    },
+    {
+      "exercise": "Posture reminder",
+      "timestamp": "2024-03-07T18:00:00.000Z"
+    },
+    {
+      "exercise": "Spinal twist",
+      "timestamp": "2024-03-08T09:15:00.000Z"
+    },
+    {
+      "exercise": "Squats",
+      "timestamp": "2024-03-09T16:20:00.000Z"
+    },
+    {
+      "exercise": "Neck rotation",
+      "timestamp": "2024-03-10T14:30:00.000Z"
+    },
+    {
+      "exercise": "Sun exposure",
+      "timestamp": "2024-03-11T08:45:00.000Z"
+    },
+    {
+      "exercise": "Wrist rolls",
+      "timestamp": "2024-03-12T12:00:00.000Z"
+    },
+    {
+      "exercise": "Jumping jacks",
+      "timestamp": "2024-03-13T17:30:00.000Z"
+    }
+  ]
+}
