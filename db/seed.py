@@ -78,6 +78,9 @@ if __name__ == "__main__":
     generateCurrentMonthJsonEvents("..\\db\\stub_data\\calendars\\calendars_01.json")
 
     for user in user_stubs:
+        friends_file = user['friends']
+        with open(friends_file, 'r') as file:
+            user['friends'] = json.load(file)
         exercise_file = user['exercises']
         with open(exercise_file, 'r') as file:
             user['exercises'] = json.load(file)[0]

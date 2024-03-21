@@ -5,12 +5,7 @@
     "first_name": "John",
     "last_name": "Doe",
     "stub_data": true,
-    "friends": [
-      "alice@example.com",
-      "bob@example.com",
-      "emma@example.com",
-      "sarah@example.com"
-    ],
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -21,10 +16,7 @@
     "first_name": "Alice",
     "last_name": "Jones",
     "stub_data": true,
-    "friends": [
-      "john@example.com",
-      "emma@example.com"
-    ],
+    "friends": "..\\db\\stub_data\\friends\\friends_01.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_01.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
@@ -35,10 +27,7 @@
     "first_name": "Bob",
     "last_name": "Smith",
     "stub_data": true,
-    "friends": [
-      "john@example.com",
-      "mike@example.com"
-    ],
+    "friends": "..\\db\\stub_data\\friends\\friends_02.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_02.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -49,10 +38,7 @@
     "first_name": "Emma",
     "last_name": "Johnson",
     "stub_data": true,
-    "friends": [
-      "alice@example.com",
-      "john@example.com"
-    ],
+    "friends": "..\\db\\stub_data\\friends\\friends_03.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_03.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -63,9 +49,7 @@
     "first_name": "Mike",
     "last_name": "Williams",
     "stub_data": true,
-    "friends": [
-      "bob@example.com"
-    ],
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -76,9 +60,7 @@
     "first_name": "Sarah",
     "last_name": "Lee",
     "stub_data": true,
-    "friends": [
-      "john@example.com"
-    ],
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -89,7 +71,7 @@
     "first_name": "David",
     "last_name": "Kim",
     "stub_data": true,
-    "friends": [],
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -100,7 +82,7 @@
     "first_name": "Olivia",
     "last_name": "Brown",
     "stub_data": true,
-    "friends": [],
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -111,7 +93,7 @@
     "first_name": "Daniel",
     "last_name": "Thomas",
     "stub_data": true,
-    "friends": [],
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
@@ -122,7 +104,447 @@
     "first_name": "Jessica",
     "last_name": "Anderson",
     "stub_data": true,
-    "friends": [],
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "adam@example.com",
+    "password": "password",
+    "first_name": "Adam",
+    "last_name": "Wilson",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "eve@example.com",
+    "password": "password",
+    "first_name": "Eve",
+    "last_name": "Martinez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "alex@example.com",
+    "password": "password",
+    "first_name": "Alex",
+    "last_name": "Garcia",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_04.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "lisa@example.com",
+    "password": "password",
+    "first_name": "Lisa",
+    "last_name": "Taylor",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "ryan@example.com",
+    "password": "password",
+    "first_name": "Ryan",
+    "last_name": "Rodriguez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "sophia@example.com",
+    "password": "password",
+    "first_name": "Sophia",
+    "last_name": "Lopez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "mason@example.com",
+    "password": "password",
+    "first_name": "Mason",
+    "last_name": "Hernandez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "mia@example.com",
+    "password": "password",
+    "first_name": "Mia",
+    "last_name": "Martinez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "noah@example.com",
+    "password": "password",
+    "first_name": "Noah",
+    "last_name": "Gonzalez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "ava@example.com",
+    "password": "password",
+    "first_name": "Ava",
+    "last_name": "Perez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "liam@example.com",
+    "password": "password",
+    "first_name": "Liam",
+    "last_name": "Sanchez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "isabella@example.com",
+    "password": "password",
+    "first_name": "Isabella",
+    "last_name": "Ramirez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "william@example.com",
+    "password": "password",
+    "first_name": "William",
+    "last_name": "Flores",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "avar@example.com",
+    "password": "password",
+    "first_name": "Ava",
+    "last_name": "Rivera",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "james@example.com",
+    "password": "password",
+    "first_name": "James",
+    "last_name": "Cook",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "amelia@example.com",
+    "password": "password",
+    "first_name": "Amelia",
+    "last_name": "White",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "henry@example.com",
+    "password": "password",
+    "first_name": "Henry",
+    "last_name": "Robinson",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "oliver@example.com",
+    "password": "password",
+    "first_name": "Oliver",
+    "last_name": "Khan",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "scarlett@example.com",
+    "password": "password",
+    "first_name": "Scarlett",
+    "last_name": "Patel",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "ethan@example.com",
+    "password": "password",
+    "first_name": "Ethan",
+    "last_name": "Wong",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "harper@example.com",
+    "password": "password",
+    "first_name": "Harper",
+    "last_name": "Singh",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "jacob@example.com",
+    "password": "password",
+    "first_name": "Jacob",
+    "last_name": "Lee",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "emily@example.com",
+    "password": "password",
+    "first_name": "Emily",
+    "last_name": "Chen",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "logan@example.com",
+    "password": "password",
+    "first_name": "Logan",
+    "last_name": "Huang",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "charlotte@example.com",
+    "password": "password",
+    "first_name": "Charlotte",
+    "last_name": "Kim",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "lucas@example.com",
+    "password": "password",
+    "first_name": "Lucas",
+    "last_name": "Nguyen",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "oliviag@example.com",
+    "password": "password",
+    "first_name": "Olivia",
+    "last_name": "Gupta",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "jack@example.com",
+    "password": "password",
+    "first_name": "Jack",
+    "last_name": "Patel",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "ella@example.com",
+    "password": "password",
+    "first_name": "Ella",
+    "last_name": "Wang",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "ethang@example.com",
+    "password": "password",
+    "first_name": "Ethan",
+    "last_name": "Gonzalez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "ameliap@example.com",
+    "password": "password",
+    "first_name": "Amelia",
+    "last_name": "Patel",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "masons@example.com",
+    "password": "password",
+    "first_name": "Mason",
+    "last_name": "Singh",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "avag@example.com",
+    "password": "password",
+    "first_name": "Ava",
+    "last_name": "Garcia",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "loganm@example.com",
+    "password": "password",
+    "first_name": "Logan",
+    "last_name": "Martinez",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "miak@example.com",
+    "password": "password",
+    "first_name": "Mia",
+    "last_name": "Kumar",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "jacobg@example.com",
+    "password": "password",
+    "first_name": "Jacob",
+    "last_name": "Gupta",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "oliverp@example.com",
+    "password": "password",
+    "first_name": "Oliver",
+    "last_name": "Patel",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "emilyk@example.com",
+    "password": "password",
+    "first_name": "Emily",
+    "last_name": "Khan",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "williams@example.com",
+    "password": "password",
+    "first_name": "William",
+    "last_name": "Singh",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
+    "profile_picture": "",
+    "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+  },
+  {
+    "email": "grace@example.com",
+    "password": "password",
+    "first_name": "Grace",
+    "last_name": "Shah",
+    "stub_data": true,
+    "friends": "..\\db\\stub_data\\friends\\friends_00.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"

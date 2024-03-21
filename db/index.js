@@ -7,6 +7,7 @@ import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlook
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
 import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
+import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak } from './controllers/statisticsController.js';
 
 /**
  * Server setup
@@ -54,6 +55,11 @@ app.post('/save_calendar_data', async (req, res) => saveCalendarData(req, res));
 app.post('/add_calendar_data', async (req, res) => addCalendarData(req, res));
 app.post('/add_outlook_event', async (req, res) => addOutlookEvent(req, res));
 app.post('/add_user_recommendations', async (req, res) => addUserRecommendations(req, res));
+// see ./controllers/statisticsController.js for more details
+app.get('/get_global_leaderboard_streak', async (req, res) => getGlobalLeaderboardStreak(req, res));
+app.get('/get_global_leaderboard_completed', async (req, res) => getGlobalLeaderboardCompleted(req, res));
+app.get('/get_friend_leaderboard_streak', async (req, res) => getFriendLeaderboardStreak(req, res));
+app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeaderboardCompleted(req, res));
 
 app.listen(3001, () => {
     console.log("Database is running.");

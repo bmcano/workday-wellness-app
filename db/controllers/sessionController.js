@@ -38,7 +38,7 @@ export const getUserInformation = (token) => {
         return { _id: decoded._id, email: decoded.email };
     } catch (error) {
         // If the token is invalid or expired, return null
-        console.error('Error decoding token:', error);
+        console.error('Error decoding token: getUserInformation');
         return null;
     }
 }
@@ -49,7 +49,7 @@ export const checkSession = (req, res) => {
     const key = process.env.REACT_APP_SESSION_SECRET;
     jwt.verify(token, key, (error, decoded) => {
         if (error || decoded._id === undefined) {
-            console.log(error);
+            console.log("Error decoding token: checkSession");
             return res.json({ authorized: false, message: 'Invalid token' });
         } else {
             return res.json({ authorized: true });
@@ -81,6 +81,7 @@ export const registerAccount = async (req, res) => {
 
         const statistics = new StatisticsModel({
             email: email,
+            full_name: `${first_name} ${last_name}`,
             streak: 0,
             completed: {
                 amount: 0,
