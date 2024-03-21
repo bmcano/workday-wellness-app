@@ -94,6 +94,11 @@ if __name__ == "__main__":
         statistics_stubs = json.load(file)
     
     for stat in statistics_stubs:
+
+        statistics_file = stat['completed']
+        with open(statistics_file, 'r') as file:
+            stat['completed'] = json.load(file)
+
         statistics_collection.insert_one(stat)
 
     print("Schema created")
