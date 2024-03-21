@@ -8,134 +8,134 @@
   {
     "email": "alice@example.com",
     "full_name": "Alice Jones",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 1,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "bob@example.com",
     "full_name": "Bob Smith",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 5,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "emma@example.com",
     "full_name": "Emma Johnson",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 10,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "mike@example.com",
     "full_name": "Mike Williams",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 25,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_04.json"
   },
   {
     "email": "sarah@example.com",
     "full_name": "Sarah Lee",
-    "streak": 0,
+    "streak": 15,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "david@example.com",
     "full_name": "David Kim",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 2,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "olivia@example.com",
     "full_name": "Olivia Brown",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 23,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "daniel@example.com",
     "full_name": "Daniel Thomas",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 8,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "jessica@example.com",
     "full_name": "Jessica Anderson",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 19,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_04.json"
   },
   {
     "email": "adam@example.com",
     "full_name": "Adam Wilson",
-    "streak": 0,
+    "streak": 5,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "eve@example.com",
     "full_name": "Eve Martinez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 10,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "alex@example.com",
     "full_name": "Alex Garcia",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 21,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "lisa@example.com",
     "full_name": "Lisa Taylor",
     "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "ryan@example.com",
     "full_name": "Ryan Rodriguez",
     "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "completed": "..\\db\\stub_data\\statistics\\statistics_04.json"
   },
   {
     "email": "sophia@example.com",
     "full_name": "Sophia Lopez",
     "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "mason@example.com",
     "full_name": "Mason Hernandez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 1,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "mia@example.com",
     "full_name": "Mia Martinez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 1,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "noah@example.com",
     "full_name": "Noah Gonzalez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 7,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "ava@example.com",
     "full_name": "Ava Perez",
-    "streak": 0,
+    "streak": 1,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "liam@example.com",
     "full_name": "Liam Sanchez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 17,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "isabella@example.com",
     "full_name": "Isabella Ramirez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 8,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "william@example.com",
     "full_name": "William Flores",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 6,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "avar@example.com",
@@ -152,110 +152,110 @@
   {
     "email": "amelia@example.com",
     "full_name": "Amelia White",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 1,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "henry@example.com",
     "full_name": "Henry Robinson",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 1,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "oliver@example.com",
     "full_name": "Oliver Khan",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 2,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "scarlett@example.com",
     "full_name": "Scarlett Patel",
-    "streak": 0,
+    "streak": 2,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "ethan@example.com",
     "full_name": "Ethan Wong",
-    "streak": 0,
+    "streak": 2,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "harper@example.com",
     "full_name": "Harper Singh",
     "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "jacob@example.com",
     "full_name": "Jacob Lee",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 3,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "emily@example.com",
     "full_name": "Emily Chen",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 3,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "logan@example.com",
     "full_name": "Logan Huang",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 3,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "charlotte@example.com",
     "full_name": "Charlotte Kim",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 4,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_03.json"
   },
   {
     "email": "lucas@example.com",
     "full_name": "Lucas Nguyen",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 4,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "oliviag@example.com",
     "full_name": "Olivia Gupta",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 5,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "jack@example.com",
     "full_name": "Jack Patel",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 5,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "ella@example.com",
     "full_name": "Ella Wang",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 4,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {
     "email": "ethang@example.com",
     "full_name": "Ethan Gonzalez",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 2,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "ameliap@example.com",
     "full_name": "Amelia Patel",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 3,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "masons@example.com",
     "full_name": "Mason Singh",
-    "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "streak": 11,
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "avag@example.com",
     "full_name": "Ava Garcia",
     "streak": 0,
-    "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
+    "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "loganm@example.com",
@@ -266,37 +266,37 @@
   {
     "email": "miak@example.com",
     "full_name": "Mia Kumar",
-    "streak": 0,
+    "streak": 13,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "jacobg@example.com",
     "full_name": "Jacob Gupta",
-    "streak": 0,
+    "streak": 4,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "oliverp@example.com",
     "full_name": "Oliver Patel",
-    "streak": 0,
+    "streak": 21,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "emilyk@example.com",
     "full_name": "Emily Khan",
-    "streak": 0,
+    "streak": 9,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "williams@example.com",
     "full_name": "William Singh",
-    "streak": 0,
+    "streak": 16,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   },
   {
     "email": "grace@example.com",
     "full_name": "Grace Shah",
-    "streak": 0,
+    "streak": 7,
     "completed": "..\\db\\stub_data\\statistics\\statistics_00.json"
   }
 ]
