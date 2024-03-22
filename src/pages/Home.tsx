@@ -47,7 +47,8 @@ const Home: React.FC = () => {
             // Call getTimeUntilNextEvent and set the result to duration
             const timeUntilNextEvent = getTimeUntilNextEvent(data.user.calendar);
             if (timeUntilNextEvent && timeUntilNextEvent > 0) {
-              setDuration(timeUntilNextEvent * 60); // set the time to minutes for startTimer
+              setDuration(timeUntilNextEvent); // set the time to minutes for startTimer
+              startTimer(timeUntilNextEvent);
             } else {
               setDuration(0);
             }
@@ -74,39 +75,42 @@ const Home: React.FC = () => {
     }
   };
 
-  const startTimer = () => {
-    // Attempt to query the DOM elements
-    const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
-    const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
-  
-    if (!timerElapsed || !timerProgress) {
-      console.error('SVG elements not found!');
-      return;
-    }
-  
-    if (duration !== null) {
-      setElapsedTime(duration);
-    }
-    intervalId = setInterval(() => {
-      setElapsedTime((prevTime) => {
-        if (prevTime === null) {
-          return 0;
-        }
-  
-        const newTime = prevTime - 1;
-        const percentage = duration !== null ? (newTime / duration) * 100 : 0;
-        timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-        timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-  
-        if (newTime == 0 && prevTime === duration) {
-          clearInterval(intervalId as number);
-          audioRef.play();
-          intervalId = null;
-        }
-  
-        return newTime;
-      });
-    }, 1000) as unknown as number;
+  const startTimer = (minutes: number) => {
+    // Set the duration to the input minutes
+  setDuration(minutes * 60);
+
+  // Attempt to query the DOM elements
+  const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
+  const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
+
+  if (!timerElapsed || !timerProgress) {
+    console.error('SVG elements not found!');
+    return;
+  }
+
+  if (duration !== null) {
+    setElapsedTime(duration);
+  }
+  intervalId = setInterval(() => {
+    setElapsedTime((prevTime) => {
+      if (prevTime === null) {
+        return 0;
+      }
+
+      const newTime = prevTime - 1;
+      const percentage = duration !== null ? (newTime / duration) * 100 : 0;
+      timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
+      timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
+
+      if (newTime == 0 && prevTime === duration) {
+        clearInterval(intervalId as number);
+        audioRef.play();
+        intervalId = null;
+      }
+
+      return newTime;
+    });
+  }, 1000) as unknown as number;
   };
   const printTime = getTimeUntilNextEvent(todaysEvent);
   return (
@@ -133,19 +137,8 @@ const Home: React.FC = () => {
                 </svg>
               </div>
               <div className="timer__label">
-                <div className="card-item">
-                  <TextField
-                    type="number"
-                    id="timer"
-                    onChange={(e) => setDuration(Number(e.target.value))}
-                    value={duration !== null ? duration.toString() : ""}
-                    inputProps={{ min: "0", step: "1" }}
-                    sx={{ marginRight: '16px' }}
-                  />
-                  <Button variant="contained" color="primary" onClick={startTimer}>Start</Button>
-                </div>
-
-                <span className="timer__time">
+              minutes until next calendar event:
+                <span className="timer__time">    
                   {elapsedTime !== null ? Math.floor(elapsedTime / 60).toString().padStart(2, '0') : '00'}:
                   {elapsedTime !== null ? (elapsedTime % 60).toString().padStart(2, '0') : '00'}
                 </span>
