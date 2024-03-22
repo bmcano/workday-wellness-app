@@ -48,7 +48,6 @@ const Home: React.FC = () => {
             const timeUntilNextEvent = getTimeUntilNextEvent(data.user.calendar);
             if (timeUntilNextEvent && timeUntilNextEvent > 0) {
               setDuration(timeUntilNextEvent * 60); // set the time to minutes for startTimer
-              startTimer(); // Start the timer if timeUntilNextEvent is larger than 0
             } else {
               setDuration(0);
             }
