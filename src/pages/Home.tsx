@@ -112,7 +112,7 @@ const Home: React.FC = () => {
     });
   }, 1000) as unknown as number;
   };
-  const printTime = getTimeUntilNextEvent(todaysEvent);
+  const printTime = getCurrentFormattedDate();
   return (
     <React.Fragment>
       <Navbar />
