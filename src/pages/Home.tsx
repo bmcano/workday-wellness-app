@@ -47,7 +47,8 @@ const Home: React.FC = () => {
             // Call getTimeUntilNextEvent and set the result to duration
             const timeUntilNextEvent = getTimeUntilNextEvent(data.user.calendar);
             if (timeUntilNextEvent && timeUntilNextEvent > 0) {
-              setDuration(timeUntilNextEvent);
+              setDuration(timeUntilNextEvent * 60); // set the time to minutes for startTimer
+              startTimer(); // Start the timer if timeUntilNextEvent is larger than 0
             } else {
               setDuration(0);
             }
@@ -78,12 +79,12 @@ const Home: React.FC = () => {
     // Attempt to query the DOM elements
     const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
     const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
-
+  
     if (!timerElapsed || !timerProgress) {
       console.error('SVG elements not found!');
       return;
     }
-
+  
     if (duration !== null) {
       setElapsedTime(duration);
     }
@@ -92,18 +93,18 @@ const Home: React.FC = () => {
         if (prevTime === null) {
           return 0;
         }
-
+  
         const newTime = prevTime - 1;
         const percentage = duration !== null ? (newTime / duration) * 100 : 0;
         timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
         timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-
-        if (newTime <= 0) {
+  
+        if (newTime == 0 && prevTime === duration) {
           clearInterval(intervalId as number);
           audioRef.play();
           intervalId = null;
         }
-
+  
         return newTime;
       });
     }, 1000) as unknown as number;
