@@ -4,10 +4,10 @@ import { getUserInformation } from "./sessionController.js";
 
 /**
  * GET:
- *  "/get_global_leaderboard_streak" => getGlobalLeaderboardStreak(req, res)
- *  "/get_global_leaderboard_completed" => getGlobalLeaderboardCompleted(req, res)
- *  "/get_friend_leaderboard_streak" => getFriendLeaderboardStreak(req, res)
- *  "/get_friend_leaderboard_completed" => getFriendLeaderboardCompleted(req, res)
+ *  "/get_global_leaderboard_streak" => getGlobalLeaderboardStreak(req, res) - grabs the list of all users and sorts them by streak count
+ *  "/get_global_leaderboard_completed" => getGlobalLeaderboardCompleted(req, res) - grabs the list of all users and sorts them by completed items
+ *  "/get_friend_leaderboard_streak" => getFriendLeaderboardStreak(req, res) - grabs the list of all friends of the user and sorts them by streak count
+ *  "/get_friend_leaderboard_completed" => getFriendLeaderboardCompleted(req, res) - grabs the list of all friends of the user and sorts them by completed items
  * POST:
  */
 
