@@ -59,7 +59,7 @@ export const getFriendLeaderboardStreak = async (req, res) => {
             const userEmail = data.email;
             const userFriends = await UserModel.findOne({ email: userEmail }).lean().friends;
             const user = await StatisticsModel.findOne({ email: userEmail }).lean();
-            const users = await StatisticsModel.find({ email: { $in: [userFriends] } }).sort({ streak: -1 }).lean();
+            const users = await StatisticsModel.find({ email: { $in: userFriends } }).sort({ streak: -1 }).lean();
             const leaderboard = users.map((users, index) => ({ ...users, placement: index + 1 }));
             const userPlacement = leaderboard.find(entry => entry.email === userEmail)?.placement || null;
             return res.json({ authorized: true, leaderboard: leaderboard, user: { ...user, placement: userPlacement } });
@@ -80,7 +80,7 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
             const userEmail = data.email;
             const userFriends = await UserModel.findOne({ email: userEmail }).lean().friends;
             const user = await StatisticsModel.findOne({ email: userEmail }).lean();
-            const users = await StatisticsModel.find({ email: { $in: [userFriends] } }).sort({ "completed.amount": -1 }).lean();
+            const users = await StatisticsModel.find({ email: { $in: userFriends } }).sort({ "completed.amount": -1 }).lean();
             const leaderboard = users.map((users, index) => ({ ...users, placement: index + 1 }));
             const userPlacement = leaderboard.find(entry => entry.email === userEmail)?.placement || null;
             return res.json({ authorized: true, leaderboard: leaderboard, user: { ...user, placement: userPlacement } });
