@@ -47,7 +47,7 @@ const Home: React.FC = () => {
             // Call getTimeUntilNextEvent and set the result to duration
             const timeUntilNextEvent = getTimeUntilNextEvent(data.user.calendar);
             if (timeUntilNextEvent && timeUntilNextEvent > 0) {
-              setDuration(timeUntilNextEvent); // set the time to minutes for startTimer
+              setDuration(timeUntilNextEvent * 60); // set the time to minutes for startTimer
               startTimer(timeUntilNextEvent);
             } else {
               setDuration(0);
@@ -57,13 +57,29 @@ const Home: React.FC = () => {
       })
       .catch(error => console.log(error))
       .finally(() => setLoading(false));
+  
+    // Add event listeners for the visibilitychange event
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+  
     // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (intervalId !== null) clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [navigate]);
-  
 
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      // If the page is hidden, pause the timer
+      if (intervalId !== null) clearInterval(intervalId);
+    } else {
+      // If the page is visible, resume the timer
+      if (elapsedTime !== null && elapsedTime > 0) {
+        startTimer(elapsedTime);
+      }
+    }
+  };
+  
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const updates = new FormData(event.currentTarget);
@@ -75,43 +91,52 @@ const Home: React.FC = () => {
     }
   };
 
-  const startTimer = (minutes: number) => {
+  const startTimer = (seconds: number) => {
     // Set the duration to the input minutes
-  setDuration(minutes * 60);
-
-  // Attempt to query the DOM elements
-  const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
-  const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
-
-  if (!timerElapsed || !timerProgress) {
-    console.error('SVG elements not found!');
-    return;
-  }
-
-  if (duration !== null) {
-    setElapsedTime(duration);
-  }
-  intervalId = setInterval(() => {
-    setElapsedTime((prevTime) => {
-      if (prevTime === null) {
-        return 0;
-      }
-
-      const newTime = prevTime - 1;
-      const percentage = duration !== null ? (newTime / duration) * 100 : 0;
-      timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-      timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-
-      if (newTime == 0 && prevTime === duration) {
-        clearInterval(intervalId as number);
-        audioRef.play();
-        intervalId = null;
-      }
-
-      return newTime;
-    });
-  }, 1000) as unknown as number;
+    setDuration(seconds);
+  
+    // Attempt to query the DOM elements
+    const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
+    const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
+  
+    if (!timerElapsed || !timerProgress) {
+      console.error('SVG elements not found!');
+      return;
+    }
+  
+    if (duration !== null) {
+      setElapsedTime(duration);
+    }
+  
+    // Only start the timer if the page is visible
+    if (!document.hidden) {
+      intervalId = setInterval(() => {
+        setElapsedTime((prevTime) => {
+          if (prevTime === null) {
+            return 0;
+          }
+  
+          const newTime = prevTime - 1;
+          if (newTime < 0) {
+            // If newTime is less than 0, return 0 to prevent the timer from going below 0
+            return 0;
+          }
+          const percentage = duration !== null ? (newTime / duration) * 100 : 0;
+          timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
+          timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
+  
+          if (newTime <= 0 && prevTime === duration) {
+            clearInterval(intervalId as number);
+            audioRef.play();
+            intervalId = null;
+          }
+  
+          return newTime;
+        });
+      }, 1000) as unknown as number;
+    }
   };
+
   const printTime = getCurrentFormattedDate();
   return (
     <React.Fragment>
