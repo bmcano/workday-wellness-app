@@ -81,19 +81,20 @@ export const getTimeUntilNextEvent = (payload: EventInput[]): number | null => {
     // Sort the events by start time
     events.sort((a, b) => new Date(a.start as string).getTime() - new Date(b.start as string).getTime());
 
-    // Get the current time
+    // Get the current time in UTC
     const now = new Date();
     const nowInUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
-    // Find the next event that hasn't started yet
-    const nextEvent = events.find(event => new Date(event.start as string).getTime() > now.getTime());
 
-    // If there is no next event, return null
+    // Find the next event that hasn't started yet
+    const nextEvent = events.find(event => new Date(event.start as string).getTime() > nowInUTC);
+
+    // If there is no next event, return 0
     if (!nextEvent) {
-        return null;
+        return 0;
     }
 
-    // Calculate the time until the next event in minutes
-    const timeUntilNextEvent = (new Date(nextEvent.start as string).getTime() - now.getTime()) / (1000 * 60);
+    // Calculate the time until the next event in minutes and round to the nearest whole number
+    const timeUntilNextEvent = Math.round((new Date(nextEvent.start as string).getTime() - nowInUTC) / (1000 * 60));
 
     return timeUntilNextEvent;
 }

@@ -14,6 +14,7 @@ import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../pages/Footer.tsx";
+import { getTimeUntilNextEvent } from "../util/convertOutlookPayload.ts";
 
 let intervalId: number | null = null;
 
@@ -23,8 +24,8 @@ const Home: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   const [name, setName] = useState("");
-  const [duration, setDuration] = useState<number>(60);
-  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<number | null>(null);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
   const [loading, setLoading] = useState(true);
@@ -34,10 +35,24 @@ const Home: React.FC = () => {
     apiGet('http://localhost:3001/user')
       .then(res => res.json())
       .then(data => {
-        if (data.authorized) {
+        if (data.authorized) { 
           setName(data.user.first_name);
           setTodaysEvents(data.user.calendar);
-        }
+  
+          // Check if the calendar is empty
+          if (data.user.calendar.length === 0) {
+            setDuration(0);
+            setElapsedTime(0);
+          } else {
+            // Call getTimeUntilNextEvent and set the result to duration
+            const timeUntilNextEvent = getTimeUntilNextEvent(data.user.calendar);
+            if (timeUntilNextEvent && timeUntilNextEvent > 0) {
+              setDuration(timeUntilNextEvent);
+            } else {
+              setDuration(0);
+            }
+          }
+        } 
       })
       .catch(error => console.log(error))
       .finally(() => setLoading(false));
@@ -69,12 +84,17 @@ const Home: React.FC = () => {
       return;
     }
 
-    if (intervalId !== null) clearInterval(intervalId);
-    setElapsedTime(duration);
+    if (duration !== null) {
+      setElapsedTime(duration);
+    }
     intervalId = setInterval(() => {
       setElapsedTime((prevTime) => {
+        if (prevTime === null) {
+          return 0;
+        }
+
         const newTime = prevTime - 1;
-        const percentage = (newTime / duration) * 100;
+        const percentage = duration !== null ? (newTime / duration) * 100 : 0;
         timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
         timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
 
@@ -88,14 +108,14 @@ const Home: React.FC = () => {
       });
     }, 1000) as unknown as number;
   };
-
+  const printTime = getTimeUntilNextEvent(todaysEvent);
   return (
     <React.Fragment>
       <Navbar />
       <div className="card">
         <div className="card-item">
           <p className="card-header-text">Welcome, {name}!</p>
-          <p className="card-right-text">{getCurrentFormattedDate()}</p>
+          <p className="card-right-text">{printTime}</p>
         </div>
       </div>
       <div className="card-columns">
@@ -118,7 +138,7 @@ const Home: React.FC = () => {
                     type="number"
                     id="timer"
                     onChange={(e) => setDuration(Number(e.target.value))}
-                    value={duration.toString()}
+                    value={duration !== null ? duration.toString() : ""}
                     inputProps={{ min: "0", step: "1" }}
                     sx={{ marginRight: '16px' }}
                   />
@@ -126,8 +146,8 @@ const Home: React.FC = () => {
                 </div>
 
                 <span className="timer__time">
-                  {Math.floor(elapsedTime / 60).toString().padStart(2, '0')}:
-                  {(elapsedTime % 60).toString().padStart(2, '0')}
+                  {elapsedTime !== null ? Math.floor(elapsedTime / 60).toString().padStart(2, '0') : '00'}:
+                  {elapsedTime !== null ? (elapsedTime % 60).toString().padStart(2, '0') : '00'}
                 </span>
               </div>
             </div>
