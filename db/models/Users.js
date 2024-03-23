@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     password_reset: { type: String, required: false },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
-    // join_date: { type: Date, required: true },
+    join_date: { type: Date, required: true },
     linkedIn_link: { type: String, default: "" },
     about: { type: String, default: "" },
     stub_data: { type: Boolean, required: false },

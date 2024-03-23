@@ -405,8 +405,8 @@
 .profile-picture-page {
   position: relative;
   flex-shrink: 0; 
-  width: 150px;
-  height: 150px;
+  width: auto;
+  height: auto;
   border-radius: 50%;
   overflow: hidden;
 }

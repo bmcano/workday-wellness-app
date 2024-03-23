@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar.tsx";
 import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { apiGet } from '../api/serverApiCalls.tsx';
+import ProfilePicture from "../components/ProfilePicture.tsx";
 
 const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
 
@@ -24,10 +25,11 @@ const Profile: React.FC = () => {
       .then(data => {
         if (data.authorized) {
           setName(`${data.user.first_name} ${data.user.last_name}`);
-          // TODO - add DB items
-          setJoinDate("January 1st, 2024" as unknown as Date);
-          setLinkedIn("https://www.linkedin.com/in/brandon-cano/");
-          setAbout("I am a software engineer");
+          setJoinDate(data.user.join_date);
+          setLinkedIn(data.user.linkedIn_link);
+          if (data.user.about !== "") {
+            setAbout(data.user.about);
+          }
         }
       })
       .catch(error => console.log(error))
@@ -60,12 +62,12 @@ const Profile: React.FC = () => {
           <div className="card card-span-4">
             <div className="profile-content-container">
               <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
-                <img src={pfpImage} alt="Profile" />
+                <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
                 <div className="edit-overlay">Edit</div>
               </div>
               <div className="profile-text-container">
                 <h1>{name}</h1>
-                <p>Joined on {joinDate.toString()}</p>
+                <p>Joined on {joinDate as unknown as string}</p>
                 <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
               </div>
             </div>
