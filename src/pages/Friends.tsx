@@ -15,11 +15,10 @@ const Friends: React.FC = () => {
     const navigate = useNavigate();
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet('http://localhost:3001/friends_list')
-            .then(res => res.json())
+        apiGet("/friends_list")
             .then(data => {
                 setFriendsList(data)
-            }).catch(err => console.log(err));
+            }).catch(error => console.log(error));
     }, [navigate]);
 
     return (

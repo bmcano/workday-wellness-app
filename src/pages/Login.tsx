@@ -20,20 +20,23 @@ const Login: React.FC = () => {
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
         const password = data.get('password');
-        const jsonData = JSON.stringify({ email, password })
-        console.log(jsonData);
+        const jsonData = JSON.stringify({ email, password });
 
-        apiPost('http://localhost:3001/login', jsonData)
+        apiPost("/login", jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     console.log("Login successful");
+                    localStorage.setItem("token", data.token);
                     navigate('/');
                 } else {
                     alert("Incorrect email or password.");
                 }
             })
-            .catch(() => alert("Login failed."));
+            .catch((error) => {
+                console.log(error);
+                alert("Login failed.");
+            });
     };
 
     return (
@@ -75,7 +78,7 @@ const Login: React.FC = () => {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/forgot_password" variant="body2">Forgot password?</Link>
+                                <Link href={getFullAppLink("/forgot_password")} variant="body2">Forgot password?</Link>
                             </Grid>
                             <Grid item>
                                 <Link href={getFullAppLink("/create_account")} variant="body2">Don't have an account?</Link>

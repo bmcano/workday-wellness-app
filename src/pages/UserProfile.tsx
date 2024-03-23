@@ -24,27 +24,28 @@ const UserProfile: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate);
         const jsonData = JSON.stringify({ _id: id });
-        apiPost('http://localhost:3001/view_profile', jsonData)
+        apiPost("/view_profile", jsonData)
             .then(res => res.json())
             .then(data => {
-                setFristName(data.first_name);
-                setLastName(data.last_name);
-                setBase64Image(data.profile_picture === "" ? DefaultProfile : data.profile_picture);
+                const public_user = data.user;
+                setFristName(public_user.first_name);
+                setLastName(public_user.last_name);
+                setBase64Image(public_user.profile_picture === "" ? DefaultProfile : public_user.profile_picture);
                 const user = data.auth_user;
                 setUserId(user._id);
-                if (user.friends.includes(data.email)) {
+                if (user.friends.includes(public_user.email)) {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            }).catch(err => console.log(err));
-    }, [navigate]);
+            }).catch(error => console.log(error));
+    }, [navigate, id]);
 
     const handleOnClick = () => {
         var link = "";
         if (!isFriend) {
-            link = 'http://localhost:3001/add_friend';
+            link = "/add_friend";
         } else {
-            link = 'http://localhost:3001/remove_friend';
+            link = "/remove_friend";
         }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
         apiPost(link, jsonData)
@@ -58,7 +59,7 @@ const UserProfile: React.FC = () => {
                     setButtonText("Add Friend");
                 }
             })
-            .catch(err => console.log(err));
+            .catch(error => console.log(error));
     }
 
     return (

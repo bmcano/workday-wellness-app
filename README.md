@@ -60,6 +60,25 @@ The following steps will guide you through the installation guide to start devel
     - `npm install`
     - `npm run start:db`
 
+## Enviornment Variables
+
+For local development we need two `.env` files one in the `../` (root) directory and one in the `../db` (server) directory. 
+Some values are intentionally omitted due to security concerns, to get them contact Brandon.
+```js
+REACT_APP_SESSION_SECRET="{session_secret}"
+REACT_APP_AZURE_CLIENT_ID="{client_id}"
+REACT_APP_EMAIL_PASSWORD="{email_password}"
+REACT_APP_SERVER_URL='http://localhost:3001'
+REACT_APP_WEBSITE_URL='http://localhost:3000'
+REACT_APP_MONGO_ATLAS="mongodb://localhost:27017/wellness-app"
+```
+
+For production purposes some values are modified to work with our web deployments.
+```js
+REACT_APP_SERVER_URL='https://workday-wellness-app.onrender.com'
+REACT_APP_WEBSITE_URL='https://bmcano.github.io/workday-wellness-app'
+REACT_APP_MONGO_ATLAS="mongodb+srv://workday-wellness-app:vOISxmnRbW0zvj4g@workday-wellness-app.jatfumk.mongodb.net/?retryWrites=true&w=majority&appName=workday-wellness-app"
+```
 
 ## Seeding Setup
 

@@ -9,23 +9,24 @@ import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 
-const enabledText = "#212121"
-const disabledText = "#e4e3e3"
+const enabledText = "#212121";
+const disabledText = "#e4e3e3";
 
-const Exercises: React.FC = () => {
+const EditExercises: React.FC = () => {
 
     const [exerciseData, setExerciseData] = useState<Object>({});
     const [checkboxStates, setCheckboxStates] = useState<boolean[]>([]);
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate)
-        apiGet('http://localhost:3001/get_exercise_information')
-            .then(res => res.json())
+        apiGet("/user")
             .then(data => {
-                setExerciseData(data)
-                console.log(data)
-                const states: boolean[] = Object.keys(data).map(key => data[key].isEnabled);
-                setCheckboxStates(states);
+                if (data.authorized) {
+                    const items = data.user.exercises;
+                    setExerciseData(items);
+                    const states: boolean[] = Object.keys(items).map(key => items[key].isEnabled);
+                    setCheckboxStates(states);
+                }
             })
             .catch(error => console.log(error));
     }, [navigate])
@@ -52,8 +53,6 @@ const Exercises: React.FC = () => {
 
         });
 
-        console.log(formData);
-
         Object.keys(exerciseData).forEach((key, index) => {
             if (key === "_id") return;
             const exercise = exerciseData[key];
@@ -66,9 +65,9 @@ const Exercises: React.FC = () => {
             exerciseData[key].isEnabled = formData[exercise.id][2]
 
         });
-        console.log(exerciseData)
+
         const jsonData = JSON.stringify({ exerciseData })
-        apiPost('http://localhost:3001/update_exercise_information', jsonData)
+        apiPost("/update_exercise_information", jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -176,4 +175,4 @@ const Exercises: React.FC = () => {
     )
 }
 
-export default Exercises;
+export default EditExercises;

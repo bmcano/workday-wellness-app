@@ -7,31 +7,32 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
+import { v4 as uuidv4 } from 'uuid';
 
 const ForgotPassword: React.FC = () => {
-
-    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
-        const jsonData = JSON.stringify({ email})
-        console.log(jsonData);
-
-        apiPost('http://localhost:3001/login', jsonData)
+        const subject = "Reset Password"
+        const token = uuidv4();
+        const text = `Please click the following link to reset your password: ${process.env.REACT_APP_WEBSITE_URL}${process.env.PUBLIC_URL}/reset-password/${token}`
+        const jsonData = JSON.stringify({ email, subject, text, token })
+        apiPost('/does_email_exist', jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    console.log("Email Sent");
-                    navigate('/');
+                    apiPost("/send_email", jsonData).catch((error) => console.log(error));
+                    apiPost("/set_token", jsonData).catch((error) => console.log(error));
+                    alert("Email has been sent");
                 } else {
-                    alert("Incorrect email");
+                    alert("Email does not exist");
                 }
             })
-            .catch(() => alert("Email failed."));
+            .catch((error) => console.log(error));
     };
 
     return (
@@ -62,6 +63,14 @@ const ForgotPassword: React.FC = () => {
                         >
                             Submit
                         </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href={getFullAppLink("/login")} variant="body2">Login</Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href={getFullAppLink("/create_account")} variant="body2">Don't have an account?</Link>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
             </Container>

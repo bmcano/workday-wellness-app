@@ -22,8 +22,6 @@ export function initializeGraphForUserAuth(user_id, settings, deviceCodePrompt) 
         throw new Error('Settings cannot be undefined');
     }
 
-    console.log(settings);
-
     const _deviceCodeCredential = new DeviceCodeCredential({
         clientId: settings.clientId,
         tenantId: settings.tenantId,
@@ -81,7 +79,7 @@ export async function addOutlookEvent(user_id, email, name, eventData) {
     }
 
     let event = {}
-    if (eventData.recurrence === "") {
+    if (!eventData.recurrence || eventData.recurrence === "") {
         event = singleEvent(eventData, email, name);
     } else {
         event = recurringEvent(eventData, email, name);

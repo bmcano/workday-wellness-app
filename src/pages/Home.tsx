@@ -11,16 +11,15 @@ import { getCurrentFormattedDate } from "../util/dateUtils.ts";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
-import Drawer from '@mui/material/Drawer';
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
-import Footer from "../pages/Footer.tsx";
+import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
+import Footer from "../components/Footer.tsx";
 
 let intervalId: number | null = null;
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const audioRef = new Audio(messageSound);
-  const [open, setOpen] = useState(false);
 
   const [name, setName] = useState("");
   const [duration, setDuration] = useState<number>(60);
@@ -31,22 +30,24 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     AuthorizedUser(navigate);
-    apiGet('http://localhost:3001/get_user')
-      .then(res => res.json())
+    apiGet("/user")
       .then(data => {
         if (data.authorized) {
           setName(data.user.first_name);
           setTodaysEvents(data.user.calendar);
         }
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error);
+        navigate('/login');
+      })
       .finally(() => setLoading(false));
     // Cleanup function to clear the interval when the component unmounts
     return () => {
       if (intervalId !== null) clearInterval(intervalId);
     };
   }, [navigate]);
-  
+
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -157,9 +158,8 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="card-column">
-          <div>
-            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
-          </div>
+          <GenerateRecommendations />
+          {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
         </div>
       </div>
       <Footer />

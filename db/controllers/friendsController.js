@@ -1,30 +1,36 @@
 import UserModel from '../models/Users.js';
+import { getUserInformation } from './sessionController.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
- * Job: Backend API calls regarding anything for friends/other users that is public
+ * GET:
+ *  "/users_list" => usersList(req, res) - gets a list of all the users with the exception of the user logged in
+ *  "/friends_list" => friendsList(req, res) - gets a list of all the users in the logged in users friend list
+ * POST:
+ *  "/view_profile" => viewUserProfile(req, res) - will send a public user id and retrieve the user data to display their data publicly
+ *  "/add_friend" => addFriend(req, res) - will send user ids and properly update database items to add a friend
+ *  "/remove_friend" => removeFriend(req, res) - will send user ids and properly update database items to remove a friend
  */
 
-export const searchUsersList = async (req, res) => {
+export const usersList = async (req, res) => {
     try {
-        const user = await UserModel.findOne({ _id: req.session._id }).lean();
-        if (!user) {
-            return res
-                .status(404)
-                .json({ error: "User not found" });
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user = await UserModel.findOne({ _id: data._id }).lean();
+            const email = user.email;
+            const users = await UserModel.find({});
+            const stub = users.filter(item => item.email !== email).map(friend => {
+                return {
+                    id: friend._id.toString(),
+                    first_name: friend.first_name,
+                    last_name: friend.last_name,
+                    profile_picture: friend.profile_picture
+                };
+            });
+            return res.json(stub);
         }
-
-        const email = user.email;
-        const users = await UserModel.find({});
-        const stub = users.filter(item => item.email !== email).map(friend => {
-            return {
-                id: friend._id.toString(),
-                first_name: friend.first_name,
-                last_name: friend.last_name,
-                profile_picture: friend.profile_picture
-            };
-        });
-
-        return res.json(stub);
     } catch (error) {
         console.error(error);
         return res
@@ -33,26 +39,24 @@ export const searchUsersList = async (req, res) => {
     }
 }
 
-export const searchFriendsList = async (req, res) => {
+export const friendsList = async (req, res) => {
     try {
-        const user = await UserModel.findOne({ _id: req.session._id }).lean();
-        if (!user) {
-            return res
-                .status(404)
-                .json({ error: "User not found" });
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user = await UserModel.findOne({ _id: data._id }).lean();
+            const friendsEmails = user.friends;
+            const friendsDetails = await UserModel.find({ email: { $in: friendsEmails } }).lean();
+            const stub = friendsDetails.map(friend => {
+                return {
+                    id: friend._id.toString(),
+                    first_name: friend.first_name,
+                    last_name: friend.last_name,
+                    profile_picture: friend.profile_picture
+                };
+            });
+            return res.json(stub);
         }
-
-        const friendsEmails = user.friends;
-        const friendsDetails = await UserModel.find({ email: { $in: friendsEmails } }).lean();
-        const stub = friendsDetails.map(friend => {
-            return {
-                id: friend._id.toString(),
-                first_name: friend.first_name,
-                last_name: friend.last_name,
-                profile_picture: friend.profile_picture
-            };
-        });
-        return res.json(stub);
     } catch (error) {
         console.error(error);
         return res
@@ -63,19 +67,19 @@ export const searchFriendsList = async (req, res) => {
 
 export const viewUserProfile = async (req, res) => {
     try {
-        const user_id = req.body;
-        const user = await UserModel.findOne({ _id: user_id }).lean();
-        const auth_user = await UserModel.findOne({ _id: req.session._id }).lean();
-        if (!user || !auth_user) {
-            return res
-                .status(404)
-                .json({ error: "User not found" });
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user_id = req.body;
+            const user = await UserModel.findOne({ _id: user_id }).lean();
+            const auth_user = await UserModel.findOne({ _id: data._id }).lean();
+            if (!user || !auth_user) {
+                return res
+                    .status(404)
+                    .json({ error: "User not found" });
+            }
+            return res.json({ user: user, auth_user: auth_user });
         }
-        const email = user.email;
-        const first_name = user.first_name;
-        const last_name = user.last_name;
-        const profile_picture = user.profile_picture;
-        return res.json({ email: email, first_name: first_name, last_name: last_name, profile_picture: profile_picture, auth_user: auth_user });
     } catch (error) {
         console.error(error);
         return res
