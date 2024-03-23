@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const enabledText = "#212121";
 const disabledText = "#e4e3e3";
@@ -100,6 +101,7 @@ const EditExercises: React.FC = () => {
                         {exercise.values.time && (
                             <TextField
                                 type="number"
+                                variant="standard"
                                 name={"time" + exercise.id.toString()}
                                 label={`Time (s): ${exercise.values.time}`}
                                 placeholder={exercise.values.time.toString()}
@@ -111,6 +113,7 @@ const EditExercises: React.FC = () => {
                         {exercise.values.reps && (
                             <TextField
                                 type="number"
+                                variant="standard"
                                 name={"reps" + exercise.id.toString()}
                                 label={`Reps: ${exercise.values.reps}`}
                                 placeholder={exercise.values.reps.toString()}
