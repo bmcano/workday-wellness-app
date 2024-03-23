@@ -8,7 +8,6 @@ import { DeviceCodeModalProps } from './OpenSaveCloseModalProps.ts';
 const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
 
     const handleCopy = () => {
-        console.log(deviceCodeMessage.userCode);
         navigator.clipboard.writeText(deviceCodeMessage.userCode);
         window.open(deviceCodeMessage.verificationUri);
     }

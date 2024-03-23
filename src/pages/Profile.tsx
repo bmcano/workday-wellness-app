@@ -1,11 +1,10 @@
+import "../App.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 // @ts-ignore
 import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
-import "../App.css";
-import { getServerCall } from '../util/getFullAppLink.ts';
 import { apiGet } from '../api/serverApiCalls.tsx';
 
 const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
@@ -21,8 +20,7 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     AuthorizedUser(navigate);
-    apiGet(getServerCall("/user"))
-      .then(res => res.json())
+    apiGet("/user")
       .then(data => {
         if (data.authorized) {
           setName(`${data.user.first_name} ${data.user.last_name}`);
