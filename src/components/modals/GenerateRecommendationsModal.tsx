@@ -40,7 +40,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
             })
             .catch(error => console.log(error));
     }, [])
-    
+
     const handleSave = () => {
         // get events from selected date
         // const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
@@ -53,14 +53,11 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         // get recommendations from intensity level
         const exercises: string[] = [];
         const mode = getModeValues(intensity);
-        const exercsieStuff = test();
-        const test = Object.assign({}, obj1.test);
-        console.log("exerciseStuff  " + exercsieStuff);
-        applyExercises(exercsieStuff, mode, exercises)
+        applyExercises(exerciseData.exercise.slice(), mode, exercises)
         console.log("Apply exercises " + exercises)
-        splitUpStretches(mode, exerciseData.back, exerciseData.neck, exerciseData.wrist, exercises)
+        splitUpStretches(mode, exerciseData.back.slice(), exerciseData.neck.slice(), exerciseData.wrist.slice(), exercises)
         console.log("Apply stretches " + exercises)
-        splitUpMisc(exerciseData.misc, mode, exercises)
+        splitUpMisc(exerciseData.misc.slice(), mode, exercises)
         console.log("Apply misc " + exercises)
         //console.log(exercises)
         //setGeneratedExercises(exercises)
