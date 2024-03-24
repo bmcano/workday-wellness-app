@@ -11,7 +11,6 @@ describe('distributeEvents', () => {
       expect(distributedEvents.length).toBe(eventNames.length);
       distributedEvents.forEach((event, index) => {
         if (index > 0) {
-          // Check that each event starts after the previous event has ended
           expect(event.start.getTime()).toBeGreaterThanOrEqual(distributedEvents[index - 1].end.getTime());
         }
       });
@@ -27,7 +26,7 @@ describe('distributeEvents', () => {
       expect(distributedEvents.length).toBe(1);
       expect(distributedEvents[0]["title"]).toBe('Event 1');
     });
-    
+
     it('create a new start and end time properly', () => {
       const freeTimeSlots = [
         { start: new Date('2024-03-25T09:00:00'), end: new Date('2024-03-25T10:00:00') },
