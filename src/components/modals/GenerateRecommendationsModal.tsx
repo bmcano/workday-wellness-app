@@ -95,6 +95,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
 
 
+    
     return (
         <Modal
             isOpen={isOpen}
@@ -135,17 +136,18 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                     <div className='divider' style={dividerMargin} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleSave}>Generate</Button>
+                            <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
                     </div>
+
                     {/* Display generated exercises with accept and decline buttons */}
-                    {generatedExercises.length > 0 && (
+                    {events.length > 0 && (
                         <div className='card-item'>
                             <p>Generated Exercises:</p>
                             <ul>
-                                {generatedExercises.map((exercise, index) => (
-                                    <li key={index}>{exercise}</li>
+                                {events.map((event, index) => (
+                                    <li key={index}>{event.title}</li>
                                 ))}
                             </ul>
                             <div className='card-button'>
