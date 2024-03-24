@@ -25,7 +25,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
-    const [generatedExercises, setGeneratedExercises] = useState<string[]>([]); // State to hold generated exercises
+    //const [generatedExercises, setGeneratedExercises] = useState<string[]>([]); // State to hold generated exercises
 
     useEffect(() => {
         apiGet(getServerCall("/user"))
@@ -57,10 +57,11 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         splitUpStretches(mode, exerciseData.back, exerciseData.neck, exerciseData.wrist, exercises)
         splitUpMisc(exerciseData.misc, mode, exercises)
         console.log(exercises)
-        setGeneratedExercises(exercises)
+        //setGeneratedExercises(exercises)
         // pair recommendations within an even(ish) intervals between them during free time slots
         const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
         console.log(newEvents);
+        setEvents(newEvents);
 
         // TODO:
         // list events
@@ -69,22 +70,21 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         // if decline: regenerate items
 
         // save to database first
-        const jsonData = JSON.stringify({ events: newEvents })
-        apiPost(getServerCall('/add_user_recommendations'), jsonData)
-            .catch(error => console.log(error));
+        // const jsonData = JSON.stringify({ events: newEvents })
+        // apiPost(getServerCall('/add_user_recommendations'), jsonData)
+        //     .catch(error => console.log(error));
 
-        onSave(newEvents);
-        onClose();
+        // onSave(newEvents);
+        // onClose();
     };
     const handleAccept = () => {
         // Save generated exercises to the database
-        const jsonData = JSON.stringify({ exercises: generatedExercises })
-        apiPost(getServerCall('/save_exercises'), jsonData)
-            .then(() => {
-                onSave(generatedExercises); // Call onSave callback with generated exercises
-                onClose(); // Close the modal
-            })
+        const jsonData = JSON.stringify({ events: events })
+            apiPost(getServerCall('/add_user_recommendations'), jsonData)
             .catch(error => console.log(error));
+
+        onSave(events);
+        onClose();
     };
 
     const handleDecline = () => {
