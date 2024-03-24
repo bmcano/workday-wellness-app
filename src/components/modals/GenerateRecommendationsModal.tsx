@@ -136,7 +136,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                     <div className='divider' style={dividerMargin} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
+                            <Button variant="text" color="primary" onClick={handleSave}>Generate</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
                     </div>
