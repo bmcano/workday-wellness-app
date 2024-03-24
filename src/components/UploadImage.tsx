@@ -19,7 +19,10 @@ const UploadImage = ({ handleImageUpload }) => {
     return (
         <form onSubmit={handleSubmit}>
             <input type="file" accept=".png, .jpeg, .jpg" onChange={handleFileChange} />
-            <Button variant="contained" color="primary" type="submit">Upload Image</Button>
+            <div>
+                <Button variant="contained" color="primary" type="submit" style={{ marginTop: '16px' }}>Upload Image</Button>
+            </div>
+
         </form>
     )
 };

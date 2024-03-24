@@ -73,6 +73,7 @@ export const registerAccount = async (req, res) => {
             join_date: formattedDate,
             linkedIn_link: "",
             about: "",
+            birthday: "",
             profile_picture: "", // if empty we check for default profile picture elsewhere
             exercises: exercises[0], // the first item in this stub_data will be our defaults
             calendar: [] // calendar should be empty by default

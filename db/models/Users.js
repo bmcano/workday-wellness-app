@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     join_date: { type: Date, required: true },
     linkedIn_link: { type: String, default: "" },
     about: { type: String, default: "" },
+    birthday: { type: Date, default: "" },
     stub_data: { type: Boolean, required: false },
     friends: { type: [String], default: [] },
     profile_picture: { type: String, default: "" },
