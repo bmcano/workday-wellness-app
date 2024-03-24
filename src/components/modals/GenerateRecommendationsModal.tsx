@@ -139,6 +139,17 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
                     </div>
+                    {/* Display generated exercises with accept and decline buttons */}
+                    {generatedExercises.length > 0 && (
+                        <div className='card-item'>
+                            <p>Generated Exercises:</p>
+                            <ul>
+                                {generatedExercises.map((exercise, index) => (
+                                    <li key={index}>{exercise}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
         </Modal>
