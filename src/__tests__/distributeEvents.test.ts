@@ -11,9 +11,19 @@ describe('distributeEvents', () => {
       expect(distributedEvents.length).toBe(eventNames.length);
       distributedEvents.forEach((event, index) => {
         if (index > 0) {
+          // Check that each event starts after the previous event has ended
           expect(event.start.getTime()).toBeGreaterThanOrEqual(distributedEvents[index - 1].end.getTime());
         }
       });
     });
+    // probably need to include a checker in the code to make sure there are free time slots available
+    // it('should return an empty array when no free time slots are available', () => {
+    //   const freeTimeSlots = [];
+    //   const eventNames = ['Event 1', 'Event 2'];
+    //   const distributedEvents = distributeEvents(freeTimeSlots, eventNames);
+  
+    //   expect(distributedEvents).toEqual([]);
+    // });
+    
   
   });
