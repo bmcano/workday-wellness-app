@@ -64,14 +64,6 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         // accept/decline
         // if accept: send them all to the database/outlook 
         // if decline: regenerate items
-
-        // save to database first
-        // const jsonData = JSON.stringify({ events: newEvents })
-        // apiPost(getServerCall('/add_user_recommendations'), jsonData)
-        //     .catch(error => console.log(error));
-
-        // onSave(newEvents);
-        // onClose();
     };
     const handleAccept = () => {
         // Save generated exercises to the database
