@@ -148,6 +148,10 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                                     <li key={index}>{exercise}</li>
                                 ))}
                             </ul>
+                            <div className='card-button'>
+                                <Button variant="contained" color="primary" onClick={handleAccept}>Accept</Button>
+                                <Button variant="contained" onClick={handleDecline}>Decline</Button>
+                            </div>
                         </div>
                     )}
                 </div>
