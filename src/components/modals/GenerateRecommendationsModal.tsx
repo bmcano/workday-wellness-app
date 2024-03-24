@@ -25,7 +25,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
-    const [generatedExercises, setGeneratedExercises] = useState<string[]>([]); // State to hold generated exercises
+    //const [generatedExercises, setGeneratedExercises] = useState<string[]>([]); // State to hold generated exercises
 
     useEffect(() => {
         apiGet(getServerCall("/user"))
