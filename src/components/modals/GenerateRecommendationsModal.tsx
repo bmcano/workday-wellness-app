@@ -39,7 +39,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
             .catch(error => console.log(error));
     }, [])
 
-    const handleSave = () => {
+    const handleGenerate = () => {
         // get events from selected date
         // const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
         const isoDate = date.toISOString().split('T')[0];
@@ -69,20 +69,14 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         // Save generated exercises to the database
         const jsonData = JSON.stringify({ events: events })
             apiPost(getServerCall('/add_user_recommendations'), jsonData)
+            .then(() => {
+                setEvents([]);
+            })
             .catch(error => console.log(error));
 
         onSave(events);
         onClose();
     };
-
-    const handleDecline = () => {
-        // Regenerate exercises
-        handleSave();
-        
-    };
-    
-
-
 
     
     return (
@@ -125,7 +119,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                     <div className='divider' style={dividerMargin} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleSave}>Generate</Button>
+                            <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
                     </div>
@@ -141,7 +135,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                             </ul>
                             <div className='card-button'>
                                 <Button variant="contained" color="primary" onClick={handleAccept}>Accept</Button>
-                                <Button variant="contained" onClick={handleDecline}>Decline</Button>
+                                <Button variant="contained" onClick={handleGenerate}>Regenerate</Button>
                             </div>
                         </div>
                     )}
