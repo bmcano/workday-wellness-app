@@ -12,7 +12,6 @@ import { apiGet } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
-import { getServerCall } from "../util/getFullAppLink.ts";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../components/Footer.tsx";
 
@@ -31,11 +30,9 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     AuthorizedUser(navigate);
-    apiGet(getServerCall("/user"))
-      .then(res => res.json())
+    apiGet("/user")
       .then(data => {
         if (data.authorized) {
-          console.log(data)
           setName(data.user.first_name);
           setTodaysEvents(data.user.calendar);
         }

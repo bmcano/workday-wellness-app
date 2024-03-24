@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import exercises from '../stub_data/exercises/exercises_00.json' assert { type: "json" };
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import StatisticsModel from '../models/Statistics.js';
 dotenv.config();
 
 /**
@@ -19,11 +20,9 @@ dotenv.config();
 
 const generateToken = (userData) => {
     const key = process.env.REACT_APP_SESSION_SECRET;
-    console.log("in generate token " + key)
     return new Promise((resolve, reject) => {
-        jwt.sign(userData, key, (err, token) => {
-            if (err) {
-                console.log(err)
+        jwt.sign(userData, key, (error, token) => {
+            if (error) {
                 reject('Failed to generate token');
             } else {
                 resolve(token);
@@ -39,7 +38,7 @@ export const getUserInformation = (token) => {
         return { _id: decoded._id, email: decoded.email };
     } catch (error) {
         // If the token is invalid or expired, return null
-        console.error('Error decoding token:', error);
+        console.error('Error decoding token: getUserInformation');
         return null;
     }
 }
@@ -50,7 +49,7 @@ export const checkSession = (req, res) => {
     const key = process.env.REACT_APP_SESSION_SECRET;
     jwt.verify(token, key, (error, decoded) => {
         if (error || decoded._id === undefined) {
-            console.log(error);
+            console.log("Error decoding token: checkSession");
             return res.json({ authorized: false, message: 'Invalid token' });
         } else {
             return res.json({ authorized: true });
@@ -79,7 +78,20 @@ export const registerAccount = async (req, res) => {
         });
         let result = await user.save();
         result = result.toObject();
-        if (result) {
+
+        const statistics = new StatisticsModel({
+            email: email,
+            full_name: `${first_name} ${last_name}`,
+            streak: 0,
+            completed: {
+                amount: 0,
+                exercises: []
+            }
+        })
+        let stat_result = await statistics.save();
+        stat_result = stat_result.toObject();
+
+        if (result && stat_result) {
             console.log(result); // will eventually remove
             return res.json({ success: true, message: "Account successfully created." });
         } else {
@@ -101,13 +113,10 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await UserModel.findOne({ email: email.toLowerCase() }).lean();
-        console.log("in session controller " + user.email + "  " + user.password)
         if (!user) {
-            console.log("in !user")
             return res
                 .status(400)
                 .json({ success: false, message: "Email or password does not match" });
-        
         }
 
         if (user.stub_data && user.password === password) {
@@ -131,7 +140,6 @@ export const login = async (req, res) => {
             .status(400)
             .json({ success: false, message: "Email or password does not match" });
     } catch (error) {
-        console.log(error + "in errer");
         return res
             .status(500)
             .json({ error: "Internal Server Error" });

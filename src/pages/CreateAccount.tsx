@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import { isValidEmail, isValidName, isValidPassword } from "../util/createAccountUtils.ts";
-import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
 
 const CreateAccount: React.FC = () => {
 
@@ -29,7 +29,6 @@ const CreateAccount: React.FC = () => {
         const first_name = data.get('first_name');
         const last_name = data.get('last_name');
         const jsonData = JSON.stringify({ email, password, first_name, last_name });
-        console.log(jsonData);
 
         // validate user inputs
         if (!isValidEmail(email as string, setEmailError)) return;
@@ -40,10 +39,9 @@ const CreateAccount: React.FC = () => {
         }
 
         // take user data and post it to the database
-        apiPost(getServerCall("/register"), jsonData)
+        apiPost("/register", jsonData)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     alert("Account created.")
                     navigate('/')
@@ -51,6 +49,7 @@ const CreateAccount: React.FC = () => {
                     setEmailError(data.message)
                 }
             })
+            .catch((error) => console.log(error));
     };
 
     return (
@@ -113,4 +112,4 @@ const CreateAccount: React.FC = () => {
     )
 }
 
-export default CreateAccount
+export default CreateAccount;

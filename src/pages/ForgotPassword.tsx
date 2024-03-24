@@ -7,16 +7,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useNavigate } from 'react-router-dom';
 import { apiPost } from "../api/serverApiCalls.tsx";
-import { getFullAppLink, getServerCall } from "../util/getFullAppLink.ts";
+import { getFullAppLink } from "../util/getFullAppLink.ts";
 import { v4 as uuidv4 } from 'uuid';
 
-// Generate a unique token using UUID library
-
 const ForgotPassword: React.FC = () => {
-
-    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,17 +19,15 @@ const ForgotPassword: React.FC = () => {
         const email = data.get('email');
         const subject = "Reset Password"
         const token = uuidv4();
-        const text = `Please click the following link to reset your password http://localhost:3000${process.env.PUBLIC_URL}/reset-password/${token}`
-        const jsonData = JSON.stringify({ email,subject,text,token})
-        console.log(jsonData);
-        apiPost(getServerCall('/does_email_exist'), jsonData)
+        const text = `Please click the following link to reset your password: ${process.env.REACT_APP_WEBSITE_URL}${process.env.PUBLIC_URL}/reset-password/${token}`
+        const jsonData = JSON.stringify({ email, subject, text, token })
+        apiPost('/does_email_exist', jsonData)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    apiPost(getServerCall("/send_email"),jsonData)
+                    apiPost("/send_email", jsonData).catch((error) => console.log(error));
+                    apiPost("/set_token", jsonData).catch((error) => console.log(error));
                     alert("Email has been sent");
-                    apiPost(getServerCall("/setToken"),jsonData)
-                    
                 } else {
                     alert("Email does not exist");
                 }

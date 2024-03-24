@@ -5,8 +5,9 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlookCalendar, initalizeOutlookClient, saveCalendarData, addOutlookEvent, addUserRecommendations } from './controllers/outlookController.js';
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
-import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken  } from './controllers/profileController.js';
+import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
+import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak } from './controllers/statisticsController.js';
 
 /**
  * Server setup
@@ -17,8 +18,8 @@ app.use(cors({
     methods: ["POST", "GET"],
     credentials: true
 }));
-app.use(bodyParser.json({ limit: '125kb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '125kb' }));
+app.use(bodyParser.json({ limit: '1mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(json());
 app.use(cookieParser());
 
@@ -36,8 +37,9 @@ app.post('/update_exercise_information', async (req, res) => updateExerciseInfor
 app.post('/does_email_exist', async (req, res) => doesEmailExistInDatabase(req, res));
 app.post('/send_email', async (req, res) => sendEmail(req, res));
 app.post('/reset_password', async (req, res) => resetPassword(req, res));
-app.post('/getEmailFromToken', async (req, res) => getEmailFromToken(req,res));
-app.post('/setToken', async (req, res) => setToken(req,res));
+app.post('/set_token', async (req, res) => setToken(req, res));
+app.post('/clear_token', async (req, res) => clearToken(req, res));
+app.post('/get_email_from_token', async (req, res) => getEmailFromToken(req, res));
 // see ./controllers/friendsController.js for more details.
 app.get('/users_list', async (req, res) => usersList(req, res));
 app.get('/friends_list', async (req, res) => friendsList(req, res));
@@ -53,6 +55,11 @@ app.post('/save_calendar_data', async (req, res) => saveCalendarData(req, res));
 app.post('/add_calendar_data', async (req, res) => addCalendarData(req, res));
 app.post('/add_outlook_event', async (req, res) => addOutlookEvent(req, res));
 app.post('/add_user_recommendations', async (req, res) => addUserRecommendations(req, res));
+// see ./controllers/statisticsController.js for more details
+app.get('/get_global_leaderboard_streak', async (req, res) => getGlobalLeaderboardStreak(req, res));
+app.get('/get_global_leaderboard_completed', async (req, res) => getGlobalLeaderboardCompleted(req, res));
+app.get('/get_friend_leaderboard_streak', async (req, res) => getFriendLeaderboardStreak(req, res));
+app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeaderboardCompleted(req, res));
 
 app.listen(3001, () => {
     console.log("Database is running.");
