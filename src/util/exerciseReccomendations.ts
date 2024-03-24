@@ -4,9 +4,6 @@ import { ExerciseCategories } from "../types/ExerciseCategories";
 
 // Function to perform exercises
 export function applyExercises(exerciseArray: string[], mode: number[], exercises: string[]): void {
-    console.log("exercisearray  "+ exerciseArray);
-    console.log("mode  "+ mode);
-    console.log("exercises  "+ exercises);
     if (exerciseArray.length >= mode[0]) //if there are more exercises avaiable than there are assigned
     {
         for (let i = 0; i < mode[0]; i++) //randomly get as many exercises as there are assigned and then delete the exercise for the array to make sure no duplicates

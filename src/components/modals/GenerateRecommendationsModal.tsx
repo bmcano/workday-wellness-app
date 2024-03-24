@@ -25,8 +25,6 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
-    const [generatedExercises, setGeneratedExercises] = useState<string[]>([]); // State to hold generated exercises
-
     useEffect(() => {
         apiGet(getServerCall("/user"))
             .then(res => res.json())
@@ -54,13 +52,8 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         const exercises: string[] = [];
         const mode = getModeValues(intensity);
         applyExercises(exerciseData.exercise.slice(), mode, exercises)
-        console.log("Apply exercises " + exercises)
         splitUpStretches(mode, exerciseData.back.slice(), exerciseData.neck.slice(), exerciseData.wrist.slice(), exercises)
-        console.log("Apply stretches " + exercises)
         splitUpMisc(exerciseData.misc.slice(), mode, exercises)
-        console.log("Apply misc " + exercises)
-        //console.log(exercises)
-        //setGeneratedExercises(exercises)
         // pair recommendations within an even(ish) intervals between them during free time slots
         const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
         console.log(newEvents);
@@ -92,7 +85,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
     const handleDecline = () => {
         // Regenerate exercises
-        //handleSave();
+        handleSave();
         
     };
     
