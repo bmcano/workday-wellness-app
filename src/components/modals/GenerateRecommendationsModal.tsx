@@ -24,6 +24,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
+
     useEffect(() => {
         apiGet("/user")
             .then(data => {
@@ -55,17 +56,11 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
         console.log(newEvents);
         setEvents(newEvents);
-
-        // TODO:
-        // list events
-        // accept/decline
-        // if accept: send them all to the database/outlook 
-        // if decline: regenerate items
     };
     const handleAccept = () => {
         // Save generated exercises to the database
         const jsonData = JSON.stringify({ events: events })
-            apiPost(getServerCall('/add_user_recommendations'), jsonData)
+        apiPost('/add_user_recommendations', jsonData)
             .then(() => {
                 setEvents([]);
             })
@@ -75,7 +70,11 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         onClose();
     };
 
-    
+    const handleClose = () => {
+        setEvents([]);
+        onClose();
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -114,25 +113,27 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                     </div>
 
                     <div className='divider' style={dividerMargin} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    {events.length === 0 && <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
-                            <Button variant="text" onClick={onClose}>Cancel</Button>
+                            <Button variant="text" onClick={handleClose}>Cancel</Button>
                         </div>
-                    </div>
-
-                    {/* Display generated exercises with accept and decline buttons */}
+                    </div>}
                     {events.length > 0 && (
-                        <div className='card-item'>
-                            <p>Generated Exercises:</p>
-                            <ul>
-                                {events.map((event, index) => (
-                                    <li key={index}>{event.title}</li>
-                                ))}
-                            </ul>
-                            <div className='card-button'>
-                                <Button variant="contained" color="primary" onClick={handleAccept}>Accept</Button>
-                                <Button variant="contained" onClick={handleGenerate}>Regenerate</Button>
+                        <div>
+                            <div className='card-item'>
+                                <ul>
+                                    {events.map((event, index) => (
+                                        <p key={index}>{event.title}</p>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className='card-item'>
+                                <div className='card-button'>
+                                    <Button variant="text" color="primary" onClick={handleAccept}>Accept</Button>
+                                    <Button variant="text" onClick={handleGenerate}>Regenerate</Button>
+                                    <Button variant="text" onClick={handleClose}>Cancel</Button>
+                                </div>
                             </div>
                         </div>
                     )}
