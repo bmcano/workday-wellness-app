@@ -8,7 +8,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
-import InputAdornment from "@mui/material/InputAdornment";
 
 const enabledText = "#212121";
 const disabledText = "#e4e3e3";
