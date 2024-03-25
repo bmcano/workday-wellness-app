@@ -22,9 +22,9 @@ app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(json());
 app.use(cookieParser());
-
-// connect("mongodb://localhost:27017/wellness-app");
-connect(process.env.REACT_APP_MONGO_ATLAS);
+//make top line uncommented for when working on server
+connect("mongodb://127.0.0.1:27017/wellness-app");
+// connect(process.env.REACT_APP_MONGO_ATLAS);
 
 // see ./controllers/sessionController.js for more details.
 app.get('/', (req, res) => checkSession(req, res));

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
+import { apiGet } from "../api/serverApiCalls.tsx";
 import { getFullAppLink } from '../util/getFullAppLink.ts';
 
 const TABS = ['Global', 'Friends Only'];
@@ -34,71 +35,132 @@ const UserTable = ({ users, title }) => {
 };
 
 const Leaderboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(TABS[0]); 
+  const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
+  const [streakLeaderboardData, setStreakLeaderboardData] = useState([]); // Streak data state
+  const [completedLeaderboardData, setCompletedLeaderboardData] = useState([]); // Completed exercises data state
+  const [friendsStreakData, setFriendsStreakData] = useState([]); // Friends streak data state
+  const [friendsCompletedData, setFriendsCompletedData] = useState([]); // Friends completed data state
 
   useEffect(() => {
     AuthorizedUser(navigate);
-  }, [navigate]);
+
+    apiGet("/get_friend_leaderboard_completed")
+        .then(data => {
+          if (data.authorized) {
+            console.log("FRIENDS OF CURRENT USER DATA");
+            console.log(data);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+    if (activeTab === 'Global') {
+      apiGet("/get_global_leaderboard_streak")
+        .then(data => {
+          if (data.authorized && data.leaderboard) {
+            console.log("GLOBAL DATA STREAK");
+            console.log(data);
+            const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
+              rank: index + 1,
+              name: user.full_name,
+              score: user.streak
+            }));
+            setStreakLeaderboardData(formattedLeaderboardData);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      apiGet("/get_global_leaderboard_completed")
+        .then(data => {
+          if (data.authorized && data.leaderboard) {
+            console.log("GLOBAL DATA COMPLETE");
+            console.log(data);
+            const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
+              rank: index + 1,
+              name: user.full_name,
+              score: user.completed.amount 
+            }));
+            setCompletedLeaderboardData(formattedLeaderboardData);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else if (activeTab === 'Friends Only') {
+      apiGet("/get_friend_leaderboard_streak")
+      .then(data => {
+        if (data.authorized && data.leaderboard) {
+          console.log("FRIEND DATA STREAK");
+          console.log(data);
+          const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
+            rank: index + 1,
+            name: user.full_name,
+            score: user.streak
+          }));
+          setFriendsStreakData(formattedLeaderboardData); 
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      
+      apiGet("/get_friend_leaderboard_completed")
+        .then(data => {
+          if (data.authorized && data.leaderboard) {
+            console.log("FRIEND DATA COMPLETE EXERCISE");
+            console.log(data);
+            const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
+              rank: index + 1,
+              name: user.full_name,
+              score: user.completed.amount
+            }));
+            setFriendsCompletedData(formattedLeaderboardData);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    console.log('Friends Streak Data:', friendsStreakData);
+  }, [navigate, activeTab]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
   const renderTabContent = () => {
-    let streakUsers, exerciseUsers;
-
-    const uniqueUsers = [
-     { name: 'Alice', rank: 1, score: 90 },
-      { name: 'Bob', rank: 2, score: 80 },
-      { name: 'Charlie', rank: 3, score: 70 },
-      { name: 'David', rank: 4, score: 60 },
-      { name: 'Eve', rank: 5, score: 50 },
-      { name: 'Frank', rank: 6, score: 40 },
-      { name: 'Grace', rank: 7, score: 30 },
-      { name: 'Heidi', rank: 8, score: 20 },
-      { name: 'Ivan', rank: 9, score: 10 },
-      { name: 'Judy', rank: 10, score: 5 },
-    ];
-
-    switch (activeTab) {
-      case 'Global':
-        streakUsers = uniqueUsers.map((user) => ({
-          ...user,
-          score: Math.floor(Math.random() * 50) + 1,
-        }));
-
-        exerciseUsers = uniqueUsers.map((user) => ({
-          ...user,
-          score: Math.floor(Math.random() * 100) + 1,
-        }));
-        break;
-      case 'Friends Only':
-        streakUsers = uniqueUsers.slice(0, 5).map((user) => ({
-          ...user,
-          score: Math.floor(Math.random() * 50) + 1,
-        }));
-
-        exerciseUsers = uniqueUsers.slice(0, 5).map((user) => ({
-          ...user,
-          score: Math.floor(Math.random() * 100) + 1,
-        }));
-        break;
-      default:
-        return <div>Select a tab.</div>;
+    if (activeTab === 'Global') {
+      return (
+        <div className="card-columns">
+          <div className="card-column">
+            <UserTable users={streakLeaderboardData} title="Highest Global Streak Leaderboard" />
+          </div>
+          <div className="card-column">
+            <UserTable users={completedLeaderboardData} title="Highest Global Exercise Completion" />
+          </div>
+        </div>
+      );
+    } else if (activeTab === 'Friends Only') {
+      return (
+        <div className="card-columns">
+          <div className="card-column">
+            <UserTable users={friendsStreakData} title="Highest Friend Streak Leaderboard" />
+          </div>
+          <div className="card-column">
+            <UserTable users={friendsCompletedData} title="Highest Friend Exercise Completion" />
+          </div>
+        </div>
+      );
+    } else {
+      return <div>Select a tab.</div>;
     }
-
-    return (
-      <div className="columns">
-        <div className="column">
-          <UserTable users={streakUsers} title="Highest Streak Leaderboard" />
-        </div>
-        <div className="column">
-          <UserTable users={exerciseUsers} title="Exercise Completed Leaderboard" />
-        </div>
-      </div>
-    );
   };
+
 
   return (
     <React.Fragment>
