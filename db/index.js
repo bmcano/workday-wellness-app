@@ -7,7 +7,7 @@ import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlook
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
 import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken, updateProfileInformation, updateScheduleInformation, getScheduleInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
-import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak } from './controllers/statisticsController.js';
+import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
 
 /**
  * Server setup
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 app.use(json());
 app.use(cookieParser());
 
-// connect("mongodb://localhost:27017/wellness-app");
+// connect("mongodb://127.0.0.1:27017/wellness-app");
 connect(process.env.REACT_APP_MONGO_ATLAS);
 
 // see ./controllers/sessionController.js for more details.
@@ -63,6 +63,7 @@ app.get('/get_global_leaderboard_streak', async (req, res) => getGlobalLeaderboa
 app.get('/get_global_leaderboard_completed', async (req, res) => getGlobalLeaderboardCompleted(req, res));
 app.get('/get_friend_leaderboard_streak', async (req, res) => getFriendLeaderboardStreak(req, res));
 app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeaderboardCompleted(req, res));
+app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
 
 app.listen(3001, () => {
     console.log("Database is running.");

@@ -18,6 +18,7 @@ import { createTheme } from '@mui/material/styles';
 import UserSearch from './pages/UserSearch.tsx';
 import AboutPage from './pages/About.tsx';
 import ResetPassword from './pages/ResetPassword.tsx';
+import Leaderboard from './pages/Leaderboard.tsx';
 
 const App = () => {
 
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/exercises" exact element={<Exercises />} />
           <Route path="/exercises/edit" exact element={<EditExercises />} />
           <Route path="/about" exact element={<AboutPage />} />
+          <Route path="/leaderboard" exact element={<Leaderboard />} />
           <Route path="/reset-password/:id" exact element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
