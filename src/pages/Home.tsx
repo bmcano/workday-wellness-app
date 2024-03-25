@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
-// @ts-ignore
-import messageSound from '../static/sounds/popcorn.mp3'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
@@ -13,20 +11,22 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
-import Footer from "../pages/Footer.tsx";
+import Footer from "../components/Footer.tsx";
 
-let intervalId: number | null = null;
+interface UserRecord {
+  name: string;
+  streak: number;
+  completedExercises: number;
+}
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const audioRef = new Audio(messageSound);
-
   const [name, setName] = useState("");
-  const [duration, setDuration] = useState<number>(60);
-  const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
   const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState<UserRecord | null>(null);
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -42,12 +42,44 @@ const Home: React.FC = () => {
         navigate('/login');
       })
       .finally(() => setLoading(false));
-    // Cleanup function to clear the interval when the component unmounts
-    return () => {
-      if (intervalId !== null) clearInterval(intervalId);
-    };
+
+    apiGet("/get_user_records")
+      .then(response => {
+        if (response.authorized && response.user) {
+          setUserData({
+            name: response.user.name,
+            streak: response.user.streak,
+            completedExercises: response.user.completedExercises
+          });
+        } else {
+          console.log("No user data returned or not authorized.");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, [navigate]);
 
+  const UserStatsDisplay = () => {
+    return (
+      <div className="card">
+        <div className="card-item">
+          <div className="card-inside-header-text">Your Statisitcs</div>
+          <div className="card-button">
+            <Button variant="text" color="primary" onClick={() => navigate("/leaderboard")}>View Leaderboard</Button>
+          </div>
+        </div>
+        <div className="divider" />
+        {!userData && <div className="card-list">
+          <p className="card-text">Loading...</p>
+        </div>}
+        {userData && <div className="card-list">
+          <p className="card-text">Your current streak: {userData.streak}</p>
+          <p className="card-text">Your completed exercises: {userData.completedExercises}</p>
+        </div>}
+      </div>
+    );
+  };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,36 +90,6 @@ const Home: React.FC = () => {
       const updatedStatuses = newStatuses.slice(0, 3); // can limit how many statuses show at once.
       setStatuses(updatedStatuses);
     }
-  };
-
-  const startTimer = () => {
-    // Attempt to query the DOM elements
-    const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
-    const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
-
-    if (!timerElapsed || !timerProgress) {
-      console.error('SVG elements not found!');
-      return;
-    }
-
-    if (intervalId !== null) clearInterval(intervalId);
-    setElapsedTime(duration);
-    intervalId = setInterval(() => {
-      setElapsedTime((prevTime) => {
-        const newTime = prevTime - 1;
-        const percentage = (newTime / duration) * 100;
-        timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-        timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-
-        if (newTime <= 0) {
-          clearInterval(intervalId as number);
-          audioRef.play();
-          intervalId = null;
-        }
-
-        return newTime;
-      });
-    }, 1000) as unknown as number;
   };
 
   return (
@@ -101,38 +103,7 @@ const Home: React.FC = () => {
       </div>
       <div className="card-columns">
         <div className="card-column">
-          <div className="timer-card">
-            <div className="timer">
-              <div className="timer__circle">
-                <svg className="timer__svg" viewBox="0 0 100 100">
-                  <g className="timer__circle-track">
-                    <circle className="timer__path-elapsed" strokeDasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></circle>
-                  </g>
-                  <g className="timer__circle-progress">
-                    <path className="timer__path-remaining" strokeDasharray="283" d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></path>
-                  </g>
-                </svg>
-              </div>
-              <div className="timer__label">
-                <div className="card-item">
-                  <TextField
-                    type="number"
-                    id="timer"
-                    onChange={(e) => setDuration(Number(e.target.value))}
-                    value={duration.toString()}
-                    inputProps={{ min: "0", step: "1" }}
-                    sx={{ marginRight: '16px' }}
-                  />
-                  <Button variant="contained" color="primary" onClick={startTimer}>Start</Button>
-                </div>
-
-                <span className="timer__time">
-                  {Math.floor(elapsedTime / 60).toString().padStart(2, '0')}:
-                  {(elapsedTime % 60).toString().padStart(2, '0')}
-                </span>
-              </div>
-            </div>
-          </div>
+          <UserStatsDisplay />
         </div>
         <div className="card-column">
           <div className="card">

@@ -29,7 +29,6 @@ const CreateAccount: React.FC = () => {
         const first_name = data.get('first_name');
         const last_name = data.get('last_name');
         const jsonData = JSON.stringify({ email, password, first_name, last_name });
-        console.log(jsonData);
 
         // validate user inputs
         if (!isValidEmail(email as string, setEmailError)) return;
@@ -40,10 +39,9 @@ const CreateAccount: React.FC = () => {
         }
 
         // take user data and post it to the database
-        apiPost('http://localhost:3001/register', jsonData)
+        apiPost("/register", jsonData)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     alert("Account created.")
                     navigate('/')
@@ -51,6 +49,7 @@ const CreateAccount: React.FC = () => {
                     setEmailError(data.message)
                 }
             })
+            .catch((error) => console.log(error));
     };
 
     return (
@@ -100,7 +99,7 @@ const CreateAccount: React.FC = () => {
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>Create Account</Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="" variant="body2">Forgot password?</Link>
+                                <Link href={getFullAppLink("/forgot_password")} variant="body2">Forgot password?</Link>
                             </Grid>
                             <Grid item>
                                 <Link href={getFullAppLink("/login")} variant="body2">Already have an account?</Link>
@@ -113,4 +112,4 @@ const CreateAccount: React.FC = () => {
     )
 }
 
-export default CreateAccount
+export default CreateAccount;

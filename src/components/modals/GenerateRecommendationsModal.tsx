@@ -20,30 +20,26 @@ interface TimeSlots {
 }
 
 const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> = ({ isOpen, onClose, onSave }) => {
-    const [selectedItem, setSelectedItem] = useState('');
     const [date, setDate] = useState(new Date());
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
 
-
     useEffect(() => {
-        apiGet("http://localhost:3001/user")
-            .then(res => res.json())
+        apiGet("/user")
             .then(data => {
-                if (data.success) {
+                if (data.authorized) {
                     setEvents(data.user.calendar)
                     const categories = splitExerciseData(data.user.exercises);
-                    console.log(categories);
                     setExerciseData(categories);
                 }
             })
             .catch(error => console.log(error));
     }, [])
 
-    const handleSave = () => {
+    const handleGenerate = () => {
         // get events from selected date
-        const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
+        // const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
         const isoDate = date.toISOString().split('T')[0];
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(isoDate));
         console.log(updatedEvents)
@@ -53,29 +49,31 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         // get recommendations from intensity level
         const exercises: string[] = [];
         const mode = getModeValues(intensity);
-        applyExercises(exerciseData.exercise, mode, exercises)
-        splitUpStretches(mode, exerciseData.back, exerciseData.neck, exerciseData.wrist, exercises)
-        splitUpMisc(exerciseData.misc, mode, exercises)
-        console.log(exercises)
+        applyExercises(exerciseData.exercise.slice(), mode, exercises)
+        splitUpStretches(mode, exerciseData.back.slice(), exerciseData.neck.slice(), exerciseData.wrist.slice(), exercises)
+        splitUpMisc(exerciseData.misc.slice(), mode, exercises)
         // pair recommendations within an even(ish) intervals between them during free time slots
         const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
         console.log(newEvents);
-
-        // TODO:
-        // list events
-        // accept/decline
-        // if accept: send them all to the database/outlook 
-        // if decline: regenerate items
-
-        // save to database first
-        const jsonData = JSON.stringify({ events: newEvents })
-        apiPost('http://localhost:3001/add_user_recommendations', jsonData)
+        setEvents(newEvents);
+    };
+    const handleAccept = () => {
+        // Save generated exercises to the database
+        const jsonData = JSON.stringify({ events: events })
+        apiPost('/add_user_recommendations', jsonData)
+            .then(() => {
+                setEvents([]);
+            })
             .catch(error => console.log(error));
 
-        onSave(newEvents);
+        onSave(events);
         onClose();
     };
 
+    const handleClose = () => {
+        setEvents([]);
+        onClose();
+    }
 
     return (
         <Modal
@@ -115,12 +113,30 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                     </div>
 
                     <div className='divider' style={dividerMargin} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    {events.length === 0 && <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleSave}>Generate</Button>
-                            <Button variant="text" onClick={onClose}>Cancel</Button>
+                            <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
+                            <Button variant="text" onClick={handleClose}>Cancel</Button>
                         </div>
-                    </div>
+                    </div>}
+                    {events.length > 0 && (
+                        <div>
+                            <div className='card-item'>
+                                <ul>
+                                    {events.map((event, index) => (
+                                        <p key={index}>{event.title}</p>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className='card-item'>
+                                <div className='card-button'>
+                                    <Button variant="text" color="primary" onClick={handleAccept}>Accept</Button>
+                                    <Button variant="text" onClick={handleGenerate}>Regenerate</Button>
+                                    <Button variant="text" onClick={handleClose}>Cancel</Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </Modal>

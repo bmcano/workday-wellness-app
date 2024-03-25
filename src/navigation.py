@@ -13,35 +13,44 @@ class Navigation:
         self.source = source
         self.destination = destination
 
+ABOUT = "About"
 CALENDAR = "Calendar"
-CHAT = "Chat"
 CREATE_ACCOUNT = "CreateAccount"
+EDIT_EXERCISES = "EditExercises"
 EDIT_PROFILE = "EditProfile"
 EXERCISES = "Exercises"
+FORGOT_PASSWORD = "ForgotPassword"
 FRIENDS = "Friends"
 HOME = "Home"
 LOGIN = "Login"
 NOTIFICATIONS = "Notifications"
 PROFILE = "Profile"
+RESET_PASSWORD = "ResetPassword"
 SETTINGS = "Settings"
 USER_PROFILE = "UserProfile"
 USER_SEARCH = "UserSearch"
 
+EMAIL = "Email"
+EXTERNAL_LINK = "ExternalLink"
 LOGOUT = "Logout"
 NAVBAR = "Navbar"
 
+
 # from the src/pages directory, add in alphabetical order
 pages = [
+    ABOUT,
     CALENDAR,
-    CHAT, 
     CREATE_ACCOUNT, 
+    EDIT_EXERCISES,
     EDIT_PROFILE, 
-    EXERCISES, 
+    EXERCISES,
+    FORGOT_PASSWORD,
     FRIENDS, 
     HOME, 
     LOGIN,
     NOTIFICATIONS, 
-    PROFILE, 
+    PROFILE,
+    RESET_PASSWORD,
     SETTINGS, 
     USER_PROFILE,
     USER_SEARCH,
@@ -49,48 +58,49 @@ pages = [
 
 # Will add extra action items that simplify graph view
 actions = [
+    EMAIL,
+    EXTERNAL_LINK,
     LOGOUT,
     NAVBAR,
 ]
 
 # Includes items that have not been implemented yet, but will be eventually, unsure items are commented out
+# NOTE: Everything other than login related items links back to the navbar
 navigations = [
-    Navigation(CALENDAR, NAVBAR),
-    Navigation(CHAT, NAVBAR),
-    Navigation(CHAT, USER_PROFILE), # NOT IMPLEMENTED YET
-    Navigation(CREATE_ACCOUNT, LOGIN),
-    # Navigation(CREATE_ACCOUNT, FORGOT_PASSOWRD), 
-    Navigation(EDIT_PROFILE, SETTINGS),
-    Navigation(EXERCISES, "EditExercises"), # NOT IMPLEMENTED YET
-    Navigation(EXERCISES, NAVBAR),
-    Navigation(FRIENDS, NAVBAR),
-    Navigation(FRIENDS, USER_PROFILE),
-    Navigation(HOME, NAVBAR),
+    # Login items
     Navigation(LOGIN, HOME),
+    Navigation(LOGIN, FORGOT_PASSWORD),
     Navigation(LOGIN, CREATE_ACCOUNT),
-    # Navigation(LOGIN, FORGOT_PASSWORD),
-    Navigation(LOGOUT, LOGIN),
+    Navigation(CREATE_ACCOUNT, LOGIN),
+    Navigation(CREATE_ACCOUNT, FORGOT_PASSWORD),
+    Navigation(FORGOT_PASSWORD, LOGIN),
+    Navigation(FORGOT_PASSWORD, CREATE_ACCOUNT),
+    Navigation(CALENDAR, NAVBAR),
+    Navigation(EMAIL, RESET_PASSWORD),
+    Navigation(RESET_PASSWORD, LOGIN),
+    # Navbar items
     Navigation(NAVBAR, HOME),
     Navigation(NAVBAR, EXERCISES),
-    Navigation(NAVBAR, CHAT),
     Navigation(NAVBAR, CALENDAR),
     Navigation(NAVBAR, NOTIFICATIONS),
     Navigation(NAVBAR, PROFILE),
     Navigation(NAVBAR, SETTINGS),
     Navigation(NAVBAR, USER_SEARCH),
     Navigation(NAVBAR, LOGOUT),
-    Navigation(NOTIFICATIONS, NAVBAR),
-    # Navigation(NOTIFICATIONS, {SOME_OTHER_ACTION}), # this will likely have some custom navigations depending on the notification
+    Navigation(LOGOUT, LOGIN),
+    # App navigation
+    Navigation(EXERCISES, EDIT_EXERCISES),
+    Navigation(EXERCISES, EXTERNAL_LINK),
     Navigation(PROFILE, EDIT_PROFILE),
-    Navigation(PROFILE, NAVBAR),
+    Navigation(PROFILE, EXTERNAL_LINK),
+    Navigation(USER_SEARCH, USER_PROFILE),
     Navigation(SETTINGS, EDIT_PROFILE),
     Navigation(SETTINGS, FRIENDS),
-    Navigation(SETTINGS, "EditExercises"), # NOT IMPLEMENTED YET
+    Navigation(SETTINGS, EDIT_EXERCISES),
     Navigation(SETTINGS, "Stats"), # NOT IMPLEMENTED YET
     Navigation(SETTINGS, "PrivacySettings"), # NOT IMPLEMENTED YET
-    Navigation(SETTINGS, "ContactSupport"), # NOT IMPLEMENTED YET
-    Navigation(USER_PROFILE, NAVBAR), 
-    Navigation(USER_SEARCH, NAVBAR),
+    Navigation(SETTINGS, ABOUT),
+    Navigation(FRIENDS, USER_PROFILE),
 ]
 
 if __name__ == "__main__":

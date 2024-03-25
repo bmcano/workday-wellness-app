@@ -56,10 +56,10 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
             });
         }
     }
-
-    if (new Date(events[events.length - 1].end).getTime() < workdayEnd.getTime()) {
+    const eventTime = events[events.length - 1].end as Date;
+    if (new Date(eventTime).getTime() < workdayEnd.getTime()) {
         freeTimeSlots.push({
-            start: events[events.length - 1].end,
+            start: eventTime.toString(),
             end: workdayEnd.toISOString()
         });
     }

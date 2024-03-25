@@ -22,8 +22,6 @@ export function initializeGraphForUserAuth(user_id, settings, deviceCodePrompt) 
         throw new Error('Settings cannot be undefined');
     }
 
-    console.log(settings);
-
     const _deviceCodeCredential = new DeviceCodeCredential({
         clientId: settings.clientId,
         tenantId: settings.tenantId,

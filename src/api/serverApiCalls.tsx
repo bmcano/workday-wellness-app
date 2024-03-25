@@ -1,7 +1,9 @@
+import { getServerCall } from "../util/getFullAppLink.ts";
+
 export const apiPost = async (link: string, jsonData: string) => {
     const token = localStorage.getItem('token');
     return await fetch(
-        link, {
+        getServerCall(link), {
         method: "post",
         credentials: 'include',
         body: jsonData,
@@ -15,7 +17,7 @@ export const apiPost = async (link: string, jsonData: string) => {
 export const apiGet = async (link: string) => {
     const token = localStorage.getItem('token');
     return await fetch(
-        link, {
+        getServerCall(link), {
         method: "get",
         credentials: 'include',
         headers: {
@@ -23,4 +25,5 @@ export const apiGet = async (link: string) => {
             'Authorization': 'Bearer ' + token
         }
     })
+    .then(res => res.json());
 }

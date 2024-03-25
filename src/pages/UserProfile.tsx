@@ -24,7 +24,7 @@ const UserProfile: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate);
         const jsonData = JSON.stringify({ _id: id });
-        apiPost('http://localhost:3001/view_profile', jsonData)
+        apiPost("/view_profile", jsonData)
             .then(res => res.json())
             .then(data => {
                 const public_user = data.user;
@@ -37,15 +37,15 @@ const UserProfile: React.FC = () => {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            }).catch(err => console.log(err));
+            }).catch(error => console.log(error));
     }, [navigate, id]);
 
     const handleOnClick = () => {
         var link = "";
         if (!isFriend) {
-            link = 'http://localhost:3001/add_friend';
+            link = "/add_friend";
         } else {
-            link = 'http://localhost:3001/remove_friend';
+            link = "/remove_friend";
         }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
         apiPost(link, jsonData)
@@ -59,7 +59,7 @@ const UserProfile: React.FC = () => {
                     setButtonText("Add Friend");
                 }
             })
-            .catch(err => console.log(err));
+            .catch(error => console.log(error));
     }
 
     return (
