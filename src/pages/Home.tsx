@@ -50,7 +50,7 @@ const Home: React.FC = () => {
         navigate('/login');
       })
       .finally(() => setLoading(false));
-    // Cleanup function to clear the interval when the component unmounts
+    
     apiGet("/get_user_records")
       .then(response => {
         if (response.authorized && response.user) {
