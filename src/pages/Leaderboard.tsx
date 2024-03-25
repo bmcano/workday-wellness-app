@@ -45,23 +45,12 @@ const Leaderboard: React.FC = () => {
   useEffect(() => {
     AuthorizedUser(navigate);
 
-    apiGet("/get_friend_leaderboard_completed")
-        .then(data => {
-          if (data.authorized) {
-            console.log("FRIENDS OF CURRENT USER DATA");
-            console.log(data);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-
     if (activeTab === 'Global') {
       apiGet("/get_global_leaderboard_streak")
         .then(data => {
           if (data.authorized && data.leaderboard) {
-            console.log("GLOBAL DATA STREAK");
-            console.log(data);
+            //console.log("GLOBAL DATA STREAK");
+            //console.log(data);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,
@@ -77,8 +66,8 @@ const Leaderboard: React.FC = () => {
       apiGet("/get_global_leaderboard_completed")
         .then(data => {
           if (data.authorized && data.leaderboard) {
-            console.log("GLOBAL DATA COMPLETE");
-            console.log(data);
+            //console.log("GLOBAL DATA COMPLETE");
+            //console.log(data);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,
@@ -94,8 +83,8 @@ const Leaderboard: React.FC = () => {
       apiGet("/get_friend_leaderboard_streak")
       .then(data => {
         if (data.authorized && data.leaderboard) {
-          console.log("FRIEND DATA STREAK");
-          console.log(data);
+          //console.log("FRIEND DATA STREAK");
+          //console.log(data);
           const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
             rank: index + 1,
             name: user.full_name,
@@ -112,8 +101,8 @@ const Leaderboard: React.FC = () => {
       apiGet("/get_friend_leaderboard_completed")
         .then(data => {
           if (data.authorized && data.leaderboard) {
-            console.log("FRIEND DATA COMPLETE EXERCISE");
-            console.log(data);
+            //console.log("FRIEND DATA COMPLETE EXERCISE");
+            //console.log(data);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,

@@ -64,14 +64,14 @@ export const getFriendLeaderboardStreak = async (req, res) => {
             }
 
             const userFriends = [...userWithFriends.friends, userEmail];
-            console.log("User and friends list for leaderboard:", userFriends);
+            //console.log("User and friends list for leaderboard:", userFriends);
 
             const friendsLeaderboard = await StatisticsModel
                 .find({ email: { $in: userFriends } })
                 .sort({ streak: -1 }) 
                 .lean();
 
-            console.log("Friends and user streak leaderboard data:", friendsLeaderboard);
+            //console.log("Friends and user streak leaderboard data:", friendsLeaderboard);
 
             const leaderboard = friendsLeaderboard.map((user, index) => ({
                 ...user,
@@ -99,7 +99,7 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
             const userEmail = data.email;
             const userWithFriends = await UserModel.findOne({ email: userEmail }).lean();
             if (!userWithFriends || !userWithFriends.friends) {
-                console.log("No friends found for user:", userEmail);
+                //console.log("No friends found for user:", userEmail);
                 userWithFriends.friends = [];
             }
 
@@ -109,7 +109,7 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
                 .sort({ "completed.amount": -1 }) 
                 .lean();
 
-            console.log("Friends and user completed exercises leaderboard data:", friendsLeaderboard);
+            //console.log("Friends and user completed exercises leaderboard data:", friendsLeaderboard);
 
             const leaderboard = friendsLeaderboard.map((user, index) => ({
                 ...user,
