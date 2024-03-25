@@ -4,14 +4,14 @@ import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
 import { apiGet } from "../api/serverApiCalls.tsx";
-import { getFullAppLink } from '../util/getFullAppLink.ts';
 
 const TABS = ['Global', 'Friends Only'];
 
 const UserTable = ({ users, title }) => {
   return (
     <div>
-      <h3 className="title is-3">{title}</h3>
+      <div className="card-inside-header-text">{title}</div>
+      <div className='divider' />
       <table className="table is-fullwidth is-striped is-hoverable is-narrow is-bordered">
         <thead>
           <tr>
@@ -20,7 +20,7 @@ const UserTable = ({ users, title }) => {
             <th>Score</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='card-list'>
           {users.map((user, index) => (
             <tr key={index}>
               <td>{user.rank}</td>
@@ -49,8 +49,6 @@ const Leaderboard: React.FC = () => {
       apiGet("/get_global_leaderboard_streak")
         .then(data => {
           if (data.authorized && data.leaderboard) {
-            //console.log("GLOBAL DATA STREAK");
-            //console.log(data);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,
@@ -66,12 +64,10 @@ const Leaderboard: React.FC = () => {
       apiGet("/get_global_leaderboard_completed")
         .then(data => {
           if (data.authorized && data.leaderboard) {
-            //console.log("GLOBAL DATA COMPLETE");
-            //console.log(data);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,
-              score: user.completed.amount 
+              score: user.completed.amount
             }));
             setCompletedLeaderboardData(formattedLeaderboardData);
           }
@@ -81,28 +77,24 @@ const Leaderboard: React.FC = () => {
         });
     } else if (activeTab === 'Friends Only') {
       apiGet("/get_friend_leaderboard_streak")
-      .then(data => {
-        if (data.authorized && data.leaderboard) {
-          //console.log("FRIEND DATA STREAK");
-          //console.log(data);
-          const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
-            rank: index + 1,
-            name: user.full_name,
-            score: user.streak
-          }));
-          setFriendsStreakData(formattedLeaderboardData); 
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        .then(data => {
+          if (data.authorized && data.leaderboard) {
+            const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
+              rank: index + 1,
+              name: user.full_name,
+              score: user.streak
+            }));
+            setFriendsStreakData(formattedLeaderboardData);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
 
-      
+
       apiGet("/get_friend_leaderboard_completed")
         .then(data => {
           if (data.authorized && data.leaderboard) {
-            //console.log("FRIEND DATA COMPLETE EXERCISE");
-            //console.log(data);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,
@@ -115,7 +107,6 @@ const Leaderboard: React.FC = () => {
           console.log(error);
         });
     }
-    //console.log('Friends Streak Data:', friendsStreakData);
   }, [navigate, activeTab]);
 
   const handleTabClick = (tab: string) => {
@@ -149,7 +140,6 @@ const Leaderboard: React.FC = () => {
       return <div>Select a tab.</div>;
     }
   };
-
 
   return (
     <React.Fragment>

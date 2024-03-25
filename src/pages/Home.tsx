@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
-// @ts-ignore
-import messageSound from '../static/sounds/popcorn.mp3'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
@@ -15,22 +13,16 @@ import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../components/Footer.tsx";
 
-
-let intervalId: number | null = null;
+interface UserRecord {
+  name: string;
+  streak: number;
+  completedExercises: number;
+}
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const audioRef = new Audio(messageSound);
-
-  interface UserRecord {
-    name: string;
-    streak: number;
-    completedExercises: number;
-  }
 
   const [name, setName] = useState("");
-  const [duration, setDuration] = useState<number>(60);
-  const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
   const [loading, setLoading] = useState(true);
@@ -50,7 +42,7 @@ const Home: React.FC = () => {
         navigate('/login');
       })
       .finally(() => setLoading(false));
-    
+
     apiGet("/get_user_records")
       .then(response => {
         if (response.authorized && response.user) {
@@ -66,19 +58,25 @@ const Home: React.FC = () => {
       .catch(error => {
         console.log(error);
       });
-
-    return () => {
-      if (intervalId !== null) clearInterval(intervalId);
-    };
   }, [navigate]);
 
   const UserStatsDisplay = () => {
-    if (!userData) return <div>Loading your data...</div>;
     return (
-      <div>
-        <h3 className="title is-3">Your Stats</h3>
-        <p>Your current streak: {userData.streak}</p>
-        <p>Your completed exercises: {userData.completedExercises}</p>
+      <div className="card">
+        <div className="card-item">
+          <div className="card-inside-header-text">Your Statisitcs</div>
+          <div className="card-button">
+            <Button variant="text" color="primary" onClick={() => navigate("/leaderboard")}>View Leaderboard</Button>
+          </div>
+        </div>
+        <div className="divider" />
+        {!userData && <div className="card-list">
+          <p className="card-text">Loading...</p>
+        </div>}
+        {userData && <div className="card-list">
+          <p className="card-text">Your current streak: {userData.streak}</p>
+          <p className="card-text">Your completed exercises: {userData.completedExercises}</p>
+        </div>}
       </div>
     );
   };
@@ -94,36 +92,6 @@ const Home: React.FC = () => {
     }
   };
 
-  /*const startTimer = () => {
-    // Attempt to query the DOM elements
-    const timerElapsed = document.querySelector(".timer__path-elapsed") as SVGCircleElement | null;
-    const timerProgress = document.querySelector(".timer__path-remaining") as SVGPathElement | null;
-
-    if (!timerElapsed || !timerProgress) {
-      console.error('SVG elements not found!');
-      return;
-    }
-
-    if (intervalId !== null) clearInterval(intervalId);
-    setElapsedTime(duration);
-    intervalId = setInterval(() => {
-      setElapsedTime((prevTime) => {
-        const newTime = prevTime - 1;
-        const percentage = (newTime / duration) * 100;
-        timerElapsed.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-        timerProgress.style.strokeDashoffset = (283 - (283 * percentage) / 100).toString();
-
-        if (newTime <= 0) {
-          clearInterval(intervalId as number);
-          audioRef.play();
-          intervalId = null;
-        }
-
-        return newTime;
-      });
-    }, 1000) as unknown as number;
-  };
-*/
   return (
     <React.Fragment>
       <Navbar />
@@ -135,9 +103,7 @@ const Home: React.FC = () => {
       </div>
       <div className="card-columns">
         <div className="card-column">
-          <div className="card">
-            <UserStatsDisplay />
-          </div>
+          <UserStatsDisplay />
         </div>
         <div className="card-column">
           <div className="card">
