@@ -484,8 +484,12 @@
   fill: var(--black); 
 }
 
+ .navbar .cracker {
+  fill: var(--white); 
+}
+
 .logo-resize {
-  width: 2px;
+  width: 150px;
   height: auto;
 }
 
