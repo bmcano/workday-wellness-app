@@ -1,0 +1,105 @@
+{
+  "amount": 25,
+  "exercises": [
+    {
+      "exercise": "Neck retraction",
+      "timestamp": "2024-03-04T14:00:00.000Z"
+    },
+    {
+      "exercise": "Finger to palm",
+      "timestamp": "2024-03-05T08:30:00.000Z"
+    },
+    {
+      "exercise": "Sun exposure",
+      "timestamp": "2024-03-06T12:45:00.000Z"
+    },
+    {
+      "exercise": "Seated lower back",
+      "timestamp": "2024-03-07T18:00:00.000Z"
+    },
+    {
+      "exercise": "Jumping jacks",
+      "timestamp": "2024-03-08T09:15:00.000Z"
+    },
+    {
+      "exercise": "Neck rotation",
+      "timestamp": "2024-03-09T16:20:00.000Z"
+    },
+    {
+      "exercise": "Walks",
+      "timestamp": "2024-03-10T14:30:00.000Z"
+    },
+    {
+      "exercise": "Shoulder rolls",
+      "timestamp": "2024-03-11T08:45:00.000Z"
+    },
+    {
+      "exercise": "On the ground figure four",
+      "timestamp": "2024-03-12T12:00:00.000Z"
+    },
+    {
+      "exercise": "Standing at work",
+      "timestamp": "2024-03-13T17:30:00.000Z"
+    },
+    {
+      "exercise": "Push ups",
+      "timestamp": "2024-03-14T14:00:00.000Z"
+    },
+    {
+      "exercise": "Spinal twist",
+      "timestamp": "2024-03-15T08:30:00.000Z"
+    },
+    {
+      "exercise": "Meditation",
+      "timestamp": "2024-03-16T12:45:00.000Z"
+    },
+    {
+      "exercise": "Squats",
+      "timestamp": "2024-03-17T18:00:00.000Z"
+    },
+    {
+      "exercise": "Horizontal abduction",
+      "timestamp": "2024-03-18T09:15:00.000Z"
+    },
+    {
+      "exercise": "Posture reminder",
+      "timestamp": "2024-03-19T16:20:00.000Z"
+    },
+    {
+      "exercise": "Wrist rolls",
+      "timestamp": "2024-03-20T14:30:00.000Z"
+    },
+    {
+      "exercise": "Finger to palm",
+      "timestamp": "2024-03-21T08:45:00.000Z"
+    },
+    {
+      "exercise": "Neck flexion and extension",
+      "timestamp": "2024-03-22T12:00:00.000Z"
+    },
+    {
+      "exercise": "Squats",
+      "timestamp": "2024-03-23T17:30:00.000Z"
+    },
+    {
+      "exercise": "Jumping jacks",
+      "timestamp": "2024-03-24T14:00:00.000Z"
+    },
+    {
+      "exercise": "Neck retraction",
+      "timestamp": "2024-03-25T08:30:00.000Z"
+    },
+    {
+      "exercise": "Sun exposure",
+      "timestamp": "2024-03-26T12:45:00.000Z"
+    },
+    {
+      "exercise": "Seated lower back",
+      "timestamp": "2024-03-27T18:00:00.000Z"
+    },
+    {
+      "exercise": "Walks",
+      "timestamp": "2024-03-28T09:15:00.000Z"
+    }
+  ]
+}

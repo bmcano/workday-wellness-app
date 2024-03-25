@@ -1,0 +1,25 @@
+{
+  "amount": 5,
+  "exercises": [
+    {
+      "exercise": "Neck retraction",
+      "timestamp": "2024-03-05T08:30:00.000Z"
+    },
+    {
+      "exercise": "Horizontal abduction",
+      "timestamp": "2024-03-06T12:45:00.000Z"
+    },
+    {
+      "exercise": "Meditation",
+      "timestamp": "2024-03-07T18:00:00.000Z"
+    },
+    {
+      "exercise": "Push ups",
+      "timestamp": "2024-03-08T09:15:00.000Z"
+    },
+    {
+      "exercise": "Standing at work",
+      "timestamp": "2024-03-09T16:20:00.000Z"
+    }
+  ]
+}
