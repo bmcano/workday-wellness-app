@@ -62,16 +62,18 @@ export const registerAccount = async (req, res) => {
         req.body.email = req.body.email.toLowerCase();
         const { email, password: plainTextPassword, first_name, last_name } = req.body;
         const password = await bcrypt.hash(plainTextPassword, 10);
-        // const currentDate = new Date();
-        // const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        // const formattedDate = currentDate.toLocaleDateString('en-US', options);
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('en-US', options);
         const user = new UserModel({
             email: email,
             password: password,
             first_name: first_name,
             last_name: last_name,
+            join_date: formattedDate,
             linkedIn_link: "",
             about: "",
+            birthday: "",
             profile_picture: "", // if empty we check for default profile picture elsewhere
             exercises: exercises[0], // the first item in this stub_data will be our defaults
             calendar: [] // calendar should be empty by default
