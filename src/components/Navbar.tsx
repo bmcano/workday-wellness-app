@@ -13,6 +13,10 @@ import { ReactComponent as CalendarIcon } from "../static/assets/calendar-icon.s
 import { ReactComponent as NotificationIcon } from "../static/assets/bell-icon.svg"
 // @ts-ignore
 import { ReactComponent as SFLogo } from "../static/assets/SFRED.svg"
+// @ts-ignore
+import { ReactComponent as LBLogo } from "../static/assets/leaderboard-star-svgrepo-com.svg"
+
+
 import { getFullAppLink } from '../util/getFullAppLink.ts';
 
 const Navbar = () => {
@@ -39,7 +43,7 @@ const Navbar = () => {
             <a href={getFullAppLink("/exercises")} className={location.pathname === '/exercises' ? 'active-icon' : ''}><ExerciseIcon className="nav-icon" /></a>
             <a href={getFullAppLink("/calendar")} className={location.pathname === '/calendar' ? 'active-icon' : ''}><CalendarIcon className="nav-icon" /></a>
             <a href={getFullAppLink("/notifications")} className={location.pathname === '/notifications' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
-            <a href={getFullAppLink("/leaderboard")} className={location.pathname === '/leaderboard' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
+            <a href={getFullAppLink("/leaderboard")} className={location.pathname === '/leaderboard' ? 'active-icon' : ''}><LBLogo className="nav-icon" /></a>
                 <div className="subnav">
                     {/* eslint-disable-next-line */}
                     <a onClick={toggleSubMenu} role="button">

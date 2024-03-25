@@ -117,6 +117,7 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
             }));
 
             const userPlacement = leaderboard.findIndex(entry => entry.email === userEmail) + 1;
+            console.log(userPlacement)
 
             return res.json({ authorized: true, leaderboard: leaderboard, user: { ...data, placement: userPlacement } });
         } else {
@@ -127,3 +128,33 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
         return res.json({ authorized: false });
     }
 }
+
+export const getUserRecords = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token); 
+        if (data) {
+            const userEmail = data.email;
+            
+            const userStats = await StatisticsModel.findOne({ email: userEmail }, 'email streak completed.amount').lean(); 
+            
+            if (!userStats) {
+                return res.json({ authorized: true, message: "User statistics not found." });
+            }
+            
+            return res.json({
+                authorized: true,
+                user: {
+                    name: data.name, 
+                    streak: userStats.streak, 
+                    completedExercises: userStats.completed.amount, 
+                },
+            });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log("Error in getUserRecords:", error);
+        return res.json({ authorized: false, error: "An error occurred while fetching user records." });
+    }
+};

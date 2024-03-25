@@ -115,7 +115,7 @@ const Leaderboard: React.FC = () => {
           console.log(error);
         });
     }
-    console.log('Friends Streak Data:', friendsStreakData);
+    //console.log('Friends Streak Data:', friendsStreakData);
   }, [navigate, activeTab]);
 
   const handleTabClick = (tab: string) => {
