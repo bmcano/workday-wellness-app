@@ -79,18 +79,11 @@
     }
 }
 
-
 /* text styles */
 .card-header-text {
-    /* padding-left: 32px; */
     font-size: 24px;
     color: var(--dark-gray);
 }
-
-/* .card-inside-header-text {
-    font-size: 24px;
-    color: var(--dark-gray);
-} */
 
 .card-title-text {
     font-size: 20px;
@@ -103,7 +96,7 @@
     margin-right: 16px;
 }
 
-
+/* Misc items to figure out */
 .card-right-text {
     margin-left: auto;
     margin-right: 32px;

@@ -92,7 +92,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                 <CardList>
                     <CardText type="header" text="Generate Exercise Recommendations" style={{ marginLeft: '-16px' }} />
                     <Column>
-                        <div className='card-list' style={marginTLR}>
+                        <CardList style={marginTLR}>
                             <CardText type="title" text="Select intensity:" />
                             <RadioGroup
                                 aria-label="intensity"
@@ -105,13 +105,13 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                                 <FormControlLabel value="medium" control={<Radio />} label="Medium" />
                                 <FormControlLabel value="high" control={<Radio />} label="High" />
                             </RadioGroup>
-                        </div>
-                        <div className='card-list' style={marginTLR}>
+                        </CardList>
+                        <CardList style={marginTLR}>
                             <CardText type="title" text="Select date:" />
                             <div className='card-text'>
                                 <DatePicker selected={date} onChange={(date: Date) => setDate(date)} dateFormat="P" />
                             </div>
-                        </div>
+                        </CardList>
                     </Column>
 
 

@@ -11,6 +11,7 @@ import CardRow from "../components/card/CardRow.tsx";
 import RedirectLinkModal from "../components/modals/RedirectLinkModal.tsx";
 import CardText from "../components/card/CardText.tsx";
 import Column from "../components/card/Column.tsx";
+import CardList from "../components/card/CardList.tsx";
 
 const Exercises: React.FC = () => {
 
@@ -56,10 +57,12 @@ const Exercises: React.FC = () => {
                             <p className="card-header-text">{point.title}</p>
                             <Card>
                                 {point.subPoints.map((subPoint, index) => (
-                                    <li key={subPoint.id} className="card-list">
-                                        {CardRowWithEndButton(subPoint.title, subPoint.youtubeURL)}
-                                        {index !== point.subPoints.length - 1 && <Divider />}
-                                    </li>
+                                    <div key={subPoint.id}>
+                                        <CardList>
+                                            {CardRowWithEndButton(subPoint.title, subPoint.youtubeURL)}
+                                            {index !== point.subPoints.length - 1 && <Divider />}
+                                        </CardList>
+                                    </div>
                                 ))}
                             </Card>
                         </div>
@@ -71,10 +74,12 @@ const Exercises: React.FC = () => {
                             <p className="card-header-text">{point.title}</p>
                             <Card>
                                 {point.subPoints.map((subPoint, index) => (
-                                    <li key={subPoint.id} className="card-list">
-                                        {CardRowWithEndButton(subPoint.title, subPoint.youtubeURL)}
-                                        {index !== point.subPoints.length - 1 && <Divider />}
-                                    </li>
+                                    <div key={subPoint.id}>
+                                        <CardList>
+                                            {CardRowWithEndButton(subPoint.title, subPoint.youtubeURL)}
+                                            {index !== point.subPoints.length - 1 && <Divider />}
+                                        </CardList>
+                                    </div>
                                 ))}
                             </Card>
                         </div>

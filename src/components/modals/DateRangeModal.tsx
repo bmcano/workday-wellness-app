@@ -8,6 +8,7 @@ import { DateRangeModalProps } from './OpenSaveCloseModalProps.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
 import CardText from '../card/CardText.tsx';
+import CardList from '../card/CardList.tsx';
 
 const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave }) => {
     const [startDate, setStartDate] = useState(() => {
@@ -35,7 +36,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
             style={customModalStyle}
         >
             <Card>
-                <div className='card-list'>
+                <CardList>
                     <CardText type="header" text="Select Date Range" />
                     <div className='card-item' style={marginTLR}>
                         <div className='card-title-text' style={{ marginLeft: "16px" }}>Start date:</div>
@@ -60,7 +61,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
                             <Button variant="text" onClick={onClose}>Close</Button>
                         </div>
                     </div>
-                </div>
+                </CardList>
             </Card>
         </Modal>
     );

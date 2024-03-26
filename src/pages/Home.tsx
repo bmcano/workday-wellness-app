@@ -16,6 +16,7 @@ import Divider from "../components/card/Divider.tsx";
 import Card from "../components/card/Card.tsx";
 import CardRow from "../components/card/CardRow.tsx";
 import Column from "../components/card/Column.tsx";
+import CardList from "../components/card/CardList.tsx";
 
 interface UserRecord {
   name: string;
@@ -74,13 +75,13 @@ const Home: React.FC = () => {
           </div>
         </div>
         <Divider />
-        {!userData && <div className="card-list">
+        {!userData && <CardList>
           <p className="card-text">Loading...</p>
-        </div>}
-        {userData && <div className="card-list">
+        </CardList>}
+        {userData && <CardList>
           <p className="card-text">Your current streak: {userData.streak}</p>
           <p className="card-text">Your completed exercises: {userData.completedExercises}</p>
-        </div>}
+        </CardList>}
       </Card>
     );
   };

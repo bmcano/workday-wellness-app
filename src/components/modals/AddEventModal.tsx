@@ -12,6 +12,7 @@ import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
 import CardText from '../card/CardText.tsx';
+import CardList from '../card/CardList.tsx';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -49,7 +50,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             style={customModalStyle}
         >
             <Card>
-                <div className='card-list'>
+                <CardList>
                     <CardText type="header" text="Add Event" />
                     <div className='card-item'>
                         <FormControl fullWidth style={{ marginLeft: '16px', marginRight: '16px' }}>
@@ -109,7 +110,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
                     </div>
-                </div>
+                </CardList>
             </Card>
         </Modal>
     );

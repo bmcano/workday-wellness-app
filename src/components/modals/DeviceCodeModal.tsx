@@ -7,6 +7,7 @@ import { DeviceCodeModalProps } from './OpenSaveCloseModalProps.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
 import CardText from '../card/CardText.tsx';
+import CardList from '../card/CardList.tsx';
 
 const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
 
@@ -23,7 +24,7 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
             style={customModalStyle}
         >
             <Card>
-                <div className='card-list'>
+                <CardList>
                     <CardText type="header" text="Outlook Login" />
                     <div className='card-item' style={marginTLR}>
                         <div className='card-text'>{deviceCodeMessage.message}</div>
@@ -35,7 +36,7 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
                             <Button variant="text" onClick={onClose}>Close</Button>
                         </div>
                     </div>
-                </div>
+                </CardList>
             </Card>
         </Modal>
     );

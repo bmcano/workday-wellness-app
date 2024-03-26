@@ -10,6 +10,10 @@ import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import Divider from "../components/card/Divider.tsx";
 import Card from "../components/card/Card.tsx";
+import CardRow from "../components/card/CardRow.tsx";
+import CardText from "../components/card/CardText.tsx";
+import Column from "../components/card/Column.tsx";
+import CardList from "../components/card/CardList.tsx";
 
 const enabledText = "#212121";
 const disabledText = "#e4e3e3";
@@ -88,7 +92,7 @@ const EditExercises: React.FC = () => {
     const getCardItemComponent = (key: string, exercise: any, index: number) => {
         return (
             <div key={key}>
-                <div className="card-item">
+                <CardRow>
                     <div>
                         <CheckBox
                             name={"checkbox" + exercise.id.toString()}
@@ -124,7 +128,7 @@ const EditExercises: React.FC = () => {
                             />
                         )}
                     </div>
-                </div>
+                </CardRow>
                 {exercise.id !== 10 && exercise.id !== 19 && <Divider />}
             </div>
         );
@@ -135,45 +139,31 @@ const EditExercises: React.FC = () => {
             <Navbar />
             <form onSubmit={handleSubmit}>
                 <Card>
-                    <div className="card-item">
-                        <div className="card-text">
-                            You have the ability to change any values and enable or disable any items
-                        </div>
+                    <CardRow>
+                        <CardText type="body" text="You have the ability to change any values and enable or disable any items" />
                         <div className="card-button">
                             <Button type="submit" variant="contained" color="primary">Submit</Button>
                         </div>
-                    </div>
+                    </CardRow>
                 </Card>
-                <div className="card-columns">
-                    <div className="card-column">
-                        <Card>
-                            <div className="card-list">
-                                {Object.keys(exerciseData).map((key, index) => {
-                                    const exercise = exerciseData[key];
-                                    if (exercise.id <= 10) {
-                                        return getCardItemComponent(key, exercise, index)
-                                    } else {
-                                        return null;
-                                    }
-                                })}
-                            </div>
-                        </Card>
-                    </div>
-                    <div className="card-column">
-                        <Card>
-                            <div className="card-list">
-                                {Object.keys(exerciseData).map((key, index) => {
-                                    const exercise = exerciseData[key];
-                                    if (exercise.id > 10) {
-                                        return getCardItemComponent(key, exercise, index)
-                                    } else {
-                                        return null;
-                                    }
-                                })}
-                            </div>
-                        </Card>
-                    </div>
-                </div>
+                <Column>
+                    <Card>
+                        <CardList>
+                            {Object.keys(exerciseData).map((key, index) => {
+                                const exercise = exerciseData[key];
+                                return exercise.id <= 10 ? getCardItemComponent(key, exercise, index) : null;
+                            })}
+                        </CardList>
+                    </Card>
+                    <Card>
+                        <CardList>
+                            {Object.keys(exerciseData).map((key, index) => {
+                                const exercise = exerciseData[key];
+                                return exercise.id > 10 ? getCardItemComponent(key, exercise, index) : null;
+                            })}
+                        </CardList>
+                    </Card>
+                </Column>
             </form>
         </React.Fragment>
     )

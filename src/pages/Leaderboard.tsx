@@ -21,7 +21,7 @@ const UserTable = ({ users, title }) => {
             <th>Score</th>
           </tr>
         </thead>
-        <tbody className='card-list'>
+        <tbody>
           {users.map((user, index) => (
             <tr key={index}>
               <td>{user.rank}</td>
