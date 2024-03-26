@@ -7,6 +7,7 @@ import { customModalStyle, marginTLR, dividerMargin } from './modalStyles.ts';
 import { DateRangeModalProps } from './OpenSaveCloseModalProps.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
+import CardText from '../card/CardText.tsx';
 
 const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave }) => {
     const [startDate, setStartDate] = useState(() => {
@@ -35,7 +36,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
         >
             <Card>
                 <div className='card-list'>
-                    <p className="card-header-text">Select Date Range</p>
+                    <CardText type="header" text="Select Date Range" />
                     <div className='card-item' style={marginTLR}>
                         <div className='card-title-text' style={{ marginLeft: "16px" }}>Start date:</div>
                     </div>

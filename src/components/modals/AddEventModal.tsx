@@ -11,6 +11,7 @@ import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
+import CardText from '../card/CardText.tsx';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -49,7 +50,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
         >
             <Card>
                 <div className='card-list'>
-                    <p className="card-header-text">Add Event</p>
+                    <CardText type="header" text="Add Event" />
                     <div className='card-item'>
                         <FormControl fullWidth style={{ marginLeft: '16px', marginRight: '16px' }}>
                             <InputLabel id="select-item-label">Select Item</InputLabel>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import "../App.css";
+import React, { useState } from 'react';
 import Navbar from "../components/Navbar.tsx";
 // @ts-ignore
 import pfpImage from '../static/images/default_profile_picture.png';
@@ -15,21 +15,17 @@ import ianpfp from '../static/images/ianpfp.jpeg';
 import linkedinicon from '../static/images/linkedin image.png';
 // @ts-ignore
 import githubicon from '../static/images/github image.png';
-import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
-import "../App.css";
 import Divider from '../components/card/Divider.tsx';
+import CardText from "../components/card/CardText.tsx";
+import { marginTLR } from "../components/modals/modalStyles.ts";
+import CardList from "../components/card/CardList.tsx";
+import CardRow from "../components/card/CardRow.tsx";
 
 const TABS = ['Alex', 'Brandon', 'Ian', 'Rogelio'];
 
 const About: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState(TABS[0]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    AuthorizedUser(navigate);
-  }, [navigate]);
-
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
@@ -45,7 +41,7 @@ const About: React.FC = () => {
       case 'Rogelio':
         return <img src={rogpfp} alt="Profile" />;
       default:
-        <img src={pfpImage} alt="Profile" />;
+        return <img src={pfpImage} alt="Profile" />;
     }
   };
 
@@ -80,9 +76,9 @@ const About: React.FC = () => {
   const basicInfo = (name: string, degree: string, graduation: string) => {
     return (
       <div>
-        <h1>{name}</h1>
-        <p>{"Major: " + degree}</p>
-        <p>{"Graduating: " + graduation}</p>
+        <CardText type="header" text={name} style={{ marginLeft: "-16px" }} />
+        <CardText type="body" text={degree} />
+        <CardText type="body" text={"Graduating: " + graduation} />
       </div>
     );
   }
@@ -90,13 +86,13 @@ const About: React.FC = () => {
   const renderBasicInfo = () => {
     switch (activeTab) {
       case 'Alex':
-        return (basicInfo("Alex", "B.S.E Computer Science and Engineering", "May, 2024"));
+        return (basicInfo("Alex Arand", "B.S.E Computer Science and Engineering", "May, 2024"));
       case 'Brandon':
-        return (basicInfo("Brandon", "B.S.E Computer Science and Engineering", "May, 2024"));
+        return (basicInfo("Brandon Cano", "B.S.E Computer Science and Engineering; M.S. Electrical and Computer Engineering", "May, 2024; May 2025"));
       case 'Ian':
-        return (basicInfo("Ian", "B.S.E Computer Science and Engineering", "December, 2024"));
+        return (basicInfo("Ian Kuk", "B.S.E Computer Science and Engineering", "December, 2024"));
       case 'Rogelio':
-        return (basicInfo("Rogelio", "B.S.E Computer Science and Engineering", "May, 2024"));
+        return (basicInfo("Rogelio Valle", "B.S.E Computer Science and Engineering", "May, 2024"));
       default:
         return <div>Select a tab.</div>;
     }
@@ -105,59 +101,51 @@ const About: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card-columns">
-        <div className="card-column">
-          <div className="card card-span-4">
-            <h1>Meet the developers!</h1>
-            <div className="card-header">
-              {TABS.map((tab) => (
-                <button
-                  key={tab}
-                  className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-            <Divider />
-            <div className="profile-content-container">
-              <div className="profile-picture-page">
-                {renderProfilePic()}
-              </div>
-              <div className="card-list">
-                <div className="profile-info-container">
-                  {renderBasicInfo()}
-                </div>
-                <div className="social-links-container">
-                  {renderSocials()}
-                </div>
-              </div>
-            </div>
-            <Divider />
-            <div className="card-content">
-              <h2>About the Project</h2>
-              <h3>University of Iowa Senior Design Project</h3>
-              <p>
-                This project was created for our senior design project at the University of Iowa. Sponsored by State Farm, it represents a collaborative effort between students and industry professionals.
-              </p>
-              <h3>Application Overview</h3>
-              <p>
-                Application Overview - will be added later
-              </p>
-              <h3>Frequently Asked Questions (FAQs)</h3>
-              <p>
-                FAQs - will be added later
-              </p>
-              <h3>Medical Disclaimer</h3>
-              <p>
-                Please note that we are not medical professionals. This application was made purely as a prototype. The recommendations provided by this application are based on our best guesses and should not be taken as professional medical advice.
-              </p>
-            </div>
+      <CardText type="header" text="About This Project" style={marginTLR} />
+      <div className="card card-span-4">
+        <CardRow>
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+              onClick={() => handleTabClick(tab)}
+            >{tab}
+            </button>
+          ))}
+        </CardRow>
+        <Divider />
+        <CardRow>
+          <div className="profile-picture-page">
+            {renderProfilePic()}
           </div>
+          <CardList>
+            <div className="profile-info-container">
+              {renderBasicInfo()}
+            </div>
+            <div className="social-links-container" style={{ marginLeft: "16px" }}>
+              {renderSocials()}
+            </div>
+          </CardList>
+        </CardRow>
+        <Divider />
+        <div className="card-content">
+          <CardText type="title" text="University of Iowa Senior Design Project" />
+          <CardText type="body" text="This project was created as our Senior Design project at the University of Iowa. The original objective, background, and rationale was created by our sponsored, State Farm. It embodies a collaboration between university students and seasoned industry experts." />
+          <Divider />
+          <CardText type="title" text="Application Background and Objective" />
+          <CardText type="body" text="The shift to remote work offers employees flexibility but poses challenges to physical and mental wellness due to reduced movement and interpersonal connections." />
+          <CardText type="body" text="Our goal is to develop an application that promotes workday wellness by offering tailored recommendations, reminders for healthy habits, and fostering a supportive user community." />
+          <Divider />
+          <CardText type="title" text="Frequently Asked Questions (FAQs)" />
+          <CardText type="body" text="(TODO) - only keep this if any ideas appear." />
+          <Divider />
+          <CardText type="title" text="Contact" />
+          <CardText type="body" text="For any questions feel free to contact us at: workdaywellnes@outlook.com" />
+          <Divider />
+          <CardText type="title" text="Medical Disclaimer" />
+          <CardText type="body" text="Please be advised that we are not licensed medical practitioners. This application serves solely as a prototype. The suggestions offered by this platform are formulated based on our informed estimations and should not be taken as proper medical advice." />
         </div>
       </div>
-
     </React.Fragment>
   );
 };

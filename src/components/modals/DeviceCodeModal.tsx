@@ -6,6 +6,7 @@ import { customModalStyle, marginTLR } from './modalStyles.ts';
 import { DeviceCodeModalProps } from './OpenSaveCloseModalProps.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
+import CardText from '../card/CardText.tsx';
 
 const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
 
@@ -23,7 +24,7 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
         >
             <Card>
                 <div className='card-list'>
-                    <p className="card-header-text">Outlook Login</p>
+                    <CardText type="header" text="Outlook Login" />
                     <div className='card-item' style={marginTLR}>
                         <div className='card-text'>{deviceCodeMessage.message}</div>
                     </div>

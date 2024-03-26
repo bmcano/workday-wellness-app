@@ -389,7 +389,7 @@
 .profile-picture-page {
   position: relative;
   flex-shrink: 0; 
-  width: auto;
+  width: 256px;
   height: auto;
   border-radius: 50%;
   overflow: hidden;

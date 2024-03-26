@@ -14,6 +14,8 @@ import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../components/Footer.tsx";
 import Divider from "../components/card/Divider.tsx";
 import Card from "../components/card/Card.tsx";
+import CardRow from "../components/card/CardRow.tsx";
+import Column from "../components/card/Column.tsx";
 
 interface UserRecord {
   name: string;
@@ -98,43 +100,39 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Navbar />
       <Card>
-        <div className="card-item">
+        <CardRow>
           <p className="card-header-text">Welcome, {name}!</p>
           <p className="card-right-text">{getCurrentFormattedDate()}</p>
-        </div>
+        </CardRow>
       </Card>
-      <div className="card-columns">
-        <div className="card-column">
-          <UserStatsDisplay />
-        </div>
-        <div className="card-column">
-          <Card>
-            <form onSubmit={handleFormSubmit} className="card-item">
-              <TextField
-                type="text"
-                id="updates"
-                name="updates"
-                fullWidth
-                label="What's on your mind?"
-                inputProps={{ min: "0", step: "1" }}
-                sx={{ marginRight: '16px' }}
-              />
-              <Button type="submit" variant="contained" color="primary">Post</Button>
-            </form>
-            <div className="card-info">
-              {statuses.map((status, index) => (
-                <div key={index} className="posted-status">
-                  {status}
-                </div>
-              ))}
-            </div>
-          </Card>
-        </div>
-        <div className="card-column">
+      <Column>
+        <UserStatsDisplay />
+        <Card>
+          <form onSubmit={handleFormSubmit} className="card-item">
+            <TextField
+              type="text"
+              id="updates"
+              name="updates"
+              fullWidth
+              label="What's on your mind?"
+              inputProps={{ min: "0", step: "1" }}
+              sx={{ marginRight: '16px' }}
+            />
+            <Button type="submit" variant="contained" color="primary">Post</Button>
+          </form>
+          <div className="card-info">
+            {statuses.map((status, index) => (
+              <div key={index} className="posted-status">
+                {status}
+              </div>
+            ))}
+          </div>
+        </Card>
+        <div>
           <GenerateRecommendations />
           {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
         </div>
-      </div>
+      </Column>
       <Footer />
     </React.Fragment>
   );

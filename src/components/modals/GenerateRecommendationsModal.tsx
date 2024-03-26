@@ -13,8 +13,12 @@ import { ExerciseCategories } from '../../types/ExerciseCategories.ts';
 import { distributeEvents } from '../../util/distributeEvents.ts';
 import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
+import CardList from '../card/CardList.tsx';
+import CardText from '../card/CardText.tsx';
+import Column from '../card/Column.tsx';
+import CardRow from '../card/CardRow.tsx';
 
-Modal.setAppElement("#root")
+Modal.setAppElement("#root");
 
 interface TimeSlots {
     start: Date,
@@ -85,61 +89,59 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
             style={customModalStyle}
         >
             <Card>
-                <div className='card-list'>
-                    <p className="card-header-text">Generate Exercise Recommendations</p>
-                    <div className='card-columns'>
-                        <div className='card-column'>
-                            <div className='card-list' style={marginTLR}>
-                                <div className='card-title-text' style={marginTLR}>Select intensity:</div>
-                                <RadioGroup
-                                    aria-label="intensity"
-                                    name="intensity"
-                                    value={intensity}
-                                    onChange={(e) => setIntensity(e.target.value)}
-                                    style={marginTLR}
-                                >
-                                    <FormControlLabel value="low" control={<Radio />} label="Low" />
-                                    <FormControlLabel value="medium" control={<Radio />} label="Medium" />
-                                    <FormControlLabel value="high" control={<Radio />} label="High" />
-                                </RadioGroup>
+                <CardList>
+                    <CardText type="header" text="Generate Exercise Recommendations" style={{ marginLeft: '-16px' }} />
+                    <Column>
+                        <div className='card-list' style={marginTLR}>
+                            <CardText type="title" text="Select intensity:" />
+                            <RadioGroup
+                                aria-label="intensity"
+                                name="intensity"
+                                value={intensity}
+                                onChange={(e) => setIntensity(e.target.value)}
+                                style={marginTLR}
+                            >
+                                <FormControlLabel value="low" control={<Radio />} label="Low" />
+                                <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+                                <FormControlLabel value="high" control={<Radio />} label="High" />
+                            </RadioGroup>
+                        </div>
+                        <div className='card-list' style={marginTLR}>
+                            <CardText type="title" text="Select date:" />
+                            <div className='card-text'>
+                                <DatePicker selected={date} onChange={(date: Date) => setDate(date)} dateFormat="P" />
                             </div>
                         </div>
-                        <div className='card-column'>
-                            <div className='card-list' style={marginTLR}>
-                                <div className='card-title-text' style={{ marginLeft: "16px", marginBottom: "16px" }}>Select date:</div>
-                                <div className='card-text'>
-                                    <DatePicker selected={date} onChange={(date: Date) => setDate(date)} dateFormat="P" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </Column>
+
 
                     <Divider style={dividerMargin} />
-                    {events.length === 0 && <div className='card-item' style={{ marginTop: '16px' }}>
-                        <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
-                            <Button variant="text" onClick={handleClose}>Cancel</Button>
-                        </div>
-                    </div>}
+                    {events.length === 0 &&
+                        <CardRow>
+                            <div className='card-button'>
+                                <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
+                                <Button variant="text" onClick={handleClose}>Cancel</Button>
+                            </div>
+                        </CardRow>}
                     {events.length > 0 && (
                         <div>
-                            <div className='card-item'>
+                            <CardRow>
                                 <ul>
                                     {events.map((event, index) => (
                                         <p key={index}>{event.title}</p>
                                     ))}
                                 </ul>
-                            </div>
-                            <div className='card-item'>
+                            </CardRow>
+                            <CardRow>
                                 <div className='card-button'>
-                                    <Button variant="text" color="primary" onClick={handleAccept}>Accept</Button>
+                                    <Button variant="text" onClick={handleAccept}>Accept</Button>
                                     <Button variant="text" onClick={handleGenerate}>Regenerate</Button>
                                     <Button variant="text" onClick={handleClose}>Cancel</Button>
                                 </div>
-                            </div>
+                            </CardRow>
                         </div>
                     )}
-                </div>
+                </CardList>
             </Card>
         </Modal>
     );
