@@ -12,6 +12,8 @@ import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Footer from "../components/Footer.tsx";
+import Divider from "../components/card/Divider.tsx";
+import Card from "../components/card/Card.tsx";
 
 interface UserRecord {
   name: string;
@@ -62,14 +64,14 @@ const Home: React.FC = () => {
 
   const UserStatsDisplay = () => {
     return (
-      <div className="card">
+      <Card>
         <div className="card-item">
           <div className="card-inside-header-text">Your Statisitcs</div>
           <div className="card-button">
             <Button variant="text" color="primary" onClick={() => navigate("/leaderboard")}>View Leaderboard</Button>
           </div>
         </div>
-        <div className="divider" />
+        <Divider />
         {!userData && <div className="card-list">
           <p className="card-text">Loading...</p>
         </div>}
@@ -77,7 +79,7 @@ const Home: React.FC = () => {
           <p className="card-text">Your current streak: {userData.streak}</p>
           <p className="card-text">Your completed exercises: {userData.completedExercises}</p>
         </div>}
-      </div>
+      </Card>
     );
   };
 
@@ -95,18 +97,18 @@ const Home: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card">
+      <Card>
         <div className="card-item">
           <p className="card-header-text">Welcome, {name}!</p>
           <p className="card-right-text">{getCurrentFormattedDate()}</p>
         </div>
-      </div>
+      </Card>
       <div className="card-columns">
         <div className="card-column">
           <UserStatsDisplay />
         </div>
         <div className="card-column">
-          <div className="card">
+          <Card>
             <form onSubmit={handleFormSubmit} className="card-item">
               <TextField
                 type="text"
@@ -126,7 +128,7 @@ const Home: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
         </div>
         <div className="card-column">
           <GenerateRecommendations />

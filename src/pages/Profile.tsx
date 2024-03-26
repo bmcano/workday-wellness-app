@@ -7,6 +7,7 @@ import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { apiGet } from '../api/serverApiCalls.tsx';
 import ProfilePicture from "../components/ProfilePicture.tsx";
+import Divider from "../components/card/Divider.tsx";
 
 const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
 
@@ -82,7 +83,7 @@ const Profile: React.FC = () => {
                 </button>
               ))}
             </div>
-            <div className="divider" />
+            <Divider />
             <div className="card-content">
               {renderTabContent()}
             </div>

@@ -17,6 +17,7 @@ import linkedinicon from '../static/images/linkedin image.png';
 import githubicon from '../static/images/github image.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
+import Divider from '../components/card/Divider.tsx';
 
 const TABS = ['Alex', 'Brandon', 'Ian', 'Rogelio'];
 
@@ -119,7 +120,7 @@ const About: React.FC = () => {
                 </button>
               ))}
             </div>
-            <div className="divider" />
+            <Divider />
             <div className="profile-content-container">
               <div className="profile-picture-page">
                 {renderProfilePic()}
@@ -133,7 +134,7 @@ const About: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="divider" />
+            <Divider />
             <div className="card-content">
               <h2>About the Project</h2>
               <h3>University of Iowa Senior Design Project</h3>

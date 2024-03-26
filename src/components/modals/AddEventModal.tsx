@@ -9,6 +9,8 @@ import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -45,7 +47,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             contentLabel="Add Event Modal"
             style={customModalStyle}
         >
-            <div className='card'>
+            <Card>
                 <div className='card-list'>
                     <p className="card-header-text">Add Event</p>
                     <div className='card-item'>
@@ -99,7 +101,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
                     </div>
-                    <div className='divider' style={dividerMargin} />
+                    <Divider style={dividerMargin} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Save</Button>
@@ -107,7 +109,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                         </div>
                     </div>
                 </div>
-            </div>
+            </Card>
         </Modal>
     );
 };

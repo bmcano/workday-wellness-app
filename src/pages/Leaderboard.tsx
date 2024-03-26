@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
 import { apiGet } from "../api/serverApiCalls.tsx";
+import Divider from '../components/card/Divider.tsx';
 
 const TABS = ['Global', 'Friends Only'];
 
@@ -11,7 +12,7 @@ const UserTable = ({ users, title }) => {
   return (
     <div>
       <div className="card-inside-header-text">{title}</div>
-      <div className='divider' />
+      <Divider />
       <table className="table is-fullwidth is-striped is-hoverable is-narrow is-bordered">
         <thead>
           <tr>
@@ -160,7 +161,7 @@ const Leaderboard: React.FC = () => {
                 </button>
               ))}
             </div>
-            <div className="divider" />
+            <Divider />
             <div className="card-content">
               {renderTabContent()}
             </div>

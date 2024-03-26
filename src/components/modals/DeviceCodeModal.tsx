@@ -4,6 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR } from './modalStyles.ts';
 import { DeviceCodeModalProps } from './OpenSaveCloseModalProps.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
 
 const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
 
@@ -19,13 +21,13 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
             contentLabel="Device Code Modal"
             style={customModalStyle}
         >
-            <div className='card'>
+            <Card>
                 <div className='card-list'>
                     <p className="card-header-text">Outlook Login</p>
                     <div className='card-item' style={marginTLR}>
                         <div className='card-text'>{deviceCodeMessage.message}</div>
                     </div>
-                    <div className='divider' style={marginTLR} />
+                    <Divider style={marginTLR} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleCopy}>Copy & Open</Button>
@@ -33,7 +35,7 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
                         </div>
                     </div>
                 </div>
-            </div>
+            </Card>
         </Modal>
     );
 };

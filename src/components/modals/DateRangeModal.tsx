@@ -5,6 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR, dividerMargin } from './modalStyles.ts';
 import { DateRangeModalProps } from './OpenSaveCloseModalProps.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
 
 const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave }) => {
     const [startDate, setStartDate] = useState(() => {
@@ -31,7 +33,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
             contentLabel="Date Range Modal"
             style={customModalStyle}
         >
-            <div className='card'>
+            <Card>
                 <div className='card-list'>
                     <p className="card-header-text">Select Date Range</p>
                     <div className='card-item' style={marginTLR}>
@@ -50,7 +52,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
                     </div>
-                    <div className='divider' style={dividerMargin} />
+                    <Divider style={dividerMargin} />
                     <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Sync Calendar</Button>
@@ -58,7 +60,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
                         </div>
                     </div>
                 </div>
-            </div>
+            </Card>
         </Modal>
     );
 };

@@ -8,6 +8,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
+import Divider from "../components/card/Divider.tsx";
+import Card from "../components/card/Card.tsx";
 
 const enabledText = "#212121";
 const disabledText = "#e4e3e3";
@@ -123,7 +125,7 @@ const EditExercises: React.FC = () => {
                         )}
                     </div>
                 </div>
-                {exercise.id !== 10 && exercise.id !== 19 && <div className="divider" />}
+                {exercise.id !== 10 && exercise.id !== 19 && <Divider />}
             </div>
         );
     }
@@ -132,7 +134,7 @@ const EditExercises: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <form onSubmit={handleSubmit}>
-                <div className="card">
+                <Card>
                     <div className="card-item">
                         <div className="card-text">
                             You have the ability to change any values and enable or disable any items
@@ -141,10 +143,10 @@ const EditExercises: React.FC = () => {
                             <Button type="submit" variant="contained" color="primary">Submit</Button>
                         </div>
                     </div>
-                </div>
+                </Card>
                 <div className="card-columns">
                     <div className="card-column">
-                        <div className="card">
+                        <Card>
                             <div className="card-list">
                                 {Object.keys(exerciseData).map((key, index) => {
                                     const exercise = exerciseData[key];
@@ -155,10 +157,10 @@ const EditExercises: React.FC = () => {
                                     }
                                 })}
                             </div>
-                        </div>
+                        </Card>
                     </div>
                     <div className="card-column">
-                        <div className="card">
+                        <Card>
                             <div className="card-list">
                                 {Object.keys(exerciseData).map((key, index) => {
                                     const exercise = exerciseData[key];
@@ -169,7 +171,7 @@ const EditExercises: React.FC = () => {
                                     }
                                 })}
                             </div>
-                        </div>
+                        </Card>
                     </div>
                 </div>
             </form>

@@ -11,6 +11,8 @@ import { getFreeTimeSlots } from '../../util/convertOutlookPayload.ts';
 import { applyExercises, getModeValues, splitExerciseData, splitUpMisc, splitUpStretches } from '../../util/exerciseReccomendations.ts';
 import { ExerciseCategories } from '../../types/ExerciseCategories.ts';
 import { distributeEvents } from '../../util/distributeEvents.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
 
 Modal.setAppElement("#root")
 
@@ -82,7 +84,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
             contentLabel="Generate Exercise Recommendations"
             style={customModalStyle}
         >
-            <div className='card'>
+            <Card>
                 <div className='card-list'>
                     <p className="card-header-text">Generate Exercise Recommendations</p>
                     <div className='card-columns'>
@@ -112,7 +114,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                         </div>
                     </div>
 
-                    <div className='divider' style={dividerMargin} />
+                    <Divider style={dividerMargin} />
                     {events.length === 0 && <div className='card-item' style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
@@ -138,7 +140,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                         </div>
                     )}
                 </div>
-            </div>
+            </Card>
         </Modal>
     );
 };

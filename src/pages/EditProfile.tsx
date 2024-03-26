@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Navbar from "../components/Navbar.tsx";
+import Card from "../components/card/Card.tsx";
 
 const EditProfile: React.FC = () => {
     const navigate = useNavigate();
@@ -101,12 +102,12 @@ const EditProfile: React.FC = () => {
             <Navbar />
             <div className="card-columns">
                 <div className="card-column">
-                    <div className="card">
+                    <Card>
                         <h3>Image Upload</h3>
                         <UploadImage handleImageUpload={handleImageUpload} />
-                    </div>
+                    </Card>
                     <form onSubmit={handleSubmit}>
-                        <div className="card">
+                        <Card>
                             <h3>Profile Information</h3>
                             <TextField label="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} fullWidth margin="normal" />
                             <TextField label="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} fullWidth margin="normal" />
@@ -114,13 +115,13 @@ const EditProfile: React.FC = () => {
                             <TextField label="About" multiline rows={4} value={about} onChange={e => setAbout(e.target.value)} fullWidth margin="normal" />
                             <TextField label="LinkedIn Link" value={linkedinLink} onChange={e => setLinkedinLink(e.target.value)} fullWidth margin="normal" />
                             <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button>
-                        </div>
+                        </Card>
                     </form>
 
                 </div>
                 <div className="card-column">
                     <form onSubmit={handleSchedule}>
-                        <div className="card">
+                        <Card>
                             <h3>Work Schedule</h3>
                             {Object.keys(workHours).map((day) => (
                                 <div key={day}>
@@ -146,7 +147,7 @@ const EditProfile: React.FC = () => {
                                 </div>
                             ))}
                             <Button type="submit" variant="contained" color="primary" style={{ marginLeft: '32px', marginTop: '16px' }}>Update Schedule</Button>
-                        </div>
+                        </Card>
                     </form>
 
                 </div>

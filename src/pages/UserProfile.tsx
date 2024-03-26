@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
+import Card from "../components/card/Card.tsx";
 
 const UserProfile: React.FC = () => {
 
@@ -66,13 +67,13 @@ const UserProfile: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div className="card">
+                <Card>
                     <Typography component="h1" variant="h4" align="center" marginBottom={2}>{firstName} {lastName}'s Profile</Typography>
                     <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false} />
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>
-                </div>
+                </Card>
             </Box>
         </React.Fragment>
     )

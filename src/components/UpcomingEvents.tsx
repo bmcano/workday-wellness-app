@@ -3,6 +3,8 @@ import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
 import AddEventModal from './modals/AddEventModal.tsx';
 import { isEventOccuringNow } from '../util/dateUtils.ts';
+import Divider from './card/Divider.tsx';
+import Card from './card/Card.tsx';
 
 interface Props {
     events: EventInput[];
@@ -42,7 +44,9 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
     };
 
     return (
-        <div className="card">
+        <Card>
+
+        
             <div className="card-item">
                 <div className="card-inside-header-text">Upcoming Events for Today</div>
                 <div className="card-button">
@@ -50,7 +54,7 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
                     <AddEventModal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveEvent} />
                 </div>
             </div>
-            <div className="divider" />
+            <Divider />
             <div className="card-list">
                 {upcomingEvents.length === 0 ? (
                     <div className="card-item">
@@ -66,12 +70,12 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
                                     <p className="card-text">End: {new Date(event.end as Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                                 </div>
                             </li>
-                            {index < upcomingEvents.length - 1 && <div className="divider" />}
+                            {index < upcomingEvents.length - 1 && <Divider />}
                         </div>
                     ))
                 )}
             </div>
-        </div>
+        </Card>
     );
 };
 

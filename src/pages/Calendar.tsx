@@ -17,6 +17,7 @@ import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import DateRangeModal from "../components/modals/DateRangeModal.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
+import Card from "../components/card/Card.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -63,7 +64,7 @@ const Calendar: React.FC = () => {
                 if (!data.authorized) {
                     setIsDateModalOpen(false)
                 }
-                
+
             })
             .catch(error => console.log(error));
     }
@@ -107,7 +108,7 @@ const Calendar: React.FC = () => {
     return (
         <React.Fragment>
             <Navbar />
-            <div className="card">
+            <Card>
                 <div className="card-item">
                     <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
                     <div className="card-button">
@@ -118,10 +119,10 @@ const Calendar: React.FC = () => {
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>
                 </div>
-            </div>
+            </Card>
             <div className="card-columns">
                 <div className="card-column">
-                    <div className="card">
+                    <Card>
                         <div className="calendar">
                             <FullCalendar
                                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -142,7 +143,7 @@ const Calendar: React.FC = () => {
                                 eventBackgroundColor="red"
                             />
                         </div>
-                    </div>
+                    </Card>
                 </div>
                 <div className="card-column">
                     <GenerateRecommendations />

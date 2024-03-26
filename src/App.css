@@ -139,23 +139,7 @@
 }
 
 /* Items for displaying a list on a card view */
-.divider {
-  height: 1px;
-  background-color: var(--light-gray);
-  margin: 10px 0;
-}
-
-.card {
-  border-radius: 8px;
-  padding: 16px;
-  padding-bottom: 16px;
-  margin-top: 32px;
-  margin-right: 32px;
-  margin-left: 32px;
-  margin-bottom: 32px;
-  background-color: var(--white);
-  border: 1px solid var(--light-gray);
-}
+/* TODO: REMOVE ALL OF THESE */
 
 .card-list {
   list-style: none;
