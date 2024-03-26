@@ -452,8 +452,8 @@
 
 .footer {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 16px;
+  bottom: 16px;
   display: flex;
   justify-content: flex-end;
 }

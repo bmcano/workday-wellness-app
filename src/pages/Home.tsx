@@ -11,7 +11,7 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
-import Footer from "../components/Footer.tsx";
+import ChatBot from "../components/ChatBot.tsx";
 import Divider from "../components/card/Divider.tsx";
 import Card from "../components/card/Card.tsx";
 import CardRow from "../components/card/CardRow.tsx";
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
           {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
         </div>
       </Column>
-      <Footer />
+      <ChatBot />
     </React.Fragment>
   );
 };
