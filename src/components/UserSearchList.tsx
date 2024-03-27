@@ -37,7 +37,11 @@ const UserSearchList = ({ userList }) => {
                                 <ProfilePicture isUserProfile={false} base64Img={friend.profile_picture === "" ? DefaultProfile : friend.profile_picture} isSmallScreen={true} />
                                 <CardText type="body" text={`${friend.first_name} ${friend.last_name}`} />
                                 <div className='card-button'>
-                                    <Button variant="text" color="primary" onClick={() => navigate(`/user/search/${friend.id}`)}>View Profile</Button>
+                                    <CardRow>
+                                        { friend.isFriend && <CardText type="body" text="Friends" />}
+                                        { friend.isFriend && <Divider isVertical={true} />}
+                                        <Button variant="text" color="primary" onClick={() => navigate(`/user/search/${friend.id}`)}>View Profile</Button>
+                                    </CardRow>
                                 </div>
                             </CardRow>
                             {index < filteredFriendsList.length - 1 && <Divider />}

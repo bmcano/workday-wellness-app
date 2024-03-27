@@ -18,7 +18,8 @@ const Friends: React.FC = () => {
         apiGet("/friends_list")
             .then(data => {
                 setFriendsList(data)
-            }).catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
     }, [navigate]);
 
     return (

@@ -26,7 +26,8 @@ export const usersList = async (req, res) => {
                     id: friend._id.toString(),
                     first_name: friend.first_name,
                     last_name: friend.last_name,
-                    profile_picture: friend.profile_picture
+                    profile_picture: friend.profile_picture,
+                    isFriend: user.friends.includes(friend.email)
                 };
             });
             return res.json(stub);

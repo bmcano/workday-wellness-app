@@ -25,7 +25,6 @@ const UserSearch: React.FC = () => {
     return (
         <React.Fragment>
             <Navbar />
-            <Typography component="h1" variant="h4" align="center" marginTop={4}>Find Friends</Typography>
             <UserSearchList userList={userList} />
         </React.Fragment>
     )

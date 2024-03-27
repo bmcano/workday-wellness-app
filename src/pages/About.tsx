@@ -17,7 +17,6 @@ import linkedinicon from '../static/images/linkedin image.png';
 import githubicon from '../static/images/github image.png';
 import Divider from '../components/card/Divider.tsx';
 import CardText from "../components/card/CardText.tsx";
-import { marginTLR } from "../components/modals/modalStyles.ts";
 import CardList from "../components/card/CardList.tsx";
 import CardRow from "../components/card/CardRow.tsx";
 import Card from "../components/card/Card.tsx";

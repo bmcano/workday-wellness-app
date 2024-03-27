@@ -10,7 +10,6 @@ import { ReactComponent as FriendsIcon } from "../static/assets/people-outline.s
 import { ReactComponent as EditProfileIcon } from "../static/assets/person-circle-outline.svg" // @ts-ignore
 import { ReactComponent as ExercisesIcon } from "../static/assets/walk-outline.svg" // @ts-ignore
 import { ReactComponent as LifeStatsIcon } from "../static/assets/bar-chart-outline.svg"
-import CardText from "../components/card/CardText.tsx"
 
 const Profile: React.FC = () => {
 
