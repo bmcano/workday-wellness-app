@@ -7,6 +7,7 @@ import { Friend } from "../types/Friend.tsx";
 import Typography from "@mui/material/Typography";
 import UserSearchList from "../components/UserSearchList.tsx";
 import { apiGet } from "../api/serverApiCalls.tsx";
+import CardText from "../components/card/CardText.tsx";
 
 const Friends: React.FC = () => {
 
@@ -25,7 +26,6 @@ const Friends: React.FC = () => {
     return (
         <React.Fragment>
             <Navbar />
-            <Typography component="h1" variant="h4" align="center" marginTop={4}>Friends</Typography>
             <UserSearchList userList={friendsList} />
         </React.Fragment>
     )

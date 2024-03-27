@@ -31,7 +31,8 @@ const UserSearchList = ({ userList }) => {
             </div>
             <Card>
                 <CardList>
-                    {filteredFriendsList.map((friend, index) => (
+                    {filteredFriendsList.length === 0 && <CardText type="body" text="No users match your search." />}
+                    {filteredFriendsList.length !== 0 && filteredFriendsList.map((friend, index) => (
                         <div key={index}>
                             <CardRow>
                                 <ProfilePicture isUserProfile={false} base64Img={friend.profile_picture === "" ? DefaultProfile : friend.profile_picture} isSmallScreen={true} />
