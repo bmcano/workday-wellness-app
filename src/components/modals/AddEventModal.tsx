@@ -52,7 +52,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
         >
             <Card>
                 <CardList>
-                    <CardText type="header" text="Add Event" />
+                    <CardText type="header" text="Add Event" style={{ marginLeft: '16px' }} />
                     <CardRow>
                         <FormControl fullWidth style={{ marginLeft: '16px', marginRight: '16px' }}>
                             <InputLabel id="select-item-label">Select Item</InputLabel>
@@ -72,10 +72,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                         </FormControl>
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className='card-title-text' style={{ marginLeft: "16px" }}>Date and time:</div>
+                        <CardText type="title" text="Date and time:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className='card-text'>
+                        <div className='first-item-row'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} showTimeSelect dateFormat="Pp" />
                         </div>
                     </CardRow>
@@ -97,11 +97,11 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                         </FormControl>
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className="card-title-text" style={{ marginLeft: "16px" }}>End date:</div>
+                        <CardText type="title" text="End date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className='card-text'>
-                            <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
+                        <div className='first-item-row'>
+                            <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" disabled={!recurrencePattern}/>
                         </div>
                     </CardRow>
                     <Divider style={dividerMargin} />

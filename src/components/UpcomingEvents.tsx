@@ -49,7 +49,7 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
     return (
         <Card>
             <CardRow>
-                <CardText type="header" text="Upcoming Events for Today" style={{ marginLeft: "-32px", marginTop: "0px", marginBottom: "0px" }} />
+                <CardText type="header" text="Upcoming Events for Today" style={{ marginTop: "0px", marginBottom: "0px" }} />
                 <div className="card-button">
                     <Button variant="text" color="primary" onClick={handleOpenModal}>Add Event</Button>
                     <AddEventModal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveEvent} />

@@ -40,18 +40,18 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
                 <CardList>
                     <CardText type="header" text="Select Date Range" />
                     <CardRow style={marginTLR}>
-                        <div className='card-title-text' style={{ marginLeft: "16px" }}>Start date:</div>
+                        <CardText type="title" text="Start date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className='card-text'>
+                        <div className='first-item-row'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} dateFormat="P" />
                         </div>
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className="card-title-text" style={{ marginLeft: "16px" }}>End date:</div>
+                        <CardText type="title" text="End date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
                     </CardRow>
                     <CardRow style={marginTLR}>
-                        <div className='card-text'>
+                        <div className='first-item-row'>
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
                     </CardRow>

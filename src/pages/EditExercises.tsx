@@ -99,7 +99,7 @@ const EditExercises: React.FC = () => {
                             defaultChecked={exercise.isEnabled}
                             onChange={() => handleCheckboxChange(index)} />
                     </div>
-                    <div className="card-text">
+                    <div className="first-item-row">
                         <Typography component="h4" variant="inherit" color={checkboxStates[index] ? enabledText : disabledText}>{`${exercise.name}: `}</Typography>
                     </div>
                     <div className="card-button">

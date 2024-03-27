@@ -19,6 +19,7 @@ import DateRangeModal from "../components/modals/DateRangeModal.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Card from "../components/card/Card.tsx";
 import CardRow from "../components/card/CardRow.tsx";
+import CardText from "../components/card/CardText.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -111,7 +112,7 @@ const Calendar: React.FC = () => {
             <Navbar />
             <Card>
                 <CardRow>
-                    <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
+                    <CardText type="header" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin}>Login to Outlook</Button>
                         <DeviceCodeModal isOpen={isModalOpen} onClose={handleCloseModal} deviceCodeMessage={deviceCodeMessage} />

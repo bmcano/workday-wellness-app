@@ -30,7 +30,7 @@ const Exercises: React.FC = () => {
     const CardRowWithEndButton = (title: string, url: string) => {
         return (
             <CardRow>
-                <div className="card-text">{title}</div>
+                <CardText type="body" text={title} />
                 <div className="card-button">
                     <Button variant="text" color="primary" onClick={handleOpenModal}>More Info</Button>
                     <RedirectLinkModal isOpen={isModalOpen} onClose={handleCloseModal} link={url} />
@@ -54,7 +54,7 @@ const Exercises: React.FC = () => {
                 <div>
                     {stretches.map(point => (
                         <div key={point.id}>
-                            <p className="card-header-text">{point.title}</p>
+                            <CardText type="header" text={point.title} />
                             <Card>
                                 {point.subPoints.map((subPoint, index) => (
                                     <div key={subPoint.id}>
@@ -71,7 +71,7 @@ const Exercises: React.FC = () => {
                 <div>
                     {exercisesMisc.map(point => (
                         <div key={point.id}>
-                            <p className="card-header-text">{point.title}</p>
+                            <CardText type="header" text={point.title} />
                             <Card>
                                 {point.subPoints.map((subPoint, index) => (
                                     <div key={subPoint.id}>

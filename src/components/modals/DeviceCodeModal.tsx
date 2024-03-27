@@ -28,7 +28,7 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
                 <CardList>
                     <CardText type="header" text="Outlook Login" />
                     <CardRow style={marginTLR}>
-                        <div className='card-text'>{deviceCodeMessage.message}</div>
+                        <CardText type="body" text={deviceCodeMessage.message} />
                     </CardRow>
                     <Divider style={marginTLR} />
                     <CardRow style={{ marginTop: '16px' }}>

@@ -12,10 +12,11 @@ import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import ChatBot from "../components/ChatBot.tsx";
-import Divider from "../components/card/Divider.tsx";
 import Card from "../components/card/Card.tsx";
 import CardRow from "../components/card/CardRow.tsx";
 import Column from "../components/card/Column.tsx";
+import UserStats from "../components/UserStats.tsx";
+import CardText from "../components/card/CardText.tsx";
 import CardList from "../components/card/CardList.tsx";
 
 interface UserRecord {
@@ -65,27 +66,6 @@ const Home: React.FC = () => {
       });
   }, [navigate]);
 
-  const UserStatsDisplay = () => {
-    return (
-      <Card>
-        <CardRow>
-          <div className="card-inside-header-text">Your Statisitcs</div>
-          <div className="card-button">
-            <Button variant="text" color="primary" onClick={() => navigate("/leaderboard")}>View Leaderboard</Button>
-          </div>
-        </CardRow>
-        <Divider />
-        {!userData && <CardList>
-          <p className="card-text">Loading...</p>
-        </CardList>}
-        {userData && <CardList>
-          <p className="card-text">Your current streak: {userData.streak}</p>
-          <p className="card-text">Your completed exercises: {userData.completedExercises}</p>
-        </CardList>}
-      </Card>
-    );
-  };
-
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const updates = new FormData(event.currentTarget);
@@ -101,15 +81,15 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Navbar />
       <Card>
-        <CardRow>
-          <p className="card-header-text">Welcome, {name}!</p>
-          <p className="card-right-text">{getCurrentFormattedDate()}</p>
-        </CardRow>
+        <CardList>
+          <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
+          <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
+        </CardList>
       </Card>
       <Column>
-        <UserStatsDisplay />
+        {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
         <Card>
-          <form onSubmit={handleFormSubmit} className="card-item">
+          <form onSubmit={handleFormSubmit} className="form-row">
             <TextField
               type="text"
               id="updates"

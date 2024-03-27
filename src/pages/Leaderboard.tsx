@@ -5,13 +5,14 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import "../App.css";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import Divider from '../components/card/Divider.tsx';
+import CardText from '../components/card/CardText.tsx';
 
 const TABS = ['Global', 'Friends Only'];
 
 const UserTable = ({ users, title }) => {
   return (
     <div>
-      <div className="card-inside-header-text">{title}</div>
+      <CardText type="header" text={title} style={{ marginTop: "0px", marginBottom: "0px" }} />
       <Divider />
       <table className="table is-fullwidth is-striped is-hoverable is-narrow is-bordered">
         <thead>

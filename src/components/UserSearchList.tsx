@@ -10,6 +10,7 @@ import Divider from './card/Divider.tsx';
 import Card from './card/Card.tsx';
 import CardList from './card/CardList.tsx';
 import CardRow from './card/CardRow.tsx';
+import CardText from './card/CardText.tsx';
 
 const UserSearchList = ({ userList }) => {
 
@@ -34,7 +35,7 @@ const UserSearchList = ({ userList }) => {
                         <div key={index}>
                             <CardRow>
                                 <ProfilePicture isUserProfile={false} base64Img={friend.profile_picture === "" ? DefaultProfile : friend.profile_picture} isSmallScreen={true} />
-                                <div className="card-text">{`${friend.first_name} ${friend.last_name}`}</div>
+                                <CardText type="body" text={`${friend.first_name} ${friend.last_name}`} />
                                 <div className='card-button'>
                                     <Button variant="text" color="primary" onClick={() => navigate(`/user/search/${friend.id}`)}>View Profile</Button>
                                 </div>

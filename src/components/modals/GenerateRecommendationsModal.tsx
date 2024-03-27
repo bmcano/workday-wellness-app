@@ -108,7 +108,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                         </CardList>
                         <CardList style={marginTLR}>
                             <CardText type="title" text="Select date:" />
-                            <div className='card-text'>
+                            <div className='first-item-row'>
                                 <DatePicker selected={date} onChange={(date: Date) => setDate(date)} dateFormat="P" />
                             </div>
                         </CardList>
