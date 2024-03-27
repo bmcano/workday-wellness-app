@@ -145,7 +145,6 @@ const Leaderboard: React.FC = () => {
       <Navbar />
       <Card>
         <CardRow>
-          
           <CardText type="header" text="Leaderboard" style={{ marginTop: "0px", marginBottom: "0px" }} />
           <Divider isVertical={true} />
           {TABS.map((tab) => (

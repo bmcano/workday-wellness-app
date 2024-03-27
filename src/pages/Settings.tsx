@@ -10,6 +10,7 @@ import { ReactComponent as FriendsIcon } from "../static/assets/people-outline.s
 import { ReactComponent as EditProfileIcon } from "../static/assets/person-circle-outline.svg" // @ts-ignore
 import { ReactComponent as ExercisesIcon } from "../static/assets/walk-outline.svg" // @ts-ignore
 import { ReactComponent as LifeStatsIcon } from "../static/assets/bar-chart-outline.svg"
+import CardText from "../components/card/CardText.tsx"
 
 const Profile: React.FC = () => {
 
@@ -27,22 +28,21 @@ const Profile: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <div className="settings-container">
-                <h1 className="settings-title">Settings</h1>
                 <div className="settings-content">
                     <div className="settings-option" onClick={() => handleClick("/profile/edit")}>
                         <div className="icon profile"></div>
                         <EditProfileIcon />
                         <p>Edit Profile</p>
                     </div>
-                    <div className="settings-option" onClick={() => handleClick("/profile/friends")}>
-                        <div className="icon friends"></div>
-                        <FriendsIcon />
-                        <p>Manage Friends</p>
-                    </div>
                     <div className="settings-option" onClick={() => handleClick("/exercises/edit")}>
                         <div className="icon exercises"></div>
                         <ExercisesIcon />
                         <p>Edit Exercises</p>
+                    </div>
+                    <div className="settings-option" onClick={() => handleClick("/profile/friends")}>
+                        <div className="icon friends"></div>
+                        <FriendsIcon />
+                        <p>Manage Friends</p>
                     </div>
                     <div className="settings-option">
                         <div className="icon stats"></div>
@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
                     <div className="settings-option" onClick={() => handleClick("/about")}>
                         <div className="icon support"></div>
                         <SupportIcon />
-                        <p>Contact Support</p>
+                        <p>About</p>
                     </div>
                 </div>
             </div>

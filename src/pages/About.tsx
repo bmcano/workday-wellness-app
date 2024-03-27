@@ -20,6 +20,7 @@ import CardText from "../components/card/CardText.tsx";
 import { marginTLR } from "../components/modals/modalStyles.ts";
 import CardList from "../components/card/CardList.tsx";
 import CardRow from "../components/card/CardRow.tsx";
+import Card from "../components/card/Card.tsx";
 
 const TABS = ['Alex', 'Brandon', 'Ian', 'Rogelio'];
 
@@ -76,7 +77,7 @@ const About: React.FC = () => {
   const basicInfo = (name: string, degree: string, graduation: string) => {
     return (
       <div>
-        <CardText type="header" text={name} style={{ marginLeft: "-16px" }} />
+        <CardText type="header" text={name} style={{ marginLeft: "16px" }} />
         <CardText type="body" text={degree} />
         <CardText type="body" text={"Graduating: " + graduation} />
       </div>
@@ -101,9 +102,10 @@ const About: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <CardText type="header" text="About This Project" style={marginTLR} />
-      <div className="card card-span-4">
+      <Card>
         <CardRow>
+          <CardText type="header" text="About this Project" style={{ marginTop: "0px", marginBottom: "0px" }} />
+          <Divider isVertical={true} />
           {TABS.map((tab) => (
             <button
               key={tab}
@@ -128,7 +130,7 @@ const About: React.FC = () => {
           </CardList>
         </CardRow>
         <Divider />
-        <div className="card-content">
+        <CardList>
           <CardText type="title" text="University of Iowa Senior Design Project" />
           <CardText type="body" text="This project was created as our Senior Design project at the University of Iowa. The original objective, background, and rationale was created by our sponsored, State Farm. It embodies a collaboration between university students and seasoned industry experts." />
           <Divider />
@@ -144,8 +146,8 @@ const About: React.FC = () => {
           <Divider />
           <CardText type="title" text="Medical Disclaimer" />
           <CardText type="body" text="Please be advised that we are not licensed medical practitioners. This application serves solely as a prototype. The suggestions offered by this platform are formulated based on our informed estimations and should not be taken as proper medical advice." />
-        </div>
-      </div>
+        </CardList>
+      </Card>
     </React.Fragment>
   );
 };
