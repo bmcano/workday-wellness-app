@@ -1,45 +1,49 @@
+import "../App.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
-import "../App.css";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import Divider from '../components/card/Divider.tsx';
 import CardText from '../components/card/CardText.tsx';
 import Column from '../components/card/Column.tsx';
+import Card from '../components/card/Card.tsx';
+import CardList from '../components/card/CardList.tsx';
+import CardRow from '../components/card/CardRow.tsx';
 
 const TABS = ['Global', 'Friends Only'];
 
-const UserTable = ({ users, title }) => {
+const UserTable = ({ users, title, name }) => {
   return (
-    <div>
+    <Card>
       <CardText type="header" text={title} style={{ marginTop: "0px", marginBottom: "0px" }} />
       <Divider />
-      <table className="table is-fullwidth is-striped is-hoverable is-narrow is-bordered">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
-              <td>{user.rank}</td>
-              <td>{user.name}</td>
-              <td>{user.score}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <CardList>
+        <CardRow isTableRow={true}>
+          <CardText type="title" text="Placement" />
+          <CardText type="title" text="Name" />
+          <CardText type="title" text="Score" />
+        </CardRow>
+        <Divider />
+        {users.map((user, index) => (
+          <div key={index}>
+            <CardRow isTableRow={true} isHighlighted={name === user.name}>
+              <CardText type="body" text={user.rank} />
+              <CardText type="body" text={user.name} />
+              <CardText type="body" text={user.score} />
+            </CardRow>
+            {index < users.length - 1 && <Divider />}
+          </div>
+        ))}
+      </CardList>
+    </Card >
   );
 };
 
 const Leaderboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
   const [streakLeaderboardData, setStreakLeaderboardData] = useState([]); // Streak data state
   const [completedLeaderboardData, setCompletedLeaderboardData] = useState([]); // Completed exercises data state
   const [friendsStreakData, setFriendsStreakData] = useState([]); // Friends streak data state
@@ -52,6 +56,7 @@ const Leaderboard: React.FC = () => {
       apiGet("/get_global_leaderboard_streak")
         .then(data => {
           if (data.authorized && data.leaderboard) {
+            setUserName(data.user.full_name);
             const formattedLeaderboardData = data.leaderboard.map((user, index) => ({
               rank: index + 1,
               name: user.full_name,
@@ -94,7 +99,6 @@ const Leaderboard: React.FC = () => {
           console.log(error);
         });
 
-
       apiGet("/get_friend_leaderboard_completed")
         .then(data => {
           if (data.authorized && data.leaderboard) {
@@ -120,15 +124,15 @@ const Leaderboard: React.FC = () => {
     if (activeTab === 'Global') {
       return (
         <Column>
-          <UserTable users={streakLeaderboardData} title="Highest Global Streak Leaderboard" />
-          <UserTable users={completedLeaderboardData} title="Highest Global Exercise Completion" />
+          <UserTable users={streakLeaderboardData} title="Longest Current Streak - Global" name={userName} />
+          <UserTable users={completedLeaderboardData} title="Most Completed Events - Global" name={userName} />
         </Column>
       );
     } else if (activeTab === 'Friends Only') {
       return (
         <Column>
-          <UserTable users={friendsStreakData} title="Highest Friend Streak Leaderboard" />
-          <UserTable users={friendsCompletedData} title="Highest Friend Exercise Completion" />
+          <UserTable users={friendsStreakData} title="Longest Current Streak - Friends" name={userName} />
+          <UserTable users={friendsCompletedData} title="Most Completed Events - Friends" name={userName} />
         </Column>
       );
     } else {
@@ -139,10 +143,11 @@ const Leaderboard: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card card-span-4">
-        <div className="profile-content-container">
-        </div>
-        <div className="card-header">
+      <Card>
+        <CardRow>
+          
+          <CardText type="header" text="Leaderboard" style={{ marginTop: "0px", marginBottom: "0px" }} />
+          <Divider isVertical={true} />
           {TABS.map((tab) => (
             <button
               key={tab}
@@ -152,12 +157,9 @@ const Leaderboard: React.FC = () => {
               {tab}
             </button>
           ))}
-        </div>
-        <Divider />
-        <div className="card-content">
-          {renderTabContent()}
-        </div>
-      </div>
+        </CardRow>
+      </Card>
+      {renderTabContent()}
     </React.Fragment>
   );
 };

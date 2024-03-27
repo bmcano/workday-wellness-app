@@ -4,6 +4,14 @@
     margin: 8px 0;
 }
 
+.vertical-divider {
+    height: 32px;
+    width: 1px;
+    margin-left: 16px;
+    margin-right: 16px;
+    background-color: var(--light-gray);
+}
+
 .card {
     border-radius: 8px;
     padding: 16px;
@@ -56,6 +64,22 @@
     background-color: var(--khaki);
     border-radius: 4px;
     width: 100%;
+}
+
+.card-table-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+
+}
+
+.card-table-row-highlighted {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    background-color: var(--khaki);
+    border-radius: 4px;
+    width: auto;
 }
 
 .column-container {
