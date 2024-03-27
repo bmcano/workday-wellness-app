@@ -93,40 +93,44 @@ const EditExercises: React.FC = () => {
         return (
             <div key={key}>
                 <CardRow>
-                    <div>
-                        <CheckBox
-                            name={"checkbox" + exercise.id.toString()}
-                            defaultChecked={exercise.isEnabled}
-                            onChange={() => handleCheckboxChange(index)} />
-                    </div>
-                    <div className="first-item-row">
-                        <Typography component="h4" variant="inherit" color={checkboxStates[index] ? enabledText : disabledText}>{`${exercise.name}: `}</Typography>
-                    </div>
+                    <CheckBox
+                        name={"checkbox" + exercise.id.toString()}
+                        defaultChecked={exercise.isEnabled}
+                        onChange={() => handleCheckboxChange(index)} />
+                    <Typography component="h4" variant="inherit" color={checkboxStates[index] ? enabledText : disabledText} style={{ marginLeft: "16px" }}>{`${exercise.name}: `}</Typography>
                     <div className="card-button">
-                        {exercise.values.time && (
-                            <TextField
-                                type="number"
-                                variant="standard"
-                                name={"time" + exercise.id.toString()}
-                                label={`Time (s): ${exercise.values.time}`}
-                                placeholder={exercise.values.time.toString()}
-                                inputProps={{ min: "0", step: "1" }}
-                                sx={{ marginRight: '16px', maxWidth: '160px' }}
-                                disabled={!checkboxStates[index]}
-                            />
-                        )}
-                        {exercise.values.reps && (
-                            <TextField
-                                type="number"
-                                variant="standard"
-                                name={"reps" + exercise.id.toString()}
-                                label={`Reps: ${exercise.values.reps}`}
-                                placeholder={exercise.values.reps.toString()}
-                                inputProps={{ min: "0", step: "1" }}
-                                sx={{ marginRight: '16px', maxWidth: '160px' }}
-                                disabled={!checkboxStates[index]}
-                            />
-                        )}
+                        <CardList>
+                            <div>
+                                {exercise.values.time && (
+                                    <TextField
+                                        type="number"
+                                        variant="standard"
+                                        name={"time" + exercise.id.toString()}
+                                        label={`Time (s): ${exercise.values.time}`}
+                                        placeholder={exercise.values.time.toString()}
+                                        inputProps={{ min: "0", step: "1" }}
+                                        sx={{ marginRight: '16px', maxWidth: '160px' }}
+                                        disabled={!checkboxStates[index]}
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {exercise.values.reps && (
+                                    <TextField
+                                        type="number"
+                                        variant="standard"
+                                        name={"reps" + exercise.id.toString()}
+                                        label={`Reps: ${exercise.values.reps}`}
+                                        placeholder={exercise.values.reps.toString()}
+                                        inputProps={{ min: "0", step: "1" }}
+                                        sx={{ marginRight: '16px', maxWidth: '160px' }}
+                                        disabled={!checkboxStates[index]}
+                                    />
+                                )}
+                            </div>
+
+                        </CardList>
+
                     </div>
                 </CardRow>
                 {exercise.id !== 10 && exercise.id !== 19 && <Divider />}
@@ -142,7 +146,7 @@ const EditExercises: React.FC = () => {
                     <CardRow>
                         <CardText type="body" text="You have the ability to change any values and enable or disable any items" />
                         <div className="card-button">
-                            <Button type="submit" variant="contained" color="primary">Submit</Button>
+                            <Button type="submit" variant="contained" color="primary">Save Changes</Button>
                         </div>
                     </CardRow>
                 </Card>

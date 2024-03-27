@@ -151,9 +151,6 @@
   margin-right: 16px;
 }
 
-/* Items for displaying a list on a card view */
-/* TODO: REMOVE ALL OF THESE */
-
 .card-button {
   margin-left: auto;
 }
@@ -163,8 +160,6 @@
   margin-right: 16px;
   margin-left: 16px;
 }
-
-/* END DELETION  */
 
 .calendar {
   margin-left: 16px;

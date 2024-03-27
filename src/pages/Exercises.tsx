@@ -54,7 +54,7 @@ const Exercises: React.FC = () => {
                 <div>
                     {stretches.map(point => (
                         <div key={point.id}>
-                            <CardText type="header" text={point.title} />
+                            <CardText type="header" text={point.title} style={{ marginLeft: "32px" }} />
                             <Card>
                                 {point.subPoints.map((subPoint, index) => (
                                     <div key={subPoint.id}>
@@ -71,7 +71,7 @@ const Exercises: React.FC = () => {
                 <div>
                     {exercisesMisc.map(point => (
                         <div key={point.id}>
-                            <CardText type="header" text={point.title} />
+                            <CardText type="header" text={point.title} style={{ marginLeft: "32px" }} />
                             <Card>
                                 {point.subPoints.map((subPoint, index) => (
                                     <div key={subPoint.id}>

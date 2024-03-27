@@ -95,15 +95,3 @@
     margin-left: 16px;
     margin-right: 16px;
 }
-
-/* Misc items to figure out */
-
-.card-button {
-    margin-left: auto;
-}
-
-.card-button>Button {
-    font-size: 14px;
-    margin-right: 16px;
-    margin-left: 16px;
-}
