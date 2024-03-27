@@ -13,7 +13,6 @@ import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import ChatBot from "../components/ChatBot.tsx";
 import Card from "../components/card/Card.tsx";
-import CardRow from "../components/card/CardRow.tsx";
 import Column from "../components/card/Column.tsx";
 import UserStats from "../components/UserStats.tsx";
 import CardText from "../components/card/CardText.tsx";

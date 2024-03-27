@@ -164,6 +164,8 @@
   margin-left: 16px;
 }
 
+/* END DELETION  */
+
 .calendar {
   margin-left: 16px;
   margin-right: 16px;
@@ -176,18 +178,6 @@
   max-width: auto;
   max-height: auto;
 }
-
-.card-columns {
-  display: flex;
-  justify-content: space-between;
-}
-
-.card-column {
-  flex: 1;
-  margin: 0 0px;
-}
-
-/* END DELETION  */
 
 .social-links a {
   display: inline-block;

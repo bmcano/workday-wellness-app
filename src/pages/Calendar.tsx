@@ -20,6 +20,7 @@ import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Card from "../components/card/Card.tsx";
 import CardRow from "../components/card/CardRow.tsx";
 import CardText from "../components/card/CardText.tsx";
+import Column from "../components/card/Column.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -122,36 +123,34 @@ const Calendar: React.FC = () => {
                     </div>
                 </CardRow>
             </Card>
-            <div className="card-columns">
-                <div className="card-column">
-                    <Card>
-                        <div className="calendar">
-                            <FullCalendar
-                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                                headerToolbar={{
-                                    left: 'prev,next today',
-                                    center: 'title',
-                                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                                }}
-                                initialView='dayGridMonth'
-                                editable={true}
-                                selectable={true}
-                                selectMirror={true}
-                                dayMaxEvents={true}
-                                weekends={false}
-                                initialEvents={events}
-                                events={events}
-                                eventColor="red"
-                                eventBackgroundColor="red"
-                            />
-                        </div>
-                    </Card>
-                </div>
-                <div className="card-column">
+            <Column>
+                <Card>
+                    <div className="calendar">
+                        <FullCalendar
+                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                            headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                            }}
+                            initialView='dayGridMonth'
+                            editable={true}
+                            selectable={true}
+                            selectMirror={true}
+                            dayMaxEvents={true}
+                            weekends={false}
+                            initialEvents={events}
+                            events={events}
+                            eventColor="red"
+                            eventBackgroundColor="red"
+                        />
+                    </div>
+                </Card>
+                <div>
                     <GenerateRecommendations />
                     {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={events} />)}
                 </div>
-            </div>
+            </Column>
         </React.Fragment>
     )
 }

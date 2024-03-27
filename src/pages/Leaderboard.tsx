@@ -6,6 +6,7 @@ import "../App.css";
 import { apiGet } from "../api/serverApiCalls.tsx";
 import Divider from '../components/card/Divider.tsx';
 import CardText from '../components/card/CardText.tsx';
+import Column from '../components/card/Column.tsx';
 
 const TABS = ['Global', 'Friends Only'];
 
@@ -118,25 +119,17 @@ const Leaderboard: React.FC = () => {
   const renderTabContent = () => {
     if (activeTab === 'Global') {
       return (
-        <div className="card-columns">
-          <div className="card-column">
-            <UserTable users={streakLeaderboardData} title="Highest Global Streak Leaderboard" />
-          </div>
-          <div className="card-column">
-            <UserTable users={completedLeaderboardData} title="Highest Global Exercise Completion" />
-          </div>
-        </div>
+        <Column>
+          <UserTable users={streakLeaderboardData} title="Highest Global Streak Leaderboard" />
+          <UserTable users={completedLeaderboardData} title="Highest Global Exercise Completion" />
+        </Column>
       );
     } else if (activeTab === 'Friends Only') {
       return (
-        <div className="card-columns">
-          <div className="card-column">
-            <UserTable users={friendsStreakData} title="Highest Friend Streak Leaderboard" />
-          </div>
-          <div className="card-column">
-            <UserTable users={friendsCompletedData} title="Highest Friend Exercise Completion" />
-          </div>
-        </div>
+        <Column>
+          <UserTable users={friendsStreakData} title="Highest Friend Streak Leaderboard" />
+          <UserTable users={friendsCompletedData} title="Highest Friend Exercise Completion" />
+        </Column>
       );
     } else {
       return <div>Select a tab.</div>;
@@ -146,27 +139,23 @@ const Leaderboard: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card-columns">
-        <div className="card-column">
-          <div className="card card-span-4">
-            <div className="profile-content-container">
-            </div>
-            <div className="card-header">
-              {TABS.map((tab) => (
-                <button
-                  key={tab}
-                  className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-            <Divider />
-            <div className="card-content">
-              {renderTabContent()}
-            </div>
-          </div>
+      <div className="card card-span-4">
+        <div className="profile-content-container">
+        </div>
+        <div className="card-header">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+              onClick={() => handleTabClick(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <Divider />
+        <div className="card-content">
+          {renderTabContent()}
         </div>
       </div>
     </React.Fragment>

@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Navbar from "../components/Navbar.tsx";
 import Card from "../components/card/Card.tsx";
+import Column from "../components/card/Column.tsx";
 
 const EditProfile: React.FC = () => {
     const navigate = useNavigate();
@@ -100,8 +101,8 @@ const EditProfile: React.FC = () => {
     return (
         <React.Fragment>
             <Navbar />
-            <div className="card-columns">
-                <div className="card-column">
+            <Column>
+                <div>
                     <Card>
                         <h3>Image Upload</h3>
                         <UploadImage handleImageUpload={handleImageUpload} />
@@ -117,42 +118,37 @@ const EditProfile: React.FC = () => {
                             <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button>
                         </Card>
                     </form>
-
                 </div>
-                <div className="card-column">
-                    <form onSubmit={handleSchedule}>
-                        <Card>
-                            <h3>Work Schedule</h3>
-                            {Object.keys(workHours).map((day) => (
-                                <div key={day}>
-                                    <Typography variant="body1" style={{ marginLeft: '32px', marginTop: '16px' }}>{day}</Typography>
-                                    <TextField
-                                        label="Start Time"
-                                        type="time"
-                                        value={workHours[day].start}
-                                        onChange={(e) => handleWorkHoursChange(day, 'start', e.target.value)}
-                                        InputLabelProps={{ shrink: true }}
-                                        margin="normal"
-                                        style={{ marginLeft: '32px' }}
-                                    />
-                                    <TextField
-                                        label="End Time"
-                                        type="time"
-                                        value={workHours[day].end}
-                                        onChange={(e) => handleWorkHoursChange(day, 'end', e.target.value)}
-                                        InputLabelProps={{ shrink: true }}
-                                        margin="normal"
-                                        style={{ marginLeft: '32px', marginRight: "32px" }}
-                                    />
-                                </div>
-                            ))}
-                            <Button type="submit" variant="contained" color="primary" style={{ marginLeft: '32px', marginTop: '16px' }}>Update Schedule</Button>
-                        </Card>
-                    </form>
-
-                </div>
-            </div>
-
+                <form onSubmit={handleSchedule}>
+                    <Card>
+                        <h3>Work Schedule</h3>
+                        {Object.keys(workHours).map((day) => (
+                            <div key={day}>
+                                <Typography variant="body1" style={{ marginLeft: '32px', marginTop: '16px' }}>{day}</Typography>
+                                <TextField
+                                    label="Start Time"
+                                    type="time"
+                                    value={workHours[day].start}
+                                    onChange={(e) => handleWorkHoursChange(day, 'start', e.target.value)}
+                                    InputLabelProps={{ shrink: true }}
+                                    margin="normal"
+                                    style={{ marginLeft: '32px' }}
+                                />
+                                <TextField
+                                    label="End Time"
+                                    type="time"
+                                    value={workHours[day].end}
+                                    onChange={(e) => handleWorkHoursChange(day, 'end', e.target.value)}
+                                    InputLabelProps={{ shrink: true }}
+                                    margin="normal"
+                                    style={{ marginLeft: '32px', marginRight: "32px" }}
+                                />
+                            </div>
+                        ))}
+                        <Button type="submit" variant="contained" color="primary" style={{ marginLeft: '32px', marginTop: '16px' }}>Update Schedule</Button>
+                    </Card>
+                </form>
+            </Column>
         </React.Fragment>
     );
 };
