@@ -8,6 +8,7 @@ import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
 import CardText from '../card/CardText.tsx';
 import CardList from '../card/CardList.tsx';
+import CardRow from '../card/CardRow.tsx';
 
 const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, deviceCodeMessage }) => {
 
@@ -26,16 +27,16 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
             <Card>
                 <CardList>
                     <CardText type="header" text="Outlook Login" />
-                    <div className='card-item' style={marginTLR}>
+                    <CardRow style={marginTLR}>
                         <div className='card-text'>{deviceCodeMessage.message}</div>
-                    </div>
+                    </CardRow>
                     <Divider style={marginTLR} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    <CardRow style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleCopy}>Copy & Open</Button>
                             <Button variant="text" onClick={onClose}>Close</Button>
                         </div>
-                    </div>
+                    </CardRow>
                 </CardList>
             </Card>
         </Modal>

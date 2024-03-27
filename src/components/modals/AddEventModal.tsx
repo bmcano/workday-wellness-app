@@ -13,6 +13,7 @@ import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
 import CardText from '../card/CardText.tsx';
 import CardList from '../card/CardList.tsx';
+import CardRow from '../card/CardRow.tsx';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -52,7 +53,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             <Card>
                 <CardList>
                     <CardText type="header" text="Add Event" />
-                    <div className='card-item'>
+                    <CardRow>
                         <FormControl fullWidth style={{ marginLeft: '16px', marginRight: '16px' }}>
                             <InputLabel id="select-item-label">Select Item</InputLabel>
                             <Select
@@ -69,16 +70,16 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                                 ))}
                             </Select>
                         </FormControl>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className='card-title-text' style={{ marginLeft: "16px" }}>Date and time:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className='card-text'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} showTimeSelect dateFormat="Pp" />
                         </div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <FormControl fullWidth style={{ marginTop: '16px' }}>
                             <InputLabel id="select-item-label">Reccurrence</InputLabel>
                             <Select
@@ -94,22 +95,22 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                                 <MenuItem value="weekly">Weekly</MenuItem>
                             </Select>
                         </FormControl>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className="card-title-text" style={{ marginLeft: "16px" }}>End date:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className='card-text'>
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
-                    </div>
+                    </CardRow>
                     <Divider style={dividerMargin} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    <CardRow style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Save</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
-                    </div>
+                    </CardRow>
                 </CardList>
             </Card>
         </Modal>

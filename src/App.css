@@ -141,14 +141,6 @@
 
 /* Items for displaying a list on a card view */
 /* TODO: REMOVE ALL OF THESE */
-
-
-.card-item {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-}
-
 .card-text {
   font-size: 16px;
   margin-left: 16px;

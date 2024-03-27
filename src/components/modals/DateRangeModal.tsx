@@ -9,6 +9,7 @@ import Divider from '../card/Divider.tsx';
 import Card from '../card/Card.tsx';
 import CardText from '../card/CardText.tsx';
 import CardList from '../card/CardList.tsx';
+import CardRow from '../card/CardRow.tsx';
 
 const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave }) => {
     const [startDate, setStartDate] = useState(() => {
@@ -38,29 +39,29 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
             <Card>
                 <CardList>
                     <CardText type="header" text="Select Date Range" />
-                    <div className='card-item' style={marginTLR}>
+                    <CardRow style={marginTLR}>
                         <div className='card-title-text' style={{ marginLeft: "16px" }}>Start date:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className='card-text'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} dateFormat="P" />
                         </div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className="card-title-text" style={{ marginLeft: "16px" }}>End date:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <div className='card-text'>
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
-                    </div>
+                    </CardRow>
                     <Divider style={dividerMargin} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    <CardRow style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Sync Calendar</Button>
                             <Button variant="text" onClick={onClose}>Close</Button>
                         </div>
-                    </div>
+                    </CardRow>
                 </CardList>
             </Card>
         </Modal>

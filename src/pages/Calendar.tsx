@@ -18,6 +18,7 @@ import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import DateRangeModal from "../components/modals/DateRangeModal.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
 import Card from "../components/card/Card.tsx";
+import CardRow from "../components/card/CardRow.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -109,7 +110,7 @@ const Calendar: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <Card>
-                <div className="card-item">
+                <CardRow>
                     <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin}>Login to Outlook</Button>
@@ -118,7 +119,7 @@ const Calendar: React.FC = () => {
                         <DateRangeModal isOpen={isDateModalOpen} onClose={handleCloseModal} onSave={handleCalendarSync} />
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>
-                </div>
+                </CardRow>
             </Card>
             <div className="card-columns">
                 <div className="card-column">

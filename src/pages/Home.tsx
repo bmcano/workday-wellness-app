@@ -68,12 +68,12 @@ const Home: React.FC = () => {
   const UserStatsDisplay = () => {
     return (
       <Card>
-        <div className="card-item">
+        <CardRow>
           <div className="card-inside-header-text">Your Statisitcs</div>
           <div className="card-button">
             <Button variant="text" color="primary" onClick={() => navigate("/leaderboard")}>View Leaderboard</Button>
           </div>
-        </div>
+        </CardRow>
         <Divider />
         {!userData && <CardList>
           <p className="card-text">Loading...</p>
