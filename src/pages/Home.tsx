@@ -79,14 +79,16 @@ const Home: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Card>
-        <CardList>
-          <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
-          <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
-        </CardList>
-      </Card>
       <Column>
-        {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
+        <div>
+          <Card>
+            <CardList>
+              <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
+              <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
+            </CardList>
+          </Card>
+          {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
+        </div>
         <Card>
           <form onSubmit={handleFormSubmit} className="form-row">
             <TextField

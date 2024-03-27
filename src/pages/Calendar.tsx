@@ -95,17 +95,13 @@ const Calendar: React.FC = () => {
                     const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
                     console.log(outlookEvents);
                     setEvents(outlookEvents);
+                    const json_data = JSON.stringify({ calendar: outlookEvents })
+                    apiPost("/save_calendar_data", json_data).catch(error => console.log(error));
                 } else {
                     console.log("Problem with Outlook.");
                 }
             })
             .catch(error => console.log(error));
-    }
-
-    const handleSaveEvents = () => {
-        const jsonData = JSON.stringify({ calendar: events })
-        apiPost("/save_calendar_data", jsonData).catch(error => console.log(error));
-        alert("Events have been saved.");
     }
 
     return (
@@ -119,7 +115,6 @@ const Calendar: React.FC = () => {
                         <DeviceCodeModal isOpen={isModalOpen} onClose={handleCloseModal} deviceCodeMessage={deviceCodeMessage} />
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleDateOpenModal} disabled={!loggedIn}>Sync Calendar</Button>
                         <DateRangeModal isOpen={isDateModalOpen} onClose={handleCloseModal} onSave={handleCalendarSync} />
-                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>
                 </CardRow>
             </Card>
