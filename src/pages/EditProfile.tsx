@@ -7,7 +7,6 @@ import imageCompression from "browser-image-compression";
 import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Navbar from "../components/Navbar.tsx";
 import Card from "../components/card/Card.tsx";
 import Column from "../components/card/Column.tsx";

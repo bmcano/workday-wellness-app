@@ -146,6 +146,7 @@ const EditExercises: React.FC = () => {
                     <CardRow>
                         <CardText type="body" text="You have the ability to change any values and enable or disable any items" />
                         <div className="card-button">
+                            <Button variant="contained" color="primary" onClick={() => navigate("/exercises")}>Information Page</Button>
                             <Button type="submit" variant="contained" color="primary">Save Changes</Button>
                         </div>
                     </CardRow>
