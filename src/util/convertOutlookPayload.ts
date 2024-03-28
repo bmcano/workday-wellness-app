@@ -70,6 +70,7 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
 
 //Function to get the time until the next event for the timer
 export const getTimeUntilNextEvent = (payload: EventInput[]): number | null => {
+    console.log('getTimeUntilNextEvent called');
     const events: EventInput[] = [...payload];
     if(events === null) return 0;
 
@@ -82,11 +83,17 @@ export const getTimeUntilNextEvent = (payload: EventInput[]): number | null => {
     events.sort((a, b) => new Date(a.start as string).getTime() - new Date(b.start as string).getTime());
 
     // Get the current time in UTC
-    const now = new Date();
-    const nowInUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+    const nowInUTC = Date.now(); 
+    console.log('nowInUTC:', nowInUTC);
+
+    console.log('sorted events:', events);
 
     // Find the next event that hasn't started yet
-    const nextEvent = events.find(event => new Date(event.start as string).getTime() > nowInUTC);
+    const nextEvent = events.find(event => {
+        const eventStartTime = new Date(event.start as string).getTime();
+        return eventStartTime > nowInUTC;
+    });
+    console.log('time until nextEvent:', nextEvent);
 
     // If there is no next event, return 0
     if (!nextEvent) {
