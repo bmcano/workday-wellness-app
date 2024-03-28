@@ -23,3 +23,9 @@ export interface GenerateRecommendationsModalProps {
     onClose: () => void;
     onSave: (eventData: EventInput) => void;
 }
+
+export interface RedirectLinkModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    link: string;
+}

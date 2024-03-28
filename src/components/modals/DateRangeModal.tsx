@@ -5,6 +5,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Button } from '@mui/material';
 import { customModalStyle, marginTLR, dividerMargin } from './modalStyles.ts';
 import { DateRangeModalProps } from './OpenSaveCloseModalProps.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
+import CardText from '../card/CardText.tsx';
+import CardList from '../card/CardList.tsx';
+import CardRow from '../card/CardRow.tsx';
 
 const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave }) => {
     const [startDate, setStartDate] = useState(() => {
@@ -31,34 +36,34 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
             contentLabel="Date Range Modal"
             style={customModalStyle}
         >
-            <div className='card'>
-                <div className='card-list'>
-                    <p className="card-header-text">Select Date Range</p>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-title-text' style={{ marginLeft: "16px" }}>Start date:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-text'>
+            <Card>
+                <CardList>
+                    <CardText type="header" text="Select Date Range" style={{ marginLeft: "32px" }} />
+                    <CardRow style={marginTLR}>
+                        <CardText type="title" text="Start date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <div className='first-item-row'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} dateFormat="P" />
                         </div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className="card-title-text" style={{ marginLeft: "16px" }}>End date:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-text'>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <CardText type="title" text="End date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <div className='first-item-row'>
                             <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
                         </div>
-                    </div>
-                    <div className='divider' style={dividerMargin} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    </CardRow>
+                    <Divider style={dividerMargin} />
+                    <CardRow style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Sync Calendar</Button>
                             <Button variant="text" onClick={onClose}>Close</Button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </CardRow>
+                </CardList>
+            </Card>
         </Modal>
     );
 };

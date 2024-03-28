@@ -11,7 +11,12 @@ import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
-import Footer from "../components/Footer.tsx";
+import ChatBot from "../components/ChatBot.tsx";
+import Card from "../components/card/Card.tsx";
+import Column from "../components/card/Column.tsx";
+import UserStats from "../components/UserStats.tsx";
+import CardText from "../components/card/CardText.tsx";
+import CardList from "../components/card/CardList.tsx";
 
 interface UserRecord {
   name: string;
@@ -60,27 +65,6 @@ const Home: React.FC = () => {
       });
   }, [navigate]);
 
-  const UserStatsDisplay = () => {
-    return (
-      <div className="card">
-        <div className="card-item">
-          <div className="card-inside-header-text">Your Statisitcs</div>
-          <div className="card-button">
-            <Button variant="text" color="primary" onClick={() => navigate("/leaderboard")}>View Leaderboard</Button>
-          </div>
-        </div>
-        <div className="divider" />
-        {!userData && <div className="card-list">
-          <p className="card-text">Loading...</p>
-        </div>}
-        {userData && <div className="card-list">
-          <p className="card-text">Your current streak: {userData.streak}</p>
-          <p className="card-text">Your completed exercises: {userData.completedExercises}</p>
-        </div>}
-      </div>
-    );
-  };
-
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const updates = new FormData(event.currentTarget);
@@ -95,45 +79,43 @@ const Home: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card">
-        <div className="card-item">
-          <p className="card-header-text">Welcome, {name}!</p>
-          <p className="card-right-text">{getCurrentFormattedDate()}</p>
+      <Column>
+        <div>
+          <Card>
+            <CardList>
+              <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
+              <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
+            </CardList>
+          </Card>
+          {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
         </div>
-      </div>
-      <div className="card-columns">
-        <div className="card-column">
-          <UserStatsDisplay />
-        </div>
-        <div className="card-column">
-          <div className="card">
-            <form onSubmit={handleFormSubmit} className="card-item">
-              <TextField
-                type="text"
-                id="updates"
-                name="updates"
-                fullWidth
-                label="What's on your mind?"
-                inputProps={{ min: "0", step: "1" }}
-                sx={{ marginRight: '16px' }}
-              />
-              <Button type="submit" variant="contained" color="primary">Post</Button>
-            </form>
-            <div className="card-info">
-              {statuses.map((status, index) => (
-                <div key={index} className="posted-status">
-                  {status}
-                </div>
-              ))}
-            </div>
+        <Card>
+          <form onSubmit={handleFormSubmit} className="form-row">
+            <TextField
+              type="text"
+              id="updates"
+              name="updates"
+              fullWidth
+              label="What's on your mind?"
+              inputProps={{ min: "0", step: "1" }}
+              sx={{ marginRight: '16px' }}
+            />
+            <Button type="submit" variant="contained" color="primary">Post</Button>
+          </form>
+          <div className="card-info">
+            {statuses.map((status, index) => (
+              <div key={index} className="posted-status">
+                {status}
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="card-column">
+        </Card>
+        <div>
           <GenerateRecommendations />
           {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
         </div>
-      </div>
-      <Footer />
+      </Column>
+      <ChatBot />
     </React.Fragment>
   );
 };

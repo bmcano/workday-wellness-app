@@ -25,7 +25,7 @@
 }
 
 .navbar a:hover {
-  background-color: var(--dark-gray);
+  background-color: var(--gray);
   border-radius: 4px;
 }
 
@@ -44,7 +44,7 @@
   font-size: 16px;
   border: none;
   outline: none;
-  color: var(--white);
+  color: var(--black);
   padding: 16px 16px;
   background-color: inherit;
   font-family: inherit;
@@ -52,7 +52,7 @@
 }
 
 .subnav:hover .subnavbtn {
-  background-color: var(--dark-gray);
+  background-color: var(--gray);
 }
 
 .subnav-content {
@@ -61,7 +61,8 @@
   border-radius: 4px;
   top: 100%;
   right: 0;
-  background-color: var(--dark-gray);
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
   z-index: 1;
 }
 
@@ -69,7 +70,7 @@
   display: block;
   border-radius: 4px;
   padding: 8px;
-  color: var(--white);
+  color: var(--black);
   text-decoration: none;
 }
 
@@ -138,72 +139,20 @@
   margin-left: 32px;
 }
 
-/* Items for displaying a list on a card view */
-.divider {
-  height: 1px;
-  background-color: var(--light-gray);
-  margin: 10px 0;
+.drawer-header {
+  text-align: center;
 }
 
-.card {
-  border-radius: 8px;
-  padding: 16px;
-  padding-bottom: 16px;
-  margin-top: 32px;
-  margin-right: 32px;
-  margin-left: 32px;
-  margin-bottom: 32px;
-  background-color: var(--white);
-  border: 1px solid var(--light-gray);
-}
-
-.card-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.card-list-highlighted {
-  list-style: none;
-  padding: 0px 16px 0px 16px;
-  margin: 0;
-  background-color: var(--khaki);
-  border-radius: 4px;
-  width: 100%;
-}
-
-.card-item {
+.form-row {
   display: flex;
   justify-content: left;
   align-items: center;
 }
 
-.card-text {
+.first-item-row {
   font-size: 16px;
   margin-left: 16px;
   margin-right: 16px;
-}
-
-.card-header-text {
-  padding-left: 32px;
-  font-size: 24px;
-  color: var(--dark-gray);
-}
-
-.card-inside-header-text {
-  font-size: 24px;
-  color: var(--dark-gray);
-}
-
-.card-title-text {
-  font-size: 20px;
-  color: var(--dark-gray);
-}
-
-.card-right-text {
-  margin-left: auto;
-  margin-right: 32px;
-  font-size: 18px;
 }
 
 .card-button {
@@ -229,16 +178,6 @@
   max-height: auto;
 }
 
-.card-columns {
-  display: flex;
-  justify-content: space-between;
-}
-
-.card-column {
-  flex: 1;
-  margin: 0 0px;
-}
-
 .social-links a {
   display: inline-block;
   margin-right: 10px;
@@ -248,131 +187,6 @@
 
 .social-links a:hover {
   text-decoration: underline;
-}
-
-/* Timer related items */
-.timer-card {
-  border-radius: 8px;
-  padding: 16px;
-  padding-bottom: 16px;
-  margin-top: 32px;
-  margin-right: 32px;
-  margin-left: 32px;
-  margin-bottom: 32px;
-  background-color: var(--khaki);
-}
-
-.timer {
-  grid-row: 1;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto;
-  place-items: center;
-  width: 100%;
-  gap: 20px;
-}
-
-.timer__circle {
-  width: 300px;
-  height: 300px;
-  position: relative;
-  border-radius: 50%;
-  background-color: var(--white);
-  border: 1px solid var(--light-gray);
-  overflow: hidden;
-  justify-self: center;
-}
-
-.timer__svg {
-  width: 100%;
-  height: 100%;
-  justify-self: center;
-}
-
-.timer__circle-track {
-  fill: none;
-  stroke: var(--white);
-  stroke-width: 8;
-}
-
-.timer__path-elapsed {
-  fill: none;
-  stroke: var(--red);
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dashoffset: 0;
-  stroke-dasharray: 0 283;
-  transform: rotate(-90deg);
-  transform-origin: center;
-}
-
-.timer__circle-progress {
-  fill: none;
-  stroke: var(--red);
-  stroke-width: 8;
-}
-
-.timer__path-remaining {
-  fill: none;
-  stroke: var(--red);
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dasharray: 282.7433388230589;
-  stroke-dashoffset: 282.7433388230589;
-  transform: rotate(-90deg);
-  transform-origin: center;
-  transition: stroke-dashoffset 1s linear;
-}
-
-.timer__label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  grid-row: 2;
-}
-
-.timer__time {
-  font-size: 48px;
-  font-weight: bold;
-  color: var(--red);
-  line-height: 1;
-  grid-row: 3;
-}
-
-.timer__progress {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--white);
-  line-height: 1;
-}
-
-.timer__settings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.timer__settings input {
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.timer__text {
-  fill: var(--red);
-  font-size: 4px;
-  font-family: 'Arial', sans-serif;
-  text-anchor: middle;
-  transform: translateY(0.3em);
-}
-
-@media (max-width: 768px) {
-  .timer {
-    width: 50%;
-  }
 }
 
 .posted-status {
@@ -385,27 +199,27 @@
 }
 
 .card-span-2 {
-  flex: 2; 
+  flex: 2;
 }
 
 .card-span-3 {
-  flex: 3; 
+  flex: 3;
 }
 
 .card-span-4 {
-  flex: 4; 
+  flex: 4;
 }
 
 .profile-content-container {
   display: flex;
-  align-items: center; 
-  gap: 16px; 
+  align-items: center;
+  gap: 16px;
 }
 
 .profile-picture-page {
   position: relative;
-  flex-shrink: 0; 
-  width: auto;
+  flex-shrink: 0;
+  width: 256px;
   height: auto;
   border-radius: 50%;
   overflow: hidden;
@@ -415,7 +229,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 .edit-overlay {
@@ -440,11 +254,12 @@
 .profile-text-container {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
 }
 
 
-.profile-text-container h1, .profile-text-container p {
+.profile-text-container h1,
+.profile-text-container p {
   margin: 0;
 }
 
@@ -468,29 +283,30 @@
 
 .footer {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 16px;
+  bottom: 16px;
   display: flex;
   justify-content: flex-end;
 }
 
 .navbar .nav-icon {
-  width: 24px; 
-  height: 24px; 
+  width: 24px;
+  height: 24px;
   fill: var(--white);
 }
 
 .active-icon .nav-icon {
-  fill: var(--black); 
+  fill: var(--black);
 }
 
- .navbar .cracker {
-  fill: var(--white); 
+.navbar .cracker {
+  fill: var(--white);
 }
 
 .logo-resize {
   width: 150px;
   height: auto;
+  padding-left: 16px;
 }
 
 .react-datepicker {
@@ -521,8 +337,9 @@
   color: #333;
   box-shadow: none;
   outline: none;
+
   &::placeholder {
-     color: #999;
+    color: #999;
   }
 }
 
@@ -530,17 +347,21 @@
   border: 1px solid var(--dark-gray);
 }
 
+.react-datepicker__input-container input:disabled {
+  border: 1px solid var(--light-gray);
+  color: var(--light-gray);
+}
+
 .social-icon {
-  width: 24px; 
+  width: 24px;
   height: 24px;
-  object-fit: contain; 
+  object-fit: contain;
 }
 
 .social-links-container {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   margin-right: auto;
   gap: 10px;
   margin-top: 10px;
 }
-

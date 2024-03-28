@@ -8,6 +8,12 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CheckBox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
+import Divider from "../components/card/Divider.tsx";
+import Card from "../components/card/Card.tsx";
+import CardRow from "../components/card/CardRow.tsx";
+import CardText from "../components/card/CardText.tsx";
+import Column from "../components/card/Column.tsx";
+import CardList from "../components/card/CardList.tsx";
 
 const enabledText = "#212121";
 const disabledText = "#e4e3e3";
@@ -86,44 +92,48 @@ const EditExercises: React.FC = () => {
     const getCardItemComponent = (key: string, exercise: any, index: number) => {
         return (
             <div key={key}>
-                <div className="card-item">
-                    <div>
-                        <CheckBox
-                            name={"checkbox" + exercise.id.toString()}
-                            defaultChecked={exercise.isEnabled}
-                            onChange={() => handleCheckboxChange(index)} />
-                    </div>
-                    <div className="card-text">
-                        <Typography component="h4" variant="inherit" color={checkboxStates[index] ? enabledText : disabledText}>{`${exercise.name}: `}</Typography>
-                    </div>
+                <CardRow>
+                    <CheckBox
+                        name={"checkbox" + exercise.id.toString()}
+                        defaultChecked={exercise.isEnabled}
+                        onChange={() => handleCheckboxChange(index)} />
+                    <Typography component="h4" variant="inherit" color={checkboxStates[index] ? enabledText : disabledText} style={{ marginLeft: "16px" }}>{`${exercise.name}: `}</Typography>
                     <div className="card-button">
-                        {exercise.values.time && (
-                            <TextField
-                                type="number"
-                                variant="standard"
-                                name={"time" + exercise.id.toString()}
-                                label={`Time (s): ${exercise.values.time}`}
-                                placeholder={exercise.values.time.toString()}
-                                inputProps={{ min: "0", step: "1" }}
-                                sx={{ marginRight: '16px', maxWidth: '160px' }}
-                                disabled={!checkboxStates[index]}
-                            />
-                        )}
-                        {exercise.values.reps && (
-                            <TextField
-                                type="number"
-                                variant="standard"
-                                name={"reps" + exercise.id.toString()}
-                                label={`Reps: ${exercise.values.reps}`}
-                                placeholder={exercise.values.reps.toString()}
-                                inputProps={{ min: "0", step: "1" }}
-                                sx={{ marginRight: '16px', maxWidth: '160px' }}
-                                disabled={!checkboxStates[index]}
-                            />
-                        )}
+                        <CardList>
+                            <div>
+                                {exercise.values.time && (
+                                    <TextField
+                                        type="number"
+                                        variant="standard"
+                                        name={"time" + exercise.id.toString()}
+                                        label={`Time (s): ${exercise.values.time}`}
+                                        placeholder={exercise.values.time.toString()}
+                                        inputProps={{ min: "0", step: "1" }}
+                                        sx={{ marginRight: '16px', maxWidth: '160px' }}
+                                        disabled={!checkboxStates[index]}
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {exercise.values.reps && (
+                                    <TextField
+                                        type="number"
+                                        variant="standard"
+                                        name={"reps" + exercise.id.toString()}
+                                        label={`Reps: ${exercise.values.reps}`}
+                                        placeholder={exercise.values.reps.toString()}
+                                        inputProps={{ min: "0", step: "1" }}
+                                        sx={{ marginRight: '16px', maxWidth: '160px' }}
+                                        disabled={!checkboxStates[index]}
+                                    />
+                                )}
+                            </div>
+
+                        </CardList>
+
                     </div>
-                </div>
-                {exercise.id !== 10 && exercise.id !== 19 && <div className="divider" />}
+                </CardRow>
+                {exercise.id !== 10 && exercise.id !== 19 && <Divider />}
             </div>
         );
     }
@@ -132,46 +142,33 @@ const EditExercises: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <form onSubmit={handleSubmit}>
-                <div className="card">
-                    <div className="card-item">
-                        <div className="card-text">
-                            You have the ability to change any values and enable or disable any items
-                        </div>
+                <Card>
+                    <CardRow>
+                        <CardText type="body" text="You have the ability to change any values and enable or disable any items" />
                         <div className="card-button">
-                            <Button type="submit" variant="contained" color="primary">Submit</Button>
+                            <Button variant="contained" color="primary" onClick={() => navigate("/exercises")}>Information Page</Button>
+                            <Button type="submit" variant="contained" color="primary">Save Changes</Button>
                         </div>
-                    </div>
-                </div>
-                <div className="card-columns">
-                    <div className="card-column">
-                        <div className="card">
-                            <div className="card-list">
-                                {Object.keys(exerciseData).map((key, index) => {
-                                    const exercise = exerciseData[key];
-                                    if (exercise.id <= 10) {
-                                        return getCardItemComponent(key, exercise, index)
-                                    } else {
-                                        return null;
-                                    }
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card-column">
-                        <div className="card">
-                            <div className="card-list">
-                                {Object.keys(exerciseData).map((key, index) => {
-                                    const exercise = exerciseData[key];
-                                    if (exercise.id > 10) {
-                                        return getCardItemComponent(key, exercise, index)
-                                    } else {
-                                        return null;
-                                    }
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </CardRow>
+                </Card>
+                <Column>
+                    <Card>
+                        <CardList>
+                            {Object.keys(exerciseData).map((key, index) => {
+                                const exercise = exerciseData[key];
+                                return exercise.id <= 10 ? getCardItemComponent(key, exercise, index) : null;
+                            })}
+                        </CardList>
+                    </Card>
+                    <Card>
+                        <CardList>
+                            {Object.keys(exerciseData).map((key, index) => {
+                                const exercise = exerciseData[key];
+                                return exercise.id > 10 ? getCardItemComponent(key, exercise, index) : null;
+                            })}
+                        </CardList>
+                    </Card>
+                </Column>
             </form>
         </React.Fragment>
     )
