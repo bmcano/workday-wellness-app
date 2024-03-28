@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css'; // API FOR NOTIFICATIONS
 import Drawer from "@mui/material/Drawer";
 import { Button } from "@mui/material";
 import CardText from "./card/CardText.tsx";
+import NotificationCard from "./card/NotificationCard.tsx";
+import Divider from "./card/Divider.tsx";
 
 const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
 
@@ -17,9 +19,32 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
 
     return (
         <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
-            <div className="box-card">
-                <CardText type="header" text="Notifications Drawer" />
+            <div className="drawer-header">
+                <CardText type="header" text="Notifications" />
+                <Divider />
             </div>
+            {/* This will eventually be a list of notification it gathers from the DB */}
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
+            <NotificationCard>
+                <CardText type="header" text="Notification 1" />
+            </NotificationCard>
             <Button onClick={handleDrawerClose} color="primary">Close</Button>
         </Drawer>
     )

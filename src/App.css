@@ -139,6 +139,10 @@
   margin-left: 32px;
 }
 
+.drawer-header {
+  text-align: center;
+}
+
 .form-row {
   display: flex;
   justify-content: left;

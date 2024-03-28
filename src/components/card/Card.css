@@ -36,6 +36,17 @@
     border: 1px solid var(--khaki);
 }
 
+.notification-card {
+    border-radius: 8px;
+    padding: 16px;
+    padding-bottom: 16px;
+    margin-top: 16px;
+    margin-right: 32px;
+    margin-left: 32px;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+}
+
 .card-list {
     list-style: none;
     padding: 0;
@@ -69,8 +80,6 @@
 .card-table-row {
     display: flex;
     justify-content: space-between;
-    align-items: left;
-
 }
 
 .card-table-row-highlighted {
