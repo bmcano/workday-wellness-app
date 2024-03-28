@@ -7,7 +7,6 @@ import ForgotPassword from './pages/ForgotPassword.tsx';
 import EditProfile from './pages/EditProfile.tsx';
 import Friends from './pages/Friends.tsx';
 import UserProfile from './pages/UserProfile.tsx';
-import Notification from './pages/Notifications.tsx';
 import Calendar from './pages/Calendar.tsx';
 import Settings from './pages/Settings.tsx';
 import Exercises from './pages/Exercises.tsx';
@@ -48,7 +47,6 @@ const App = () => {
           <Route path="/profile/friends" exact element={<Friends />} />
           <Route path="/user/search/:id" element={<UserProfile />} />
           <Route path="/user/search" element={<UserSearch />} />
-          <Route path="/notifications" exact element={<Notification />} />
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />

@@ -9,6 +9,11 @@ import { formatDateforDatabase } from '../../util/dateUtils.ts';
 import { getExerciseMenuList } from '../../util/getExerciseMenuList.ts';
 import { customModalStyle, dividerMargin, marginTLR } from './modalStyles.ts';
 import { AddEventModalProps } from './OpenSaveCloseModalProps.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
+import CardText from '../card/CardText.tsx';
+import CardList from '../card/CardList.tsx';
+import CardRow from '../card/CardRow.tsx';
 
 const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }) => {
     const [selectedItem, setSelectedItem] = useState('');
@@ -45,10 +50,10 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             contentLabel="Add Event Modal"
             style={customModalStyle}
         >
-            <div className='card'>
-                <div className='card-list'>
-                    <p className="card-header-text">Add Event</p>
-                    <div className='card-item'>
+            <Card>
+                <CardList>
+                    <CardText type="header" text="Add Event" style={{ marginLeft: '16px' }} />
+                    <CardRow>
                         <FormControl fullWidth style={{ marginLeft: '16px', marginRight: '16px' }}>
                             <InputLabel id="select-item-label">Select Item</InputLabel>
                             <Select
@@ -65,16 +70,16 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                                 ))}
                             </Select>
                         </FormControl>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-title-text' style={{ marginLeft: "16px" }}>Date and time:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-text'>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <CardText type="title" text="Date and time:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <div className='first-item-row'>
                             <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} showTimeSelect dateFormat="Pp" />
                         </div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
+                    </CardRow>
+                    <CardRow style={marginTLR}>
                         <FormControl fullWidth style={{ marginTop: '16px' }}>
                             <InputLabel id="select-item-label">Reccurrence</InputLabel>
                             <Select
@@ -90,24 +95,24 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                                 <MenuItem value="weekly">Weekly</MenuItem>
                             </Select>
                         </FormControl>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className="card-title-text" style={{ marginLeft: "16px" }}>End date:</div>
-                    </div>
-                    <div className='card-item' style={marginTLR}>
-                        <div className='card-text'>
-                            <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" />
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <CardText type="title" text="End date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
+                    </CardRow>
+                    <CardRow style={marginTLR}>
+                        <div className='first-item-row'>
+                            <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" disabled={!recurrencePattern}/>
                         </div>
-                    </div>
-                    <div className='divider' style={dividerMargin} />
-                    <div className='card-item' style={{ marginTop: '16px' }}>
+                    </CardRow>
+                    <Divider style={dividerMargin} />
+                    <CardRow style={{ marginTop: '16px' }}>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Save</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </CardRow>
+                </CardList>
+            </Card>
         </Modal>
     );
 };

@@ -6,6 +6,11 @@ import Button from '@mui/material/Button';
 import { Friend } from '../types/Friend';
 import ProfilePicture from './ProfilePicture.tsx';
 import DefaultProfile from './DefaultProfile.tsx';
+import Divider from './card/Divider.tsx';
+import Card from './card/Card.tsx';
+import CardList from './card/CardList.tsx';
+import CardRow from './card/CardRow.tsx';
+import CardText from './card/CardText.tsx';
 
 const UserSearchList = ({ userList }) => {
 
@@ -24,19 +29,27 @@ const UserSearchList = ({ userList }) => {
             <div className="box-card">
                 <TextField label="Search" variant="outlined" value={searchTerm} onChange={handleSearch} fullWidth />
             </div>
-            <div className="card">
-                <ul className="card-list">
-                    {filteredFriendsList.map((friend, index) => (
-                        <><li key={index} className="card-item">
-                            <ProfilePicture isUserProfile={false} base64Img={friend.profile_picture === "" ? DefaultProfile : friend.profile_picture} isSmallScreen={true} />
-                            <div className="card-text">{`${friend.first_name} ${friend.last_name}`}</div>
-                            <div className='card-button'>
-                                <Button variant="contained" color="primary" onClick={() => navigate(`/user/search/${friend.id}`)}>View Profile</Button>
-                            </div>
-                        </li>{index < filteredFriendsList.length - 1 && <div className="divider"></div>}</>
+            <Card>
+                <CardList>
+                    {filteredFriendsList.length === 0 && <CardText type="body" text="No users match your search." />}
+                    {filteredFriendsList.length !== 0 && filteredFriendsList.map((friend, index) => (
+                        <div key={index}>
+                            <CardRow>
+                                <ProfilePicture isUserProfile={false} base64Img={friend.profile_picture === "" ? DefaultProfile : friend.profile_picture} isSmallScreen={true} />
+                                <CardText type="body" text={`${friend.first_name} ${friend.last_name}`} />
+                                <div className='card-button'>
+                                    <CardRow>
+                                        { friend.isFriend && <CardText type="body" text="Friends" />}
+                                        { friend.isFriend && <Divider isVertical={true} />}
+                                        <Button variant="text" color="primary" onClick={() => navigate(`/user/search/${friend.id}`)}>View Profile</Button>
+                                    </CardRow>
+                                </div>
+                            </CardRow>
+                            {index < filteredFriendsList.length - 1 && <Divider />}
+                        </div>
                     ))}
-                </ul>
-            </div>
+                </CardList>
+            </Card>
         </div>
     )
 }
