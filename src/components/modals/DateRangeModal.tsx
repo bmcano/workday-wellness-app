@@ -38,7 +38,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
         >
             <Card>
                 <CardList>
-                    <CardText type="header" text="Select Date Range" />
+                    <CardText type="header" text="Select Date Range" style={{ marginLeft: "32px" }} />
                     <CardRow style={marginTLR}>
                         <CardText type="title" text="Start date:" style={{ marginLeft: "16px", marginTop: "0px", marginBottom: "0px" }} />
                     </CardRow>

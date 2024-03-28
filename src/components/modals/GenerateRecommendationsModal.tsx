@@ -90,7 +90,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         >
             <Card>
                 <CardList>
-                    <CardText type="header" text="Generate Exercise Recommendations" style={{ marginLeft: '-16px' }} />
+                    <CardText type="header" text="Generate Exercise Recommendations" style={{ marginLeft: '16px' }} />
                     <Column>
                         <CardList style={marginTLR}>
                             <CardText type="title" text="Select intensity:" />

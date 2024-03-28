@@ -26,7 +26,7 @@ const RedirectLinkModal: React.FC<RedirectLinkModalProps> = ({ isOpen, onClose, 
         >
             <Card>
                 <CardList>
-                    <CardText type="header" text="External Link Redirect" style={{marginLeft: "-16px"}}/>
+                    <CardText type="header" text="External Link Redirect" style={{marginLeft: "16px"}}/>
                     <CardText type="body" text={`You are about to be redirected to ${link}. Please note that we are not responsible for the content or privacy practices of the site you are about to visit.`} />
                     <CardText type="body" text="Would you like to continue?" />
                     <Divider style={marginTLR} />
