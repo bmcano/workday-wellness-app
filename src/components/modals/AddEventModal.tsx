@@ -105,7 +105,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                         </div>
                     </CardRow>
                     <Divider style={dividerMargin} />
-                    <CardRow style={{ marginTop: '16px' }}>
+                    <CardRow>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Save</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
