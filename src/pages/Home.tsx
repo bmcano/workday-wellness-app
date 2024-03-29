@@ -26,7 +26,7 @@ interface UserRecord {
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-
+  const audioRef = new Audio(messageSound);
   const [name, setName] = useState("");
   const [statuses, setStatuses] = useState<string[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
