@@ -14,44 +14,18 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 const EditPrivacySettings: React.FC = () => {
     const navigate = useNavigate();
-    const [isInfoLoading, setIsInfoLoading] = useState(true);
-    const [firstName, setFirstName] = useState<string>('');
-    const [lastName, setLastName] = useState('');
-    const [birthday, setBirthday] = useState('');
-    const [about, setAbout] = useState('');
-    const [linkedinLink, setLinkedinLink] = useState('');
-
+    const [firstNamePrivate, setFirstNamePrivate] = useState(true);
+    const [lastNamePrivate, setLastNamePrivate] = useState(true);
+    const [birthdayPrivate, setBirthdayPrivate] = useState(true);
+    const [aboutPrivate, setAboutPrivate] = useState(true);
+    const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
     useEffect(() => {
         AuthorizedUser(navigate);
-
-
-
-
-
-
-
-
-
-
-        apiGet("/user")
-            .then(data => {
-                if (data.authorized) {
-                    setFirstName(data.user.first_name);
-                    setLastName(data.user.last_name);
-                    if (data.user.birthday) {
-                        setBirthday(data.user.birthday.slice(0, 10));
-                    }
-                    setAbout(data.user.about);
-                    setLinkedinLink(data.user.linkedIn_link);
-                }
-            })
-            .catch(error => console.log(error))
-            .finally(() => setIsInfoLoading(false));
     }, [navigate]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const jsonData = JSON.stringify({ first_name: firstName, last_name: lastName, birthday: birthday, about: about, linkedIn_link: linkedinLink })
+        const jsonData = JSON.stringify({ first_name: firstNamePrivate, last_name: lastNamePrivate, birthday: birthdayPrivate, about: aboutPrivate, linkedIn_link: linkedinLinkPrivate })
         apiPost('/update_profile_information', jsonData).catch((error) => console.log(error));
     };
 
@@ -64,27 +38,27 @@ const EditPrivacySettings: React.FC = () => {
                         <Card>
                             <CardText type="header" text="Profile Information" style={{ marginTop: "0px", marginBottom: "0px" }} />
                             <Divider />
-                            {!isInfoLoading && <div>
+                            {<div>
                                 <FormControlLabel
-                                    control={<Checkbox checked={!!firstName} onChange={(e) => setFirstName(e.target.checked.toString())} />}
-                                    label="First Name"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox checked={!!lastName} onChange={(e) => setLastName(e.target.checked.toString())} />}
-                                    label="Last Name"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox checked={!!birthday} onChange={(e) => setBirthday(e.target.checked.toString())} />}
-                                    label="Birthday"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox checked={!!about} onChange={(e) => setAbout(e.target.checked.toString())} />}
-                                    label="About"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox checked={!!linkedinLink} onChange={(e) => setLinkedinLink(e.target.checked.toString())} />}
-                                    label="LinkedIn Link"
-                                />
+                                control={<Checkbox checked={firstNamePrivate} onChange={(e) => setFirstNamePrivate(e.target.checked)} />}
+                                label="First Name"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={lastNamePrivate} onChange={(e) => setLastNamePrivate(e.target.checked)} />}
+                                label="Last Name"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
+                                label="Birthday"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={aboutPrivate} onChange={(e) => setAboutPrivate(e.target.checked)} />}
+                                label="About"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox checked={linkedinLinkPrivate} onChange={(e) => setLinkedinLinkPrivate(e.target.checked)} />}
+                                label="LinkedIn Link"
+                            />
                                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button></div>}
                         </Card>
                     </form>
