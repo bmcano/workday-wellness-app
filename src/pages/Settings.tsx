@@ -48,7 +48,7 @@ const Profile: React.FC = () => {
                         <LifeStatsIcon />
                         <p>Lifetime Stats</p>
                     </div>
-                    <div className="settings-option">
+                    <div className="settings-option"onClick={() => handleClick("/pages/EditPrivacySettings")}>
                         <div className="icon privacy"></div>
                         <PrivacyIcon />
                         <p>Privacy Settings</p>
