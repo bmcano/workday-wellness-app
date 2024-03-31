@@ -10,21 +10,36 @@ import CardText from "./card/CardText.tsx";
 import NotificationCard from "./card/NotificationCard.tsx";
 import Divider from "./card/Divider.tsx";
 
+interface Notification {
+    title: string,
+    body: string,
+    hasAccept: boolean,
+    acceptType: string
+}
+
 const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
 
-    const [notificationList, setNotificationList] = useState([])
+    const [notificationList, setNotificationList] = useState<Notification[]>([
+        { title: "notification 1", body: "lorem ipsum", hasAccept: false, acceptType: "none" },
+        { title: "notification 2", body: "lorem ipsum", hasAccept: false, acceptType: "none" },
+        { title: "notification 3", body: "lorem ipsum", hasAccept: true, acceptType: "none" },
+        { title: "notification 4", body: "lorem ipsum", hasAccept: true, acceptType: "none" }
+    ])
     const [open, setOpen] = useState(openDrawer);
     const handleDrawerClose = () => {
         setOpen(false);
     };
 
-    const onDismiss = () => {
-        // TODO: remove specific notification from the list of them
-        setNotificationList([]);
+    const onDismiss = (index: number) => {
+        // Filter out the dismissed notification based on its index
+        const updatedList = notificationList.filter((_, idx) => idx !== index);
+        setNotificationList(updatedList);
     }
 
-    const onAcceptExercise = () => {
+    const onAcceptExercise = (index: number) => {
         // make a DB call to user stat table to update completion, count, and poentially streak value
+
+        // onDismiss(index);
     }
 
     return (
@@ -33,15 +48,18 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                 <CardText type="header" text="Notifications" />
                 <Divider />
             </div>
-            {/* This will eventually be a list of notification it gathers from the DB */}
-            <NotificationCard
-                title="title"
-                body="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
-                onDismiss={onDismiss}
-                hasAccept={true}
-                onAccept={onAcceptExercise}
-            />
-
+            {notificationList.length === 0 && <CardText type="title" text="No notifications" style={{ width: "372px", textAlign: "center" }} />}
+            {notificationList.map((notification, index) => (
+                <NotificationCard
+                    key={index}
+                    title={notification.title}
+                    body={notification.body}
+                    onDismiss={() => onDismiss(index)}
+                    hasAccept={notification.hasAccept}
+                    onAccept={onAcceptExercise}
+                />
+            ))}
+            <Divider />
             <Button onClick={handleDrawerClose} color="primary">Close</Button>
         </Drawer>
     )
