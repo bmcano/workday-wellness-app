@@ -9,13 +9,29 @@ import { Button } from "@mui/material";
 import CardText from "./card/CardText.tsx";
 import NotificationCard from "./card/NotificationCard.tsx";
 import Divider from "./card/Divider.tsx";
+import CardRow from "./card/CardRow.tsx";
+
+
 
 const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
 
+    const [notificationList, setNotificationList] = useState([])
     const [open, setOpen] = useState(openDrawer);
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+
+    const onDismiss = () => {
+        // TODO: remove specific notification from the list of them
+        setNotificationList([]);
+    }
+
+    const onAcceptExercise = () => {
+        // make a DB call to user stat table to update completion, count, and poentially streak value
+    }
+
+
 
     return (
         <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
@@ -24,27 +40,14 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                 <Divider />
             </div>
             {/* This will eventually be a list of notification it gathers from the DB */}
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
-            <NotificationCard>
-                <CardText type="header" text="Notification 1" />
-            </NotificationCard>
+            <NotificationCard
+                title="title"
+                body="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
+                onDismiss={onDismiss}
+                hasAccept={true}
+                onAccept={onAcceptExercise}
+                />
+
             <Button onClick={handleDrawerClose} color="primary">Close</Button>
         </Drawer>
     )
