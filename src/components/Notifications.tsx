@@ -9,9 +9,6 @@ import { Button } from "@mui/material";
 import CardText from "./card/CardText.tsx";
 import NotificationCard from "./card/NotificationCard.tsx";
 import Divider from "./card/Divider.tsx";
-import CardRow from "./card/CardRow.tsx";
-
-
 
 const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
 
@@ -21,7 +18,6 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
         setOpen(false);
     };
 
-
     const onDismiss = () => {
         // TODO: remove specific notification from the list of them
         setNotificationList([]);
@@ -30,8 +26,6 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
     const onAcceptExercise = () => {
         // make a DB call to user stat table to update completion, count, and poentially streak value
     }
-
-
 
     return (
         <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
@@ -46,7 +40,7 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                 onDismiss={onDismiss}
                 hasAccept={true}
                 onAccept={onAcceptExercise}
-                />
+            />
 
             <Button onClick={handleDrawerClose} color="primary">Close</Button>
         </Drawer>

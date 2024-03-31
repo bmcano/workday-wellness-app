@@ -4,6 +4,7 @@ import exercises from '../stub_data/exercises/exercises_00.json' assert { type: 
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import StatisticsModel from '../models/Statistics.js';
+import NotificationsModel from '../models/Notifications.js';
 dotenv.config();
 
 /**
@@ -93,7 +94,14 @@ export const registerAccount = async (req, res) => {
         let stat_result = await statistics.save();
         stat_result = stat_result.toObject();
 
-        if (result && stat_result) {
+        const notifications = new NotificationsModel({
+            email: email,
+            notifications: []
+        })
+        let notification_result = await notifications.save();
+        notification_result = notification_result.toObject();
+
+        if (result && stat_result && notification_result) {
             console.log(result); // will eventually remove
             return res.json({ success: true, message: "Account successfully created." });
         } else {
