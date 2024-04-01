@@ -2,6 +2,7 @@ import UserModel from '../models/Users.js';
 import { getUserInformation } from './sessionController.js';
 import { createNotification } from '../services/notificationService.js';
 import NotificationsModel from '../models/Notifications.js';
+import StatisticsModel from '../models/Statistics.js';
 
 /**
  * GET:
@@ -66,7 +67,24 @@ export const getTodaysEvents = async (req, res) => {
 }
 
 export const updateExerciseStats = async (req, res) => {
-
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const stats = await StatisticsModel.findOne({ email: data.email });
+            // update amount and completed part
+            stats.completed.amount = stats.completed.amount + 1;
+            stats.completed.exercises.push({ exercise: req.body.exercise, timestamp: new Date()});
+            // TODO: update streak value
+            await stats.save();
+            return res.json({ authorized: true });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false });
+    }
 }
 
 export const updateFriendsList = async (req, res) => {

@@ -42,14 +42,14 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
     const onDismiss = (index: number) => {
         // Filter out the dismissed notification based on its index
         const updatedList = notificationList.filter((_, idx) => idx !== index);
-        setNotificationList(updatedList);
         const jsonData = JSON.stringify({ _id: notificationList[index]._id });
+        setNotificationList(updatedList);
         apiPost("/dismiss_notification", jsonData).catch((error) => console.log(error));
     }
 
     const onAcceptExercise = (index: number) => {
-        // make a DB call to user stat table to update completion, count, and poentially streak value
-
+        const jsonData = JSON.stringify({ exercise: notificationList[index].title })
+        apiPost("/notification_exercise_update", jsonData).catch((error) => console.log(error));
         onDismiss(index);
     }
 
@@ -67,7 +67,7 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                     body={notification.message}
                     onDismiss={() => onDismiss(index)}
                     hasAccept={notification.hasAccept}
-                    onAccept={onAcceptExercise}
+                    onAccept={() => onAcceptExercise(index)}
                 />
             ))}
             <Divider />

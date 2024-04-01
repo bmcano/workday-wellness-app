@@ -11,7 +11,3 @@ export const createNotification = async (userId, email, title, message, hasAccep
     });
     await notification.save();
 };
-
-export const getNotificationsByUserId = async (userId) => {
-    return NotificationsModel.find({ userId, isRead: false }).lean();
-};

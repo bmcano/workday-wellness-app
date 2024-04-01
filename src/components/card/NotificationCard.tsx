@@ -18,10 +18,10 @@ const NotificationCard = ({ title, body, onDismiss, hasAccept, onAccept }) => {
             <CardRow>
                 <div className='card-button'>
                     <Button onClick={onDismiss}>
-                        <XStateFarm alt="Dismiss" />
+                        <XStateFarm />
                     </Button>
                     {hasAccept && <Button onClick={onAccept}>
-                        <Check alt="Accept" />
+                        <Check />
                     </Button>}
                 </div>
             </CardRow>
