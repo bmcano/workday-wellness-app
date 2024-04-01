@@ -74,8 +74,19 @@ export const updateExerciseStats = async (req, res) => {
             const stats = await StatisticsModel.findOne({ email: data.email });
             // update amount and completed part
             stats.completed.amount = stats.completed.amount + 1;
-            stats.completed.exercises.push({ exercise: req.body.exercise, timestamp: new Date()});
-            // TODO: update streak value
+            stats.completed.exercises.push({ exercise: req.body.exercise, timestamp: new Date() });
+            // check streak
+            const lastCompleted = stats.lastCompleted;
+            const today = new Date();
+            const isSameDay = lastCompleted && lastCompleted.getFullYear() === today.getFullYear() &&
+                lastCompleted.getMonth() === today.getMonth() &&
+                lastCompleted.getDate() === today.getDate();
+
+            if (!isSameDay) {
+                stats.streak += 1;
+            }
+
+            stats.lastCompleted = new Date();
             await stats.save();
             return res.json({ authorized: true });
         } else {
