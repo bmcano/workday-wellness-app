@@ -30,6 +30,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             title: selectedItem,
             start: formatDateforDatabase(startDate),
             end: formatDateforDatabase(end),
+            isExercise: true,
             recurrence: recurrencePattern,
             endRecurrene: formatDateforDatabase(endDate)
         };

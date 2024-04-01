@@ -28,7 +28,8 @@ export const distributeEvents = (freeTimeSlots: TimeSlots[], eventNames: Array<s
         const eventData = {
             title: eventName,
             start: startTime,
-            end: end
+            end: end,
+            isExercise: true,
         };
         result.push(eventData);
         const newStartTime = new Date(startTime);

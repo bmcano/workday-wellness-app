@@ -94,14 +94,7 @@ export const registerAccount = async (req, res) => {
         let stat_result = await statistics.save();
         stat_result = stat_result.toObject();
 
-        const notifications = new NotificationsModel({
-            email: email,
-            notifications: []
-        })
-        let notification_result = await notifications.save();
-        notification_result = notification_result.toObject();
-
-        if (result && stat_result && notification_result) {
+        if (result && stat_result) {
             console.log(result); // will eventually remove
             return res.json({ success: true, message: "Account successfully created." });
         } else {

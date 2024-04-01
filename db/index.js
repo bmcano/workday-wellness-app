@@ -8,7 +8,7 @@ import { checkSession, login, registerAccount } from './controllers/sessionContr
 import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken, updateProfileInformation, updateScheduleInformation, getScheduleInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
-import { dismissNotification, getNotifications, updateExerciseStats, updateFriendsList } from './controllers/notificationsController.js';
+import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, updateFriendsList } from './controllers/notificationsController.js';
 
 /**
  * Server setup
@@ -67,6 +67,7 @@ app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeader
 app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
 // see ./controllers/notificaationsController.js for more details
 app.get('/notifications' , async (req, res) => getNotifications(req, res));
+app.get('/todays_events', async (req, res) => getTodaysEvents(req, res));
 app.post('/notification_exercise_update' , async (req, res) => updateExerciseStats(req, res));
 app.post('/notification_friend_update' , async (req, res) => updateFriendsList(req, res));
 app.post('/dismiss_notification', async (req, res) => dismissNotification(req, res));
