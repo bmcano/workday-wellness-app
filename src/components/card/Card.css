@@ -37,14 +37,28 @@
 }
 
 .notification-card {
+    width: 372px;
     border-radius: 8px;
     padding: 16px;
     padding-bottom: 16px;
-    margin-top: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     margin-right: 32px;
     margin-left: 32px;
     background-color: var(--white);
     border: 1px solid var(--light-gray);
+}
+
+.notification-card:hover {
+    border-radius: 8px;
+    padding: 16px;
+    padding-bottom: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 32px;
+    margin-left: 32px;
+    background-color: var(--khaki);
+    border: 1px solid var(--khaki);
 }
 
 .card-list {
