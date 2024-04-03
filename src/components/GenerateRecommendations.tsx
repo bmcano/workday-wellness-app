@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import GenerateRecommendationsModal from './modals/GenerateRecommendationsModal.tsx';
+import Card from './card/Card.tsx';
+import CardRow from './card/CardRow.tsx';
+import CardText from './card/CardText.tsx';
 
 const GenerateRecommendations: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,15 +24,15 @@ const GenerateRecommendations: React.FC = () => {
     };
 
     return (
-        <div className="timer-card">
-            <div className="card-item">
-                <div className="card-inside-header-text">Don't have any exercises?</div>
+        <Card isHighlighted={true}>
+            <CardRow>
+                <CardText type="header" text="Don't have any exercises?" style={{ marginTop: "0px", marginBottom: "0px" }}/>
                 <div className="card-button">
                     <Button variant="text" color="primary" onClick={handleOpenModal}>Generate Recommendations</Button>
                     <GenerateRecommendationsModal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveEvent} />
                 </div>
-            </div>
-        </div>
+            </CardRow>
+        </Card>
     );
 }
 

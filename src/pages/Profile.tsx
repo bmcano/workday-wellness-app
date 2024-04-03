@@ -2,10 +2,10 @@ import "../App.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
-// @ts-ignore
-import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { apiGet } from '../api/serverApiCalls.tsx';
+import ProfilePicture from "../components/ProfilePicture.tsx";
+import Divider from "../components/card/Divider.tsx";
 
 const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
 
@@ -24,10 +24,11 @@ const Profile: React.FC = () => {
       .then(data => {
         if (data.authorized) {
           setName(`${data.user.first_name} ${data.user.last_name}`);
-          // TODO - add DB items
-          setJoinDate("January 1st, 2024" as unknown as Date);
-          setLinkedIn("https://www.linkedin.com/in/brandon-cano/");
-          setAbout("I am a software engineer");
+          setJoinDate(data.user.join_date);
+          setLinkedIn(data.user.linkedIn_link);
+          if (data.user.about !== "") {
+            setAbout(data.user.about);
+          }
         }
       })
       .catch(error => console.log(error))
@@ -55,36 +56,32 @@ const Profile: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card-columns">
-        <div className="card-column">
-          <div className="card card-span-4">
-            <div className="profile-content-container">
-              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
-                <img src={pfpImage} alt="Profile" />
-                <div className="edit-overlay">Edit</div>
-              </div>
-              <div className="profile-text-container">
-                <h1>{name}</h1>
-                <p>Joined on {joinDate.toString()}</p>
-                <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
-              </div>
-            </div>
-            <div className="card-header">
-              {TABS.map((tab) => (
-                <button
-                  key={tab}
-                  className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-            <div className="divider" />
-            <div className="card-content">
-              {renderTabContent()}
-            </div>
+      <div className="card card-span-4">
+        <div className="profile-content-container">
+          <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
+            <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
+            <div className="edit-overlay">Edit</div>
           </div>
+          <div className="profile-text-container">
+            <h1>{name}</h1>
+            <p>Joined on {joinDate as unknown as string}</p>
+            <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
+          </div>
+        </div>
+        <div className="card-header">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+              onClick={() => handleTabClick(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <Divider />
+        <div className="card-content">
+          {renderTabContent()}
         </div>
       </div>
     </React.Fragment>

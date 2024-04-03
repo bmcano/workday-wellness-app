@@ -9,12 +9,14 @@
     "email": "alice@example.com",
     "full_name": "Alice Jones",
     "streak": 1,
+    "lastCompleted": "2024-03-30T19:02:36.881+00:00",
     "completed": "..\\db\\stub_data\\statistics\\statistics_01.json"
   },
   {
     "email": "bob@example.com",
     "full_name": "Bob Smith",
     "streak": 5,
+    "lastCompleted": "2024-03-31T19:02:36.881+00:00",
     "completed": "..\\db\\stub_data\\statistics\\statistics_02.json"
   },
   {

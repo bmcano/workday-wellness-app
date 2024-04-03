@@ -3,6 +3,11 @@ import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
 import AddEventModal from './modals/AddEventModal.tsx';
 import { isEventOccuringNow } from '../util/dateUtils.ts';
+import Divider from './card/Divider.tsx';
+import Card from './card/Card.tsx';
+import CardRow from './card/CardRow.tsx';
+import CardList from './card/CardList.tsx';
+import CardText from './card/CardText.tsx';
 
 interface Props {
     events: EventInput[];
@@ -18,15 +23,15 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
     useEffect(() => {
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
         setUpcomingEvents(updatedEvents);
-        
+
         const intervalId = setInterval(() => {
             const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
             setUpcomingEvents(updatedEvents);
         }, 1000 * 60); // checks the event time every minute to update highlighting
-    
+
         return () => clearInterval(intervalId);
     }, [events, todayDate]);
-    
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -42,36 +47,36 @@ const UpcomingEvents: React.FC<Props> = ({ events }) => {
     };
 
     return (
-        <div className="card">
-            <div className="card-item">
-                <div className="card-inside-header-text">Upcoming Events for Today</div>
+        <Card>
+            <CardRow>
+                <CardText type="header" text="Upcoming Events for Today" style={{ marginTop: "0px", marginBottom: "0px" }} />
                 <div className="card-button">
                     <Button variant="text" color="primary" onClick={handleOpenModal}>Add Event</Button>
                     <AddEventModal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveEvent} />
                 </div>
-            </div>
-            <div className="divider" />
-            <div className="card-list">
+            </CardRow>
+            <Divider />
+            <CardList>
                 {upcomingEvents.length === 0 ? (
-                    <div className="card-item">
-                        <p className="card-text">No events scheduled for today</p>
-                    </div>
+                    <CardRow>
+                        <CardText type="body" text="No events scheduled for today." />
+                    </CardRow>
                 ) : (
                     upcomingEvents.map((event, index) => (
                         <div key={index}>
-                            <li className="card-item">
-                                <div className={isEventOccuringNow(event.start as Date, event.end as Date) ? "card-list-highlighted" : "card-list"}>
-                                    <p className="card-title-text">{event.title}:</p>
-                                    <p className="card-text">Start: {new Date(event.start as Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                    <p className="card-text">End: {new Date(event.end as Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                </div>
-                            </li>
-                            {index < upcomingEvents.length - 1 && <div className="divider" />}
+                            <CardRow>
+                                <CardList isHighlighted={isEventOccuringNow(event.start as Date, event.end as Date)}>
+                                    <CardText type="title" text={`${event.title}:`} style={{marginTop: "8px"}}/>
+                                    <CardText type="body" text={`Start: ${new Date(event.start as Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`} style={{ marginTop: "-16px" }} />
+                                    <CardText type="body" text={`End: ${new Date(event.end as Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`} style={{ marginTop: "-16px" }} />
+                                </CardList>
+                            </CardRow>
+                            {index < upcomingEvents.length - 1 && <Divider />}
                         </div>
                     ))
                 )}
-            </div>
-        </div>
+            </CardList>
+        </Card>
     );
 };
 

@@ -7,7 +7,6 @@ import ForgotPassword from './pages/ForgotPassword.tsx';
 import EditProfile from './pages/EditProfile.tsx';
 import Friends from './pages/Friends.tsx';
 import UserProfile from './pages/UserProfile.tsx';
-import Notification from './pages/Notifications.tsx';
 import Calendar from './pages/Calendar.tsx';
 import Settings from './pages/Settings.tsx';
 import Exercises from './pages/Exercises.tsx';
@@ -19,6 +18,7 @@ import UserSearch from './pages/UserSearch.tsx';
 import AboutPage from './pages/About.tsx';
 import ResetPassword from './pages/ResetPassword.tsx';
 import Leaderboard from './pages/Leaderboard.tsx';
+import Privacy from './pages/EditPrivacySettings.tsx';
 
 const App = () => {
 
@@ -45,10 +45,10 @@ const App = () => {
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
+          <Route path="/profile/privacy" exact element={<Privacy />} />
           <Route path="/profile/friends" exact element={<Friends />} />
           <Route path="/user/search/:id" element={<UserProfile />} />
           <Route path="/user/search" element={<UserSearch />} />
-          <Route path="/notifications" exact element={<Notification />} />
           <Route path="/calendar" exact element={<Calendar />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/exercises" exact element={<Exercises />} />
