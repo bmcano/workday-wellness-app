@@ -83,10 +83,24 @@ export const updateExerciseStats = async (req, res) => {
                 lastCompleted.getDate() === today.getDate();
 
             if (!isSameDay) {
-                stats.streak += 1;
+                // If last completed is not today, check for missed days
+                const sortedExercises = stats.completed.exercises.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                let streak = 0;
+                for (let i = 0; i < sortedExercises.length - 1; i++) {
+                    const current = new Date(sortedExercises[i].timestamp);
+                    const next = new Date(sortedExercises[i + 1].timestamp);
+                    const timeDiff = next.getTime() - current.getTime();
+                    const daysDiff = timeDiff / (1000 * 3600 * 24);
+                    if (daysDiff > 1.5) {
+                        // reset streak if there's a gap larger than 36 hours
+                        streak = 0;
+                        break;
+                    }
+                    streak++;
+                }
+                stats.streak = streak + 1;
+                stats.lastCompleted = new Date();
             }
-
-            stats.lastCompleted = new Date();
             await stats.save();
             return res.json({ authorized: true });
         } else {
