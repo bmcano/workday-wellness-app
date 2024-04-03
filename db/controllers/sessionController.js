@@ -4,7 +4,6 @@ import exercises from '../stub_data/exercises/exercises_00.json' assert { type: 
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import StatisticsModel from '../models/Statistics.js';
-import NotificationsModel from '../models/Notifications.js';
 dotenv.config();
 
 /**
