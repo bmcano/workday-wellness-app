@@ -31,7 +31,10 @@ export const updatePrivacySettings = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            const privacy = await PrivacyModel.findOne({ _id: data._id });
+            let privacy = await PrivacyModel.findOne({ _id: data._id });
+            if (!privacy) {
+                privacy = new PrivacyModel({ _id: data._id });
+            }
             privacy.publicProfile = req.body.publicProfile;
             privacy.birthdayPrivate = req.body.birthdayPrivate;
             privacy.aboutPrivate = req.body.aboutPrivate;
