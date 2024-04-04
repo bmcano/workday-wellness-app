@@ -14,8 +14,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 const EditPrivacySettings: React.FC = () => {
     const navigate = useNavigate();
-    const [firstNamePrivate, setFirstNamePrivate] = useState(true);
-    const [lastNamePrivate, setLastNamePrivate] = useState(true);
+    const [publicProfile, setPublicProfile] = useState(true);
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
@@ -25,7 +24,7 @@ const EditPrivacySettings: React.FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const jsonData = JSON.stringify({ first_name: firstNamePrivate, last_name: lastNamePrivate, birthday: birthdayPrivate, about: aboutPrivate, linkedIn_link: linkedinLinkPrivate })
+        const jsonData = JSON.stringify({ publicProfile: setPublicProfile, birthday: birthdayPrivate, about: aboutPrivate, linkedIn_link: linkedinLinkPrivate })
         apiPost('/update_profile_information', jsonData).catch((error) => console.log(error));
     };
 
@@ -40,12 +39,8 @@ const EditPrivacySettings: React.FC = () => {
                             <Divider />
                             {<div>
                                 <FormControlLabel
-                                control={<Checkbox checked={firstNamePrivate} onChange={(e) => setFirstNamePrivate(e.target.checked)} />}
+                                control={<Checkbox checked={publicProfile} onChange={(e) => setPublicProfile(e.target.checked)} />}
                                 label="First Name"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={lastNamePrivate} onChange={(e) => setLastNamePrivate(e.target.checked)} />}
-                                label="Last Name"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
