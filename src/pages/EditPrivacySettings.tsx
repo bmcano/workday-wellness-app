@@ -18,7 +18,7 @@ const EditPrivacySettings: React.FC = () => {
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
-    
+
     useEffect(() => {
         AuthorizedUser(navigate);
         apiGet('/privacy').then((response) => {
@@ -47,19 +47,19 @@ const EditPrivacySettings: React.FC = () => {
                             {<div>
                                 <FormControlLabel
                                 control={<Checkbox checked={publicProfile} onChange={(e) => setPublicProfile(e.target.checked)} />}
-                                label="First Name"
+                                label="Public Profile"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
-                                label="Birthday"
+                                label="Birthday Private"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={aboutPrivate} onChange={(e) => setAboutPrivate(e.target.checked)} />}
-                                label="About"
+                                label="About Private"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={linkedinLinkPrivate} onChange={(e) => setLinkedinLinkPrivate(e.target.checked)} />}
-                                label="LinkedIn Link"
+                                label="LinkedIn Link Private"
                             />
                                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button></div>}
                         </Card>
