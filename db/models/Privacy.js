@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const PrivacySchema = new mongoose.Schema({
+const PrivacySchema = new Schema({
     publicProfile: { type: Boolean, default: true },
     birthdayPrivate: { type: Boolean, default: true },
     aboutPrivate: { type: Boolean, default: true },
     linkedinLinkPrivate: { type: Boolean, default: true },
 });
 
-module.exports = mongoose.model('Privacy', PrivacySchema);
+const PrivacyModel = model('Privacy', PrivacySchema);
+export default PrivacyModel;
