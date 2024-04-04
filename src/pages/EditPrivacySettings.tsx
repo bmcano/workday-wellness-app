@@ -24,8 +24,8 @@ const EditPrivacySettings: React.FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const jsonData = JSON.stringify({ publicProfile: setPublicProfile, birthday: birthdayPrivate, about: aboutPrivate, linkedIn_link: linkedinLinkPrivate })
-        apiPost('/update_profile_information', jsonData).catch((error) => console.log(error));
+        const jsonData = JSON.stringify({ publicProfile: publicProfile, birthdayPrivate: birthdayPrivate, aboutPrivate: aboutPrivate, linkedinLinkPrivate: linkedinLinkPrivate })
+        apiPost('/update_privacy', jsonData).catch((error) => console.log(error));
     };
 
     return (
