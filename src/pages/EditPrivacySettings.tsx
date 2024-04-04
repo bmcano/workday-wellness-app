@@ -18,8 +18,15 @@ const EditPrivacySettings: React.FC = () => {
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
+    
     useEffect(() => {
         AuthorizedUser(navigate);
+        apiGet('/privacy').then((response) => {
+            setPublicProfile(response.data.privacySettings.publicProfile);
+            setBirthdayPrivate(response.data.privacySettings.birthdayPrivate);
+            setAboutPrivate(response.data.privacySettings.aboutPrivate);
+            setLinkedinLinkPrivate(response.data.privacySettings.linkedinLinkPrivate);
+        }).catch((error) => console.log(error));
     }, [navigate]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
