@@ -22,17 +22,21 @@ const EditPrivacySettings: React.FC = () => {
     useEffect(() => {
         AuthorizedUser(navigate);
         apiGet('/privacy').then((response) => {
-            setPublicProfile(response.data.privacySettings.publicProfile);
-            setBirthdayPrivate(response.data.privacySettings.birthdayPrivate);
-            setAboutPrivate(response.data.privacySettings.aboutPrivate);
-            setLinkedinLinkPrivate(response.data.privacySettings.linkedinLinkPrivate);
+            setPublicProfile(response.data.user.publicProfile);
+            setBirthdayPrivate(response.data.user.birthdayPrivate);
+            setAboutPrivate(response.data.user.aboutPrivate);
+            setLinkedinLinkPrivate(response.data.user.linkedinLinkPrivate);
         }).catch((error) => console.log(error));
     }, [navigate]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const jsonData = JSON.stringify({ publicProfile: publicProfile, birthdayPrivate: birthdayPrivate, aboutPrivate: aboutPrivate, linkedinLinkPrivate: linkedinLinkPrivate })
-        apiPost('/update_privacy', jsonData).catch((error) => console.log(error));
+        try {
+            await apiPost('/update_privacy', jsonData);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
