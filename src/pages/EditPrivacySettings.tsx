@@ -22,14 +22,6 @@ const EditPrivacySettings: React.FC = () => {
 
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet("/user")
-            .then(data => {
-                if (data.authorized) {
-                    setEmail(data.user.first_name);
-                }
-            })
-            .catch(error => console.log(error));
-        
         apiGet(`/privacy?email=${email}`).then((data) => {
             setPublicProfile(data.privacySettings.publicProfile);
             setBirthdayPrivate(data.privacySettings.birthdayPrivate);
