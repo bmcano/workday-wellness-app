@@ -14,19 +14,30 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 const EditPrivacySettings: React.FC = () => {
     const navigate = useNavigate();
-    const [firstNamePrivate, setFirstNamePrivate] = useState(true);
-    const [lastNamePrivate, setLastNamePrivate] = useState(true);
+    const [publicProfile, setPublicProfile] = useState(true);
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
+
     useEffect(() => {
         AuthorizedUser(navigate);
+        apiGet(`/privacy`).then((data) => {
+            setPublicProfile(data.privacySettings.publicProfile);
+            setBirthdayPrivate(data.privacySettings.birthdayPrivate);
+            setAboutPrivate(data.privacySettings.aboutPrivate);
+            setLinkedinLinkPrivate(data.privacySettings.linkedinLinkPrivate);
+        }).catch((error) => console.log(error));
     }, [navigate]);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handlePrivacy = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const jsonData = JSON.stringify({ first_name: firstNamePrivate, last_name: lastNamePrivate, birthday: birthdayPrivate, about: aboutPrivate, linkedIn_link: linkedinLinkPrivate })
-        apiPost('/update_profile_information', jsonData).catch((error) => console.log(error));
+        const jsonData = JSON.stringify({
+            publicProfile: publicProfile,
+            birthdayPrivate: birthdayPrivate,
+            aboutPrivate: aboutPrivate,
+            linkedinLinkPrivate: linkedinLinkPrivate
+        })
+        apiPost('/update_privacy', jsonData).catch((error) => console.log(error));
     };
 
     return (
@@ -34,30 +45,26 @@ const EditPrivacySettings: React.FC = () => {
             <Navbar />
             <Column>
                 <div>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handlePrivacy}>
                         <Card>
                             <CardText type="header" text="Profile Information" style={{ marginTop: "0px", marginBottom: "0px" }} />
                             <Divider />
                             {<div>
                                 <FormControlLabel
-                                control={<Checkbox checked={firstNamePrivate} onChange={(e) => setFirstNamePrivate(e.target.checked)} />}
-                                label="First Name"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={lastNamePrivate} onChange={(e) => setLastNamePrivate(e.target.checked)} />}
-                                label="Last Name"
+                                control={<Checkbox checked={publicProfile} onChange={(e) => setPublicProfile(e.target.checked)} />}
+                                label="Public Profile"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
-                                label="Birthday"
+                                label="Birthday Private"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={aboutPrivate} onChange={(e) => setAboutPrivate(e.target.checked)} />}
-                                label="About"
+                                label="About Private"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={linkedinLinkPrivate} onChange={(e) => setLinkedinLinkPrivate(e.target.checked)} />}
-                                label="LinkedIn Link"
+                                label="LinkedIn Link Private"
                             />
                                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button></div>}
                         </Card>
