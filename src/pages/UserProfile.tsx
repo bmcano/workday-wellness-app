@@ -10,6 +10,14 @@ import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
 import Card from "../components/card/Card.tsx";
+import bronzeFlameImage from "../static/assets/bronzeflame.png";
+import silverFlameImage from "../static/assets/silverflame.png";
+import goldFlameImage from "../static/assets/goldflame.png";
+import bronzeBell from "../static/assets/bronzebell.png";
+import silverBell from "../static/assets/silverbell.png";
+import goldBell from "../static/assets/goldbell.png";
+
+
 
 const UserProfile: React.FC = () => {
 
@@ -73,6 +81,14 @@ const UserProfile: React.FC = () => {
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>
+                </Card>
+                <Card>
+                    <img src={bronzeFlameImage} alt="Bronze Flame" style={{ margin: '10px' }} />
+                    <img src={silverFlameImage} alt="Silver Flame" style={{ margin: '10px' }} />
+                    <img src={goldFlameImage} alt="Gold Flame" style={{ margin: '10px' }} />
+                    <img src={bronzeBell} alt="Bronze Bell" style={{ margin: '10px' }} />
+                    <img src={silverBell} alt="Silver Bell" style={{ margin: '10px' }} />
+                    <img src={goldBell} alt="Gold Bell" style={{ margin: '10px' }} />
                 </Card>
             </Box>
         </React.Fragment>
