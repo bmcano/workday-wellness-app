@@ -3,19 +3,12 @@ import { getUserInformation } from './sessionController.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-/**
- * GET:
- *  "/privacy" => getPrivacySettings(req, res) - gets the privacy settings of a user
- * POST:
- *  "/update_privacy" => updatePrivacySettings(req, res) - updates the privacy settings of a user
- */
-
 export const getPrivacySettings = async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            const user = await PrivacyModel.findOne({ _id: data._id }).lean();
+            const user = await PrivacyModel.findOne({ email: data.email }).lean();
             return res.json({ authorized: true, privacySettings: user });
         } else {
             return res.json({ authorized: false });
@@ -31,7 +24,7 @@ export const updatePrivacySettings = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            const user = await PrivacyModel.findOne({ _id: data._id });
+            const user = await PrivacyModel.findOne({ email: data.email });
             const user_data = req.body;
             for (let key in user_data) {
                 if (user_data[key] !== null) {
