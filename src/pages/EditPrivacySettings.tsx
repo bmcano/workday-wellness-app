@@ -18,25 +18,35 @@ const EditPrivacySettings: React.FC = () => {
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet('/privacy').then((response) => {
-            setPublicProfile(response.data.user.publicProfile);
-            setBirthdayPrivate(response.data.user.birthdayPrivate);
-            setAboutPrivate(response.data.user.aboutPrivate);
-            setLinkedinLinkPrivate(response.data.user.linkedinLinkPrivate);
+        apiGet("/user")
+            .then(data => {
+                if (data.authorized) {
+                    setEmail(data.user.first_name);
+                }
+            })
+            .catch(error => console.log(error));
+        
+        apiGet(`/privacy?email=${email}`).then((data) => {
+            setPublicProfile(data.privacySettings.publicProfile);
+            setBirthdayPrivate(data.privacySettings.birthdayPrivate);
+            setAboutPrivate(data.privacySettings.aboutPrivate);
+            setLinkedinLinkPrivate(data.privacySettings.linkedinLinkPrivate);
         }).catch((error) => console.log(error));
     }, [navigate]);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handlePrivacy = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const jsonData = JSON.stringify({ publicProfile: publicProfile, birthdayPrivate: birthdayPrivate, aboutPrivate: aboutPrivate, linkedinLinkPrivate: linkedinLinkPrivate })
-        try {
-            await apiPost('/update_privacy', jsonData);
-        } catch (error) {
-            console.log(error);
-        }
+        const jsonData = JSON.stringify({
+            publicProfile: publicProfile,
+            birthdayPrivate: birthdayPrivate,
+            aboutPrivate: aboutPrivate,
+            linkedinLinkPrivate: linkedinLinkPrivate
+        })
+        apiPost('/update_privacy', jsonData).catch((error) => console.log(error));
     };
 
     return (
@@ -44,7 +54,7 @@ const EditPrivacySettings: React.FC = () => {
             <Navbar />
             <Column>
                 <div>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handlePrivacy}>
                         <Card>
                             <CardText type="header" text="Profile Information" style={{ marginTop: "0px", marginBottom: "0px" }} />
                             <Divider />
