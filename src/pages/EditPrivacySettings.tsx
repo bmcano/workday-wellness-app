@@ -18,11 +18,10 @@ const EditPrivacySettings: React.FC = () => {
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
-    const [email, setEmail] = useState('');
 
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet(`/privacy?email=${email}`).then((data) => {
+        apiGet(`/privacy`).then((data) => {
             setPublicProfile(data.privacySettings.publicProfile);
             setBirthdayPrivate(data.privacySettings.birthdayPrivate);
             setAboutPrivate(data.privacySettings.aboutPrivate);
