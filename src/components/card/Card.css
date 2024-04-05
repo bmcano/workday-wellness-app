@@ -36,6 +36,14 @@
     border: 1px solid var(--khaki);
 }
 
+.modal-card {
+    border-radius: 8px;
+    padding: 16px;
+    padding-bottom: 16px;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+}
+
 .notification-card {
     width: 372px;
     border-radius: 8px;

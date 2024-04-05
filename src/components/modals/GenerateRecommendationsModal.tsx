@@ -85,7 +85,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
             contentLabel="Generate Exercise Recommendations"
             style={customModalStyle}
         >
-            <Card>
+            <Card isModal={true}>
                 <CardList>
                     <CardText type="header" text="Generate Exercise Recommendations" style={{ marginLeft: '16px' }} />
                     <Column>
