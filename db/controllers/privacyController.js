@@ -8,14 +8,19 @@ export const getPrivacySettings = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            const user = await PrivacyModel.findOne({ email: data.email }).lean();
-            return res.json({ authorized: true, privacySettings: user });
+            const privacy = await PrivacyModel.findOne({ email: data.email });
+            if (privacy) {
+                return res.json({ authorized: true, privacySettings: privacy, message: "Privacy settings retrieved."});
+            }
+            return res.json({ authorized: false });
         } else {
             return res.json({ authorized: false });
         }
     } catch (error) {
-        console.log(error);
-        return res.json({ authorized: false });
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error getting privacy settings.");
     }
 }
 
@@ -24,14 +29,24 @@ export const updatePrivacySettings = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            const user = await PrivacyModel.findOne({ email: data.email });
-            const user_data = req.body;
-            for (let key in user_data) {
-                if (user_data[key] !== null) {
-                    user[key] = user_data[key];
-                }
+            const privData = req.body;
+            const privacy = await PrivacyModel.findOne({ email: data.email });
+            if (privacy) {
+                privacy.publicProfile = privData.publicProfile,
+                privacy.birthdayPrivate = privData.birthdayPrivate,
+                privacy.aboutPrivate = privData.aboutPrivate,
+                privacy.linkedinLinkPrivate = privData.linkedinLinkPrivate,
+                await privacy.save();
+            } else {
+                const new_privacy = new PrivacyModel({
+                    email: data.email,
+                    publicProfile: privData.publicProfile,
+                    birthdayPrivate: privData.birthdayPrivate,
+                    aboutPrivate: privData.aboutPrivate,
+                    linkedinLinkPrivate: privData.linkedinLinkPrivate,
+                })
+                await new_privacy.save();
             }
-            await user.save();
             return res.json({ success: true, message: "Privacy settings updated."});
         } else {
             return res.json({ authorized: false });
