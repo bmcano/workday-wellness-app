@@ -15,8 +15,8 @@ export const getPrivacySettings = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            const privacy = await PrivacyModel.findOne({ _id: data._id }).lean();
-            return res.json({ authorized: true, privacySettings: privacy });
+            const user = await PrivacyModel.findOne({ _id: data._id }).lean();
+            return res.json({ authorized: true, privacySettings: user });
         } else {
             return res.json({ authorized: false });
         }
@@ -31,16 +31,15 @@ export const updatePrivacySettings = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const data = getUserInformation(token);
         if (data) {
-            let privacy = await PrivacyModel.findOne({ _id: data._id });
-            if (!privacy) {
-                privacy = new PrivacyModel({ _id: data._id });
+            const user = await PrivacyModel.findOne({ _id: data._id });
+            const user_data = req.body;
+            for (let key in user_data) {
+                if (user_data[key] !== null) {
+                    user[key] = user_data[key];
+                }
             }
-            privacy.publicProfile = req.body.publicProfile;
-            privacy.birthdayPrivate = req.body.birthdayPrivate;
-            privacy.aboutPrivate = req.body.aboutPrivate;
-            privacy.linkedinLinkPrivate = req.body.linkedinLinkPrivate;
-            await privacy.save();
-            return res.json({ success: true });
+            await user.save();
+            return res.json({ success: true, message: "Privacy settings updated."});
         } else {
             return res.json({ authorized: false });
         }
