@@ -56,7 +56,7 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({ isOpen, onClose, onSave
                         </div>
                     </CardRow>
                     <Divider style={dividerMargin} />
-                    <CardRow style={{ marginTop: '16px' }}>
+                    <CardRow>
                         <div className='card-button'>
                             <Button variant="text" color="primary" onClick={handleSave}>Sync Calendar</Button>
                             <Button variant="text" onClick={onClose}>Close</Button>
