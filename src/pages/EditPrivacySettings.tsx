@@ -47,7 +47,9 @@ const EditPrivacySettings: React.FC = () => {
                 <div>
                     <form onSubmit={handlePrivacy}>
                         <Card>
-                            <CardText type="header" text="Profile Information" style={{ marginTop: "0px", marginBottom: "0px" }} />
+                            <CardText type="header" text="Profile Information:" style={{ marginTop: "0px", marginBottom: "0px" }} />
+                            <p>Choose which parts of your profile information you would like to keep private</p>
+                            <p>Check indicates that the information is public</p>
                             <Divider />
                             {<div>
                                 <FormControlLabel
@@ -56,15 +58,15 @@ const EditPrivacySettings: React.FC = () => {
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
-                                label="Birthday Private"
+                                label="Birthday"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={aboutPrivate} onChange={(e) => setAboutPrivate(e.target.checked)} />}
-                                label="About Private"
+                                label="About"
                             />
                             <FormControlLabel
                                 control={<Checkbox checked={linkedinLinkPrivate} onChange={(e) => setLinkedinLinkPrivate(e.target.checked)} />}
-                                label="LinkedIn Link Private"
+                                label="LinkedIn"
                             />
                                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button></div>}
                         </Card>
