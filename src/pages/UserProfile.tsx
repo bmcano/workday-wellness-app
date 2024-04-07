@@ -45,15 +45,10 @@ const UserProfile: React.FC = () => {
 
     const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
 
-    
-
-
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        const jsonData = JSON.stringify({ _id: id }); //this id is only for the USER PROFILE, not the privacy settings, need to cross check the users email with the privacy database to obtain privacy information
-
-        console.log("Extacted id" + jsonData);
+        const jsonData = JSON.stringify({ _id: id }); 
 
         apiPost("/view_profile", jsonData)
             .then(res => res.json())
