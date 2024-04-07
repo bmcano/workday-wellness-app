@@ -16,6 +16,7 @@ import goldFlameImage from "../static/assets/goldflame.png";
 import bronzeBell from "../static/assets/bronzebell.png";
 import silverBell from "../static/assets/silverbell.png";
 import goldBell from "../static/assets/goldbell.png";
+import linkedinicon from '../static/images/linkedin image.png';
 
 
 
@@ -43,6 +44,8 @@ const UserProfile: React.FC = () => {
     }
 
     const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
+
+    
 
 
     const navigate = useNavigate()
@@ -141,19 +144,29 @@ const UserProfile: React.FC = () => {
                         {buttonText}
                     </Button>
                     {privacySettings?.birthdayPrivate ? (
-                        <Typography component="h1" variant="h4" align="center" marginBottom={2}>
+                        <Typography component="p" variant="body1" align="center" marginBottom={2} marginTop={2}>
                             Birthday: {birthday}
                         </Typography>
                     ) : null}
                     {privacySettings?.aboutPrivate ? (
-                        <Typography component="h1" variant="h4" align="center" marginBottom={2}>
-                            About: {about}
+                        <Typography component="p" variant="body1" align="center" marginBottom={2} marginTop={2}>
+                            {about}
                         </Typography>
                     ) : null}
-                    {privacySettings?.linkedinLinkPrivate ? (
-                        <Typography component="h1" variant="h4" align="center" marginBottom={2}>
-                            LinkedIn: {linkedin}
-                        </Typography>
+                    {privacySettings?.linkedinLinkPrivate && linkedin ? (
+                        <Box display="flex" justifyContent="center" alignItems="center" marginBottom={2} marginTop={2}>
+                            <a href={linkedin} target="_blank" rel="noopener noreferrer">
+                                <img
+                                    src={linkedinicon}
+                                    alt="LinkedIn Profile"
+                                    style={{
+                                        cursor: 'pointer',
+                                        height: '1em', // sets the image height relative to the font size of the element
+                                        width: 'auto'  // maintains the aspect ratio of the image
+                                    }}
+                                />
+                            </a>
+                        </Box>
                     ) : null}
 
                 </Card>
