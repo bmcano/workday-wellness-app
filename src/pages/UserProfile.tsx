@@ -29,26 +29,41 @@ const UserProfile: React.FC = () => {
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
     const [base64Image, setBase64Image] = useState("");
-    const [privacySettings, setPrivacySettings] = useState({
-        publicProfile: false // Default to false, assuming private until fetched
 
-    });
+    const [birthday, setBirthday] = useState("");
+    const [about, setAbout] = useState("");
+    const [linkedin, setLinkedin] = useState(null);
+
+    interface PrivacySettings {
+        publicProfile?: boolean;
+        birthdayPrivate?: boolean;
+        aboutPrivate?: boolean;
+        linkedinLinkPrivate?: boolean;
+        // ... any other privacy settings
+    }
+
+    const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
+
 
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        const jsonData = JSON.stringify({ _id: id}); //this id is only for the USER PROFILE, not the privacy settings, need to cross check the users email with the privacy database to obtain privacy information
-        
+        const jsonData = JSON.stringify({ _id: id }); //this id is only for the USER PROFILE, not the privacy settings, need to cross check the users email with the privacy database to obtain privacy information
+
         console.log("Extacted id" + jsonData);
 
         apiPost("/view_profile", jsonData)
             .then(res => res.json())
             .then(data => {
-                
+
                 const public_user = data.user;
+                console.log(public_user);
                 setFristName(public_user.first_name);
                 setLastName(public_user.last_name);
                 setBase64Image(public_user.profile_picture === "" ? DefaultProfile : public_user.profile_picture);
+                setBirthday(public_user.birthday);
+                setAbout(public_user.about);
+                setLinkedin(public_user.linkedIn_link);
                 const user = data.auth_user;
                 setUserId(user._id);
                 if (user.friends.includes(public_user.email)) {
@@ -61,10 +76,10 @@ const UserProfile: React.FC = () => {
 
         apiGet("/privacy")
             .then(data => {
-                
+
                 if (data.authorized && data.privacySettings) {
-                    console.log('Privacy settings:', data.privacySettings); 
-                    //map the privacy 
+                    console.log('Privacy settings:', data.privacySettings);
+
                 } else {
                     console.log('Not authorized to fetch privacy settings or no settings available.');
                 }
@@ -78,10 +93,11 @@ const UserProfile: React.FC = () => {
         apiPost("/get_privacy", jsonData)
             .then(res => res.json())
             .then(data => {
-            
+
                 if (data.authorized && data.privacySettings) {
                     console.log('Privacy settings retrieved for user ID:', id);
                     console.log('Privacy Settings for viewed user:', data.privacySettings);
+                    setPrivacySettings(data.privacySettings);
                 } else {
                     console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
                 }
@@ -124,6 +140,22 @@ const UserProfile: React.FC = () => {
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>
+                    {privacySettings?.birthdayPrivate ? (
+                        <Typography component="h1" variant="h4" align="center" marginBottom={2}>
+                            Birthday: {birthday}
+                        </Typography>
+                    ) : null}
+                    {privacySettings?.aboutPrivate ? (
+                        <Typography component="h1" variant="h4" align="center" marginBottom={2}>
+                            About: {about}
+                        </Typography>
+                    ) : null}
+                    {privacySettings?.linkedinLinkPrivate ? (
+                        <Typography component="h1" variant="h4" align="center" marginBottom={2}>
+                            LinkedIn: {linkedin}
+                        </Typography>
+                    ) : null}
+
                 </Card>
                 <Card>
                     <img src={bronzeFlameImage} alt="Bronze Flame" style={{ margin: '10px' }} />
