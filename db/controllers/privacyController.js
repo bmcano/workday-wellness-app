@@ -4,7 +4,7 @@ import { getUserInformation } from './sessionController.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const getPrivacySettings = async (req, res) => { //this works, but only returns the current logged in users privacy settings
+export const getPrivacySettings = async (req, res) => {  
     try {
         const token = req.headers.authorization.split(' ')[1];
 
@@ -69,9 +69,9 @@ export const getUserPrivacy = async (req, res) => {
         const data = getUserInformation(token);
         if (data){
             const user_id = req.body; 
-            console.log("privacy " + user_id);
+            //console.log("privacy " + user_id);
             const user = await UserModel.findOne({ _id: user_id }).lean();
-            console.log("profile user" + user);
+            //console.log("profile user" + user);
             const privacy = await PrivacyModel.findOne({ email: user.email });
             if (!user || !privacy) {
                 return res

@@ -55,7 +55,7 @@ const UserProfile: React.FC = () => {
             .then(data => {
 
                 const public_user = data.user;
-                console.log(public_user);
+                //console.log(public_user);
                 setFristName(public_user.first_name);
                 setLastName(public_user.last_name);
                 setBase64Image(public_user.profile_picture === "" ? DefaultProfile : public_user.profile_picture);
@@ -156,8 +156,8 @@ const UserProfile: React.FC = () => {
                                     alt="LinkedIn Profile"
                                     style={{
                                         cursor: 'pointer',
-                                        height: '1em', // sets the image height relative to the font size of the element
-                                        width: 'auto'  // maintains the aspect ratio of the image
+                                        height: '1em', 
+                                        width: 'auto' 
                                     }}
                                 />
                             </a>
