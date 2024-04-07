@@ -72,6 +72,7 @@ export const viewUserProfile = async (req, res) => {
         const data = getUserInformation(token);
         if (data) {
             const user_id = req.body;
+            console.log( "viewUserProfile" + user_id);
             const user = await UserModel.findOne({ _id: user_id }).lean();
             const auth_user = await UserModel.findOne({ _id: data._id }).lean();
             if (!user || !auth_user) {

@@ -8,7 +8,7 @@ import { checkSession, login, registerAccount } from './controllers/sessionContr
 import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken, updateProfileInformation, updateScheduleInformation, getScheduleInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
-import { getPrivacySettings, updatePrivacySettings} from './controllers/privacyController.js';
+import { getPrivacySettings, getUserPrivacy, updatePrivacySettings} from './controllers/privacyController.js';
 import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, updateFriendsList } from './controllers/notificationsController.js';
 
 /**
@@ -69,6 +69,7 @@ app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
 //see ./controllers/privacyController.js for more details
 app.get('/privacy', async (req, res) => getPrivacySettings(req, res));
 app.post('/update_privacy', async (req, res) => updatePrivacySettings(req, res));
+app.post('/get_privacy', async (req,res) => getUserPrivacy(req, res));
 // see ./controllers/notificaationsController.js for more details
 app.get('/notifications' , async (req, res) => getNotifications(req, res));
 app.get('/todays_events', async (req, res) => getTodaysEvents(req, res));

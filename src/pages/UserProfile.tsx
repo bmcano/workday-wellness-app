@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
-import { apiPost } from "../api/serverApiCalls.tsx";
+import { apiPost, apiGet } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
 import Card from "../components/card/Card.tsx";
 import bronzeFlameImage from "../static/assets/bronzeflame.png";
@@ -16,6 +16,7 @@ import goldFlameImage from "../static/assets/goldflame.png";
 import bronzeBell from "../static/assets/bronzebell.png";
 import silverBell from "../static/assets/silverbell.png";
 import goldBell from "../static/assets/goldbell.png";
+
 
 
 
@@ -28,14 +29,22 @@ const UserProfile: React.FC = () => {
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
     const [base64Image, setBase64Image] = useState("");
+    const [privacySettings, setPrivacySettings] = useState({
+        publicProfile: false // Default to false, assuming private until fetched
+
+    });
 
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        const jsonData = JSON.stringify({ _id: id });
+        const jsonData = JSON.stringify({ _id: id}); //this id is only for the USER PROFILE, not the privacy settings, need to cross check the users email with the privacy database to obtain privacy information
+        
+        console.log("Extacted id" + jsonData);
+
         apiPost("/view_profile", jsonData)
             .then(res => res.json())
             .then(data => {
+                
                 const public_user = data.user;
                 setFristName(public_user.first_name);
                 setLastName(public_user.last_name);
@@ -47,6 +56,40 @@ const UserProfile: React.FC = () => {
                     setButtonText("Remove Friend");
                 }
             }).catch(error => console.log(error));
+
+
+
+        apiGet("/privacy")
+            .then(data => {
+                
+                if (data.authorized && data.privacySettings) {
+                    console.log('Privacy settings:', data.privacySettings); 
+                    //map the privacy 
+                } else {
+                    console.log('Not authorized to fetch privacy settings or no settings available.');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+
+
+        apiPost("/get_privacy", jsonData)
+            .then(res => res.json())
+            .then(data => {
+            
+                if (data.authorized && data.privacySettings) {
+                    console.log('Privacy settings retrieved for user ID:', id);
+                    console.log('Privacy Settings for viewed user:', data.privacySettings);
+                } else {
+                    console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching privacy settings for user ID:', id, error);
+            });
+
     }, [navigate, id]);
 
     const handleOnClick = () => {
