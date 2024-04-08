@@ -6,7 +6,7 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
-import { apiGet } from "../api/serverApiCalls.tsx";
+import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
@@ -24,6 +24,13 @@ interface UserRecord {
   completedExercises: number;
 }
 
+interface FriendStatus {
+  email: string;
+  name: string;
+  status: string;
+  timestamp: string;
+}
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -31,6 +38,10 @@ const Home: React.FC = () => {
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<UserRecord | null>(null);
+  const [status, setStatus] = useState("");
+  // const [date, setDate] = useState("");
+  // const [statusStrings, setStatusStrings] = useState([]);
+  const [friendStatuses, setFriendStatuses] = useState<FriendStatus[]>([]);
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -62,16 +73,44 @@ const Home: React.FC = () => {
       .catch(error => {
         console.log(error);
       });
+
+
+    apiGet("/get_friend_status")
+      .then(response => {
+        if (response.success && response.friendsStatuses) {
+          setFriendStatuses(response.friendsStatuses as FriendStatus[]);
+        } else {
+          console.error("Failed to retrieve friends' statuses");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching friends' statuses:", error);
+      });
+
   }, [navigate]);
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const updates = new FormData(event.currentTarget);
-    const status = updates.get("updates");
+
     if (status) {
-      const newStatuses = [status.toString(), ...statuses];
-      const updatedStatuses = newStatuses.slice(0, 3); // can limit how many statuses show at once.
-      setStatuses(updatedStatuses);
+      const jsonData = JSON.stringify({ status: status });
+
+      apiPost('/status', jsonData)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            setStatuses(previousStatuses => [status, ...previousStatuses].slice(0, 3));
+            setStatus('');
+            console.log('Status updated:', data);
+          } else {
+            console.error('Status update failed:', data.message);
+          }
+        })
+        .catch((error) => {
+          console.error('Error submitting status:', error);
+        });
+    } else {
+      console.error('No status text provided');
     }
   };
 
@@ -93,7 +132,9 @@ const Home: React.FC = () => {
             <TextField
               type="text"
               id="updates"
-              name="updates"
+              name="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
               fullWidth
               label="What's on your mind?"
               inputProps={{ min: "0", step: "1" }}
@@ -108,6 +149,20 @@ const Home: React.FC = () => {
               </div>
             ))}
           </div>
+
+          <div className="friend-statuses">
+            {friendStatuses.map((friendStatus, index) => {
+              const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
+              return (
+                <div key={index} className="friend-status-card">
+                  <div className="friend-status-name">{friendStatus.name}</div>
+                  <div className="friend-status-message">Status: {friendStatus.status}</div>
+                  <div className="friend-status-timestamp">{readableTimestamp}</div>
+                </div>
+              );
+            })}
+          </div>
+
         </Card>
         <div>
           <GenerateRecommendations />
