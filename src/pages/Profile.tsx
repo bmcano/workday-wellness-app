@@ -2,13 +2,12 @@ import "../App.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
-// @ts-ignore
-import pfpImage from '../static/images/default_profile_picture.png';
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { apiGet } from '../api/serverApiCalls.tsx';
 import ProfilePicture from "../components/ProfilePicture.tsx";
+import Divider from "../components/card/Divider.tsx";
 
-const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
+const TABS = ['About', 'Latest Activity', 'Status', 'Friends'];
 
 const Profile: React.FC = () => {
 
@@ -16,6 +15,7 @@ const Profile: React.FC = () => {
   const [joinDate, setJoinDate] = useState<Date>("January 1st, 2024" as unknown as Date);
   const [linkedIn, setLinkedIn] = useState("");
   const [about, setAbout] = useState("User has not set any information.");
+  const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const Profile: React.FC = () => {
           if (data.user.about !== "") {
             setAbout(data.user.about);
           }
+          setFriendCount(data.user.friends.length);
         }
       })
       .catch(error => console.log(error))
@@ -45,10 +46,10 @@ const Profile: React.FC = () => {
         return <div>{about}</div>;
       case 'Latest Activity':
         return <div>Latest Activity content goes here.</div>;
-      case 'Posts':
-        return <div>Posts content goes here.</div>;
       case 'Status':
         return <div>Status content goes here.</div>;
+      case 'Friends':
+        return <div>Friends list goes header.</div>;
       default:
         return <div>Select a tab.</div>;
     }
@@ -57,36 +58,33 @@ const Profile: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="card-columns">
-        <div className="card-column">
-          <div className="card card-span-4">
-            <div className="profile-content-container">
-              <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
-                <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
-                <div className="edit-overlay">Edit</div>
-              </div>
-              <div className="profile-text-container">
-                <h1>{name}</h1>
-                <p>Joined on {joinDate as unknown as string}</p>
-                <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
-              </div>
-            </div>
-            <div className="card-header">
-              {TABS.map((tab) => (
-                <button
-                  key={tab}
-                  className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-                  onClick={() => handleTabClick(tab)}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-            <div className="divider" />
-            <div className="card-content">
-              {renderTabContent()}
-            </div>
+      <div className="card card-span-4">
+        <div className="profile-content-container">
+          <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
+            <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
+            <div className="edit-overlay">Edit</div>
           </div>
+          <div className="profile-text-container">
+            <h1>{name}</h1>
+            <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
+            <p>{friendCount} Friend(s)</p>
+            <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
+          </div>
+        </div>
+        <div className="card-header">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+              onClick={() => handleTabClick(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <Divider />
+        <div className="card-content">
+          {renderTabContent()}
         </div>
       </div>
     </React.Fragment>

@@ -17,6 +17,10 @@ import DeviceCodeModal from "../components/modals/DeviceCodeModal.tsx";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
 import DateRangeModal from "../components/modals/DateRangeModal.tsx";
 import GenerateRecommendations from "../components/GenerateRecommendations.tsx";
+import Card from "../components/card/Card.tsx";
+import CardRow from "../components/card/CardRow.tsx";
+import CardText from "../components/card/CardText.tsx";
+import Column from "../components/card/Column.tsx";
 
 const Calendar: React.FC = () => {
 
@@ -63,7 +67,7 @@ const Calendar: React.FC = () => {
                 if (!data.authorized) {
                     setIsDateModalOpen(false)
                 }
-                
+
             })
             .catch(error => console.log(error));
     }
@@ -91,6 +95,8 @@ const Calendar: React.FC = () => {
                     const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
                     console.log(outlookEvents);
                     setEvents(outlookEvents);
+                    const json_data = JSON.stringify({ calendar: outlookEvents })
+                    apiPost("/save_calendar_data", json_data).catch(error => console.log(error));
                 } else {
                     console.log("Problem with Outlook.");
                 }
@@ -98,57 +104,48 @@ const Calendar: React.FC = () => {
             .catch(error => console.log(error));
     }
 
-    const handleSaveEvents = () => {
-        const jsonData = JSON.stringify({ calendar: events })
-        apiPost("/save_calendar_data", jsonData).catch(error => console.log(error));
-        alert("Events have been saved.");
-    }
-
     return (
         <React.Fragment>
             <Navbar />
-            <div className="card">
-                <div className="card-item">
-                    <div className="card-inside-header-text">{getCurrentFormattedDate()}</div>
+            <Card>
+                <CardRow>
+                    <CardText type="header" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
                     <div className="card-button">
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleOutlookLogin}>Login to Outlook</Button>
                         <DeviceCodeModal isOpen={isModalOpen} onClose={handleCloseModal} deviceCodeMessage={deviceCodeMessage} />
                         <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleDateOpenModal} disabled={!loggedIn}>Sync Calendar</Button>
                         <DateRangeModal isOpen={isDateModalOpen} onClose={handleCloseModal} onSave={handleCalendarSync} />
-                        <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2 }} onClick={handleSaveEvents}>Save Events</Button>
                     </div>
-                </div>
-            </div>
-            <div className="card-columns">
-                <div className="card-column">
-                    <div className="card">
-                        <div className="calendar">
-                            <FullCalendar
-                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                                headerToolbar={{
-                                    left: 'prev,next today',
-                                    center: 'title',
-                                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                                }}
-                                initialView='dayGridMonth'
-                                editable={true}
-                                selectable={true}
-                                selectMirror={true}
-                                dayMaxEvents={true}
-                                weekends={false}
-                                initialEvents={events}
-                                events={events}
-                                eventColor="red"
-                                eventBackgroundColor="red"
-                            />
-                        </div>
+                </CardRow>
+            </Card>
+            <Column>
+                <Card>
+                    <div className="calendar">
+                        <FullCalendar
+                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                            headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                            }}
+                            initialView='dayGridMonth'
+                            editable={true}
+                            selectable={true}
+                            selectMirror={true}
+                            dayMaxEvents={true}
+                            weekends={false}
+                            initialEvents={events}
+                            events={events}
+                            eventColor="red"
+                            eventBackgroundColor="red"
+                        />
                     </div>
-                </div>
-                <div className="card-column">
+                </Card>
+                <div>
                     <GenerateRecommendations />
                     {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={events} />)}
                 </div>
-            </div>
+            </Column>
         </React.Fragment>
     )
 }

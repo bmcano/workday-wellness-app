@@ -21,6 +21,7 @@
     "join_date": "2024-01-01T00:00:00.000",
     "linkedIn_link": "https://www.linkedin.com/in/alice-jones/",
     "about": "I am a software engineer.",
+    "birthday": "2001-12-08T00:00:00.000",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_01.json",
     "profile_picture": "",

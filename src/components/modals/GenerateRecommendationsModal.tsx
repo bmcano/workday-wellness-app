@@ -11,8 +11,14 @@ import { getFreeTimeSlots } from '../../util/convertOutlookPayload.ts';
 import { applyExercises, getModeValues, splitExerciseData, splitUpMisc, splitUpStretches } from '../../util/exerciseReccomendations.ts';
 import { ExerciseCategories } from '../../types/ExerciseCategories.ts';
 import { distributeEvents } from '../../util/distributeEvents.ts';
+import Divider from '../card/Divider.tsx';
+import Card from '../card/Card.tsx';
+import CardList from '../card/CardList.tsx';
+import CardText from '../card/CardText.tsx';
+import Column from '../card/Column.tsx';
+import CardRow from '../card/CardRow.tsx';
 
-Modal.setAppElement("#root")
+Modal.setAppElement("#root");
 
 interface TimeSlots {
     start: Date,
@@ -23,6 +29,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [date, setDate] = useState(new Date());
     const [intensity, setIntensity] = useState('low');
     const [events, setEvents] = useState<EventInput[]>([])
+    const [recEvents, setRecEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
 
     useEffect(() => {
@@ -39,13 +46,10 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
     const handleGenerate = () => {
         // get events from selected date
-        // const dayAbbreviation = date.toLocaleString('en-us', { weekday: 'short' });
         const isoDate = date.toISOString().split('T')[0];
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(isoDate));
-        console.log(updatedEvents)
         // get free time for selected date
         const freeTime = getFreeTimeSlots(updatedEvents)
-        console.log(freeTime);
         // get recommendations from intensity level
         const exercises: string[] = [];
         const mode = getModeValues(intensity);
@@ -54,24 +58,23 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         splitUpMisc(exerciseData.misc.slice(), mode, exercises)
         // pair recommendations within an even(ish) intervals between them during free time slots
         const newEvents = distributeEvents(freeTime as unknown as TimeSlots[], exercises);
-        console.log(newEvents);
-        setEvents(newEvents);
+        setRecEvents(newEvents);
     };
+
     const handleAccept = () => {
-        // Save generated exercises to the database
-        const jsonData = JSON.stringify({ events: events })
+        const jsonData = JSON.stringify({ events: recEvents })
         apiPost('/add_user_recommendations', jsonData)
             .then(() => {
-                setEvents([]);
+                setRecEvents([]);
             })
             .catch(error => console.log(error));
 
-        onSave(events);
+        onSave(recEvents);
         onClose();
     };
 
     const handleClose = () => {
-        setEvents([]);
+        setRecEvents([]);
         onClose();
     }
 
@@ -82,63 +85,59 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
             contentLabel="Generate Exercise Recommendations"
             style={customModalStyle}
         >
-            <div className='card'>
-                <div className='card-list'>
-                    <p className="card-header-text">Generate Exercise Recommendations</p>
-                    <div className='card-columns'>
-                        <div className='card-column'>
-                            <div className='card-list' style={marginTLR}>
-                                <div className='card-title-text' style={marginTLR}>Select intensity:</div>
-                                <RadioGroup
-                                    aria-label="intensity"
-                                    name="intensity"
-                                    value={intensity}
-                                    onChange={(e) => setIntensity(e.target.value)}
-                                    style={marginTLR}
-                                >
-                                    <FormControlLabel value="low" control={<Radio />} label="Low" />
-                                    <FormControlLabel value="medium" control={<Radio />} label="Medium" />
-                                    <FormControlLabel value="high" control={<Radio />} label="High" />
-                                </RadioGroup>
+            <Card isModal={true}>
+                <CardList>
+                    <CardText type="header" text="Generate Exercise Recommendations" style={{ marginLeft: '16px' }} />
+                    <Column>
+                        <CardList style={marginTLR}>
+                            <CardText type="title" text="Select intensity:" />
+                            <RadioGroup
+                                aria-label="intensity"
+                                name="intensity"
+                                value={intensity}
+                                onChange={(e) => setIntensity(e.target.value)}
+                                style={marginTLR}
+                            >
+                                <FormControlLabel value="low" control={<Radio />} label="Low" />
+                                <FormControlLabel value="medium" control={<Radio />} label="Medium" />
+                                <FormControlLabel value="high" control={<Radio />} label="High" />
+                            </RadioGroup>
+                        </CardList>
+                        <CardList style={marginTLR}>
+                            <CardText type="title" text="Select date:" />
+                            <div className='first-item-row'>
+                                <DatePicker selected={date} onChange={(date: Date) => setDate(date)} dateFormat="P" />
                             </div>
-                        </div>
-                        <div className='card-column'>
-                            <div className='card-list' style={marginTLR}>
-                                <div className='card-title-text' style={{ marginLeft: "16px", marginBottom: "16px" }}>Select date:</div>
-                                <div className='card-text'>
-                                    <DatePicker selected={date} onChange={(date: Date) => setDate(date)} dateFormat="P" />
-                                </div>
+                        </CardList>
+                    </Column>
+                    <Divider style={dividerMargin} />
+                    {recEvents.length === 0 &&
+                        <CardRow>
+                            <div className='card-button'>
+                                <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
+                                <Button variant="text" onClick={handleClose}>Cancel</Button>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className='divider' style={dividerMargin} />
-                    {events.length === 0 && <div className='card-item' style={{ marginTop: '16px' }}>
-                        <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleGenerate}>Generate</Button>
-                            <Button variant="text" onClick={handleClose}>Cancel</Button>
-                        </div>
-                    </div>}
-                    {events.length > 0 && (
+                        </CardRow>}
+                    {recEvents.length > 0 && (
                         <div>
-                            <div className='card-item'>
+                            <CardRow>
                                 <ul>
-                                    {events.map((event, index) => (
+                                    {recEvents.map((event, index) => (
                                         <p key={index}>{event.title}</p>
                                     ))}
                                 </ul>
-                            </div>
-                            <div className='card-item'>
+                            </CardRow>
+                            <CardRow>
                                 <div className='card-button'>
-                                    <Button variant="text" color="primary" onClick={handleAccept}>Accept</Button>
+                                    <Button variant="text" onClick={handleAccept}>Accept</Button>
                                     <Button variant="text" onClick={handleGenerate}>Regenerate</Button>
                                     <Button variant="text" onClick={handleClose}>Cancel</Button>
                                 </div>
-                            </div>
+                            </CardRow>
                         </div>
                     )}
-                </div>
-            </div>
+                </CardList>
+            </Card>
         </Modal>
     );
 };

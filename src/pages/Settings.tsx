@@ -27,29 +27,28 @@ const Profile: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <div className="settings-container">
-                <h1 className="settings-title">Settings</h1>
                 <div className="settings-content">
                     <div className="settings-option" onClick={() => handleClick("/profile/edit")}>
                         <div className="icon profile"></div>
                         <EditProfileIcon />
                         <p>Edit Profile</p>
                     </div>
-                    <div className="settings-option" onClick={() => handleClick("/profile/friends")}>
-                        <div className="icon friends"></div>
-                        <FriendsIcon />
-                        <p>Manage Friends</p>
-                    </div>
                     <div className="settings-option" onClick={() => handleClick("/exercises/edit")}>
                         <div className="icon exercises"></div>
                         <ExercisesIcon />
                         <p>Edit Exercises</p>
+                    </div>
+                    <div className="settings-option" onClick={() => handleClick("/profile/friends")}>
+                        <div className="icon friends"></div>
+                        <FriendsIcon />
+                        <p>Manage Friends</p>
                     </div>
                     <div className="settings-option">
                         <div className="icon stats"></div>
                         <LifeStatsIcon />
                         <p>Lifetime Stats</p>
                     </div>
-                    <div className="settings-option">
+                    <div className="settings-option" onClick={() => handleClick("/profile/privacy")}>
                         <div className="icon privacy"></div>
                         <PrivacyIcon />
                         <p>Privacy Settings</p>
@@ -57,7 +56,7 @@ const Profile: React.FC = () => {
                     <div className="settings-option" onClick={() => handleClick("/about")}>
                         <div className="icon support"></div>
                         <SupportIcon />
-                        <p>Contact Support</p>
+                        <p>About</p>
                     </div>
                 </div>
             </div>
