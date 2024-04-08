@@ -7,7 +7,7 @@ import { apiGet } from '../api/serverApiCalls.tsx';
 import ProfilePicture from "../components/ProfilePicture.tsx";
 import Divider from "../components/card/Divider.tsx";
 
-const TABS = ['About', 'Latest Activity', 'Posts', 'Status'];
+const TABS = ['About', 'Latest Activity', 'Status', 'Friends'];
 
 const Profile: React.FC = () => {
 
@@ -15,6 +15,7 @@ const Profile: React.FC = () => {
   const [joinDate, setJoinDate] = useState<Date>("January 1st, 2024" as unknown as Date);
   const [linkedIn, setLinkedIn] = useState("");
   const [about, setAbout] = useState("User has not set any information.");
+  const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ const Profile: React.FC = () => {
           if (data.user.about !== "") {
             setAbout(data.user.about);
           }
+          setFriendCount(data.user.friends.length);
         }
       })
       .catch(error => console.log(error))
@@ -44,10 +46,10 @@ const Profile: React.FC = () => {
         return <div>{about}</div>;
       case 'Latest Activity':
         return <div>Latest Activity content goes here.</div>;
-      case 'Posts':
-        return <div>Posts content goes here.</div>;
       case 'Status':
         return <div>Status content goes here.</div>;
+      case 'Friends':
+        return <div>Friends list goes header.</div>;
       default:
         return <div>Select a tab.</div>;
     }
@@ -64,7 +66,8 @@ const Profile: React.FC = () => {
           </div>
           <div className="profile-text-container">
             <h1>{name}</h1>
-            <p>Joined on {joinDate as unknown as string}</p>
+            <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
+            <p>{friendCount} Friend(s)</p>
             <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
           </div>
         </div>

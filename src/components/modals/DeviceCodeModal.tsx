@@ -24,7 +24,7 @@ const DeviceCodeModal: React.FC<DeviceCodeModalProps> = ({ isOpen, onClose, devi
             contentLabel="Device Code Modal"
             style={customModalStyle}
         >
-            <Card>
+            <Card isModal={true}>
                 <CardList>
                     <CardText type="header" text="Outlook Login" style={{ marginLeft: "16px" }} />
                     <CardRow>
