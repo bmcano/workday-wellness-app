@@ -38,12 +38,12 @@ export const getFriendsStatuses = async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const userData = getUserInformation(token);
         if (!userData) {
-            return res.status(401).json({ authorized: false, message: "Unauthorized access." });
+            return res.status(401).json({ authorized: false });
         }
 
         const currentUser = await UserModel.findById(userData._id);
         if (!currentUser) {
-            return res.status(404).json({ success: false, message: "User not found." });
+            return res.status(404).json({ success: false });
         }
 
         const friendsStatuses = await StatusModel.find({

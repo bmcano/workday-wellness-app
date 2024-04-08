@@ -11,7 +11,7 @@ export const getPrivacySettings = async (req, res) => {
         if (data) {
             const privacy = await PrivacyModel.findOne({ email: data.email });
             if (privacy) {
-                return res.json({ authorized: true, privacySettings: privacy, message: "Privacy settings retrieved." });
+                return res.json({ authorized: true, privacySettings: privacy });
             }
             return res.json({ authorized: false });
         } else {
@@ -48,7 +48,7 @@ export const updatePrivacySettings = async (req, res) => {
                 })
                 await new_privacy.save();
             }
-            return res.json({ success: true, message: "Privacy settings updated." });
+            return res.json({ success: true });
         } else {
             return res.json({ authorized: false });
         }
