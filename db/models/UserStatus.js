@@ -9,5 +9,5 @@ const StatusSchema = new Schema({
     timestamp: { type: Date, required: true }
 });
 
-const StatusModel = model("userStatus", StatusSchema);
+const StatusModel = model("status", StatusSchema);
 export default StatusModel;
