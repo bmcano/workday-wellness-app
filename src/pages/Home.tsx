@@ -33,6 +33,8 @@ const Home: React.FC = () => {
   const [userData, setUserData] = useState<UserRecord | null>(null);
   const [status, setStatus] = useState("");
   const [date, setDate] = useState("");
+  const [statusStrings, setStatusStrings] = useState([]);
+
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -64,15 +66,33 @@ const Home: React.FC = () => {
       .catch(error => {
         console.log(error);
       });
+
+    
+    apiGet("/get_friend_status")
+      .then(response => {
+        if (response.success && response.friendsStatuses) {
+          const newStatusStrings = response.friendsStatuses.map(s => {
+            const readableTimestamp = new Date(s.timestamp).toLocaleString();
+            return `At ${readableTimestamp}, ${s.email} said: "${s.status}"`;
+          });
+          setStatusStrings(newStatusStrings);
+        } else {
+          console.error("Failed to retrieve friends' statuses");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching friends' statuses:", error);
+      });
+    
   }, [navigate]);
 
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
-    if (status) { 
+
+    if (status) {
       const jsonData = JSON.stringify({ status: status });
-  
+
       apiPost('/status', jsonData)
         .then(response => {
           if (!response.ok) {
@@ -83,7 +103,7 @@ const Home: React.FC = () => {
         .then(data => {
           if (data.success) {
             setStatuses(previousStatuses => [status, ...previousStatuses].slice(0, 3));
-            setStatus(''); 
+            setStatus('');
             console.log('Status updated:', data);
           } else {
             console.error('Status update failed:', data.message);
@@ -116,9 +136,9 @@ const Home: React.FC = () => {
             <TextField
               type="text"
               id="updates"
-              name="status" // Change this line to match the state
-              value={status} // Add this line to control the value by state
-              onChange={(e) => setStatus(e.target.value)} // Add this line to update the state
+              name="status" 
+              value={status} 
+              onChange={(e) => setStatus(e.target.value)} 
               fullWidth
               label="What's on your mind?"
               inputProps={{ min: "0", step: "1" }}
@@ -133,6 +153,15 @@ const Home: React.FC = () => {
               </div>
             ))}
           </div>
+
+          <div className="friend-statuses">
+            {statusStrings.map((statusString, index) => (
+              <div key={index} className="friend-status">
+                {statusString}
+              </div>
+            ))}
+          </div>
+
         </Card>
         <div>
           <GenerateRecommendations />

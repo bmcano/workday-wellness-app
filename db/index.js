@@ -10,7 +10,7 @@ import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from
 import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
 import { getPrivacySettings, getUserPrivacy, updatePrivacySettings} from './controllers/privacyController.js';
 import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, updateFriendsList } from './controllers/notificationsController.js';
-import { updateStatus} from './controllers/statusController.js';
+import { updateStatus, getFriendsStatuses} from './controllers/statusController.js';
 
 /**
  * Server setup
@@ -79,6 +79,7 @@ app.post('/notification_friend_update' , async (req, res) => updateFriendsList(r
 app.post('/dismiss_notification', async (req, res) => dismissNotification(req, res));
 // see ./controllers/statusController.js for more details
 app.post('/status', async (req, res) => updateStatus(req, res));
+app.get('/get_friend_status', async (req, res) => getFriendsStatuses(req, res))
 
 app.listen(3001, () => {
     console.log("Database is running.");
