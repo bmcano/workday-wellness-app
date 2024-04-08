@@ -366,10 +366,18 @@
   margin-top: 10px;
 }
 
+
+.user-status-card {
+  border: 1px solid var(--light-gray);
+  padding: 8px;
+  margin-top: 16px;
+  border-radius: 4px;
+}
+
 .friend-status-card {
   background-color: var(--khaki);
   padding: 8px;
-  margin-bottom: 8px;
+  margin-top: 16px;
   border-radius: 4px;
 }
 

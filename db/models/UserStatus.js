@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const StatusSchema = new Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
     name: { type: String, required: true },
     status: { type: String, required: true },
     timestamp: { type: Date, required: true }

@@ -34,13 +34,11 @@ interface FriendStatus {
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [statuses, setStatuses] = useState<string[]>([]);
+  const [statuses, setStatuses] = useState<FriendStatus[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<UserRecord | null>(null);
   const [status, setStatus] = useState("");
-  // const [date, setDate] = useState("");
-  // const [statusStrings, setStatusStrings] = useState([]);
   const [friendStatuses, setFriendStatuses] = useState<FriendStatus[]>([]);
 
   useEffect(() => {
@@ -74,6 +72,13 @@ const Home: React.FC = () => {
         console.log(error);
       });
 
+    apiGet("/user_status")
+      .then(data => {
+        if (data.success) {
+          setStatuses(data.statuses);
+        }
+      })
+      .catch((error) => console.log(error));
 
     apiGet("/get_friend_status")
       .then(response => {
@@ -99,11 +104,7 @@ const Home: React.FC = () => {
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            setStatuses(previousStatuses => [status, ...previousStatuses].slice(0, 3));
-            setStatus('');
-            console.log('Status updated:', data);
-          } else {
-            console.error('Status update failed:', data.message);
+            window.location.reload();
           }
         })
         .catch((error) => {
@@ -143,11 +144,13 @@ const Home: React.FC = () => {
             <Button type="submit" variant="contained" color="primary">Post</Button>
           </form>
           <div className="card-info">
-            {statuses.map((status, index) => (
-              <div key={index} className="posted-status">
-                {status}
+            {statuses.length > 0 && (
+              <div className="user-status-card">
+                <div className="friend-status-name">You</div>
+                <div className="friend-status-message">{statuses[0].status}</div>
+                <div className="friend-status-timestamp">{new Date(statuses[0].timestamp).toLocaleString()}</div>
               </div>
-            ))}
+            )}
           </div>
 
           <div className="friend-statuses">

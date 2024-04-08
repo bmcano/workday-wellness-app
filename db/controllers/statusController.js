@@ -33,6 +33,23 @@ export const updateStatus = async (req, res) => {
     }
 };
 
+export const getStatuses = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const userData = getUserInformation(token);
+        if (!userData) {
+            return res.status(401).json({ authorized: false });
+        }
+        const statuses = await StatusModel.find({ email: userData.email }).sort({ timestamp: -1 });
+        return res.json({ success: true, statuses: statuses });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ message: "Error retrieving friends' statuses.", error: error.message });
+    }
+}
+
 export const getFriendsStatuses = async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
