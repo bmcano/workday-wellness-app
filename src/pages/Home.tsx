@@ -119,7 +119,7 @@ const Home: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar isLoading={pageLoading}/>
       {pageLoading && <LoadingAnimation />}
       {!pageLoading &&
         <Column>
@@ -175,7 +175,7 @@ const Home: React.FC = () => {
           </div>
         </Column>
       }
-      <ChatBot />
+      {!pageLoading && <ChatBot />}
     </React.Fragment>
   );
 };

@@ -19,7 +19,7 @@ import { getFullAppLink } from '../util/getFullAppLink.ts';
 import Notifications from './Notifications.tsx';
 import { apiGet } from '../api/serverApiCalls.tsx';
 
-const Navbar = () => {
+const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -58,20 +58,22 @@ const Navbar = () => {
                 <a href={getFullAppLink("/leaderboard")} className={location.pathname === '/leaderboard' ? 'active-icon' : ''}><LBLogo className="nav-icon" /></a>
                 {/* eslint-disable-next-line */}
                 <a onClick={toggleNotificationsDrawer} className={location.pathname === '/notifications' ? 'active-icon' : ''}><NotificationIcon className="nav-icon" /></a>
-                <div className="subnav">
-                    {/* eslint-disable-next-line */}
-                    <a onClick={toggleSubMenu} role="button">
-                        <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true} />
-                    </a>
-                    {openSubMenu && (
-                        <div className="subnav-content">
-                            <a href={getFullAppLink("/profile")}>Profile</a>
-                            <a href={getFullAppLink("/user/search")}>Find Friends</a>
-                            <a href={getFullAppLink("/settings")}>Settings</a>
-                            <a href={getFullAppLink("/login")} onClick={logout}>Logout</a>
-                        </div>
-                    )}
-                </div>
+                {!props.isLoading &&
+                    <div className="subnav">
+                        {/* eslint-disable-next-line */}
+                        <a onClick={toggleSubMenu} role="button">
+                            <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={true} />
+                        </a>
+                        {openSubMenu && (
+                            <div className="subnav-content">
+                                <a href={getFullAppLink("/profile")}>Profile</a>
+                                <a href={getFullAppLink("/user/search")}>Find Friends</a>
+                                <a href={getFullAppLink("/settings")}>Settings</a>
+                                <a href={getFullAppLink("/login")} onClick={logout}>Logout</a>
+                            </div>
+                        )}
+                    </div>
+                }
             </div>
             {openNotificationsDrawer && <Notifications openDrawer={openNotificationsDrawer} />}
         </div>
