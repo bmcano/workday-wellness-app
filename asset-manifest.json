@@ -1,12 +1,11 @@
 {
   "files": {
-    "main.css": "/workday-wellness-app/static/css/main.962d7c0c.css",
-    "main.js": "/workday-wellness-app/static/js/main.f674fe9f.js",
+    "main.css": "/workday-wellness-app/static/css/main.6c14fa0e.css",
+    "main.js": "/workday-wellness-app/static/js/main.ba52cb36.js",
     "static/js/592.d12f7eed.chunk.js": "/workday-wellness-app/static/js/592.d12f7eed.chunk.js",
     "static/media/alexpfp.jpeg": "/workday-wellness-app/static/media/alexpfp.3ab2eb8c80061bf0036a.jpeg",
     "static/media/SFRED.svg": "/workday-wellness-app/static/media/SFRED.6dc8441eb62dc0975bdf34b697352512.svg",
     "static/media/ianpfp.jpeg": "/workday-wellness-app/static/media/ianpfp.a219f465a8dee3d0c3f2.jpeg",
-    "static/media/popcorn.mp3": "/workday-wellness-app/static/media/popcorn.ef1252f5e4136ac213ba.mp3",
     "static/media/rogeliopfp.jpeg": "/workday-wellness-app/static/media/rogeliopfp.51bb4821067737ed89f6.jpeg",
     "static/media/calendar-icon.svg": "/workday-wellness-app/static/media/calendar-icon.a2019f650e1a0c2fb584de65e642e65a.svg",
     "static/media/finger-print-outline.svg": "/workday-wellness-app/static/media/finger-print-outline.7c5a380877e56a6841efee270c1b9e62.svg",
@@ -20,12 +19,14 @@
     "static/media/home-icon.svg": "/workday-wellness-app/static/media/home-icon.0a0b8c9e47cd811f1e32ac82faa26e6b.svg",
     "static/media/information-circle-outline.svg": "/workday-wellness-app/static/media/information-circle-outline.8f3478851a8ac86cd04e8f4109c0634c.svg",
     "static/media/walk-outline.svg": "/workday-wellness-app/static/media/walk-outline.2682a11aaba229652f0f9e8199a6a0a9.svg",
-    "main.962d7c0c.css.map": "/workday-wellness-app/static/css/main.962d7c0c.css.map",
-    "main.f674fe9f.js.map": "/workday-wellness-app/static/js/main.f674fe9f.js.map",
+    "static/media/XStateFarm.svg": "/workday-wellness-app/static/media/XStateFarm.87e18992845a8b55abbfd14a2a1419cf.svg",
+    "static/media/CheckmarkSF.svg": "/workday-wellness-app/static/media/CheckmarkSF.18592b90576fd6861090ee2be1839cc1.svg",
+    "main.6c14fa0e.css.map": "/workday-wellness-app/static/css/main.6c14fa0e.css.map",
+    "main.ba52cb36.js.map": "/workday-wellness-app/static/js/main.ba52cb36.js.map",
     "592.d12f7eed.chunk.js.map": "/workday-wellness-app/static/js/592.d12f7eed.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.962d7c0c.css",
-    "static/js/main.f674fe9f.js"
+    "static/css/main.6c14fa0e.css",
+    "static/js/main.ba52cb36.js"
   ]
 }
