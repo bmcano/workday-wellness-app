@@ -33,11 +33,11 @@ export const updatePrivacySettings = async (req, res) => {
             const privData = req.body;
             const privacy = await PrivacyModel.findOne({ email: data.email });
             if (privacy) {
-                privacy.publicProfile = privData.publicProfile,
-                    privacy.birthdayPrivate = privData.birthdayPrivate,
-                    privacy.aboutPrivate = privData.aboutPrivate,
-                    privacy.linkedinLinkPrivate = privData.linkedinLinkPrivate,
-                    await privacy.save();
+                privacy.publicProfile = privData.publicProfile
+                privacy.birthdayPrivate = privData.birthdayPrivate
+                privacy.aboutPrivate = privData.aboutPrivate
+                privacy.linkedinLinkPrivate = privData.linkedinLinkPrivate
+                await privacy.save();
             } else {
                 const new_privacy = new PrivacyModel({
                     email: data.email,
