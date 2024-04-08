@@ -10,16 +10,20 @@ import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost, apiGet } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
 import Card from "../components/card/Card.tsx";
+// @ts-ignore
 import bronzeFlameImage from "../static/assets/bronzeflame.png";
+// @ts-ignore
 import silverFlameImage from "../static/assets/silverflame.png";
+// @ts-ignore
 import goldFlameImage from "../static/assets/goldflame.png";
+// @ts-ignore
 import bronzeBell from "../static/assets/bronzebell.png";
+// @ts-ignore
 import silverBell from "../static/assets/silverbell.png";
+// @ts-ignore
 import goldBell from "../static/assets/goldbell.png";
+// @ts-ignore
 import linkedinicon from '../static/images/linkedin image.png';
-
-
-
 
 const UserProfile: React.FC = () => {
 
@@ -48,14 +52,12 @@ const UserProfile: React.FC = () => {
     const navigate = useNavigate()
     useEffect(() => {
         AuthorizedUser(navigate);
-        const jsonData = JSON.stringify({ _id: id }); 
+        const jsonData = JSON.stringify({ _id: id });
 
         apiPost("/view_profile", jsonData)
             .then(res => res.json())
             .then(data => {
-
                 const public_user = data.user;
-                //console.log(public_user);
                 setFristName(public_user.first_name);
                 setLastName(public_user.last_name);
                 setBase64Image(public_user.profile_picture === "" ? DefaultProfile : public_user.profile_picture);
@@ -70,14 +72,10 @@ const UserProfile: React.FC = () => {
                 }
             }).catch(error => console.log(error));
 
-
-
         apiGet("/privacy")
             .then(data => {
-
                 if (data.authorized && data.privacySettings) {
                     console.log('Privacy settings:', data.privacySettings);
-
                 } else {
                     console.log('Not authorized to fetch privacy settings or no settings available.');
                 }
@@ -86,15 +84,10 @@ const UserProfile: React.FC = () => {
                 console.log(error);
             });
 
-
-
         apiPost("/get_privacy", jsonData)
             .then(res => res.json())
             .then(data => {
-
                 if (data.authorized && data.privacySettings) {
-                    console.log('Privacy settings retrieved for user ID:', id);
-                    console.log('Privacy Settings for viewed user:', data.privacySettings);
                     setPrivacySettings(data.privacySettings);
                 } else {
                     console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
@@ -156,8 +149,8 @@ const UserProfile: React.FC = () => {
                                     alt="LinkedIn Profile"
                                     style={{
                                         cursor: 'pointer',
-                                        height: '1em', 
-                                        width: 'auto' 
+                                        height: '1em',
+                                        width: 'auto'
                                     }}
                                 />
                             </a>

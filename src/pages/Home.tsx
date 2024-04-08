@@ -26,6 +26,7 @@ interface UserRecord {
 
 interface FriendStatus {
   email: string;
+  name: string;
   status: string;
   timestamp: string;
 }
@@ -38,10 +39,9 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<UserRecord | null>(null);
   const [status, setStatus] = useState("");
-  const [date, setDate] = useState("");
-  const [statusStrings, setStatusStrings] = useState([]);
+  // const [date, setDate] = useState("");
+  // const [statusStrings, setStatusStrings] = useState([]);
   const [friendStatuses, setFriendStatuses] = useState<FriendStatus[]>([]);
-
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -78,7 +78,6 @@ const Home: React.FC = () => {
     apiGet("/get_friend_status")
       .then(response => {
         if (response.success && response.friendsStatuses) {
-          // Make sure that the response is in the shape of FriendStatus[]
           setFriendStatuses(response.friendsStatuses as FriendStatus[]);
         } else {
           console.error("Failed to retrieve friends' statuses");
@@ -90,7 +89,6 @@ const Home: React.FC = () => {
 
   }, [navigate]);
 
-
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -98,12 +96,7 @@ const Home: React.FC = () => {
       const jsonData = JSON.stringify({ status: status });
 
       apiPost('/status', jsonData)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
           if (data.success) {
             setStatuses(previousStatuses => [status, ...previousStatuses].slice(0, 3));
@@ -120,7 +113,6 @@ const Home: React.FC = () => {
       console.error('No status text provided');
     }
   };
-
 
   return (
     <React.Fragment>
@@ -163,7 +155,7 @@ const Home: React.FC = () => {
               const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
               return (
                 <div key={index} className="friend-status-card">
-                  <div className="friend-status-name">{friendStatus.email.split('@')[0]}</div>
+                  <div className="friend-status-name">{friendStatus.name}</div>
                   <div className="friend-status-message">Status: {friendStatus.status}</div>
                   <div className="friend-status-timestamp">{readableTimestamp}</div>
                 </div>

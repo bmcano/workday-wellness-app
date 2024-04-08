@@ -2,7 +2,6 @@ import { Schema, model } from 'mongoose';
 import { ExercisesSchema } from './Exercises.js';
 import { CalendarSchema } from './Calendar.js';
 
-
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },

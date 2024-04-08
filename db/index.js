@@ -8,9 +8,9 @@ import { checkSession, login, registerAccount } from './controllers/sessionContr
 import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken, updateProfileInformation, updateScheduleInformation, getScheduleInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
-import { getPrivacySettings, getUserPrivacy, updatePrivacySettings} from './controllers/privacyController.js';
+import { getPrivacySettings, getUserPrivacy, updatePrivacySettings } from './controllers/privacyController.js';
 import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, updateFriendsList } from './controllers/notificationsController.js';
-import { updateStatus, getFriendsStatuses} from './controllers/statusController.js';
+import { updateStatus, getFriendsStatuses } from './controllers/statusController.js';
 
 /**
  * Server setup
@@ -27,7 +27,7 @@ app.use(json());
 app.use(cookieParser());
 
 //connect("mongodb://127.0.0.1:27017/wellness-app");
-connect(process.env.REACT_APP_MONGO_ATLAS); 
+connect(process.env.REACT_APP_MONGO_ATLAS);
 
 // see ./controllers/sessionController.js for more details.
 app.get('/', (req, res) => checkSession(req, res));
@@ -45,7 +45,7 @@ app.post('/set_token', async (req, res) => setToken(req, res));
 app.post('/clear_token', async (req, res) => clearToken(req, res));
 app.post('/get_email_from_token', async (req, res) => getEmailFromToken(req, res));
 app.post('/update_profile_information', async (req, res) => updateProfileInformation(req, res));
-app.post('/update_schedule_information',async (req, res) => updateScheduleInformation(req, res));
+app.post('/update_schedule_information', async (req, res) => updateScheduleInformation(req, res));
 // see ./controllers/friendsController.js for more details.
 app.get('/users_list', async (req, res) => usersList(req, res));
 app.get('/friends_list', async (req, res) => friendsList(req, res));
@@ -70,16 +70,16 @@ app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
 //see ./controllers/privacyController.js for more details
 app.get('/privacy', async (req, res) => getPrivacySettings(req, res));
 app.post('/update_privacy', async (req, res) => updatePrivacySettings(req, res));
-app.post('/get_privacy', async (req,res) => getUserPrivacy(req, res));
+app.post('/get_privacy', async (req, res) => getUserPrivacy(req, res));
 // see ./controllers/notificaationsController.js for more details
-app.get('/notifications' , async (req, res) => getNotifications(req, res));
+app.get('/notifications', async (req, res) => getNotifications(req, res));
 app.get('/todays_events', async (req, res) => getTodaysEvents(req, res));
-app.post('/notification_exercise_update' , async (req, res) => updateExerciseStats(req, res));
-app.post('/notification_friend_update' , async (req, res) => updateFriendsList(req, res));
+app.post('/notification_exercise_update', async (req, res) => updateExerciseStats(req, res));
+app.post('/notification_friend_update', async (req, res) => updateFriendsList(req, res));
 app.post('/dismiss_notification', async (req, res) => dismissNotification(req, res));
 // see ./controllers/statusController.js for more details
+app.get('/get_friend_status', async (req, res) => getFriendsStatuses(req, res));
 app.post('/status', async (req, res) => updateStatus(req, res));
-app.get('/get_friend_status', async (req, res) => getFriendsStatuses(req, res))
 
 app.listen(3001, () => {
     console.log("Database is running.");
