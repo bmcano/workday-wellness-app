@@ -2,7 +2,7 @@ import "../App.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
-import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+import { AuthorizedUserLoading } from "../api/AuthorizedUser.tsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
@@ -17,6 +17,7 @@ import Column from "../components/card/Column.tsx";
 import UserStats from "../components/UserStats.tsx";
 import CardText from "../components/card/CardText.tsx";
 import CardList from "../components/card/CardList.tsx";
+import LoadingAnimation from "../components/LoadingAnimation.tsx";
 
 interface UserRecord {
   name: string;
@@ -33,6 +34,7 @@ interface FriendStatus {
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [pageLoading, setPageLoading] = useState(true);
   const [name, setName] = useState("");
   const [statuses, setStatuses] = useState<FriendStatus[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
@@ -42,7 +44,7 @@ const Home: React.FC = () => {
   const [friendStatuses, setFriendStatuses] = useState<FriendStatus[]>([]);
 
   useEffect(() => {
-    AuthorizedUser(navigate);
+    AuthorizedUserLoading(navigate, setPageLoading);
     apiGet("/user")
       .then(data => {
         if (data.authorized) {
@@ -118,60 +120,61 @@ const Home: React.FC = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Column>
-        <div>
+      {pageLoading && <LoadingAnimation />}
+      {!pageLoading &&
+        <Column>
+          <div>
+            <Card>
+              <CardList>
+                <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
+                <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
+              </CardList>
+            </Card>
+            {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
+          </div>
           <Card>
-            <CardList>
-              <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
-              <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
-            </CardList>
-          </Card>
-          {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
-        </div>
-        <Card>
-          <form onSubmit={handleFormSubmit} className="form-row">
-            <TextField
-              type="text"
-              id="updates"
-              name="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              fullWidth
-              label="What's on your mind?"
-              inputProps={{ min: "0", step: "1" }}
-              sx={{ marginRight: '16px' }}
-            />
-            <Button type="submit" variant="contained" color="primary">Post</Button>
-          </form>
-          <div className="card-info">
-            {statuses.length > 0 && (
-              <div className="user-status-card">
-                <div className="friend-status-name">You</div>
-                <div className="friend-status-message">{statuses[0].status}</div>
-                <div className="friend-status-timestamp">{new Date(statuses[0].timestamp).toLocaleString()}</div>
-              </div>
-            )}
-          </div>
-
-          <div className="friend-statuses">
-            {friendStatuses.map((friendStatus, index) => {
-              const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
-              return (
-                <div key={index} className="friend-status-card">
-                  <div className="friend-status-name">{friendStatus.name}</div>
-                  <div className="friend-status-message">Status: {friendStatus.status}</div>
-                  <div className="friend-status-timestamp">{readableTimestamp}</div>
+            <form onSubmit={handleFormSubmit} className="form-row">
+              <TextField
+                type="text"
+                id="updates"
+                name="status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                fullWidth
+                label="What's on your mind?"
+                inputProps={{ min: "0", step: "1" }}
+                sx={{ marginRight: '16px' }}
+              />
+              <Button type="submit" variant="contained" color="primary">Post</Button>
+            </form>
+            <div className="card-info">
+              {statuses.length > 0 && (
+                <div className="user-status-card">
+                  <div className="friend-status-name">You</div>
+                  <div className="friend-status-message">{statuses[0].status}</div>
+                  <div className="friend-status-timestamp">{new Date(statuses[0].timestamp).toLocaleString()}</div>
                 </div>
-              );
-            })}
+              )}
+            </div>
+            <div className="friend-statuses">
+              {friendStatuses.map((friendStatus, index) => {
+                const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
+                return (
+                  <div key={index} className="friend-status-card">
+                    <div className="friend-status-name">{friendStatus.name}</div>
+                    <div className="friend-status-message">Status: {friendStatus.status}</div>
+                    <div className="friend-status-timestamp">{readableTimestamp}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+          <div>
+            <GenerateRecommendations />
+            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
           </div>
-
-        </Card>
-        <div>
-          <GenerateRecommendations />
-          {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
-        </div>
-      </Column>
+        </Column>
+      }
       <ChatBot />
     </React.Fragment>
   );
