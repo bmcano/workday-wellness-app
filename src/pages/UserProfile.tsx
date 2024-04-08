@@ -102,7 +102,7 @@ const UserProfile: React.FC = () => {
     const handleOnClick = () => {
         var link = "";
         if (!isFriend) {
-            link = "/add_friend";
+            link = "/send_friend_request";
         } else {
             link = "/remove_friend";
         }
@@ -110,13 +110,14 @@ const UserProfile: React.FC = () => {
         apiPost(link, jsonData)
             .then(res => res.json())
             .then(data => {
-                if (data.isFriend) {
-                    setIsFriend(true);
-                    setButtonText("Remove Friend");
+                // TODO: will need to modify this to show proper text, and be able to revoke the request
+                if (link === "/send_friend_request") {
+                    setButtonText("Friend Request Sent");
                 } else {
                     setIsFriend(false);
                     setButtonText("Add Friend");
                 }
+                alert("Friend request sent.");
             })
             .catch(error => console.log(error));
     }

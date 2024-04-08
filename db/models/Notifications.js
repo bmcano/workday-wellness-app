@@ -7,8 +7,9 @@ const NotificationsSchema = new Schema({
     title: { type: String, required: true },
     message: { type: String, required: true },
     hasAccept: { type: Boolean, default: false },
-    acceptType: { tpye: String },
-    isRead: { type: Boolean, default: false }
+    acceptType: { type: String, default: "" },
+    isRead: { type: Boolean, default: false },
+    other: { type: String, required: false }
 });
 
 const NotificationsModel = model("notifications", NotificationsSchema);

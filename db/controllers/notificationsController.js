@@ -10,7 +10,7 @@ import StatisticsModel from '../models/Statistics.js';
  *  "/todays_events" => getTodaysEvents(req, res) - will get the list of events for the current day
  * POST:
  *  "/notification_exercise_update" => updateExerciseStats(req, res) - will update the users stats from the notification
- *  "/notification_friend_update" => updateFriendsList(req, res) - will update the users friends list from the notificaiton (accepting request)
+ *  "/notification_friend_update" => createFriendRequestNotification(req, res) - will update the users friends list from the notificaiton (accepting request)
  *  "/dismiss_notification" => dismissNotification(req, res) - will remove the notification from the list
  */
 
@@ -112,8 +112,25 @@ export const updateExerciseStats = async (req, res) => {
     }
 }
 
-export const updateFriendsList = async (req, res) => {
-
+export const createFriendRequestNotification = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user = await UserModel.findById(data._id);
+            if (!user) return res.json({ authorized: false });
+            const friend = await UserModel.findById(req.body.friend_id);
+            if (!friend) return res.json({ authorized: false });
+            createNotification(friend._id, friend.email, "Friend Request", `${user.first_name} ${user.last_name} has sent you a friend request.`, true, "friend", data._id);
+            console.log("Sent friend request");
+            return res.json({ authorized: true });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false });
+    }
 }
 
 export const dismissNotification = async (req, res) => {

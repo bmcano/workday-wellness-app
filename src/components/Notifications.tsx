@@ -18,7 +18,8 @@ interface Notification {
     message: string,
     hasAccept: boolean,
     acceptType: string,
-    isRead: boolean
+    isRead: boolean,
+    other?: string
 }
 
 const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
@@ -53,6 +54,14 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
         onDismiss(index);
     }
 
+    const onAcceptFriendRequest = (index: number) => {
+        console.log("friends accept")
+        console.log(notificationList[index].other)
+        const jsonData = JSON.stringify({ friend_id: notificationList[index].other })
+        apiPost("/add_friend", jsonData).catch((error) => console.log(error));
+        onDismiss(index);
+    }
+
     return (
         <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
             <div className="drawer-header">
@@ -66,7 +75,7 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                     body={notification.message}
                     onDismiss={() => onDismiss(index)}
                     hasAccept={notification.hasAccept}
-                    onAccept={() => onAcceptExercise(index)}
+                    onAccept={() => notification.acceptType === "exercise" ? onAcceptExercise(index) : notification.acceptType === "friend" ? onAcceptFriendRequest(index) : onDismiss(index)}
                 />
             ))}
             {notificationList.length > 0 && <Divider style={{ marginLeft: "16px", marginRight: "16px" }} />}

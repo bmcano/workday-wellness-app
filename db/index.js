@@ -9,7 +9,7 @@ import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExis
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
 import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
 import { getPrivacySettings, getUserPrivacy, updatePrivacySettings } from './controllers/privacyController.js';
-import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, updateFriendsList } from './controllers/notificationsController.js';
+import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, createFriendRequestNotification } from './controllers/notificationsController.js';
 import { updateStatus, getFriendsStatuses, getStatuses } from './controllers/statusController.js';
 
 /**
@@ -75,7 +75,7 @@ app.post('/get_privacy', async (req, res) => getUserPrivacy(req, res));
 app.get('/notifications', async (req, res) => getNotifications(req, res));
 app.get('/todays_events', async (req, res) => getTodaysEvents(req, res));
 app.post('/notification_exercise_update', async (req, res) => updateExerciseStats(req, res));
-app.post('/notification_friend_update', async (req, res) => updateFriendsList(req, res));
+app.post('/send_friend_request', async (req, res) => createFriendRequestNotification(req, res));
 app.post('/dismiss_notification', async (req, res) => dismissNotification(req, res));
 // see ./controllers/statusController.js for more details
 app.get('/get_friend_status', async (req, res) => getFriendsStatuses(req, res));
