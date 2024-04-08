@@ -24,6 +24,12 @@ interface UserRecord {
   completedExercises: number;
 }
 
+interface FriendStatus {
+  email: string;
+  status: string;
+  timestamp: string;
+}
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -34,6 +40,7 @@ const Home: React.FC = () => {
   const [status, setStatus] = useState("");
   const [date, setDate] = useState("");
   const [statusStrings, setStatusStrings] = useState([]);
+  const [friendStatuses, setFriendStatuses] = useState<FriendStatus[]>([]);
 
 
   useEffect(() => {
@@ -67,15 +74,12 @@ const Home: React.FC = () => {
         console.log(error);
       });
 
-    
+
     apiGet("/get_friend_status")
       .then(response => {
         if (response.success && response.friendsStatuses) {
-          const newStatusStrings = response.friendsStatuses.map(s => {
-            const readableTimestamp = new Date(s.timestamp).toLocaleString();
-            return `At ${readableTimestamp}, ${s.email} said: "${s.status}"`;
-          });
-          setStatusStrings(newStatusStrings);
+          // Make sure that the response is in the shape of FriendStatus[]
+          setFriendStatuses(response.friendsStatuses as FriendStatus[]);
         } else {
           console.error("Failed to retrieve friends' statuses");
         }
@@ -83,7 +87,7 @@ const Home: React.FC = () => {
       .catch(error => {
         console.error("Error fetching friends' statuses:", error);
       });
-    
+
   }, [navigate]);
 
 
@@ -136,9 +140,9 @@ const Home: React.FC = () => {
             <TextField
               type="text"
               id="updates"
-              name="status" 
-              value={status} 
-              onChange={(e) => setStatus(e.target.value)} 
+              name="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
               fullWidth
               label="What's on your mind?"
               inputProps={{ min: "0", step: "1" }}
@@ -155,11 +159,16 @@ const Home: React.FC = () => {
           </div>
 
           <div className="friend-statuses">
-            {statusStrings.map((statusString, index) => (
-              <div key={index} className="friend-status">
-                {statusString}
-              </div>
-            ))}
+            {friendStatuses.map((friendStatus, index) => {
+              const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
+              return (
+                <div key={index} className="friend-status-card">
+                  <div className="friend-status-name">{friendStatus.email.split('@')[0]}</div>
+                  <div className="friend-status-message">Status: {friendStatus.status}</div>
+                  <div className="friend-status-timestamp">{readableTimestamp}</div>
+                </div>
+              );
+            })}
           </div>
 
         </Card>
