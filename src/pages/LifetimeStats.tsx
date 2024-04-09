@@ -12,7 +12,7 @@ import Divider from "../components/card/Divider.tsx";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-const lifetimeStats: React.FC = () => {
+const LifetimeStats: React.FC = () => {
     const navigate = useNavigate();
     const [publicProfile, setPublicProfile] = useState(true);
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
@@ -78,4 +78,4 @@ const lifetimeStats: React.FC = () => {
     );
 };
 
-export default lifetimeStats;
+export default LifetimeStats;
