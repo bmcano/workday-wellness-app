@@ -19,6 +19,7 @@ import AboutPage from './pages/About.tsx';
 import ResetPassword from './pages/ResetPassword.tsx';
 import Leaderboard from './pages/Leaderboard.tsx';
 import Privacy from './pages/EditPrivacySettings.tsx';
+import lifetimeStats from './pages/LifetimeStats.tsx';
 
 const App = () => {
 
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/about" exact element={<AboutPage />} />
           <Route path="/leaderboard" exact element={<Leaderboard />} />
           <Route path="/reset-password/:id" exact element={<ResetPassword />} />
+          <Route path="/lifetime-stats" exact element={<lifetimeStats />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
