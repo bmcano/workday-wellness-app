@@ -67,7 +67,7 @@ app.get('/get_friend_leaderboard_streak', async (req, res) => getFriendLeaderboa
 app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeaderboardCompleted(req, res));
 app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
 //see ./controllers/privacyController.js for more details
-app.get('/privacy', async (req, res) => getPrivacySettings(req, res));
+app.get('/get_privacy', async (req, res) => getPrivacySettings(req, res));
 app.post('/update_privacy', async (req, res) => updatePrivacySettings(req, res));
 // see ./controllers/notificaationsController.js for more details
 app.get('/notifications' , async (req, res) => getNotifications(req, res));

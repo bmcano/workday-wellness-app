@@ -21,11 +21,12 @@ const EditPrivacySettings: React.FC = () => {
 
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet(`/privacy`).then((data) => {
+        apiGet(`/get_privacy`).then((data) => {
             setPublicProfile(data.privacySettings.publicProfile);
             setBirthdayPrivate(data.privacySettings.birthdayPrivate);
             setAboutPrivate(data.privacySettings.aboutPrivate);
             setLinkedinLinkPrivate(data.privacySettings.linkedinLinkPrivate);
+            console.log(data);
         }).catch((error) => console.log(error));
     }, [navigate]);
 
