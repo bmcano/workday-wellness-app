@@ -57,7 +57,7 @@ const App = () => {
           <Route path="/about" exact element={<AboutPage />} />
           <Route path="/leaderboard" exact element={<Leaderboard />} />
           <Route path="/reset-password/:id" exact element={<ResetPassword />} />
-          <Route path="/lifetime-stats" exact element={<LifetimeStats />} />
+          <Route path="/profile/lifetime-stats" exact element={<LifetimeStats />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
