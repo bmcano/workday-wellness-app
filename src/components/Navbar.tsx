@@ -18,29 +18,60 @@ import { ReactComponent as LBLogo } from "../static/assets/leaderboard-star-svgr
 import { getFullAppLink } from '../util/getFullAppLink.ts';
 import Notifications from './Notifications.tsx';
 import { apiGet } from '../api/serverApiCalls.tsx';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// @ts-ignore
+// import messageSound from '../static/sounds/popcorn.mp3'
 
 const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
     const [openSubMenu, setOpenSubMenu] = useState(false);
-    const toggleSubMenu = () => {
-        setOpenSubMenu(!openSubMenu);
-    };
-
+    const toggleSubMenu = () => setOpenSubMenu(!openSubMenu);
     const [openNotificationsDrawer, setOpenNotificationsDrawer] = useState(false);
-    const toggleNotificationsDrawer = () => {
-        setOpenNotificationsDrawer(!openNotificationsDrawer);
-    };
+    const toggleNotificationsDrawer = () => setOpenNotificationsDrawer(!openNotificationsDrawer);
+    const logout = () => handleLogout(navigate);
+    const [notificationCount, setNotificationCount] = useState(0);
 
-    const logout = () => {
-        handleLogout(navigate)
-    }
+
+    const showNotification = (count: number, plural: string) => {
+        toast.success(`You have ${count} new notification${plural}.`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
 
     useEffect(() => {
-        apiGet("/todays_events").catch(error => console.log(error));
+        apiGet("/notifications")
+            .then(data => {
+                if (data.authorized) {
+                    const count = data.notifications.length;
+                    setNotificationCount(count);
+                    if (count > 0) showNotification(count, count > 1 ? "s" : "");
+                }
+            })
+            .catch(error => console.log(error));
+
         const intervalId = setInterval(() => {
-            apiGet("/todays_events").catch(error => console.log(error));
+            apiGet("/notifications")
+                .then(data => {
+                    if (data.authorized) {
+                        const count = data.notifications.length;
+                        if (count > notificationCount) {
+                            setNotificationCount(count);
+                            showNotification(count, count > 1 ? "s" : "");
+                        } else if (count < notificationCount) {
+                            setNotificationCount(count);
+                        }
+                    }
+                })
+                .catch(error => console.log(error));
         }, 1000 * 60); // checks events every minute to decide if a notification should be created
 
         return () => clearInterval(intervalId);
@@ -51,6 +82,7 @@ const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
             <div className="logo-resize">
                 <SFLogo />
             </div>
+            <ToastContainer />
             <div className="nav-links">
                 <a href={getFullAppLink("/")} className={location.pathname === '/' ? 'active-icon' : ''}><HomeIcon className="nav-icon" /></a>
                 <a href={getFullAppLink("/exercises")} className={location.pathname === '/exercises' ? 'active-icon' : ''}><ExerciseIcon className="nav-icon" /></a>

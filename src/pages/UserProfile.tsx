@@ -100,26 +100,22 @@ const UserProfile: React.FC = () => {
     }, [navigate, id]);
 
     const handleOnClick = () => {
-        var link = "";
-        if (!isFriend) {
-            link = "/send_friend_request";
-        } else {
-            link = "/remove_friend";
-        }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
-        apiPost(link, jsonData)
-            .then(res => res.json())
-            .then(data => {
-                // TODO: will need to modify this to show proper text, and be able to revoke the request
-                if (link === "/send_friend_request") {
-                    setButtonText("Friend Request Sent");
-                } else {
+        if (isFriend) {
+            apiPost("/remove_friend", jsonData)
+                .then(() => {
                     setIsFriend(false);
                     setButtonText("Add Friend");
-                }
-                alert("Friend request sent.");
-            })
-            .catch(error => console.log(error));
+                })
+                .catch(error => console.log(error));
+        } else {
+            apiPost("/send_friend_request", jsonData)
+                .then(() => {
+                    setButtonText("Friend Request Sent");
+                    alert("Friend request sent.");
+                })
+                .catch(error => console.log(error));
+        }
     }
 
     return (
