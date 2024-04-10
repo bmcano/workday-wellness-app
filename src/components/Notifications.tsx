@@ -1,9 +1,5 @@
 import "../App.css";
 import React, { useEffect, useState } from 'react';
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // API FOR NOTIFICATIONS
-// @ts-ignore
-// import messageSound from '../static/sounds/popcorn.mp3'
 import Drawer from "@mui/material/Drawer";
 import { Button } from "@mui/material";
 import CardText from "./card/CardText.tsx";
@@ -84,4 +80,4 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
     )
 }
 
-export default Notifications
+export default Notifications;

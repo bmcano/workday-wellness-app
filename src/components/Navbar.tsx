@@ -21,7 +21,7 @@ import { apiGet } from '../api/serverApiCalls.tsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // @ts-ignore
-// import messageSound from '../static/sounds/popcorn.mp3'
+import messageSound from '../static/sounds/popcorn.mp3'
 
 const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
 
@@ -31,12 +31,13 @@ const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
     const toggleSubMenu = () => setOpenSubMenu(!openSubMenu);
     const [openNotificationsDrawer, setOpenNotificationsDrawer] = useState(false);
     const toggleNotificationsDrawer = () => setOpenNotificationsDrawer(!openNotificationsDrawer);
-    const logout = () => handleLogout(navigate);
     const [notificationCount, setNotificationCount] = useState(0);
-
+    const logout = () => handleLogout(navigate);
 
     const showNotification = (count: number, plural: string) => {
-        toast.success(`You have ${count} new notification${plural}.`, {
+        const audio = new Audio(messageSound); // Create an Audio object
+        audio.play(); // Play the sound
+        toast.info(`You have ${count} new notification${plural}.`, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -48,17 +49,18 @@ const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
     };
 
     useEffect(() => {
+        // Goal:
+        // Preemptive loading requires us to get the current notification count.
+        // Then, in a 15 second intervals we pulse the events for today to see if one (past or present) show be notifying the user
+        // Then we grab the notifications again and if the amount increased, from the previous check, we send a toast message.
         apiGet("/notifications")
             .then(data => {
-                if (data.authorized) {
-                    const count = data.notifications.length;
-                    setNotificationCount(count);
-                    if (count > 0) showNotification(count, count > 1 ? "s" : "");
-                }
+                if (data.authorized) setNotificationCount(data.notifications.length);
             })
             .catch(error => console.log(error));
 
         const intervalId = setInterval(() => {
+            apiGet("/todays_events").catch(error => console.log(error));
             apiGet("/notifications")
                 .then(data => {
                     if (data.authorized) {
@@ -72,10 +74,9 @@ const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
                     }
                 })
                 .catch(error => console.log(error));
-        }, 1000 * 60); // checks events every minute to decide if a notification should be created
-
+        }, 1000 * 15);
         return () => clearInterval(intervalId);
-    }, [])
+    }, [notificationCount])
 
     return (
         <div className="navbar">

@@ -122,7 +122,6 @@ export const createFriendRequestNotification = async (req, res) => {
             const friend = await UserModel.findById(req.body.friend_id);
             if (!friend) return res.json({ authorized: false });
             createNotification(friend._id, friend.email, "Friend Request", `${user.first_name} ${user.last_name} has sent you a friend request.`, true, "friend", data._id);
-            console.log("Sent friend request");
             return res.json({ authorized: true });
         } else {
             return res.json({ authorized: false });
@@ -141,6 +140,45 @@ export const dismissNotification = async (req, res) => {
             const notification = await NotificationsModel.findById(req.body._id);
             notification.isRead = true;
             await notification.save();
+            return res.json({ authorized: true });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false });
+    }
+}
+
+export const friendRequestSent = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const notification = await NotificationsModel.findOne({ userId: req.body._id, title: 'Friend Request', other: data._id, isRead: false }).lean();
+            console.log(notification)
+            if (notification) return res.json({ authorized: true, requestSent: true });
+            return res.json({ authorized: true, requestSent: false });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false });
+    }
+}
+
+export const cancelFriendRequest = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const notification = await NotificationsModel.findOne({ userId: req.body.friend_id, title: 'Friend Request', other: data._id });
+            if (notification) {
+                notification.isRead = true;
+                notification.markModified('isRead');
+                await notification.save();
+            }
             return res.json({ authorized: true });
         } else {
             return res.json({ authorized: false });
