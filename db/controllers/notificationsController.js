@@ -12,6 +12,8 @@ import StatisticsModel from '../models/Statistics.js';
  *  "/notification_exercise_update" => updateExerciseStats(req, res) - will update the users stats from the notification
  *  "/notification_friend_update" => createFriendRequestNotification(req, res) - will update the users friends list from the notificaiton (accepting request)
  *  "/dismiss_notification" => dismissNotification(req, res) - will remove the notification from the list
+ *  "/friend_request_sent" => friendRequestSent(req, res) - will check if the friend request was sent for a user looking at a profile
+ *  "/cancel_friend_request" => cancelFriendRequest(req, res) - will cancel a sent request to a user
  */
 
 export const getNotifications = async (req, res) => {
