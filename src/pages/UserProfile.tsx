@@ -31,6 +31,7 @@ const UserProfile: React.FC = () => {
     const [firstName, setFristName] = useState("");
     const [lastName, setLastName] = useState("");
     const [isFriend, setIsFriend] = useState(false);
+    const [friendRequestSent, setFriendRequestSent] = useState(false);
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
     const [base64Image, setBase64Image] = useState("");
@@ -70,7 +71,18 @@ const UserProfile: React.FC = () => {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            }).catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+
+        apiPost("/friend_request_sent", jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.authorized) {
+                    setFriendRequestSent(data.requestSent);
+                    setButtonText(data.requestSent ? "Friend Request Sent" : "Add Friend");
+                }
+            })
+            .catch(error => console.log(error));
 
         apiGet("/privacy")
             .then(data => {
@@ -100,25 +112,30 @@ const UserProfile: React.FC = () => {
     }, [navigate, id]);
 
     const handleOnClick = () => {
-        var link = "";
-        if (!isFriend) {
-            link = "/add_friend";
-        } else {
-            link = "/remove_friend";
-        }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
-        apiPost(link, jsonData)
-            .then(res => res.json())
-            .then(data => {
-                if (data.isFriend) {
-                    setIsFriend(true);
-                    setButtonText("Remove Friend");
-                } else {
+        if (isFriend) {
+            apiPost("/remove_friend", jsonData)
+                .then(() => {
                     setIsFriend(false);
                     setButtonText("Add Friend");
-                }
-            })
-            .catch(error => console.log(error));
+                })
+                .catch(error => console.log(error));
+        } else if (friendRequestSent) {
+            apiPost("/cancel_friend_request", jsonData)
+                .then(() => {
+                    setButtonText("Add Friend");
+                    setFriendRequestSent(false);
+                })
+                .catch(error => console.log(error));
+        } else {
+            apiPost("/send_friend_request", jsonData)
+                .then(() => {
+                    setButtonText("Friend Request Sent");
+                    setFriendRequestSent(true);
+                    alert("Friend request sent.");
+                })
+                .catch(error => console.log(error));
+        }
     }
 
     return (

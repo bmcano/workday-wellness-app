@@ -18,6 +18,7 @@ import UserStats from "../components/UserStats.tsx";
 import CardText from "../components/card/CardText.tsx";
 import CardList from "../components/card/CardList.tsx";
 import LoadingAnimation from "../components/LoadingAnimation.tsx";
+import { Divider } from "@mui/material";
 
 interface UserRecord {
   name: string;
@@ -119,7 +120,7 @@ const Home: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Navbar isLoading={pageLoading}/>
+      <Navbar isLoading={pageLoading} />
       {pageLoading && <LoadingAnimation />}
       {!pageLoading &&
         <Column>
@@ -156,13 +157,14 @@ const Home: React.FC = () => {
                 </div>
               )}
             </div>
+            { friendStatuses.length > 0 && <Divider style={{ marginTop: "16px" }} />}
             <div className="friend-statuses">
               {friendStatuses.map((friendStatus, index) => {
                 const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
                 return (
                   <div key={index} className="friend-status-card">
                     <div className="friend-status-name">{friendStatus.name}</div>
-                    <div className="friend-status-message">Status: {friendStatus.status}</div>
+                    <div className="friend-status-message">{friendStatus.status}</div>
                     <div className="friend-status-timestamp">{readableTimestamp}</div>
                   </div>
                 );
