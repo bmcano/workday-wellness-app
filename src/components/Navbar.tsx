@@ -20,8 +20,6 @@ import Notifications from './Notifications.tsx';
 import { apiGet } from '../api/serverApiCalls.tsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// @ts-ignore
-import messageSound from '../static/sounds/popcorn.mp3'
 
 const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
 
@@ -35,8 +33,6 @@ const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
     const logout = () => handleLogout(navigate);
 
     const showNotification = (count: number, plural: string) => {
-        const audio = new Audio(messageSound); // Create an Audio object
-        audio.play(); // Play the sound
         toast.info(`You have ${count} new notification${plural}.`, {
             position: "top-right",
             autoClose: 5000,
