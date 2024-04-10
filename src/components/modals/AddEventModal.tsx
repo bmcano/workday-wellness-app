@@ -51,7 +51,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             contentLabel="Add Event Modal"
             style={customModalStyle}
         >
-            <Card>
+            <Card isModal={true}>
                 <CardList>
                     <CardText type="header" text="Add Event" style={{ marginLeft: '16px' }} />
                     <CardRow>

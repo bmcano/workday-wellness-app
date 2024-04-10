@@ -11,6 +11,8 @@ import CardText from "../components/card/CardText.tsx"
 import Divider from "../components/card/Divider.tsx";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import CardList from "../components/card/CardList.tsx";
+import CardRow from "../components/card/CardRow.tsx";
 
 const EditPrivacySettings: React.FC = () => {
     const navigate = useNavigate();
@@ -38,7 +40,9 @@ const EditPrivacySettings: React.FC = () => {
             aboutPrivate: aboutPrivate,
             linkedinLinkPrivate: linkedinLinkPrivate
         })
-        apiPost('/update_privacy', jsonData).catch((error) => console.log(error));
+        apiPost('/update_privacy', jsonData)
+            .then(() => alert("Privacy settings have been updated."))
+            .catch((error) => console.log(error));
     };
 
     return (

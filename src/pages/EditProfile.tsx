@@ -86,7 +86,9 @@ const EditProfile: React.FC = () => {
             }
 
             const jsonData = JSON.stringify({ base64Image: base64Image });
-            apiPost("/upload", jsonData).catch(error => console.log(error));
+            apiPost("/upload", jsonData)
+                .then(() => alert("Profile picture successfully uploaded."))
+                .catch(error => console.log(error));
         } catch (error) {
             console.error('Error saving image to database:', error);
         }
@@ -104,7 +106,9 @@ const EditProfile: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const jsonData = JSON.stringify({ first_name: firstName, last_name: lastName, birthday: birthday, about: about, linkedIn_link: linkedinLink })
-        apiPost('/update_profile_information', jsonData).catch((error) => console.log(error));
+        apiPost('/update_profile_information', jsonData)
+            .then(() => alert("Profile information successfully updated."))
+            .catch((error) => console.log(error));
     };
 
     const handleSchedule = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -121,7 +125,9 @@ const EditProfile: React.FC = () => {
             friday_start: workHours.Friday.start,
             friday_end: workHours.Friday.end,
         })
-        apiPost('/update_schedule_information', jsonData).catch((error) => console.log(error));
+        apiPost('/update_schedule_information', jsonData)
+            .then(() => alert("Schedule information successfully updated."))
+            .catch((error) => console.log(error));
     };
 
     const handleWorkHoursChange = (day: string, type: 'start' | 'end', value: string) => {
@@ -160,7 +166,7 @@ const EditProfile: React.FC = () => {
                         <Divider />
                         {!isScheduleLoading && Object.keys(workHours).map((day) => (
                             <div key={day}>
-                                <CardText type="title" text={day} style={{ marginLeft: "16px", marginBottom: "8px"}}/>
+                                <CardText type="title" text={day} style={{ marginLeft: "16px", marginBottom: "8px" }} />
                                 <TextField
                                     label="Start Time"
                                     type="time"

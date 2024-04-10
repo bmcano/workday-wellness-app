@@ -56,10 +56,9 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
     return (
         <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
             <div className="drawer-header">
-                <CardText type="header" text="Notifications" />
-                <Divider />
+                <CardText type="header" text={notificationList.length === 0 ? "No notifications" : "Notifications"} style={{ width: "468px" }} />
+                <Divider style={{ marginLeft: "16px", marginRight: "16px" }} />
             </div>
-            {notificationList.length === 0 && <CardText type="title" text="No notifications" style={{ width: "372px", textAlign: "center" }} />}
             {notificationList.map((notification, index) => (
                 <NotificationCard
                     key={index}
@@ -70,7 +69,7 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                     onAccept={() => onAcceptExercise(index)}
                 />
             ))}
-            <Divider />
+            {notificationList.length > 0 && <Divider style={{ marginLeft: "16px", marginRight: "16px" }} />}
             <Button onClick={handleDrawerClose} color="primary">Close</Button>
         </Drawer>
     )

@@ -71,6 +71,10 @@ if __name__ == "__main__":
     statistics_collection.delete_many({})
     notifications_collection = db['notifications']
     notifications_collection.delete_many({})
+    privacy_collection = db['privacy']
+    privacy_collection.delete_many({})
+    status_collection = db['status']
+    status_collection.delete_many({})
 
     # open and load all data for the Users table
     with open('stub_data/users.json', 'r') as file:

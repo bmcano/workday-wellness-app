@@ -8,5 +8,5 @@ const PrivacySchema = new Schema({
     linkedinLinkPrivate: { type: Boolean, default: true },
 });
 
-const PrivacyModel = model('Privacy', PrivacySchema);
+const PrivacyModel = model('privacy', PrivacySchema);
 export default PrivacyModel;

@@ -2,11 +2,11 @@ import "../App.css";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar.tsx";
-import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
+import { AuthorizedUserLoading } from "../api/AuthorizedUser.tsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { getCurrentFormattedDate } from "../util/dateUtils.ts";
-import { apiGet } from "../api/serverApiCalls.tsx";
+import { apiGet, apiPost } from "../api/serverApiCalls.tsx";
 import UpcomingEvents from "../components/UpcomingEvents.tsx";
 import { EventInput } from "@fullcalendar/core";
 import UpcomingEventsLoading from "../components/UpcomingEventsLoading.tsx";
@@ -17,6 +17,7 @@ import Column from "../components/card/Column.tsx";
 import UserStats from "../components/UserStats.tsx";
 import CardText from "../components/card/CardText.tsx";
 import CardList from "../components/card/CardList.tsx";
+import LoadingAnimation from "../components/LoadingAnimation.tsx";
 
 interface UserRecord {
   name: string;
@@ -24,16 +25,26 @@ interface UserRecord {
   completedExercises: number;
 }
 
+interface FriendStatus {
+  email: string;
+  name: string;
+  status: string;
+  timestamp: string;
+}
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [pageLoading, setPageLoading] = useState(true);
   const [name, setName] = useState("");
-  const [statuses, setStatuses] = useState<string[]>([]);
+  const [statuses, setStatuses] = useState<FriendStatus[]>([]);
   const [todaysEvent, setTodaysEvents] = useState<EventInput[]>([])
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<UserRecord | null>(null);
+  const [status, setStatus] = useState("");
+  const [friendStatuses, setFriendStatuses] = useState<FriendStatus[]>([]);
 
   useEffect(() => {
-    AuthorizedUser(navigate);
+    AuthorizedUserLoading(navigate, setPageLoading);
     apiGet("/user")
       .then(data => {
         if (data.authorized) {
@@ -62,59 +73,109 @@ const Home: React.FC = () => {
       .catch(error => {
         console.log(error);
       });
+
+    apiGet("/user_status")
+      .then(data => {
+        if (data.success) {
+          setStatuses(data.statuses);
+        }
+      })
+      .catch((error) => console.log(error));
+
+    apiGet("/get_friend_status")
+      .then(response => {
+        if (response.success && response.friendsStatuses) {
+          setFriendStatuses(response.friendsStatuses as FriendStatus[]);
+        } else {
+          console.error("Failed to retrieve friends' statuses");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching friends' statuses:", error);
+      });
+
   }, [navigate]);
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const updates = new FormData(event.currentTarget);
-    const status = updates.get("updates");
+
     if (status) {
-      const newStatuses = [status.toString(), ...statuses];
-      const updatedStatuses = newStatuses.slice(0, 3); // can limit how many statuses show at once.
-      setStatuses(updatedStatuses);
+      const jsonData = JSON.stringify({ status: status });
+
+      apiPost('/status', jsonData)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.error('Error submitting status:', error);
+        });
+    } else {
+      console.error('No status text provided');
     }
   };
 
   return (
     <React.Fragment>
-      <Navbar />
-      <Column>
-        <div>
-          <Card>
-            <CardList>
-              <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
-              <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
-            </CardList>
-          </Card>
-          {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
-        </div>
-        <Card>
-          <form onSubmit={handleFormSubmit} className="form-row">
-            <TextField
-              type="text"
-              id="updates"
-              name="updates"
-              fullWidth
-              label="What's on your mind?"
-              inputProps={{ min: "0", step: "1" }}
-              sx={{ marginRight: '16px' }}
-            />
-            <Button type="submit" variant="contained" color="primary">Post</Button>
-          </form>
-          <div className="card-info">
-            {statuses.map((status, index) => (
-              <div key={index} className="posted-status">
-                {status}
-              </div>
-            ))}
+      <Navbar isLoading={pageLoading}/>
+      {pageLoading && <LoadingAnimation />}
+      {!pageLoading &&
+        <Column>
+          <div>
+            <Card>
+              <CardList>
+                <CardText type="header" text={`Welcome, ${name}!`} style={{ marginTop: "0px", marginBottom: "0px" }} />
+                <CardText type="title" text={getCurrentFormattedDate()} style={{ marginTop: "0px", marginBottom: "0px" }} />
+              </CardList>
+            </Card>
+            {userData && <UserStats streak={userData.streak} completedExercises={userData.completedExercises} navigate={navigate} />}
           </div>
-        </Card>
-        <div>
-          <GenerateRecommendations />
-          {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
-        </div>
-      </Column>
-      <ChatBot />
+          <Card>
+            <form onSubmit={handleFormSubmit} className="form-row">
+              <TextField
+                type="text"
+                id="updates"
+                name="status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                fullWidth
+                label="What's on your mind?"
+                inputProps={{ min: "0", step: "1" }}
+                sx={{ marginRight: '16px' }}
+              />
+              <Button type="submit" variant="contained" color="primary">Post</Button>
+            </form>
+            <div className="card-info">
+              {statuses.length > 0 && (
+                <div className="user-status-card">
+                  <div className="friend-status-name">You</div>
+                  <div className="friend-status-message">{statuses[0].status}</div>
+                  <div className="friend-status-timestamp">{new Date(statuses[0].timestamp).toLocaleString()}</div>
+                </div>
+              )}
+            </div>
+            <div className="friend-statuses">
+              {friendStatuses.map((friendStatus, index) => {
+                const readableTimestamp = new Date(friendStatus.timestamp).toLocaleString();
+                return (
+                  <div key={index} className="friend-status-card">
+                    <div className="friend-status-name">{friendStatus.name}</div>
+                    <div className="friend-status-message">Status: {friendStatus.status}</div>
+                    <div className="friend-status-timestamp">{readableTimestamp}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+          <div>
+            <GenerateRecommendations />
+            {loading ? (<UpcomingEventsLoading />) : (<UpcomingEvents events={todaysEvent} />)}
+          </div>
+        </Column>
+      }
+      {!pageLoading && <ChatBot />}
     </React.Fragment>
   );
 };
