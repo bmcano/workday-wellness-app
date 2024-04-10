@@ -77,11 +77,9 @@ const UserProfile: React.FC = () => {
         apiPost("/friend_request_sent", jsonData)
             .then(res => res.json())
             .then(data => {
-                console.log("TEST", data);
                 if (data.authorized) {
                     setFriendRequestSent(data.requestSent);
                     setButtonText(data.requestSent ? "Friend Request Sent" : "Add Friend");
-                    console.log(data);
                 }
             })
             .catch(error => console.log(error));
