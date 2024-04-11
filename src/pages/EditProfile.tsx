@@ -59,7 +59,7 @@ const EditProfile: React.FC = () => {
                         Friday: { start: schedule.friday_start, end: schedule.friday_end }
                     })
                 } else {
-                    console.log("Using default scheudle.");
+                    console.log("Using default schedule.");
                 }
             })
             .catch(error => console.log(error))

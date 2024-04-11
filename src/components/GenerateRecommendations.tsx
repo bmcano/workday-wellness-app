@@ -18,8 +18,8 @@ const GenerateRecommendations: React.FC = () => {
     };
 
     const handleSaveEvent = (eventData: any) => {
-        // window.location.reload();
         console.log('Events saved: ', eventData);
+        window.location.reload();
         handleCloseModal();
     };
 

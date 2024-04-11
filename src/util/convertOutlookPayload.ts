@@ -1,4 +1,5 @@
 import { EventInput } from '@fullcalendar/core'
+import { convertUTCtoLocaleTimeZone } from './dateUtils.ts';
 
 //convert the outlook payload to an array of EventInput
 export const convertOutlookPayload = (payload: any): EventInput[] => {
@@ -7,8 +8,8 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     const events: EventInput[] = scheduleItems.map(item => {
         const startDateUTC = new Date(item.start.dateTime);
         const endDateUTC = new Date(item.end.dateTime);
-        const startDateCST = new Date(startDateUTC.getTime() - (6 * 60 * 60 * 1000)).toISOString();
-        const endDateCST = new Date(endDateUTC.getTime() - (6 * 60 * 60 * 1000)).toISOString();
+        const startDateCST = convertUTCtoLocaleTimeZone(startDateUTC);
+        const endDateCST = convertUTCtoLocaleTimeZone(endDateUTC);
         return {
             title: item.subject,
             start: startDateCST,
@@ -19,15 +20,15 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     return events;
 }
 
-export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 14, workEndHour: number = 23): { start: string, end: string }[] => {
+export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 8, workEndHour: number = 17): { start: string, end: string }[] => {
     const events: EventInput[] = [...payload];
-
+    console.log(events)
     //no events, return the entire workday as free time
     if (events.length === 0) {
         const workdayStart = new Date();
-        workdayStart.setUTCHours(workStartHour, 0, 0, 0);
+        workdayStart.setHours(workStartHour, 0, 0, 0);
         const workdayEnd = new Date();
-        workdayEnd.setUTCHours(workEndHour, 0, 0, 0);
+        workdayEnd.setHours(workEndHour, 0, 0, 0);
         return [{ start: workdayStart.toISOString(), end: workdayEnd.toISOString() }];
     }
 
@@ -36,10 +37,10 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
     const freeTimeSlots: { start: string, end: string }[] = [];
 
     const workdayStart = new Date(events[0].start as string);
-    workdayStart.setUTCHours(workStartHour, 0, 0, 0);
+    workdayStart.setHours(workStartHour, 0, 0, 0);
 
     const workdayEnd = new Date(events[0].start as string);
-    workdayEnd.setUTCHours(workEndHour, 0, 0, 0);
+    workdayEnd.setHours(workEndHour, 0, 0, 0);
 
     if (events[0].start && new Date(events[0].start as string).getTime() > workdayStart.getTime()) {
         freeTimeSlots.push({

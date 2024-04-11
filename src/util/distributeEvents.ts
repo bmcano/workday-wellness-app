@@ -12,8 +12,7 @@ export const distributeEvents = (freeTimeSlots: TimeSlots[], eventNames: Array<s
     const numEvents = eventNames.length;
     console.log(timeBetweenEvents / 1000 / 60)
     const result: TimeSlots[] = [];
-
-    console.log(freeTimeSlots)
+   
     for (let i = 0; i < numEvents; i++) {
         const eventName = eventNames[i];
 

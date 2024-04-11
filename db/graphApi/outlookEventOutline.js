@@ -63,7 +63,7 @@ export const recurringEvent = (eventData, email, name) => {
             range: {
                 type: 'endDate',
                 startDate: eventData.start.substring(0, 10),
-                endDate: eventData.endReccurence.substring(0, 10)
+                endDate: eventData.endRecurrence.substring(0, 10)
             }
         },
         location: {
