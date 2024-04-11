@@ -9,15 +9,23 @@ import Divider from "../components/card/Divider.tsx";
 
 const TABS = ['About', 'Latest Activity', 'Status', 'Friends'];
 
+type Status = {
+  _id: string;
+  email: string;
+  status: string;
+  timestamp: Date;
+};
+
 const Profile: React.FC = () => {
 
   const [name, setName] = useState("");
+  const [joinDate, setJoinDate] = useState<Date>("January 1st, 2024" as unknown as Date);
   const [birthday, setBirthday] = useState<Date>("January 1st, 2024" as unknown as Date);
   const [linkedIn, setLinkedIn] = useState("");
   const [about, setAbout] = useState("User has not set any information.");
   const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
-  const [status, setStatus] = useState("User has not set a status.");
+  const [status, setStatus] = useState<Status[]>([]);
   const [friends, setFriends] = useState([]);  const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +34,7 @@ const Profile: React.FC = () => {
       .then(data => {
         if (data.authorized) {
           setName(`${data.user.first_name} ${data.user.last_name}`);
+          setJoinDate(data.user.join_date);
           setBirthday(data.user.birthday);
           setLinkedIn(data.user.linkedIn_link);
           if (data.user.about !== "") {
@@ -36,18 +45,13 @@ const Profile: React.FC = () => {
         }
       })
       .catch(error => console.log(error))
-      apiGet('/status')
-      .then(response => response.json())
+      apiGet("/user_status")
       .then(data => {
         if (data.success) {
-          setStatus(data.status);
+          setStatus(data.statuses);
         }
       })
-      .catch((error) => {
-        console.error('Error retrieving status:', error);
-      });
-
-      
+      .catch((error) => console.log(error));  
   }, [navigate]);
 
   const handleTabClick = (tab: string) => {
@@ -61,7 +65,9 @@ const Profile: React.FC = () => {
       case 'Latest Activity':
         return <div>Latest Activity content goes here.</div>;
       case 'Status':
-        return <div>{status}</div>;
+        return <div>{status.map((status, index) => (
+          <p key={index}>{status.status}</p>
+        ))}</div>;
       case 'Friends':
         return (
           <div>
@@ -88,6 +94,7 @@ const Profile: React.FC = () => {
           </div>
           <div className="profile-text-container">
             <h1>{name}</h1>
+            <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
             <p>Birthday: {(birthday as unknown as string).split('T')[0]}</p>
             <p>{friendCount} Friend(s)</p>
             <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
