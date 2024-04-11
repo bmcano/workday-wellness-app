@@ -32,7 +32,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             end: formatDateforDatabase(end),
             isExercise: true,
             recurrence: recurrencePattern,
-            endRecurrene: formatDateforDatabase(endDate)
+            endRecurrence: formatDateforDatabase(endDate)
         };
 
         // save to database first
