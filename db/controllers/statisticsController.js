@@ -10,6 +10,7 @@ import { getUserInformation } from "./sessionController.js";
  *  "/get_friend_leaderboard_completed" => getFriendLeaderboardCompleted(req, res) - grabs the list of all friends of the user and sorts them by completed items
  *  "/get_user_records" => getUserRecords(req, res) - gets the stats of the user
  * POST:
+ * "/update_lifetime_stats" => updateLifetimeStats(req, res) - updates the lifetime stats of the user
  */
 
 export const getGlobalLeaderboardStreak = async (req, res) => {
