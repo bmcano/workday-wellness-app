@@ -12,12 +12,13 @@ const TABS = ['About', 'Latest Activity', 'Status', 'Friends'];
 const Profile: React.FC = () => {
 
   const [name, setName] = useState("");
-  const [joinDate, setJoinDate] = useState<Date>("January 1st, 2024" as unknown as Date);
+  const [birthday, setBirthday] = useState<Date>("January 1st, 2024" as unknown as Date);
   const [linkedIn, setLinkedIn] = useState("");
   const [about, setAbout] = useState("User has not set any information.");
   const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
-  const navigate = useNavigate();
+  const [status, setStatus] = useState("User has not set a status.");
+  const [friends, setFriends] = useState([]);  const navigate = useNavigate();
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -25,15 +26,28 @@ const Profile: React.FC = () => {
       .then(data => {
         if (data.authorized) {
           setName(`${data.user.first_name} ${data.user.last_name}`);
-          setJoinDate(data.user.join_date);
+          setBirthday(data.user.birthday);
           setLinkedIn(data.user.linkedIn_link);
           if (data.user.about !== "") {
             setAbout(data.user.about);
           }
           setFriendCount(data.user.friends.length);
+          setFriends(data.user.friends);
         }
       })
       .catch(error => console.log(error))
+      apiGet('/status')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setStatus(data.status);
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving status:', error);
+      });
+
+      
   }, [navigate]);
 
   const handleTabClick = (tab: string) => {
@@ -47,9 +61,17 @@ const Profile: React.FC = () => {
       case 'Latest Activity':
         return <div>Latest Activity content goes here.</div>;
       case 'Status':
-        return <div>Status content goes here.</div>;
+        return <div>{status}</div>;
       case 'Friends':
-        return <div>Friends list goes header.</div>;
+        return (
+          <div>
+            {friends.map((friend, index) => (
+              <div key={index}>
+                <p>{friend}</p>
+              </div>
+            ))}
+          </div>
+        );
       default:
         return <div>Select a tab.</div>;
     }
@@ -66,7 +88,7 @@ const Profile: React.FC = () => {
           </div>
           <div className="profile-text-container">
             <h1>{name}</h1>
-            <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
+            <p>Birthday: {(birthday as unknown as string).split('T')[0]}</p>
             <p>{friendCount} Friend(s)</p>
             <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
           </div>
