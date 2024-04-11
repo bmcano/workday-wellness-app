@@ -1,4 +1,5 @@
 import { EventInput } from '@fullcalendar/core'
+import { convertUTCtoLocaleTimeZone } from './dateUtils.ts';
 
 //convert the outlook payload to an array of EventInput
 export const convertOutlookPayload = (payload: any): EventInput[] => {
@@ -7,8 +8,8 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     const events: EventInput[] = scheduleItems.map(item => {
         const startDateUTC = new Date(item.start.dateTime);
         const endDateUTC = new Date(item.end.dateTime);
-        const startDateCST = new Date(startDateUTC.getTime() - (6 * 60 * 60 * 1000)).toISOString();
-        const endDateCST = new Date(endDateUTC.getTime() - (6 * 60 * 60 * 1000)).toISOString();
+        const startDateCST = convertUTCtoLocaleTimeZone(startDateUTC);
+        const endDateCST = convertUTCtoLocaleTimeZone(endDateUTC);
         return {
             title: item.subject,
             start: startDateCST,

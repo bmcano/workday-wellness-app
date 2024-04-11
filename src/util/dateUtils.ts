@@ -25,9 +25,38 @@ export const formatDateforDatabase = (date: Date): Date => {
 }
 
 export const isEventOccuringNow = (start: Date, end: Date): boolean => {
-  const date = new Date();
-  const now = moment(date);
-  const startMoment = moment(start).tz("UTC");
-  const endMoment = moment(end).tz("UTC");
-  return now.isAfter(startMoment) && now.isBefore(endMoment);
+    const date = new Date();
+    const now = moment(date);
+    const startMoment = moment(start).tz("UTC");
+    const endMoment = moment(end).tz("UTC");
+    return now.isAfter(startMoment) && now.isBefore(endMoment);
+}
+
+export const getCurrentLocaleDateString = (): string => {
+    // returns: YYYY-MM-DD in local timezone
+    const now = new Date().toLocaleDateString();
+    const month = now.slice(0, 1).padStart(2, '0');
+    const day = now.slice(2, 4).padStart(2, '0');
+    const year = now.slice(5);
+    return `${year}-${month}-${day}`;
+}
+
+export const getCurrentLocaleDateTimeString = (): string => {
+    // returns: YYYY-MM-DDTXX:XX:XX.000 in local timezone
+    const now = new Date().toLocaleString('en-US', { hour12: false });
+    const month = now.slice(0, 1).padStart(2, '0');
+    const day = now.slice(2, 4).padStart(2, '0');
+    const year = now.slice(5, 9);
+    const time = now.slice(11).padStart(8, '0');
+    return `${year}-${month}-${day}T${time}.000`;
+}
+
+export const convertUTCtoLocaleTimeZone = (date: Date): string => {
+    return new Date(date.getTime() - (date.getTimezoneOffset() * 60 * 1000)).toISOString();
+}
+
+export const convertUTCStringtoLocaleTimeZone = (date: string | undefined): string => {
+    if (!date) return "";
+    const now = new Date(date) 
+    return new Date(now.getTime() - (now.getTimezoneOffset() * 60 * 1000)).toISOString();
 }

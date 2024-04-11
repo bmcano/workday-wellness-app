@@ -51,7 +51,7 @@ const Calendar: React.FC = () => {
         apiGet("/get_calendar_data")
             .then(data => {
                 if (data.authorized) {
-                    setEvents(data.calendar)
+                    setEvents(data.calendar);
                 }
             })
             .catch(error => console.log(error))
