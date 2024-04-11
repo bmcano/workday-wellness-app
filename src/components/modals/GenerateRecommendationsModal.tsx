@@ -17,6 +17,7 @@ import CardList from '../card/CardList.tsx';
 import CardText from '../card/CardText.tsx';
 import Column from '../card/Column.tsx';
 import CardRow from '../card/CardRow.tsx';
+import { convertToLocaleISOString } from '../../util/dateUtils.ts';
 
 Modal.setAppElement("#root");
 
@@ -46,8 +47,8 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
 
     const handleGenerate = () => {
         // get events from selected date
-        const isoDate = date.toISOString().split('T')[0];
-        const updatedEvents = events.filter(event => event.start?.toString().startsWith(isoDate));
+        const selectedDate = convertToLocaleISOString(date);
+        const updatedEvents = events.filter(event => event.start?.toString().startsWith(selectedDate));
         // get free time for selected date
         const freeTime = getFreeTimeSlots(updatedEvents)
         // get recommendations from intensity level

@@ -32,6 +32,14 @@ export const isEventOccuringNow = (start: Date, end: Date): boolean => {
     return now.isAfter(startMoment) && now.isBefore(endMoment);
 }
 
+export const convertToLocaleISOString = (date: Date): string => {
+    const now = date.toLocaleDateString();
+    const month = now.slice(0, 1).padStart(2, '0');
+    const day = now.slice(2, 4).padStart(2, '0');
+    const year = now.slice(5);
+    return `${year}-${month}-${day}`;
+}
+
 export const getCurrentLocaleDateString = (): string => {
     // returns: YYYY-MM-DD in local timezone
     const now = new Date().toLocaleDateString();
