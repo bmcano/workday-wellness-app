@@ -114,4 +114,10 @@ if __name__ == "__main__":
     for schedule in schedule_stubs:
         schedule_collection.insert_one(schedule)
 
+    with open('stub_data/status.json', 'r') as file:
+        status_stubs = json.load(file)
+
+    for status in status_stubs:
+        status_collection.insert_one(status)
+
     print("Schema created")
