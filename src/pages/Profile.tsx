@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
             setAbout(data.user.about);
           }
           setFriendCount(data.user.friends.length);
-          setFriends(data.user.friends);
+          //setFriends(data.user.friends);
         }
       })
       .catch(error => console.log(error))
@@ -52,6 +52,11 @@ const Profile: React.FC = () => {
         }
       })
       .catch((error) => console.log(error));  
+      apiGet("/friends_list")
+        .then(data => {
+          setFriends(data);
+        })
+        .catch((error) => console.log(error));
   }, [navigate]);
 
   const handleTabClick = (tab: string) => {
@@ -67,14 +72,12 @@ const Profile: React.FC = () => {
       case 'Status':
         return <div>{status.map((status, index) => (
           <p key={index}>{status.status}</p>
-        ))}</div>;
+          ))}</div>;
       case 'Friends':
         return (
           <div>
-            {friends.map((friend, index) => (
-              <div key={index}>
-                <p>{friend}</p>
-              </div>
+            {friends.map((friend: { first_name: string, last_name: string }, index: number) => (
+              <p key={index}>{`${friend.first_name} ${friend.last_name}`}</p>
             ))}
           </div>
         );
