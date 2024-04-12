@@ -20,15 +20,30 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
     return events;
 }
 
-export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 8, workEndHour: number = 17): { start: string, end: string }[] => {
+export const getFreeTimeSlots = (payload: EventInput[], workStartTime: string = "08:00", workEndTime: string = "17:00"): { start: string, end: string }[] => {
     const events: EventInput[] = [...payload];
-    console.log(events)
-    //no events, return the entire workday as free time
+    // we do not want the end time coming before the start time
+    const [hours1, minutes1] = workStartTime.split(':').map(Number);
+    const [hours2, minutes2] = workEndTime.split(':').map(Number);
+    if ((hours1 > hours2) || (hours1 === hours2 && minutes1 > minutes2) || (workStartTime === workEndTime)) {
+        workStartTime = "08:00"
+        workEndTime = "17:00"
+    }
+    // incase of empty string inputs
+    workStartTime = workStartTime === "" ? "08:00" : workStartTime;
+    workEndTime = workEndTime === "" ? "17:00" : workEndTime;
+
+    const startHour = workStartTime.slice(0, 2) as unknown as number;
+    const startMinute = workStartTime.slice(3) as unknown as number;
+    const endHour = workEndTime.slice(0, 2) as unknown as number;
+    const endMinute = workEndTime.slice(3) as unknown as number;
+    // if there is no events for today just get start and end time
+    // TODO: this returns the current day of events rather than the selected day, this needs to be fixed.
     if (events.length === 0) {
         const workdayStart = new Date();
-        workdayStart.setHours(workStartHour, 0, 0, 0);
+        workdayStart.setHours(startHour, startMinute, 0, 0);
         const workdayEnd = new Date();
-        workdayEnd.setHours(workEndHour, 0, 0, 0);
+        workdayEnd.setHours(endHour, endMinute, 0, 0);
         return [{ start: workdayStart.toISOString(), end: workdayEnd.toISOString() }];
     }
 
@@ -37,10 +52,10 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
     const freeTimeSlots: { start: string, end: string }[] = [];
 
     const workdayStart = new Date(events[0].start as string);
-    workdayStart.setHours(workStartHour, 0, 0, 0);
+    workdayStart.setHours(startHour, startMinute, 0, 0);
 
     const workdayEnd = new Date(events[0].start as string);
-    workdayEnd.setHours(workEndHour, 0, 0, 0);
+    workdayEnd.setHours(endHour, endMinute, 0, 0);
 
     if (events[0].start && new Date(events[0].start as string).getTime() > workdayStart.getTime()) {
         freeTimeSlots.push({
@@ -73,7 +88,7 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartHour: number = 
 export const getTimeUntilNextEvent = (payload: EventInput[]): number | null => {
     console.log('getTimeUntilNextEvent called');
     const events: EventInput[] = [...payload];
-    if(events === null) return 0;
+    if (events === null) return 0;
 
     // If there are no events, return null
     if (events.length === 0) {
@@ -84,7 +99,7 @@ export const getTimeUntilNextEvent = (payload: EventInput[]): number | null => {
     events.sort((a, b) => new Date(a.start as string).getTime() - new Date(b.start as string).getTime());
 
     // Get the current time in UTC
-    const nowInUTC = Date.now(); 
+    const nowInUTC = Date.now();
     console.log('nowInUTC:', nowInUTC);
 
     console.log('sorted events:', events);

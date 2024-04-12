@@ -1,5 +1,5 @@
 import "../App.css";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,12 @@ const Exercises: React.FC = () => {
         AuthorizedUser(navigate)
     }, [navigate])
 
+    const modalLinkRef = useRef<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const handleOpenModal = () => setIsModalOpen(true);
+    const handleOpenModal = (url: string) => {
+        modalLinkRef.current = url;
+        setIsModalOpen(true);
+    };
     const handleCloseModal = () => setIsModalOpen(false);
 
     const stretches = exerecises.filter(point => point.title.includes('Stretches'));
@@ -32,8 +36,8 @@ const Exercises: React.FC = () => {
             <CardRow>
                 <CardText type="body" text={title} />
                 <div className="card-button">
-                    <Button variant="text" color="primary" onClick={handleOpenModal}>More Info</Button>
-                    <RedirectLinkModal isOpen={isModalOpen} onClose={handleCloseModal} link={url} />
+                    <Button variant="text" color="primary" onClick={() => handleOpenModal(url)}>More Info</Button>
+                    <RedirectLinkModal isOpen={isModalOpen} onClose={handleCloseModal} link={modalLinkRef.current || ''} />
                 </div>
             </CardRow>
         )

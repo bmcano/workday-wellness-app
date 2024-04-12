@@ -97,7 +97,7 @@ describe('getFreeTimeSlots', () => {
       }
     ];
     // start: 8am, end: 5pm
-    const result = getFreeTimeSlots(input);
+    const result = getFreeTimeSlots(input, "", "");
     expect(result).toEqual(expectedResult);
   });
 
@@ -134,7 +134,7 @@ describe('getFreeTimeSlots', () => {
       }
     ];
     // start: 6am, end: 3pm
-    const result = getFreeTimeSlots(input, 12, 20);
+    const result = getFreeTimeSlots(input, "06:00", "15:00");
     expect(result).toEqual(expectedResult);
   });
 });

@@ -40,7 +40,7 @@
     "friends": "..\\db\\stub_data\\friends\\friends_02.json",
     "profile_picture": "Invalid Picture",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_02.json",
-    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
   },
   {
     "email": "emma@example.com",
@@ -54,7 +54,7 @@
     "friends": "..\\db\\stub_data\\friends\\friends_03.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_03.json",
-    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
   },
   {
     "email": "mike@example.com",
@@ -68,7 +68,7 @@
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
     "profile_picture": "",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
-    "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
+    "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
   },
   {
     "email": "sarah@example.com",
