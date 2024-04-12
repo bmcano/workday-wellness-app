@@ -71,10 +71,12 @@ if __name__ == "__main__":
     statistics_collection.delete_many({})
     notifications_collection = db['notifications']
     notifications_collection.delete_many({})
-    privacy_collection = db['privacy']
+    privacy_collection = db['privacies']
     privacy_collection.delete_many({})
     status_collection = db['status']
     status_collection.delete_many({})
+    schedule_collection = db['schedules']
+    schedule_collection.delete_many({})
 
     # open and load all data for the Users table
     with open('stub_data/users.json', 'r') as file:
@@ -100,11 +102,16 @@ if __name__ == "__main__":
         statistics_stubs = json.load(file)
     
     for stat in statistics_stubs:
-
         statistics_file = stat['completed']
         with open(statistics_file, 'r') as file:
             stat['completed'] = json.load(file)
-
         statistics_collection.insert_one(stat)
+
+    # open and load all data for the Schedules table
+    with open('stub_data/schedules.json', 'r') as file:
+        schedule_stubs = json.load(file)
+
+    for schedule in schedule_stubs:
+        schedule_collection.insert_one(schedule)
 
     print("Schema created")

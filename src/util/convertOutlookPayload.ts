@@ -22,12 +22,10 @@ export const convertOutlookPayload = (payload: any): EventInput[] => {
 
 export const getFreeTimeSlots = (payload: EventInput[], workStartTime: string = "08:00", workEndTime: string = "17:00"): { start: string, end: string }[] => {
     const events: EventInput[] = [...payload];
-
-
     // we do not want the end time coming before the start time
     const [hours1, minutes1] = workStartTime.split(':').map(Number);
     const [hours2, minutes2] = workEndTime.split(':').map(Number);
-    if ((hours1 > hours2) || (hours1 === hours2 && minutes1 > minutes2)) {
+    if ((hours1 > hours2) || (hours1 === hours2 && minutes1 > minutes2) || (workStartTime === workEndTime)) {
         workStartTime = "08:00"
         workEndTime = "17:00"
     }
@@ -35,8 +33,6 @@ export const getFreeTimeSlots = (payload: EventInput[], workStartTime: string = 
     workStartTime = workStartTime === "" ? "08:00" : workStartTime;
     workEndTime = workEndTime === "" ? "17:00" : workEndTime;
 
-    console.log(workStartTime)
-    console.log(workEndTime)
     const startHour = workStartTime.slice(0, 2) as unknown as number;
     const startMinute = workStartTime.slice(3) as unknown as number;
     const endHour = workEndTime.slice(0, 2) as unknown as number;
