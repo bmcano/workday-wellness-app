@@ -18,6 +18,7 @@ import CardText from '../card/CardText.tsx';
 import Column from '../card/Column.tsx';
 import CardRow from '../card/CardRow.tsx';
 import { convertToLocaleISOString } from '../../util/dateUtils.ts';
+import { getWorkHours } from '../../util/getWorkHours.ts';
 
 Modal.setAppElement("#root");
 
@@ -32,6 +33,13 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
     const [events, setEvents] = useState<EventInput[]>([])
     const [recEvents, setRecEvents] = useState<EventInput[]>([])
     const [exerciseData, setExerciseData] = useState<ExerciseCategories>({ neck: [], back: [], wrist: [], exercise: [], misc: [] });
+    const [workHours, setWorkHours] = useState({
+        Monday: { start: '08:00', end: '17:00' },
+        Tuesday: { start: '08:00', end: '17:00' },
+        Wednesday: { start: '08:00', end: '17:00' },
+        Thursday: { start: '08:00', end: '17:00' },
+        Friday: { start: '08:00', end: '17:00' }
+    });
 
     useEffect(() => {
         apiGet("/user")
@@ -43,6 +51,23 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
                 }
             })
             .catch(error => console.log(error));
+
+        apiGet("/schedule")
+            .then(data => {
+                if (data.authorized) {
+                    const schedule = data.schedule;
+                    setWorkHours({
+                        Monday: { start: schedule.monday_start, end: schedule.monday_end },
+                        Tuesday: { start: schedule.tuesday_start, end: schedule.tuesday_end },
+                        Wednesday: { start: schedule.wednesday_start, end: schedule.wednesday_end },
+                        Thursday: { start: schedule.thursday_start, end: schedule.thursday_end },
+                        Friday: { start: schedule.friday_start, end: schedule.friday_end }
+                    })
+                } else {
+                    console.log("Using default schedule.");
+                }
+            })
+            .catch(error => console.log(error));
     }, [])
 
     const handleGenerate = () => {
@@ -50,7 +75,8 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         const selectedDate = convertToLocaleISOString(date);
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(selectedDate));
         // get free time for selected date
-        const freeTime = getFreeTimeSlots(updatedEvents)
+        const hours = getWorkHours(date.getDay(), workHours);
+        const freeTime = getFreeTimeSlots(updatedEvents, hours.start, hours.end);
         // get recommendations from intensity level
         const exercises: string[] = [];
         const mode = getModeValues(intensity);
