@@ -148,31 +148,3 @@ export const getUserRecords = async (req, res) => {
     }
 };
 
-export const updateLifetimeStats = async (email) => {
-    try{
-        const token = req.headers.authorization.split(' ')[1];
-        const data = getUserInformation(token); 
-        if (data) {
-            const userEmail = data.email;
-            let userStats = await StatisticsModel.findOne({ email: userEmail });
-            if (!userStats) {
-                userStats = new StatisticsModel({ email: userEmail, streak: 0, completed: { amount: 1 } });
-            } else if (userStats.completed.amount >= 1) {
-                userStats.completed.amount += 1;
-            }
-            await userStats.save();
-
-            return res.json({
-                authorized: true,
-                message: "Lifetime stats updated successfully.",
-                completedExercises: userStats.completed.amount,
-            });
-        } else {
-            return res.json({ authorized: false });
-        }
-    }
-    catch(error){
-        console.log(error);
-        return res.json({ authorized: false, error: "An error occurred while fetching user stat records." });
-    }
-}
