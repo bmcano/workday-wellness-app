@@ -14,7 +14,7 @@ const LifetimeStats: React.FC = () => {
 
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet(`/get_user_records`).then((data) => {
+        apiGet(`get_global_leaderboard_completed`).then((data) => {
             if (data.authorized) {
                 const completed = data.completedExercises;
                 setCompletedExercises(completed);
