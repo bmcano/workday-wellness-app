@@ -25,7 +25,7 @@ const Profile: React.FC = () => {
   const [about, setAbout] = useState("User has not set any information.");
   const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
-  const [activity, setLasestAvctivity] = useState("Latest activity has not been set.");
+  const [activity, setLatestActivity] = useState("Latest activity has not been set.");
   const [status, setStatus] = useState<Status[]>([]);
   const [friends, setFriends] = useState([]);  const navigate = useNavigate();
 
@@ -58,12 +58,12 @@ const Profile: React.FC = () => {
           setFriends(data);
         })
         .catch((error) => console.log(error));
-      apiGet("/get_user_records")
-      .then(data => {
-        if (data.success) {
-          setLasestAvctivity(data.records);
-        }
-      })
+        apiGet("/todays_events")
+        .then(data => {
+          if (data.authorized && data.events.length > 0) {
+            setLatestActivity(data.events[0].title);
+          }
+        })
       .catch((error) => console.log(error));
   }, [navigate]);
 
