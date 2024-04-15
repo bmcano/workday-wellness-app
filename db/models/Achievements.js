@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 export const AchievementSchema = new Schema({
     MadeFriend: { type: Boolean, required: true },
