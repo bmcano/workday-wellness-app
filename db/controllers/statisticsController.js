@@ -1,3 +1,4 @@
+import AchievementsModel from "../models/Achievements.js";
 import StatisticsModel from "../models/Statistics.js";
 import UserModel from "../models/Users.js";
 import { getUserInformation } from "./sessionController.js";
@@ -9,7 +10,7 @@ import { getUserInformation } from "./sessionController.js";
  *  "/get_friend_leaderboard_streak" => getFriendLeaderboardStreak(req, res) - grabs the list of all friends of the user and sorts them by streak count
  *  "/get_friend_leaderboard_completed" => getFriendLeaderboardCompleted(req, res) - grabs the list of all friends of the user and sorts them by completed items
  *  "/get_user_records" => getUserRecords(req, res) - gets the stats of the user
- * POST:
+ * POST: "/update_user_achievements" => updateUserAchievement(req, res) - updates user achievements based on their current streak and completed items
  */
 
 export const getGlobalLeaderboardStreak = async (req, res) => {
@@ -144,5 +145,50 @@ export const getUserRecords = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.json({ authorized: false, error: "An error occurred while fetching user records." });
+    }
+};
+
+export const updateUserAchievement = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const userInfo = getUserInformation(token);
+
+        if (!userInfo) {
+            return res.status(401).json({ authorized: false, message: "Unauthorized access." });
+        }
+
+        const userEmail = userInfo.email;
+        const userStats = await StatisticsModel.findOne({ email: userEmail }).lean();
+        const userAchievements = await AchievementsModel.findOne({ email: userEmail });
+
+        if (!userStats || !userAchievements) {
+            return res.status(404).json({ message: "User statistics or achievements not found." });
+        }
+
+        if (userStats.streak >= 1 && !userAchievements.OneDayStreak) {
+            userAchievements.OneDayStreak = true;
+        }
+        if (userStats.streak >= 10 && !userAchievements.TenDayStreak) {
+            userAchievements.TenDayStreak = true;
+        }
+        if (userStats.streak >= 100 && !userAchievements.HundredDayStreak) {
+            userAchievements.HundredDayStreak = true;
+        }
+        if (userStats.completed.amount >= 1 && !userAchievements.OneDayEx) {
+            userAchievements.OneDayEx = true;
+        }
+        if (userStats.completed.amount >= 10 && !userAchievements.TenDayEx) {
+            userAchievements.TenDayEx = true;
+        }
+        if (userStats.completed.amount >= 100 && !userAchievements.HundredDayEx) {
+            userAchievements.HundredDayEx = true;
+        }
+
+        await userAchievements.save();
+
+        res.json({ authorized: true, message: "Achievements updated successfully.", achievements: userAchievements });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ authorized: false, error: "An error occurred while updating achievements." });
     }
 };
