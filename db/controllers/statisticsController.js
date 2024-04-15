@@ -159,36 +159,40 @@ export const updateUserAchievement = async (req, res) => {
 
         const userEmail = userInfo.email;
         const userStats = await StatisticsModel.findOne({ email: userEmail }).lean();
-        const userAchievements = await AchievementsModel.findOne({ email: userEmail });
 
-        if (!userStats || !userAchievements) {
-            return res.status(404).json({ message: "User statistics or achievements not found." });
+        if (!userStats) {
+            return res.status(404).json({ message: "User statistics not found." });
         }
 
-        if (userStats.streak >= 1 && !userAchievements.OneDayStreak) {
-            userAchievements.OneDayStreak = true;
+        let userAchievements = await AchievementsModel.findOne({ email: userEmail });
+
+        // Create a new achievements document if it does not exist
+        if (!userAchievements) {
+            userAchievements = new AchievementsModel({
+                email: userEmail,
+                MadeFriend: false,
+                OneDayStreak: false,
+                TenDayStreak: false,
+                HundredDayStreak: false,
+                OneDayEx: false,
+                TenDayEx: false,
+                HundredDayEx: false
+            });
         }
-        if (userStats.streak >= 10 && !userAchievements.TenDayStreak) {
-            userAchievements.TenDayStreak = true;
-        }
-        if (userStats.streak >= 100 && !userAchievements.HundredDayStreak) {
-            userAchievements.HundredDayStreak = true;
-        }
-        if (userStats.completed.amount >= 1 && !userAchievements.OneDayEx) {
-            userAchievements.OneDayEx = true;
-        }
-        if (userStats.completed.amount >= 10 && !userAchievements.TenDayEx) {
-            userAchievements.TenDayEx = true;
-        }
-        if (userStats.completed.amount >= 100 && !userAchievements.HundredDayEx) {
-            userAchievements.HundredDayEx = true;
-        }
+
+        userAchievements.OneDayStreak = userAchievements.OneDayStreak || userStats.streak >= 1;
+        userAchievements.TenDayStreak = userAchievements.TenDayStreak || userStats.streak >= 10;
+        userAchievements.HundredDayStreak = userAchievements.HundredDayStreak || userStats.streak >= 100;
+
+        userAchievements.OneDayEx = userAchievements.OneDayEx || userStats.completed.amount >= 1;
+        userAchievements.TenDayEx = userAchievements.TenDayEx || userStats.completed.amount >= 10;
+        userAchievements.HundredDayEx = userAchievements.HundredDayEx || userStats.completed.amount >= 100;
 
         await userAchievements.save();
 
         res.json({ authorized: true, message: "Achievements updated successfully.", achievements: userAchievements });
     } catch (error) {
-        console.log(error);
+        console.error("Error updating achievements:", error);
         res.status(500).json({ authorized: false, error: "An error occurred while updating achievements." });
     }
 };

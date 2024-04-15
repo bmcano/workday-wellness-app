@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 export const AchievementSchema = new Schema({
+    email: { type: String, required: true, unique: true },
     MadeFriend: { type: Boolean, required: true },
     OneDayStreak: { type: Boolean, required: true },
     TenDayStreak: { type: Boolean, required: true },

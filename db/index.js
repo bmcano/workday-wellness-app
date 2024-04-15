@@ -7,7 +7,7 @@ import { addCalendarData, checkIfOutlookClientExist, getCalendarData, getOutlook
 import { checkSession, login, registerAccount } from './controllers/sessionController.js';
 import { uploadProfilePicture, getUser, updateExerciseInformation, doesEmailExistInDatabase, sendEmail, resetPassword, setToken, getEmailFromToken, clearToken, updateProfileInformation, updateScheduleInformation, getScheduleInformation } from './controllers/profileController.js';
 import { addFriend, removeFriend, friendsList, usersList, viewUserProfile } from './controllers/friendsController.js';
-import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords } from './controllers/statisticsController.js';
+import { getFriendLeaderboardCompleted, getFriendLeaderboardStreak, getGlobalLeaderboardCompleted, getGlobalLeaderboardStreak, getUserRecords, updateUserAchievement } from './controllers/statisticsController.js';
 import { getPrivacySettings, getUserPrivacy, updatePrivacySettings } from './controllers/privacyController.js';
 import { dismissNotification, getNotifications, getTodaysEvents, updateExerciseStats, createFriendRequestNotification, friendRequestSent, cancelFriendRequest } from './controllers/notificationsController.js';
 import { updateStatus, getFriendsStatuses, getStatuses } from './controllers/statusController.js';
@@ -67,6 +67,7 @@ app.get('/get_global_leaderboard_completed', async (req, res) => getGlobalLeader
 app.get('/get_friend_leaderboard_streak', async (req, res) => getFriendLeaderboardStreak(req, res));
 app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeaderboardCompleted(req, res));
 app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
+app.post('/update_achievement', async (req, res) => updateUserAchievement(req, res));
 //see ./controllers/privacyController.js for more details
 app.get('/privacy', async (req, res) => getPrivacySettings(req, res));
 app.post('/update_privacy', async (req, res) => updatePrivacySettings(req, res));

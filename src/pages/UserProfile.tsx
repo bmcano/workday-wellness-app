@@ -109,6 +109,21 @@ const UserProfile: React.FC = () => {
                 console.error('Error fetching privacy settings for user ID:', id, error);
             });
 
+        apiPost("/update_achievement", jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.authorized) {
+                    alert("Achievements successfully updated!");
+                } else {
+                    alert("Failed to update achievements. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error updating achievements:", error);
+                alert("An error occurred while updating achievements.");
+            });
+    
+
     }, [navigate, id]);
 
     const handleOnClick = () => {
