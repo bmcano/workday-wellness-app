@@ -76,7 +76,7 @@ const GenerateRecommendationsModal: React.FC<GenerateRecommendationsModalProps> 
         const updatedEvents = events.filter(event => event.start?.toString().startsWith(selectedDate));
         // get free time for selected date
         const hours = getWorkHours(date.getDay(), workHours);
-        const freeTime = getFreeTimeSlots(updatedEvents, hours.start, hours.end);
+        const freeTime = getFreeTimeSlots(updatedEvents, hours.start, hours.end, selectedDate);
         // get recommendations from intensity level
         const exercises: string[] = [];
         const mode = getModeValues(intensity);
