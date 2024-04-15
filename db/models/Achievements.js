@@ -11,5 +11,5 @@ export const AchievementSchema = new Schema({
     HundredDayEx: { type: Boolean, required: true }
 });
 
-const AchievementsModel = model("achivements", AchievementSchema);
+const AchievementsModel = model("achievements", AchievementSchema);
 export default AchievementsModel;

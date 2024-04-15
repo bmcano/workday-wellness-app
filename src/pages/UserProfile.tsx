@@ -24,6 +24,8 @@ import silverBell from "../static/assets/silverbell.png";
 import goldBell from "../static/assets/goldbell.png";
 // @ts-ignore
 import linkedinicon from '../static/images/linkedin image.png';
+// @ts-ignore
+import friendbadge from "../static/assets/friendbadge.png";
 
 const UserProfile: React.FC = () => {
 
@@ -39,16 +41,25 @@ const UserProfile: React.FC = () => {
     const [birthday, setBirthday] = useState("");
     const [about, setAbout] = useState("");
     const [linkedin, setLinkedin] = useState(null);
+    const [achievements, setAchievements] = useState({
+        MadeFriend: false,
+        OneDayStreak: false,
+        TenDayStreak: false,
+        HundredDayStreak: false,
+        OneDayEx: false,
+        TenDayEx: false,
+        HundredDayEx: false
+    });
 
     interface PrivacySettings {
         publicProfile?: boolean;
         birthdayPrivate?: boolean;
         aboutPrivate?: boolean;
         linkedinLinkPrivate?: boolean;
-        // ... any other privacy settings
     }
 
     const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
+    const { MadeFriend, OneDayStreak, TenDayStreak, HundredDayStreak, OneDayEx, TenDayEx, HundredDayEx } = achievements || {};
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -122,7 +133,22 @@ const UserProfile: React.FC = () => {
                 console.error("Error updating achievements:", error);
                 alert("An error occurred while updating achievements.");
             });
-    
+
+        apiPost("/view_achievement", jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.authorized && data.achievements) {
+                    setAchievements(data.achievements);
+                } else {
+                    console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching privacy settings for user ID:', id, error);
+            });
+
+
+
 
     }, [navigate, id]);
 
@@ -191,12 +217,24 @@ const UserProfile: React.FC = () => {
 
                 </Card>
                 <Card>
-                    <img src={bronzeFlameImage} alt="Bronze Flame" style={{ margin: '10px' }} />
-                    <img src={silverFlameImage} alt="Silver Flame" style={{ margin: '10px' }} />
-                    <img src={goldFlameImage} alt="Gold Flame" style={{ margin: '10px' }} />
-                    <img src={bronzeBell} alt="Bronze Bell" style={{ margin: '10px' }} />
-                    <img src={silverBell} alt="Silver Bell" style={{ margin: '10px' }} />
-                    <img src={goldBell} alt="Gold Bell" style={{ margin: '10px' }} />
+                    {[
+                        { image: friendbadge, alt: "Make a Friend!", achieved: achievements.MadeFriend},
+                        { image: bronzeFlameImage, alt: "Streak of One day", achieved: achievements.OneDayStreak },
+                        { image: silverFlameImage, alt: "Streak of Ten days", achieved: achievements.TenDayStreak },
+                        { image: goldFlameImage, alt: "Streak of One Hundred days", achieved: achievements.HundredDayStreak },
+                        { image: bronzeBell, alt: "Completed One Exercise", achieved: achievements.OneDayEx },
+                        { image: silverBell, alt: "Completed Ten Exercises", achieved: achievements.TenDayEx },
+                        { image: goldBell, alt: "Completed One Hundred Exercises", achieved: achievements.HundredDayEx }
+                    ].map((badge, index) => (
+                        <div key={index} className="image-container">
+                            <img
+                                src={badge.image}
+                                alt={badge.alt}
+                                style={{ opacity: badge.achieved ? 1 : 0.3 }}
+                            />
+                            <span className="image-tooltip">{badge.alt} Achievement</span>
+                        </div>
+                    ))}
                 </Card>
             </Box>
         </React.Fragment>

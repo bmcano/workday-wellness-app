@@ -68,12 +68,12 @@ export const getFriendLeaderboardStreak = async (req, res) => {
             const userFriends = [...userWithFriends.friends, userEmail];
             const friendsLeaderboard = await StatisticsModel
                 .find({ email: { $in: userFriends } })
-                .sort({ streak: -1 }) 
+                .sort({ streak: -1 })
                 .lean();
 
             const leaderboard = friendsLeaderboard.map((user, index) => ({
                 ...user,
-                placement: index + 1 
+                placement: index + 1
             }));
 
             const userPlacement = leaderboard.findIndex(entry => entry.email === userEmail) + 1;
@@ -101,12 +101,12 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
             const userFriends = [...userWithFriends.friends, userEmail];
             const friendsLeaderboard = await StatisticsModel
                 .find({ email: { $in: userFriends } })
-                .sort({ "completed.amount": -1 }) 
+                .sort({ "completed.amount": -1 })
                 .lean();
 
             const leaderboard = friendsLeaderboard.map((user, index) => ({
                 ...user,
-                placement: index + 1 
+                placement: index + 1
             }));
 
             const userPlacement = leaderboard.findIndex(entry => entry.email === userEmail) + 1;
@@ -123,20 +123,20 @@ export const getFriendLeaderboardCompleted = async (req, res) => {
 export const getUserRecords = async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
-        const data = getUserInformation(token); 
+        const data = getUserInformation(token);
         if (data) {
             const userEmail = data.email;
-            const userStats = await StatisticsModel.findOne({ email: userEmail }, 'email streak completed.amount').lean(); 
+            const userStats = await StatisticsModel.findOne({ email: userEmail }, 'email streak completed.amount').lean();
             if (!userStats) {
                 return res.json({ authorized: true, message: "User statistics not found." });
             }
-            
+
             return res.json({
                 authorized: true,
                 user: {
-                    name: data.name, 
-                    streak: userStats.streak, 
-                    completedExercises: userStats.completed.amount, 
+                    name: data.name,
+                    streak: userStats.streak,
+                    completedExercises: userStats.completed.amount,
                 },
             });
         } else {
@@ -159,6 +159,7 @@ export const updateUserAchievement = async (req, res) => {
 
         const userEmail = userInfo.email;
         const userStats = await StatisticsModel.findOne({ email: userEmail }).lean();
+        const userWithFriends = await UserModel.findOne({ email: userEmail }).lean();
 
         if (!userStats) {
             return res.status(404).json({ message: "User statistics not found." });
@@ -180,6 +181,7 @@ export const updateUserAchievement = async (req, res) => {
             });
         }
 
+        userAchievements.MadeFriend = userWithFriends && userWithFriends.friends && userWithFriends.friends.length > 0;
         userAchievements.OneDayStreak = userAchievements.OneDayStreak || userStats.streak >= 1;
         userAchievements.TenDayStreak = userAchievements.TenDayStreak || userStats.streak >= 10;
         userAchievements.HundredDayStreak = userAchievements.HundredDayStreak || userStats.streak >= 100;
@@ -194,5 +196,57 @@ export const updateUserAchievement = async (req, res) => {
     } catch (error) {
         console.error("Error updating achievements:", error);
         res.status(500).json({ authorized: false, error: "An error occurred while updating achievements." });
+    }
+};
+
+
+export const getUserAchievements = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+
+        if (data) {
+            console.log(data)
+            const achivemenent = await AchievementsModel.findOne({ email: data.email });
+            console.log({email: data.email});
+            if (achivemenent) {
+                return res.json({ authorized: true, achievements: achivemenent });
+            }
+            return res.json({ authorized: false });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .send("Error getting privacy settings.");
+    }
+};
+
+export const viewingUserAchievements = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const user_id = req.body; 
+            const user = await UserModel.findOne({ _id: user_id }).lean();
+            const achievements = await AchievementsModel.findOne({ email: user.email });
+
+            if (!user || !achievements) {
+                return res
+                    .status(404)
+                    .json({ authorized: true, error: "User or achievements not found" });
+            }
+
+            return res.json({ authorized: true, achievements: achievements });
+        } else {
+            return res.status(401).json({ authorized: false, error: "Unauthorized" });
+        }
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({ authorized: false, error: "Internal Server Error" });
     }
 };
