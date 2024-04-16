@@ -6,6 +6,7 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { apiGet } from '../api/serverApiCalls.tsx';
 import ProfilePicture from "../components/ProfilePicture.tsx";
 import Divider from "../components/card/Divider.tsx";
+import Badges from "../components/Badges.tsx";
 
 const TABS = ['About', 'Latest Activity', 'Status', 'Friends'];
 
@@ -17,6 +18,16 @@ const Profile: React.FC = () => {
   const [about, setAbout] = useState("User has not set any information.");
   const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
+  const [achievements, setAchievements] = useState({
+    MadeFriend: false,
+    OneDayStreak: false,
+    TenDayStreak: false,
+    HundredDayStreak: false,
+    OneDayEx: false,
+    TenDayEx: false,
+    HundredDayEx: false
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +45,13 @@ const Profile: React.FC = () => {
         }
       })
       .catch(error => console.log(error))
+    apiGet("/get_achievement")
+      .then(data => {
+        if (data.authorized && data.achievements) {
+          setAchievements(data.achievements);
+        }
+      })
+      .catch(error => console.log(error));
   }, [navigate]);
 
   const handleTabClick = (tab: string) => {
@@ -60,17 +78,24 @@ const Profile: React.FC = () => {
       <Navbar />
       <div className="card card-span-4">
         <div className="profile-content-container">
+
           <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
             <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
             <div className="edit-overlay">Edit</div>
           </div>
-          <div className="profile-text-container">
-            <h1>{name}</h1>
-            <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
-            <p>{friendCount} Friend(s)</p>
-            <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
+          <div className="profile-info-achievements-container">
+            <div className="profile-text-container">
+              <h1>{name}</h1>
+              <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
+              <p>{friendCount} Friend(s)</p>
+              <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
+            </div>
+
           </div>
+
         </div>
+        <Divider style={{ marginTop: "16px" }} />
+        <Badges achievements={achievements} />
         <div className="card-header">
           {TABS.map((tab) => (
             <button

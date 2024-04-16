@@ -17,7 +17,7 @@ import { ReactComponent as SFLogo } from "../static/assets/SFRED.svg"
 import { ReactComponent as LBLogo } from "../static/assets/leaderboard-star-svgrepo-com.svg"
 import { getFullAppLink } from '../util/getFullAppLink.ts';
 import Notifications from './Notifications.tsx';
-import { apiGet } from '../api/serverApiCalls.tsx';
+import { apiGet, apiPost } from '../api/serverApiCalls.tsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -45,6 +45,8 @@ const Navbar = (props: { isLoading?: boolean } = { isLoading: false }) => {
     };
 
     useEffect(() => {
+        // we want to check and update achievements when possible
+        apiPost("/update_achievement", JSON.stringify({ post: "update"})).catch(error => console.log(error));
         // Goal:
         // Preemptive loading requires us to get the current notification count.
         // Then, in a 15 second intervals we pulse the events for today to see if one (past or present) show be notifying the user
