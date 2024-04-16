@@ -10,7 +10,8 @@ import { getUserInformation } from "./sessionController.js";
  *  "/get_friend_leaderboard_streak" => getFriendLeaderboardStreak(req, res) - grabs the list of all friends of the user and sorts them by streak count
  *  "/get_friend_leaderboard_completed" => getFriendLeaderboardCompleted(req, res) - grabs the list of all friends of the user and sorts them by completed items
  *  "/get_user_records" => getUserRecords(req, res) - gets the stats of the user
- * POST: "/update_user_achievements" => updateUserAchievement(req, res) - updates user achievements based on their current streak and completed items
+ * POST:
+ *  "/update_user_achievements" => updateUserAchievement(req, res) - updates user achievements based on their current streak and completed items
  */
 
 export const getGlobalLeaderboardStreak = async (req, res) => {
@@ -137,6 +138,30 @@ export const getUserRecords = async (req, res) => {
                     streak: userStats.streak,
                     completedExercises: userStats.completed.amount,
                 },
+            });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false, error: "An error occurred while fetching user records." });
+    }
+};
+
+export const getUserActivity = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const userEmail = data.email;
+            const userStats = await StatisticsModel.findOne({ email: userEmail }).lean();
+            if (!userStats) {
+                return res.json({ authorized: true, message: "User statistics not found." });
+            }
+
+            return res.json({
+                authorized: true,
+                completedExercises: userStats.completed,
             });
         } else {
             return res.json({ authorized: false });

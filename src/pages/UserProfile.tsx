@@ -3,16 +3,15 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "../components/Navbar.tsx";
 import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { useNavigate, useParams } from "react-router-dom";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ProfilePicture from "../components/ProfilePicture.tsx";
-import { apiPost, apiGet } from "../api/serverApiCalls.tsx";
+import { apiPost } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
 import Card from "../components/card/Card.tsx";
 import Badges from "../components/Badges.tsx";
-// @ts-ignore
-import linkedinicon from '../static/images/linkedin image.png';
+import Divider from "../components/card/Divider.tsx";
+import CardText from "../components/card/CardText.tsx";
 
 const UserProfile: React.FC = () => {
 
@@ -20,14 +19,12 @@ const UserProfile: React.FC = () => {
     const [firstName, setFristName] = useState("");
     const [lastName, setLastName] = useState("");
     const [isFriend, setIsFriend] = useState(false);
-    const [friendRequestSent, setFriendRequestSent] = useState(false);
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
     const [base64Image, setBase64Image] = useState("");
-
     const [birthday, setBirthday] = useState("");
     const [about, setAbout] = useState("");
-    const [linkedin, setLinkedin] = useState(null);
+    const [linkedin, setLinkedin] = useState("");
     const [achievements, setAchievements] = useState({
         MadeFriend: false,
         OneDayStreak: false,
@@ -37,15 +34,27 @@ const UserProfile: React.FC = () => {
         TenDayEx: false,
         HundredDayEx: false
     });
+    const [joinDate, setJoinDate] = useState("");
 
     interface PrivacySettings {
-        publicProfile?: boolean;
-        birthdayPrivate?: boolean;
-        aboutPrivate?: boolean;
-        linkedinLinkPrivate?: boolean;
+        publicProfile: boolean;
+        birthday: boolean;
+        about: boolean;
+        linkedinLink: boolean;
+        status: boolean;
+        achievements: boolean;
     }
 
-    const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
+    const defaultPrivacySettings: PrivacySettings = {
+        publicProfile: true,
+        birthday: true,
+        about: true,
+        linkedinLink: true,
+        status: true,
+        achievements: true,
+    };
+
+    const [privacySettings, setPrivacySettings] = useState<PrivacySettings>(defaultPrivacySettings);
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -60,31 +69,25 @@ const UserProfile: React.FC = () => {
                 setLastName(public_user.last_name);
                 setBase64Image(public_user.profile_picture === "" ? DefaultProfile : public_user.profile_picture);
                 setBirthday(public_user.birthday);
+                if (public_user.birthday) {
+                    setBirthday(`Birthday: ${public_user.birthday}`);
+                }
                 setAbout(public_user.about);
                 setLinkedin(public_user.linkedIn_link);
+                setJoinDate(public_user.join_date);
                 const user = data.auth_user;
                 setUserId(user._id);
                 if (user.friends.includes(public_user.email)) {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            })
-            .catch(error => console.log(error));
+            }).catch(error => console.log(error));
 
-        apiPost("/friend_request_sent", jsonData)
+        apiPost("/get_privacy", jsonData)
             .then(res => res.json())
             .then(data => {
-                if (data.authorized) {
-                    setFriendRequestSent(data.requestSent);
-                    setButtonText(data.requestSent ? "Friend Request Sent" : "Add Friend");
-                }
-            })
-            .catch(error => console.log(error));
-
-        apiGet("/privacy")
-            .then(data => {
                 if (data.authorized && data.privacySettings) {
-                    console.log('Privacy settings:', data.privacySettings);
+                    setPrivacySettings(data.privacySettings);
                 } else {
                     console.log('Not authorized to fetch privacy settings or no settings available.');
                 }
@@ -97,7 +100,7 @@ const UserProfile: React.FC = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.authorized && data.privacySettings) {
-                    setPrivacySettings(data.privacySettings);
+                    // setPrivacySettings(data.privacySettings);
                 } else {
                     console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
                 }
@@ -111,40 +114,32 @@ const UserProfile: React.FC = () => {
             .then(data => {
                 if (data.authorized && data.achievements) {
                     setAchievements(data.achievements);
-                } else {
-                    console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
                 }
             })
-            .catch(error => {
-                console.error('Error fetching privacy settings for user ID:', id, error);
-            });
+            .catch(error => console.log(error));
+
     }, [navigate, id]);
 
     const handleOnClick = () => {
+        var link = "";
+        if (!isFriend) {
+            link = "/add_friend";
+        } else {
+            link = "/remove_friend";
+        }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
-        if (isFriend) {
-            apiPost("/remove_friend", jsonData)
-                .then(() => {
+        apiPost(link, jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.isFriend) {
+                    setIsFriend(true);
+                    setButtonText("Remove Friend");
+                } else {
                     setIsFriend(false);
                     setButtonText("Add Friend");
-                })
-                .catch(error => console.log(error));
-        } else if (friendRequestSent) {
-            apiPost("/cancel_friend_request", jsonData)
-                .then(() => {
-                    setButtonText("Add Friend");
-                    setFriendRequestSent(false);
-                })
-                .catch(error => console.log(error));
-        } else {
-            apiPost("/send_friend_request", jsonData)
-                .then(() => {
-                    setButtonText("Friend Request Sent");
-                    setFriendRequestSent(true);
-                    alert("Friend request sent.");
-                })
-                .catch(error => console.log(error));
-        }
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -152,42 +147,35 @@ const UserProfile: React.FC = () => {
             <Navbar />
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Card>
-                    <Typography component="h1" variant="h4" align="center" marginBottom={2}>{firstName} {lastName}'s Profile</Typography>
-                    <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false} />
+                    <div className="profile-content-container">
+                        <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false} />
+                        <div className="profile-text-container">
+                            <h1>{firstName} {lastName}'s Profile</h1>
+                            <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
+                            {privacySettings.birthday && birthday && <p>{birthday.split('T')[0]}</p>}
+                            {privacySettings.linkedinLink && <a href={linkedin} target="_blank" rel="noopener noreferrer">{linkedin}</a>}
+                        </div>
+                    </div>
+
+                    {privacySettings.achievements && <div>
+                        <Divider style={{ marginTop: "16px" }} />
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Badges achievements={achievements} />
+                        </div>
+                    </div>}
+
+
                     <Button variant="contained" color="primary" fullWidth onClick={handleOnClick} sx={{ mt: 4 }}>
                         {buttonText}
                     </Button>
-                    {privacySettings?.birthdayPrivate ? (
-                        <Typography component="p" variant="body1" align="center" marginBottom={2} marginTop={2}>
-                            Birthday: {birthday}
-                        </Typography>
-                    ) : null}
-                    {privacySettings?.aboutPrivate ? (
-                        <Typography component="p" variant="body1" align="center" marginBottom={2} marginTop={2}>
-                            {about}
-                        </Typography>
-                    ) : null}
-                    {privacySettings?.linkedinLinkPrivate && linkedin ? (
-                        <Box display="flex" justifyContent="center" alignItems="center" marginBottom={2} marginTop={2}>
-                            <a href={linkedin} target="_blank" rel="noopener noreferrer">
-                                <img
-                                    src={linkedinicon}
-                                    alt="LinkedIn Profile"
-                                    style={{
-                                        cursor: 'pointer',
-                                        height: '1em',
-                                        width: 'auto'
-                                    }}
-                                />
-                            </a>
-                        </Box>
-                    ) : null}
 
-                </Card>
-                <Card>
-                    <Badges achievements={achievements} />
-                </Card>
 
+                    {privacySettings.about && <div>
+                        <Divider style={{ marginTop: "16px" }} />
+                        <CardText type="title" text="About" />
+                        <CardText type="body" text={about} />
+                    </div>}
+                </Card>
             </Box>
         </React.Fragment>
     )
