@@ -417,3 +417,57 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.image-container img {
+  border-radius: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.image-tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+}
+
+.image-container:hover .image-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.profile-info-achievements-container {
+  display: flex;
+  align-items: center; 
+  justify-content: start; 
+}
+
+.profile-text-container {
+  flex: 1; 
+}
+
+.achievements-container {
+  flex: 1; 
+  display: flex;
+  flex-wrap: wrap; 
+  align-items: center; 
+  justify-content: center; 
+  /* Add padding or margin as necessary */
+}

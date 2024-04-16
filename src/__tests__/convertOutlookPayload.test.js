@@ -39,18 +39,18 @@ describe('getFreeTimeSlots', () => {
   });
 
   // TODO: fix this scenario
-  // test('no meetings are found during the day', () => {
-  //   const input = [];
-  //   const expectedResult = [
-  //     {
-  //       "start": "2024-02-26T14:00:00.000Z",
-  //       "end": "2024-02-26T23:00:00.000Z"
-  //     }
-  //   ];
-  //   // start: 8am, end: 5pm
-  //   const result = getFreeTimeSlots(input);
-  //   expect(result).toEqual(expectedResult);
-  // });
+  test('no meetings are found during the day', () => {
+    const input = [];
+    const expectedResult = [
+      {
+        "start": "2024-02-26T08:00:00.000Z",
+        "end": "2024-02-26T17:00:00.000Z"
+      }
+    ];
+    // start: 8am, end: 5pm
+    const result = getFreeTimeSlots(input, "08:00", "17:00", "2024-02-26");
+    expect(result).toEqual(expectedResult);
+  });
 
   test('there is a full work day of meetings(s)', () => {
     const input = [
@@ -97,7 +97,7 @@ describe('getFreeTimeSlots', () => {
       }
     ];
     // start: 8am, end: 5pm
-    const result = getFreeTimeSlots(input);
+    const result = getFreeTimeSlots(input, "", "");
     expect(result).toEqual(expectedResult);
   });
 
@@ -134,7 +134,7 @@ describe('getFreeTimeSlots', () => {
       }
     ];
     // start: 6am, end: 3pm
-    const result = getFreeTimeSlots(input, 12, 20);
+    const result = getFreeTimeSlots(input, "06:00", "15:00");
     expect(result).toEqual(expectedResult);
   });
 });

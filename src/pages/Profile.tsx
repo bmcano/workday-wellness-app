@@ -6,6 +6,7 @@ import { AuthorizedUser } from "../api/AuthorizedUser.tsx";
 import { apiGet } from '../api/serverApiCalls.tsx';
 import ProfilePicture from "../components/ProfilePicture.tsx";
 import Divider from "../components/card/Divider.tsx";
+import Badges from "../components/Badges.tsx";
 
 const TABS = ['About', 'Latest Activity', 'Status', 'Friends'];
 
@@ -27,7 +28,18 @@ const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const [activity, setLatestActivity] = useState("Latest activity has not been set.");
   const [status, setStatus] = useState<Status[]>([]);
-  const [friends, setFriends] = useState([]);  const navigate = useNavigate();
+  const [friends, setFriends] = useState([]);
+  const [achievements, setAchievements] = useState({
+    MadeFriend: false,
+    OneDayStreak: false,
+    TenDayStreak: false,
+    HundredDayStreak: false,
+    OneDayEx: false,
+    TenDayEx: false,
+    HundredDayEx: false
+  });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     AuthorizedUser(navigate);
@@ -46,25 +58,32 @@ const Profile: React.FC = () => {
         }
       })
       .catch(error => console.log(error))
-      apiGet("/user_status")
+    apiGet("/user_status")
       .then(data => {
         if (data.success) {
           setStatus(data.statuses);
         }
       })
-      .catch((error) => console.log(error));  
-      apiGet("/friends_list")
-        .then(data => {
-          setFriends(data);
-        })
-        .catch((error) => console.log(error));
-        apiGet("/todays_events")
-        .then(data => {
-          if (data.authorized && data.events.length > 0) {
-            setLatestActivity(data.events[0].title);
-          }
-        })
       .catch((error) => console.log(error));
+    apiGet("/friends_list")
+      .then(data => {
+        setFriends(data);
+      })
+      .catch((error) => console.log(error));
+    apiGet("/todays_events")
+      .then(data => {
+        if (data.authorized && data.events.length > 0) {
+          setLatestActivity(data.events[0].title);
+        }
+      })
+      .catch((error) => console.log(error));
+    apiGet("/get_achievement")
+      .then(data => {
+        if (data.authorized && data.achievements) {
+          setAchievements(data.achievements);
+        }
+      })
+      .catch(error => console.log(error));
   }, [navigate]);
 
   const handleTabClick = (tab: string) => {
@@ -80,7 +99,7 @@ const Profile: React.FC = () => {
       case 'Status':
         return <div>{status.map((status, index) => (
           <p key={index}>{status.status}</p>
-          ))}</div>;
+        ))}</div>;
       case 'Friends':
         return (
           <div>
@@ -99,6 +118,7 @@ const Profile: React.FC = () => {
       <Navbar />
       <div className="card card-span-4">
         <div className="profile-content-container">
+
           <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
             <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
             <div className="edit-overlay">Edit</div>
@@ -109,22 +129,34 @@ const Profile: React.FC = () => {
             <p>Birthday: {(birthday as unknown as string).split('T')[0]}</p>
             <p>{friendCount} Friend(s)</p>
             <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
+            <div className="profile-info-achievements-container">
+              <div className="profile-text-container">
+                <h1>{name}</h1>
+                <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
+                <p>{friendCount} Friend(s)</p>
+                <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
+              </div>
+
+            </div>
+
           </div>
-        </div>
-        <div className="card-header">
-          {TABS.map((tab) => (
-            <button
-              key={tab}
-              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => handleTabClick(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-        <Divider />
-        <div className="card-content">
-          {renderTabContent()}
+          <Divider style={{ marginTop: "16px" }} />
+          <Badges achievements={achievements} />
+          <div className="card-header">
+            {TABS.map((tab) => (
+              <button
+                key={tab}
+                className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+                onClick={() => handleTabClick(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          <Divider />
+          <div className="card-content">
+            {renderTabContent()}
+          </div>
         </div>
       </div>
     </React.Fragment>

@@ -10,18 +10,7 @@ import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost, apiGet } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
 import Card from "../components/card/Card.tsx";
-// @ts-ignore
-import bronzeFlameImage from "../static/assets/bronzeflame.png";
-// @ts-ignore
-import silverFlameImage from "../static/assets/silverflame.png";
-// @ts-ignore
-import goldFlameImage from "../static/assets/goldflame.png";
-// @ts-ignore
-import bronzeBell from "../static/assets/bronzebell.png";
-// @ts-ignore
-import silverBell from "../static/assets/silverbell.png";
-// @ts-ignore
-import goldBell from "../static/assets/goldbell.png";
+import Badges from "../components/Badges.tsx";
 // @ts-ignore
 import linkedinicon from '../static/images/linkedin image.png';
 
@@ -31,6 +20,7 @@ const UserProfile: React.FC = () => {
     const [firstName, setFristName] = useState("");
     const [lastName, setLastName] = useState("");
     const [isFriend, setIsFriend] = useState(false);
+    const [friendRequestSent, setFriendRequestSent] = useState(false);
     const [buttonText, setButtonText] = useState("Add Friend");
     const [user_id, setUserId] = useState("");
     const [base64Image, setBase64Image] = useState("");
@@ -38,13 +28,21 @@ const UserProfile: React.FC = () => {
     const [birthday, setBirthday] = useState("");
     const [about, setAbout] = useState("");
     const [linkedin, setLinkedin] = useState(null);
+    const [achievements, setAchievements] = useState({
+        MadeFriend: false,
+        OneDayStreak: false,
+        TenDayStreak: false,
+        HundredDayStreak: false,
+        OneDayEx: false,
+        TenDayEx: false,
+        HundredDayEx: false
+    });
 
     interface PrivacySettings {
         publicProfile?: boolean;
         birthdayPrivate?: boolean;
         aboutPrivate?: boolean;
         linkedinLinkPrivate?: boolean;
-        // ... any other privacy settings
     }
 
     const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
@@ -70,7 +68,18 @@ const UserProfile: React.FC = () => {
                     setIsFriend(true);
                     setButtonText("Remove Friend");
                 }
-            }).catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+
+        apiPost("/friend_request_sent", jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.authorized) {
+                    setFriendRequestSent(data.requestSent);
+                    setButtonText(data.requestSent ? "Friend Request Sent" : "Add Friend");
+                }
+            })
+            .catch(error => console.log(error));
 
         apiGet("/privacy")
             .then(data => {
@@ -97,28 +106,45 @@ const UserProfile: React.FC = () => {
                 console.error('Error fetching privacy settings for user ID:', id, error);
             });
 
+        apiPost("/view_achievement", jsonData)
+            .then(res => res.json())
+            .then(data => {
+                if (data.authorized && data.achievements) {
+                    setAchievements(data.achievements);
+                } else {
+                    console.log('Not authorized to fetch privacy settings or no settings available for user ID:', id);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching privacy settings for user ID:', id, error);
+            });
     }, [navigate, id]);
 
     const handleOnClick = () => {
-        var link = "";
-        if (!isFriend) {
-            link = "/add_friend";
-        } else {
-            link = "/remove_friend";
-        }
         const jsonData = JSON.stringify({ user_id: user_id, friend_id: id });
-        apiPost(link, jsonData)
-            .then(res => res.json())
-            .then(data => {
-                if (data.isFriend) {
-                    setIsFriend(true);
-                    setButtonText("Remove Friend");
-                } else {
+        if (isFriend) {
+            apiPost("/remove_friend", jsonData)
+                .then(() => {
                     setIsFriend(false);
                     setButtonText("Add Friend");
-                }
-            })
-            .catch(error => console.log(error));
+                })
+                .catch(error => console.log(error));
+        } else if (friendRequestSent) {
+            apiPost("/cancel_friend_request", jsonData)
+                .then(() => {
+                    setButtonText("Add Friend");
+                    setFriendRequestSent(false);
+                })
+                .catch(error => console.log(error));
+        } else {
+            apiPost("/send_friend_request", jsonData)
+                .then(() => {
+                    setButtonText("Friend Request Sent");
+                    setFriendRequestSent(true);
+                    alert("Friend request sent.");
+                })
+                .catch(error => console.log(error));
+        }
     }
 
     return (
@@ -159,13 +185,9 @@ const UserProfile: React.FC = () => {
 
                 </Card>
                 <Card>
-                    <img src={bronzeFlameImage} alt="Bronze Flame" style={{ margin: '10px' }} />
-                    <img src={silverFlameImage} alt="Silver Flame" style={{ margin: '10px' }} />
-                    <img src={goldFlameImage} alt="Gold Flame" style={{ margin: '10px' }} />
-                    <img src={bronzeBell} alt="Bronze Bell" style={{ margin: '10px' }} />
-                    <img src={silverBell} alt="Silver Bell" style={{ margin: '10px' }} />
-                    <img src={goldBell} alt="Gold Bell" style={{ margin: '10px' }} />
+                    <Badges achievements={achievements} />
                 </Card>
+
             </Box>
         </React.Fragment>
     )

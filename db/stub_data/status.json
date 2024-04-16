@@ -1,0 +1,32 @@
+[
+  {
+    "email": "alice@example.com",
+    "name": "Alice",
+    "status": "What a great day!",
+    "timestamp": "2024-04-12T00:30:00.000Z"
+  },
+  {
+    "email": "bob@example.com",
+    "name": "Bob",
+    "status": "Wow!",
+    "timestamp": "2024-04-12T00:30:00.000Z"
+  },
+  {
+    "email": "bob@example.com",
+    "name": "Bob",
+    "status": "Loving the weather today",
+    "timestamp": "2024-04-10T00:30:00.000Z"
+  },
+  {
+    "email": "david@example.com",
+    "name": "David",
+    "status": "Just got a nice streak :)",
+    "timestamp": "2024-04-11T00:30:00.000Z"
+  },
+  {
+    "email": "adam@example.com",
+    "name": "Adam",
+    "status": "Just had a great day of work!",
+    "timestamp": "2024-04-10T00:30:00.000Z"
+  }
+]

@@ -51,7 +51,7 @@ const Calendar: React.FC = () => {
         apiGet("/get_calendar_data")
             .then(data => {
                 if (data.authorized) {
-                    setEvents(data.calendar)
+                    setEvents(data.calendar);
                 }
             })
             .catch(error => console.log(error))
@@ -93,7 +93,6 @@ const Calendar: React.FC = () => {
             .then(data => {
                 if (data.authorized) {
                     const outlookEvents = convertOutlookPayload(data.calendar.value[0]);
-                    console.log(outlookEvents);
                     setEvents(outlookEvents);
                     const json_data = JSON.stringify({ calendar: outlookEvents })
                     apiPost("/save_calendar_data", json_data).catch(error => console.log(error));
