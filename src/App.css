@@ -159,6 +159,10 @@
   margin-left: auto;
 }
 
+.card-button-left {
+  margin-right: auto;
+}
+
 .card-button>Button {
   font-size: 14px;
   margin-right: 16px;
