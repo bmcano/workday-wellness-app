@@ -47,7 +47,6 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
     const onAcceptExercise = (index: number) => {
         const jsonData = JSON.stringify({ exercise: notificationList[index].title })
         apiPost("/notification_exercise_update", jsonData).catch((error) => console.log(error));
-        apiPost("/update_lifetime_stats", jsonData).catch((error) => console.log(error));
         onDismiss(index);
     }
 
