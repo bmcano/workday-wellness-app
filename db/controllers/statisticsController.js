@@ -11,7 +11,6 @@ import { getUserInformation } from "./sessionController.js";
  *  "/get_friend_leaderboard_completed" => getFriendLeaderboardCompleted(req, res) - grabs the list of all friends of the user and sorts them by completed items
  *  "/get_user_records" => getUserRecords(req, res) - gets the stats of the user
  * POST:
- *  "/update_lifetime_stats" => updateLifetimeStats(req, res) - updates the lifetime stats of the user
  *  "/update_user_achievements" => updateUserAchievement(req, res) - updates user achievements based on their current streak and completed items
  */
 
