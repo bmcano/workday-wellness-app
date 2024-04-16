@@ -457,21 +457,9 @@
   opacity: 1;
 }
 
-.profile-info-achievements-container {
-  display: flex;
-  align-items: center; 
-  justify-content: start; 
-}
+
 
 .profile-text-container {
   flex: 1; 
 }
 
-.achievements-container {
-  flex: 1; 
-  display: flex;
-  flex-wrap: wrap; 
-  align-items: center; 
-  justify-content: center; 
-  /* Add padding or margin as necessary */
-}
