@@ -61,7 +61,6 @@ export const getFriendLeaderboardStreak = async (req, res) => {
             const userEmail = data.email;
             const userWithFriends = await UserModel.findOne({ email: userEmail }).lean();
             if (!userWithFriends || !userWithFriends.friends) {
-                console.log("No friends found for user:", userEmail);
                 userWithFriends.friends = [];
             }
 
@@ -192,10 +191,10 @@ export const updateUserAchievement = async (req, res) => {
 
         await userAchievements.save();
 
-        res.json({ authorized: true, message: "Achievements updated successfully.", achievements: userAchievements });
+        return res.json({ authorized: true, achievements: userAchievements });
     } catch (error) {
-        console.error("Error updating achievements:", error);
-        res.status(500).json({ authorized: false, error: "An error occurred while updating achievements." });
+        console.error(error);
+        return res.status(500).json({ authorized: false });
     }
 };
 
@@ -206,9 +205,7 @@ export const getUserAchievements = async (req, res) => {
         const data = getUserInformation(token);
 
         if (data) {
-            console.log(data)
             const achivemenent = await AchievementsModel.findOne({ email: data.email });
-            console.log({email: data.email});
             if (achivemenent) {
                 return res.json({ authorized: true, achievements: achivemenent });
             }
