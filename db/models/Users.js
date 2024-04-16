@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { ExercisesSchema } from './Exercises.js';
 import { CalendarSchema } from './Calendar.js';
-import { AchievementSchema } from './Achievements.js';
 
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
@@ -17,8 +16,7 @@ const UserSchema = new Schema({
     friends: { type: [String], default: [] },
     profile_picture: { type: String, default: "" },
     exercises: ExercisesSchema,
-    calendar: { type: [CalendarSchema], default: [] },
-    achievements: {type: [AchievementSchema], default: []}
+    calendar: { type: [CalendarSchema], default: [] }
 });
 
 const UserModel = model("users", UserSchema);

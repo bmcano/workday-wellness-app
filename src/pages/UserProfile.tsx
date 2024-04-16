@@ -10,22 +10,9 @@ import ProfilePicture from "../components/ProfilePicture.tsx";
 import { apiPost, apiGet } from "../api/serverApiCalls.tsx";
 import DefaultProfile from "../components/DefaultProfile.tsx";
 import Card from "../components/card/Card.tsx";
-// @ts-ignore
-import bronzeFlameImage from "../static/assets/bronzeflame.png";
-// @ts-ignore
-import silverFlameImage from "../static/assets/silverflame.png";
-// @ts-ignore
-import goldFlameImage from "../static/assets/goldflame.png";
-// @ts-ignore
-import bronzeBell from "../static/assets/bronzebell.png";
-// @ts-ignore
-import silverBell from "../static/assets/silverbell.png";
-// @ts-ignore
-import goldBell from "../static/assets/goldbell.png";
+import Badges from "../components/Badges.tsx";
 // @ts-ignore
 import linkedinicon from '../static/images/linkedin image.png';
-// @ts-ignore
-import friendbadge from "../static/assets/friendbadge.png";
 
 const UserProfile: React.FC = () => {
 
@@ -59,7 +46,6 @@ const UserProfile: React.FC = () => {
     }
 
     const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
-    const { MadeFriend, OneDayStreak, TenDayStreak, HundredDayStreak, OneDayEx, TenDayEx, HundredDayEx } = achievements || {};
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -120,20 +106,6 @@ const UserProfile: React.FC = () => {
                 console.error('Error fetching privacy settings for user ID:', id, error);
             });
 
-        apiPost("/update_achievement", jsonData)
-            .then(res => res.json())
-            .then(data => {
-                if (data.authorized) {
-                    alert("Achievements successfully updated!");
-                } else {
-                    alert("Failed to update achievements. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Error updating achievements:", error);
-                alert("An error occurred while updating achievements.");
-            });
-
         apiPost("/view_achievement", jsonData)
             .then(res => res.json())
             .then(data => {
@@ -146,10 +118,6 @@ const UserProfile: React.FC = () => {
             .catch(error => {
                 console.error('Error fetching privacy settings for user ID:', id, error);
             });
-
-
-
-
     }, [navigate, id]);
 
     const handleOnClick = () => {
@@ -217,25 +185,9 @@ const UserProfile: React.FC = () => {
 
                 </Card>
                 <Card>
-                    {[
-                        { image: friendbadge, alt: "Make a Friend!", achieved: achievements.MadeFriend},
-                        { image: bronzeFlameImage, alt: "Streak of One day", achieved: achievements.OneDayStreak },
-                        { image: silverFlameImage, alt: "Streak of Ten days", achieved: achievements.TenDayStreak },
-                        { image: goldFlameImage, alt: "Streak of One Hundred days", achieved: achievements.HundredDayStreak },
-                        { image: bronzeBell, alt: "Completed One Exercise", achieved: achievements.OneDayEx },
-                        { image: silverBell, alt: "Completed Ten Exercises", achieved: achievements.TenDayEx },
-                        { image: goldBell, alt: "Completed One Hundred Exercises", achieved: achievements.HundredDayEx }
-                    ].map((badge, index) => (
-                        <div key={index} className="image-container">
-                            <img
-                                src={badge.image}
-                                alt={badge.alt}
-                                style={{ opacity: badge.achieved ? 1 : 0.3 }}
-                            />
-                            <span className="image-tooltip">{badge.alt} Achievement</span>
-                        </div>
-                    ))}
+                    <Badges achievements={achievements} />
                 </Card>
+
             </Box>
         </React.Fragment>
     )

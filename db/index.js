@@ -67,8 +67,8 @@ app.get('/get_global_leaderboard_completed', async (req, res) => getGlobalLeader
 app.get('/get_friend_leaderboard_streak', async (req, res) => getFriendLeaderboardStreak(req, res));
 app.get('/get_friend_leaderboard_completed', async (req, res) => getFriendLeaderboardCompleted(req, res));
 app.get('/get_user_records', async (req, res) => getUserRecords(req, res));
-app.post('/update_achievement', async (req, res) => updateUserAchievement(req, res));
 app.get('/get_achievement', async (req, res) => getUserAchievements(req, res));
+app.post('/update_achievement', async (req, res) => updateUserAchievement(req, res));
 app.post('/view_achievement', async (req, res) => viewingUserAchievements(req, res));
 //see ./controllers/privacyController.js for more details
 app.get('/privacy', async (req, res) => getPrivacySettings(req, res));
