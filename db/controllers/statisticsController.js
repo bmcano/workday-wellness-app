@@ -149,6 +149,30 @@ export const getUserRecords = async (req, res) => {
     }
 };
 
+export const getUserActivity = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (data) {
+            const userEmail = data.email;
+            const userStats = await StatisticsModel.findOne({ email: userEmail }).lean();
+            if (!userStats) {
+                return res.json({ authorized: true, message: "User statistics not found." });
+            }
+
+            return res.json({
+                authorized: true,
+                completedExercises: userStats.completed,
+            });
+        } else {
+            return res.json({ authorized: false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ authorized: false, error: "An error occurred while fetching user records." });
+    }
+};
+
 export const updateUserAchievement = async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];

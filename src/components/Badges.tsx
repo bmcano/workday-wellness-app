@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from './card/Card.tsx';
 // @ts-ignore
 import bronzeFlameImage from "../static/assets/bronzeflame.png";
 // @ts-ignore

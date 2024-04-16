@@ -1,0 +1,22 @@
+[
+  {
+    "email": "john@example.com",
+    "MadeFriend": false,
+    "OneDayStreak": false,
+    "TenDayStreak": false,
+    "HundredDayStreak": false,
+    "OneDayEx": false,
+    "TenDayEx": false,
+    "HundredDayEx": false
+  },
+  {
+    "email": "alice@example.com",
+    "MadeFriend": true,
+    "OneDayStreak": true,
+    "TenDayStreak": false,
+    "HundredDayStreak": false,
+    "OneDayEx": true,
+    "TenDayEx": false,
+    "HundredDayEx": false
+  }
+]

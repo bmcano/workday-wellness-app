@@ -20,6 +20,11 @@ type Status = {
   timestamp: Date;
 };
 
+type Activity = {
+  exercise: string;
+  timestamp: string;
+}
+
 const Profile: React.FC = () => {
 
   const [name, setName] = useState("");
@@ -29,7 +34,7 @@ const Profile: React.FC = () => {
   const [about, setAbout] = useState("User has not set any information.");
   const [friendCount, setFriendCount] = useState(0);
   const [activeTab, setActiveTab] = useState(TABS[0]);
-  const [activity, setLatestActivity] = useState("Latest activity has not been set.");
+  const [activity, setLatestActivity] = useState<Activity[]>([]);
   const [status, setStatus] = useState<Status[]>([]);
   const [achievements, setAchievements] = useState({
     MadeFriend: false,
@@ -68,8 +73,6 @@ const Profile: React.FC = () => {
           const currentDate = new Date();
           const fortyEightHoursAgo = new Date(currentDate);
           fortyEightHoursAgo.setHours(currentDate.getHours() - 48);
-
-          // Filter items based on timestamp
           const filteredItems = data.statuses.filter(item => {
             const itemDate = new Date(item.timestamp);
             return itemDate >= fortyEightHoursAgo && itemDate <= currentDate;
@@ -78,10 +81,17 @@ const Profile: React.FC = () => {
         }
       })
       .catch((error) => console.log(error));
-    apiGet("/todays_events")
+    apiGet("/get_user_activity")
       .then(data => {
-        if (data.authorized && data.events.length > 0) {
-          setLatestActivity(data.events[0].title);
+        if (data.authorized) {
+          const currentDate = new Date();
+          const fortyEightHoursAgo = new Date(currentDate);
+          fortyEightHoursAgo.setHours(currentDate.getHours() - 48);
+          const filteredItems = data.completedExercises.exercises.filter(item => {
+            const itemDate = new Date(item.timestamp);
+            return itemDate >= fortyEightHoursAgo && itemDate <= currentDate;
+          });
+          setLatestActivity(filteredItems);
         }
       })
       .catch((error) => console.log(error));
@@ -103,7 +113,22 @@ const Profile: React.FC = () => {
       case 'About':
         return <CardText type="title" text={about}  />
       case 'Latest Activity':
-        return <div>{activity}</div>;
+        return (
+          <div className="card-info">
+            {activity.length > 0 && (
+                <CardText type="title" text="Your recent activity from the last 48 hours." style={{ marginTop: "-8px" }} />
+            )}
+            {activity.length > 0 && activity.map((s, index) => (
+              <div key={index} className="user-status-card">
+                <div className="friend-status-message">{s.exercise}</div>
+                <div className="friend-status-timestamp">Completed at: {new Date(s.timestamp).toLocaleString()}</div>
+              </div>
+            ))}
+            {activity.length === 0 && (
+               <CardText type="title" text="You have no recent activity." />
+            )}
+          </div>
+        )
       case 'Status':
         return (
           <div className="card-info">
@@ -118,7 +143,7 @@ const Profile: React.FC = () => {
               </div>
             ))}
             {status.length === 0 && (
-               <CardText type="title" text="You've posted no statuses in the last 48 hours." style={{ marginTop: "-8px" }} />
+               <CardText type="title" text="You've posted no statuses in the last 48 hours." />
             )}
           </div>
         )

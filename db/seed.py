@@ -77,6 +77,8 @@ if __name__ == "__main__":
     status_collection.delete_many({})
     schedule_collection = db['schedules']
     schedule_collection.delete_many({})
+    achievements_collection = db['achievements']
+    achievements_collection.delete_many({})
 
     # open and load all data for the Users table
     with open('stub_data/users.json', 'r') as file:
@@ -119,5 +121,11 @@ if __name__ == "__main__":
 
     for status in status_stubs:
         status_collection.insert_one(status)
+        
+    with open('stub_data/achievements.json', 'r') as file:
+        achievements_stubs = json.load(file)
+
+    for achievement in achievements_stubs:
+        achievements_collection.insert_one(achievement)
 
     print("Schema created")
