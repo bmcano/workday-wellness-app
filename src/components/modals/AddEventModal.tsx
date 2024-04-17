@@ -20,6 +20,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
     const [startDate, setStartDate] = useState(new Date());
     const [recurrencePattern, setRecurrencePattern] = useState('');
     const [endDate, setEndDate] = useState(new Date());
+    const [isItemSelected, setIsItemSelected] = useState(false);
 
     const exercises = getExerciseMenuList();
 
@@ -32,7 +33,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
             end: formatDateforDatabase(end),
             isExercise: true,
             recurrence: recurrencePattern,
-            endRecurrene: formatDateforDatabase(endDate)
+            endRecurrence: formatDateforDatabase(endDate)
         };
 
         // save to database first
@@ -42,6 +43,11 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
         apiPost("/add_outlook_event", jsonData).catch(error => console.log(error));
         onSave(eventData);
         onClose();
+    };
+
+    const handleSelectItem = (value: string) => {
+        setSelectedItem(value);
+        setIsItemSelected(!!value); // check if value is truthy and set isItemSelected accordingly
     };
 
     return (
@@ -63,7 +69,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                                 label="Select Item"
                                 value={selectedItem}
                                 fullWidth
-                                onChange={(e) => setSelectedItem(e.target.value as string)}
+                                onChange={(e) => handleSelectItem(e.target.value as string)}
                             >
                                 <MenuItem value=""><em>Select Item</em></MenuItem>
                                 {exercises.map(item => (
@@ -102,13 +108,13 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave }
                     </CardRow>
                     <CardRow style={marginTLR}>
                         <div className='first-item-row'>
-                            <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" disabled={!recurrencePattern}/>
+                            <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} dateFormat="P" disabled={!recurrencePattern} />
                         </div>
                     </CardRow>
                     <Divider style={dividerMargin} />
                     <CardRow>
                         <div className='card-button'>
-                            <Button variant="text" color="primary" onClick={handleSave}>Save</Button>
+                            <Button variant="text" color="primary" onClick={handleSave} disabled={!isItemSelected}>Save</Button>
                             <Button variant="text" onClick={onClose}>Cancel</Button>
                         </div>
                     </CardRow>

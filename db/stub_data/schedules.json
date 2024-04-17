@@ -1,0 +1,54 @@
+[
+  {
+    "email": "alice@example.com",
+    "monday_start": "08:00",
+    "monday_end": "16:15",
+    "tuesday_start": "08:00",
+    "tuesday_end": "16:15",
+    "wednesday_start": "08:00",
+    "wednesday_end": "16:15",
+    "thursday_start": "08:00",
+    "thursday_end": "16:15",
+    "friday_start": "08:00",
+    "friday_end": "16:15"
+  },
+  {
+    "email": "bob@example.com",
+    "monday_start": "06:00",
+    "monday_end": "16:15",
+    "tuesday_start": "06:00",
+    "tuesday_end": "16:15",
+    "wednesday_start": "06:00",
+    "wednesday_end": "16:15",
+    "thursday_start": "06:00",
+    "thursday_end": "16:15",
+    "friday_start": "",
+    "friday_end": ""
+  },
+  {
+    "email": "emma@example.com",
+    "monday_start": "08:00",
+    "monday_end": "16:15",
+    "tuesday_start": "08:00",
+    "tuesday_end": "17:00",
+    "wednesday_start": "08:00",
+    "wednesday_end": "16:15",
+    "thursday_start": "09:00",
+    "thursday_end": "17:00",
+    "friday_start": "08:00",
+    "friday_end": "12:00"
+  },
+  {
+    "email": "mike@example.com",
+    "monday_start": "16:15",
+    "monday_end": "08:15",
+    "tuesday_start": "16:15",
+    "tuesday_end": "08:15",
+    "wednesday_start": "08:00",
+    "wednesday_end": "16:15",
+    "thursday_start": "08:00",
+    "thursday_end": "16:15",
+    "friday_start": "12:00",
+    "friday_end": "12:00"
+  }
+]

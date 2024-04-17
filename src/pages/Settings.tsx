@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
                         <FriendsIcon />
                         <p>Manage Friends</p>
                     </div>
-                    <div className="settings-option">
+                    <div className="settings-option" onClick={() => handleClick("/profile/lifetime-stats")}>
                         <div className="icon stats"></div>
                         <LifeStatsIcon />
                         <p>Lifetime Stats</p>

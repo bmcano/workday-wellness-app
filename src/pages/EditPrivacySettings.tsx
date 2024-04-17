@@ -11,7 +11,6 @@ import CardText from "../components/card/CardText.tsx"
 import Divider from "../components/card/Divider.tsx";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import CardList from "../components/card/CardList.tsx";
 import CardRow from "../components/card/CardRow.tsx";
 
 const EditPrivacySettings: React.FC = () => {
@@ -20,14 +19,18 @@ const EditPrivacySettings: React.FC = () => {
     const [birthdayPrivate, setBirthdayPrivate] = useState(true);
     const [aboutPrivate, setAboutPrivate] = useState(true);
     const [linkedinLinkPrivate, setLinkedinLinkPrivate] = useState(true);
+    const [statusPrivate, setStatusPrivate] = useState(true);
+    const [achievementsPrivate, setachievementsPrivate] = useState(true);
 
     useEffect(() => {
         AuthorizedUser(navigate);
-        apiGet(`/privacy`).then((data) => {
+        apiGet(`/get_privacy`).then((data) => {
             setPublicProfile(data.privacySettings.publicProfile);
             setBirthdayPrivate(data.privacySettings.birthdayPrivate);
             setAboutPrivate(data.privacySettings.aboutPrivate);
             setLinkedinLinkPrivate(data.privacySettings.linkedinLinkPrivate);
+            setStatusPrivate(false);
+            setachievementsPrivate(false);
         }).catch((error) => console.log(error));
     }, [navigate]);
 
@@ -37,7 +40,9 @@ const EditPrivacySettings: React.FC = () => {
             publicProfile: publicProfile,
             birthdayPrivate: birthdayPrivate,
             aboutPrivate: aboutPrivate,
-            linkedinLinkPrivate: linkedinLinkPrivate
+            linkedinLinkPrivate: linkedinLinkPrivate,
+            statusPrivate: statusPrivate,
+            achievementsPrivate: achievementsPrivate
         })
         apiPost('/update_privacy', jsonData)
             .then(() => alert("Privacy settings have been updated."))
@@ -48,42 +53,51 @@ const EditPrivacySettings: React.FC = () => {
         <React.Fragment>
             <Navbar />
             <Column>
-                <div>
-                    <form onSubmit={handlePrivacy}>
-                        <Card>
-                            <CardText type="header" text="Public Profile Information" style={{ marginTop: "0px", marginBottom: "0px" }} />
-                            <Divider />
-                            <CardList>
-                                <CardRow>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={publicProfile} onChange={(e) => setPublicProfile(e.target.checked)} />}
-                                        label="Public Profile"
-                                    />
-                                </CardRow>
-                                <CardRow>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
-                                        label="Birthday Private"
-                                    />
-                                </CardRow>
-                                <CardRow>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={aboutPrivate} onChange={(e) => setAboutPrivate(e.target.checked)} />}
-                                        label="About Private"
-                                    />
-                                </CardRow>
-                                <CardRow>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={linkedinLinkPrivate} onChange={(e) => setLinkedinLinkPrivate(e.target.checked)} />}
-                                        label="LinkedIn Link Private"
-                                    />
-                                </CardRow>
-                                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>Update Profile</Button>
-                            </CardList>
-
-                        </Card>
-                    </form>
-                </div>
+                <form onSubmit={handlePrivacy}>
+                    <Card>
+                        <CardText type="header" text="Profile Information:" style={{ marginTop: "0px", marginBottom: "0px" }} />
+                        <CardText type="body" text="Choose which parts of your profile information you would like to keep private." />
+                        <CardText type="body" text="Check indicates that the information is public." />
+                        <Divider />
+                        <CardRow>
+                            <FormControlLabel
+                                control={<Checkbox checked={publicProfile} onChange={(e) => setPublicProfile(e.target.checked)} />}
+                                label="Public Profile"
+                            />
+                        </CardRow>
+                        <CardRow>
+                            <FormControlLabel
+                                control={<Checkbox checked={birthdayPrivate} onChange={(e) => setBirthdayPrivate(e.target.checked)} />}
+                                label="Birthday"
+                            />
+                        </CardRow>
+                        <CardRow>
+                            <FormControlLabel
+                                control={<Checkbox checked={aboutPrivate} onChange={(e) => setAboutPrivate(e.target.checked)} />}
+                                label="About"
+                            />
+                        </CardRow>
+                        <CardRow>
+                            <FormControlLabel
+                                control={<Checkbox checked={linkedinLinkPrivate} onChange={(e) => setLinkedinLinkPrivate(e.target.checked)} />}
+                                label="LinkedIn"
+                            />
+                        </CardRow>
+                        <CardRow>
+                        <FormControlLabel
+                                control={<Checkbox checked={statusPrivate} onChange={(e) => setStatusPrivate(e.target.checked)} />}
+                                label="Status"
+                            />
+                        </CardRow>
+                        <CardRow>
+                        <FormControlLabel
+                                control={<Checkbox checked={achievementsPrivate} onChange={(e) => setachievementsPrivate(e.target.checked)} />}
+                                label="Achievements"
+                            />
+                        </CardRow>
+                        <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Update Profile</Button>
+                    </Card>
+                </form>
             </Column>
         </React.Fragment>
     );

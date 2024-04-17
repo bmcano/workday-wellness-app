@@ -91,8 +91,11 @@ export const viewUserProfile = async (req, res) => {
 
 export const addFriend = async (req, res) => {
     try {
-        const { user_id, friend_id } = req.body;
-        const user = await UserModel.findById(user_id)
+        const token = req.headers.authorization.split(' ')[1];
+        const data = getUserInformation(token);
+        if (!data) return res.json({ authorized: false });
+        const { friend_id } = req.body;
+        const user = await UserModel.findById(data._id)
         const friend = await UserModel.findById(friend_id)
         if (!user || !friend) {
             return res

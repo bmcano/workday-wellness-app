@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { EventInput } from '@fullcalendar/core';
 import Button from '@mui/material/Button';
 import AddEventModal from './modals/AddEventModal.tsx';
-import { isEventOccuringNow } from '../util/dateUtils.ts';
+import { convertUTCStringtoLocaleTimeZone, getCurrentLocaleDateString, isEventOccuringNow } from '../util/dateUtils.ts';
 import Divider from './card/Divider.tsx';
 import Card from './card/Card.tsx';
 import CardRow from './card/CardRow.tsx';
@@ -14,14 +14,12 @@ interface Props {
 }
 
 const UpcomingEvents: React.FC<Props> = ({ events }) => {
-    const now = new Date();
-    const cstDate = new Date(now.getTime());
-    const todayDate = cstDate.toISOString().split('T')[0];
+    const todayDate = getCurrentLocaleDateString();
     const [upcomingEvents, setUpcomingEvents] = useState<EventInput[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        const updatedEvents = events.filter(event => event.start?.toString().startsWith(todayDate));
+        const updatedEvents = events.filter(event => convertUTCStringtoLocaleTimeZone(event.start?.toString()).startsWith(todayDate));
         setUpcomingEvents(updatedEvents);
 
         const intervalId = setInterval(() => {

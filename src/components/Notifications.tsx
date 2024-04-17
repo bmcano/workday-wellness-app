@@ -1,9 +1,5 @@
 import "../App.css";
 import React, { useEffect, useState } from 'react';
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // API FOR NOTIFICATIONS
-// @ts-ignore
-// import messageSound from '../static/sounds/popcorn.mp3'
 import Drawer from "@mui/material/Drawer";
 import { Button } from "@mui/material";
 import CardText from "./card/CardText.tsx";
@@ -18,7 +14,8 @@ interface Notification {
     message: string,
     hasAccept: boolean,
     acceptType: string,
-    isRead: boolean
+    isRead: boolean,
+    other?: string
 }
 
 const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
@@ -53,6 +50,14 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
         onDismiss(index);
     }
 
+    const onAcceptFriendRequest = (index: number) => {
+        console.log("friends accept")
+        console.log(notificationList[index].other)
+        const jsonData = JSON.stringify({ friend_id: notificationList[index].other })
+        apiPost("/add_friend", jsonData).catch((error) => console.log(error));
+        onDismiss(index);
+    }
+
     return (
         <Drawer anchor="right" open={open} onClose={handleDrawerClose}>
             <div className="drawer-header">
@@ -66,7 +71,7 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
                     body={notification.message}
                     onDismiss={() => onDismiss(index)}
                     hasAccept={notification.hasAccept}
-                    onAccept={() => onAcceptExercise(index)}
+                    onAccept={() => notification.acceptType === "exercise" ? onAcceptExercise(index) : notification.acceptType === "friend" ? onAcceptFriendRequest(index) : onDismiss(index)}
                 />
             ))}
             {notificationList.length > 0 && <Divider style={{ marginLeft: "16px", marginRight: "16px" }} />}
@@ -75,4 +80,4 @@ const Notifications: React.FC<{ openDrawer: boolean }> = ({ openDrawer }) => {
     )
 }
 
-export default Notifications
+export default Notifications;

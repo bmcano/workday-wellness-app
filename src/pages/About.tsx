@@ -137,9 +137,6 @@ const About: React.FC = () => {
           <CardText type="body" text="The shift to remote work offers employees flexibility but poses challenges to physical and mental wellness due to reduced movement and interpersonal connections." />
           <CardText type="body" text="Our goal is to develop an application that promotes workday wellness by offering tailored recommendations, reminders for healthy habits, and fostering a supportive user community." />
           <Divider />
-          <CardText type="title" text="Frequently Asked Questions (FAQs)" />
-          <CardText type="body" text="(TODO) - only keep this if any ideas appear." />
-          <Divider />
           <CardText type="title" text="Contact" />
           <CardText type="body" text="For any questions feel free to contact us at: workdaywellnes@outlook.com" />
           <Divider />

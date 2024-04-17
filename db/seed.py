@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 import json
 import datetime
+import base64
+from PIL import Image
 
 """
 Calendar generation functions for seeding purposes
@@ -71,10 +73,14 @@ if __name__ == "__main__":
     statistics_collection.delete_many({})
     notifications_collection = db['notifications']
     notifications_collection.delete_many({})
-    privacy_collection = db['privacy']
+    privacy_collection = db['privacies']
     privacy_collection.delete_many({})
     status_collection = db['status']
     status_collection.delete_many({})
+    schedule_collection = db['schedules']
+    schedule_collection.delete_many({})
+    achievements_collection = db['achievements']
+    achievements_collection.delete_many({})
 
     # open and load all data for the Users table
     with open('stub_data/users.json', 'r') as file:
@@ -93,18 +99,41 @@ if __name__ == "__main__":
         calendar_file = user['calendar']
         with open(calendar_file, 'r') as file:
             user['calendar'] = json.load(file)
-        user_collection.insert_one(user)
+        profile_picture = user['profile_picture']
+        if "images" in profile_picture:
+            with open(profile_picture, 'rb') as file:
+                encoded_image = base64.b64encode(file.read())
+                user['profile_picture'] = encoded_image.decode("utf-8")
+
+        user_collection.insert_one(user)    
 
     # open and load all data for the Statistics table
     with open('stub_data/statistics.json', 'r') as file:
         statistics_stubs = json.load(file)
     
     for stat in statistics_stubs:
-
         statistics_file = stat['completed']
         with open(statistics_file, 'r') as file:
             stat['completed'] = json.load(file)
-
         statistics_collection.insert_one(stat)
+
+    # open and load all data for the Schedules table
+    with open('stub_data/schedules.json', 'r') as file:
+        schedule_stubs = json.load(file)
+
+    for schedule in schedule_stubs:
+        schedule_collection.insert_one(schedule)
+
+    with open('stub_data/status.json', 'r') as file:
+        status_stubs = json.load(file)
+
+    for status in status_stubs:
+        status_collection.insert_one(status)
+        
+    with open('stub_data/achievements.json', 'r') as file:
+        achievements_stubs = json.load(file)
+
+    for achievement in achievements_stubs:
+        achievements_collection.insert_one(achievement)
 
     print("Schema created")

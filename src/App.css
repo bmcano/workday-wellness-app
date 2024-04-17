@@ -159,6 +159,10 @@
   margin-left: auto;
 }
 
+.card-button-left {
+  margin-right: auto;
+}
+
 .card-button>Button {
   font-size: 14px;
   margin-right: 16px;
@@ -235,16 +239,20 @@
 .edit-overlay {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  width: 200px; /* Width from largeImageStyle */
+  height: 200px; /* Height from largeImageStyle */
   background: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
-  padding: 10px 0;
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
-  border-radius: 0 0 50% 50%;
+  border-radius: 50%; /* 50% for a circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-picture-page:hover .edit-overlay {
@@ -416,4 +424,43 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.image-container img {
+  border-radius: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.image-tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+}
+
+.image-container:hover .image-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.profile-text-container {
+  flex: 1; 
 }
