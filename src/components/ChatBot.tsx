@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import Button from "@mui/material/Button";
 import Drawer from '@mui/material/Drawer';
+import FeatureFlags from '../FeatureFlags.ts';
+
+const featureFlags = new FeatureFlags();
 
 const ChatBot: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    if (featureFlags.ChatBotEnabled) {
+      setOpen(true);
+    } else {
+      alert("This feature is not available for the live demo.")
+    }
   };
 
   const handleDrawerClose = () => {

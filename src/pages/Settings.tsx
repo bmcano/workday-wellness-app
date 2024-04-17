@@ -10,6 +10,9 @@ import { ReactComponent as FriendsIcon } from "../static/assets/people-outline.s
 import { ReactComponent as EditProfileIcon } from "../static/assets/person-circle-outline.svg" // @ts-ignore
 import { ReactComponent as ExercisesIcon } from "../static/assets/walk-outline.svg" // @ts-ignore
 import { ReactComponent as LifeStatsIcon } from "../static/assets/bar-chart-outline.svg"
+import FeatureFlags from '../FeatureFlags.ts';
+
+const featureFlags = new FeatureFlags();
 
 const Profile: React.FC = () => {
 
@@ -43,7 +46,7 @@ const Profile: React.FC = () => {
                         <FriendsIcon />
                         <p>Manage Friends</p>
                     </div>
-                    <div className="settings-option" onClick={() => handleClick("/profile/lifetime-stats")}>
+                    <div className="settings-option" onClick={() => {featureFlags.LifetimeStatsEnabled ? handleClick("/profile/lifetime-stats") : alert("This feature is not available for the live demo.")}}>
                         <div className="icon stats"></div>
                         <LifeStatsIcon />
                         <p>Lifetime Stats</p>
