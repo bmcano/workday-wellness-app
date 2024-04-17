@@ -22,8 +22,11 @@ EXERCISES = "Exercises"
 FORGOT_PASSWORD = "ForgotPassword"
 FRIENDS = "Friends"
 HOME = "Home"
+LEADERBOARD = "Leaderboard"
+LIFETIME_STATS = "LifetimeStatistics"
 LOGIN = "Login"
 NOTIFICATIONS = "Notifications"
+PRIVACY = "Privacy"
 PROFILE = "Profile"
 RESET_PASSWORD = "ResetPassword"
 SETTINGS = "Settings"
@@ -46,9 +49,12 @@ pages = [
     EXERCISES,
     FORGOT_PASSWORD,
     FRIENDS, 
-    HOME, 
+    HOME,
+    LEADERBOARD,
+    LIFETIME_STATS,
     LOGIN,
     NOTIFICATIONS, 
+    PRIVACY,
     PROFILE,
     RESET_PASSWORD,
     SETTINGS, 
@@ -87,9 +93,11 @@ navigations = [
     Navigation(NAVBAR, SETTINGS),
     Navigation(NAVBAR, USER_SEARCH),
     Navigation(NAVBAR, LOGOUT),
+    Navigation(NAVBAR, LEADERBOARD),
     Navigation(LOGOUT, LOGIN),
     # App navigation
     Navigation(EXERCISES, EDIT_EXERCISES),
+    Navigation(EDIT_EXERCISES, EXERCISES),
     Navigation(EXERCISES, EXTERNAL_LINK),
     Navigation(PROFILE, EDIT_PROFILE),
     Navigation(PROFILE, EXTERNAL_LINK),
@@ -97,8 +105,8 @@ navigations = [
     Navigation(SETTINGS, EDIT_PROFILE),
     Navigation(SETTINGS, FRIENDS),
     Navigation(SETTINGS, EDIT_EXERCISES),
-    Navigation(SETTINGS, "Stats"), # NOT IMPLEMENTED YET
-    Navigation(SETTINGS, "PrivacySettings"), # NOT IMPLEMENTED YET
+    Navigation(SETTINGS, LIFETIME_STATS),
+    Navigation(SETTINGS, PRIVACY),
     Navigation(SETTINGS, ABOUT),
     Navigation(FRIENDS, USER_PROFILE),
 ]
@@ -120,4 +128,4 @@ if __name__ == "__main__":
     dot.attr(rankdir='LR')
     dot.attr(layout='dot')
     print(dot.source)
-    dot.render(f'static/navigation/navigation.gv', view = False)
+    dot.render(f'src/static/navigation/navigation.gv', view = False)
