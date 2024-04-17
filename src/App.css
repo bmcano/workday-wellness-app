@@ -239,16 +239,20 @@
 .edit-overlay {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  width: 200px; /* Width from largeImageStyle */
+  height: 200px; /* Height from largeImageStyle */
   background: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
-  padding: 10px 0;
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
-  border-radius: 0 0 50% 50%;
+  border-radius: 50%; /* 50% for a circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-picture-page:hover .edit-overlay {

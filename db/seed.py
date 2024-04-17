@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 import json
 import datetime
+import base64
+from PIL import Image
 
 """
 Calendar generation functions for seeding purposes
@@ -97,7 +99,13 @@ if __name__ == "__main__":
         calendar_file = user['calendar']
         with open(calendar_file, 'r') as file:
             user['calendar'] = json.load(file)
-        user_collection.insert_one(user)
+        profile_picture = user['profile_picture']
+        if "images" in profile_picture:
+            with open(profile_picture, 'rb') as file:
+                encoded_image = base64.b64encode(file.read())
+                user['profile_picture'] = encoded_image.decode("utf-8")
+
+        user_collection.insert_one(user)    
 
     # open and load all data for the Statistics table
     with open('stub_data/statistics.json', 'r') as file:

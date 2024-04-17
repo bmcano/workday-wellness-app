@@ -81,7 +81,6 @@ navigations = [
     Navigation(CREATE_ACCOUNT, FORGOT_PASSWORD),
     Navigation(FORGOT_PASSWORD, LOGIN),
     Navigation(FORGOT_PASSWORD, CREATE_ACCOUNT),
-    Navigation(CALENDAR, NAVBAR),
     Navigation(EMAIL, RESET_PASSWORD),
     Navigation(RESET_PASSWORD, LOGIN),
     # Navbar items
@@ -101,6 +100,7 @@ navigations = [
     Navigation(EXERCISES, EXTERNAL_LINK),
     Navigation(PROFILE, EDIT_PROFILE),
     Navigation(PROFILE, EXTERNAL_LINK),
+    Navigation(PROFILE, FRIENDS),
     Navigation(USER_SEARCH, USER_PROFILE),
     Navigation(SETTINGS, EDIT_PROFILE),
     Navigation(SETTINGS, FRIENDS),
@@ -128,4 +128,4 @@ if __name__ == "__main__":
     dot.attr(rankdir='LR')
     dot.attr(layout='dot')
     print(dot.source)
-    dot.render(f'src/static/navigation/navigation.gv', view = False)
+    dot.render(f'static/navigation/navigation.gv', view = False)

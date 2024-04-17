@@ -159,7 +159,7 @@ const Profile: React.FC = () => {
         <div className="profile-content-container">
           <div className="profile-picture-page" onClick={() => navigate("/profile/edit")}>
             <ProfilePicture isUserProfile={true} base64Img={""} isSmallScreen={false} />
-            <div className="edit-overlay">Edit</div>
+            <div className="edit-overlay">Edit Profile</div>
           </div>
           <div className="profile-text-container">
             <h1>{name}</h1>

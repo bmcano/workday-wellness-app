@@ -9,7 +9,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\brandon_and_jake.jpg",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -52,7 +52,7 @@
     "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_03.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_01.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_03.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
   },
@@ -66,7 +66,7 @@
     "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_02.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_01.json"
   },
@@ -80,7 +80,7 @@
     "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_03.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -94,7 +94,7 @@
     "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_04.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -122,7 +122,7 @@
     "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_05.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -136,7 +136,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_06.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -150,7 +150,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_07.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -164,7 +164,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_08.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -178,7 +178,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_04.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_01.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -220,7 +220,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_02.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -234,7 +234,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_03.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -248,7 +248,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_04.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -262,7 +262,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_05.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -276,7 +276,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_06.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -304,7 +304,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_07.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
@@ -318,7 +318,7 @@
     "about": "",
     "stub_data": true,
     "friends": "..\\db\\stub_data\\friends\\friends_00.json",
-    "profile_picture": "",
+    "profile_picture": "..\\db\\stub_data\\images\\jake_08.png",
     "exercises": "..\\db\\stub_data\\exercises\\exercises_00.json",
     "calendar": "..\\db\\stub_data\\calendars\\calendars_00.json"
   },
