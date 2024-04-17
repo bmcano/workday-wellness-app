@@ -73,7 +73,9 @@ REACT_APP_WEBSITE_URL='http://localhost:3000'
 REACT_APP_MONGO_ATLAS="mongodb://localhost:27017/wellness-app"
 ```
 
-For production purposes some values are modified to work with our web deployments.
+**Note:** Depending on the version of `node` the `localhost:27017` connection may be problematic in which case you will have to use `127.0.0.1:27017` instead. 
+
+For production purposes (as of time of this project) some values are modified to work with our cloud deployments.
 ```js
 REACT_APP_SERVER_URL='https://workday-wellness-app.onrender.com'
 REACT_APP_WEBSITE_URL='https://bmcano.github.io/workday-wellness-app'
