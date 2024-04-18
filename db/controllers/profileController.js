@@ -129,7 +129,7 @@ export const resetPassword = async (req, res) => {
         const email = req.body.email;
         const user = await UserModel.findOne({ email: email });
         const plainTextPassword = req.body.password;
-        const password = await bcrypt.hash(plainTextPassword, 10);
+        const password = await bcrypt.hash(plainTextPassword, Number(process.env.REACT_APP_SALT_KEY));
         user.password = password;
         await user.save();
         return res.json({ success: true });

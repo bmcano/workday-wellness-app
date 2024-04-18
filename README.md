@@ -71,6 +71,7 @@ REACT_APP_EMAIL_PASSWORD="{email_password}"
 REACT_APP_SERVER_URL='http://localhost:3001'
 REACT_APP_WEBSITE_URL='http://localhost:3000'
 REACT_APP_MONGO_ATLAS="mongodb://localhost:27017/wellness-app"
+REACT_APP_SALT_KEY=18
 ```
 
 **Note:** Depending on the version of `node` the `localhost:27017` connection may be problematic in which case you will have to use `127.0.0.1:27017` instead. 
