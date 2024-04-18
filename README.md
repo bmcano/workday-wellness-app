@@ -90,7 +90,9 @@ REACT_APP_MONGO_ATLAS="mongodb+srv://workday-wellness-app:vOISxmnRbW0zvj4g@workd
 
 3. Install the python mongo library `pip install pymongo`
 
-4. Run the command `npm run seed` to add the fake data
+4. Install the python pillow library `pip install pillow`
+
+5. Run the command `npm run seed` to add the fake data
 
 ## (Optional) Navigation Script
 

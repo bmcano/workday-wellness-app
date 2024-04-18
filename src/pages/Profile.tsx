@@ -111,12 +111,12 @@ const Profile: React.FC = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'About':
-        return <CardText type="title" text={about}  />
+        return <CardText type="title" text={about} />
       case 'Latest Activity':
         return (
           <div className="card-info">
             {activity.length > 0 && (
-                <CardText type="title" text="Your recent activity from the last 48 hours." style={{ marginTop: "-8px" }} />
+              <CardText type="title" text="Your recent activity from the last 48 hours." style={{ marginTop: "-8px" }} />
             )}
             {activity.length > 0 && activity.map((s, index) => (
               <div key={index} className="user-status-card">
@@ -125,7 +125,7 @@ const Profile: React.FC = () => {
               </div>
             ))}
             {activity.length === 0 && (
-               <CardText type="title" text="You have no recent activity." />
+              <CardText type="title" text="You have no recent activity." />
             )}
           </div>
         )
@@ -133,7 +133,7 @@ const Profile: React.FC = () => {
         return (
           <div className="card-info">
             {status.length > 0 && (
-                <CardText type="title" text="Your statuses from the last 48 hours." style={{ marginTop: "-8px" }} />
+              <CardText type="title" text="Your statuses from the last 48 hours." style={{ marginTop: "-8px" }} />
             )}
             {status.length > 0 && status.map((s, index) => (
               <div key={index} className="user-status-card">
@@ -143,7 +143,7 @@ const Profile: React.FC = () => {
               </div>
             ))}
             {status.length === 0 && (
-               <CardText type="title" text="You've posted no statuses in the last 48 hours." />
+              <CardText type="title" text="You've posted no statuses in the last 48 hours." />
             )}
           </div>
         )
@@ -162,7 +162,7 @@ const Profile: React.FC = () => {
             <div className="edit-overlay">Edit Profile</div>
           </div>
           <div className="profile-text-container">
-            <h1>{name}</h1>
+            <CardText type="header" text={name} style={{ marginBottom: "8px"}}/>
             <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
             {birthday && <p>{birthday.split('T')[0]}</p>}
             <a href={linkedIn} target="_blank" rel="noopener noreferrer">{linkedIn}</a>
