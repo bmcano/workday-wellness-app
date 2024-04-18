@@ -5,6 +5,7 @@ const LoadingAnimation: React.FC = () => {
     <div className="loading-animation">
       <div className="loading-spinner"></div>
       <p>Loading...</p>
+      <p>This may take a few minutes.</p>
     </div>
   );
 };

@@ -153,7 +153,7 @@ const UserProfile: React.FC = () => {
                     <div className="profile-content-container">
                         <ProfilePicture isUserProfile={false} base64Img={base64Image} isSmallScreen={false} />
                         <div className="profile-text-container">
-                            <h1>{firstName} {lastName}'s Profile</h1>
+                            <CardText type="header" text={`${firstName} ${lastName}'s Profile`} />
                             <p>Joined on {(joinDate as unknown as string).split('T')[0]}</p>
                             {privacySettings.birthday && birthday && <p>{birthday.split('T')[0]}</p>}
                             {privacySettings.linkedinLink && <a href={linkedin} target="_blank" rel="noopener noreferrer">{linkedin}</a>}
