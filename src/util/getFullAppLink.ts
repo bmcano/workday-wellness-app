@@ -7,8 +7,8 @@ export const getFullAppLink = (link: string): string => {
 }
 
 export const getServerCall = (link: string): string => {
-    const server_url = process.env.REACT_APP_SERVER_URL;
-    console.log(server_url);
+    // Issue: gh-pages will not properly show the server link so we manually add it for the sake of this prototype.
+    // const server_url = process.env.REACT_APP_SERVER_URL;
     // return `${server_url}${link}`;
     return `https://workday-wellness-app.onrender.com${link}`;
 }
