@@ -35,27 +35,29 @@ export const isEventOccuringNow = (start: Date, end: Date): boolean => {
 export const convertToLocaleISOString = (date: Date): string => {
     const now = date.toLocaleDateString();
     const month = now.slice(0, 1).padStart(2, '0');
-    const day = now.slice(2, 4).padStart(2, '0');
-    const year = now.slice(5);
+    const day = now.slice(2, 3).padStart(2, '0');
+    const year = now.slice(4);
     return `${year}-${month}-${day}`;
 }
 
 export const getCurrentLocaleDateString = (): string => {
     // returns: YYYY-MM-DD in local timezone
     const now = new Date().toLocaleDateString();
+    // NOTE: this changes depending on month and day number, javascript is not fun
     const month = now.slice(0, 1).padStart(2, '0');
-    const day = now.slice(2, 4).padStart(2, '0');
-    const year = now.slice(5);
+    const day = now.slice(2, 3).padStart(2, '0');
+    const year = now.slice(4);
     return `${year}-${month}-${day}`;
 }
 
 export const getCurrentLocaleDateTimeString = (): string => {
     // returns: YYYY-MM-DDTXX:XX:XX.000 in local timezone
     const now = new Date().toLocaleString('en-US', { hour12: false });
+    // NOTE: this changes depending on month and day number, javascript is not fun
     const month = now.slice(0, 1).padStart(2, '0');
-    const day = now.slice(2, 4).padStart(2, '0');
-    const year = now.slice(5, 9);
-    const time = now.slice(11).padStart(8, '0');
+    const day = now.slice(2, 3).padStart(2, '0');
+    const year = now.slice(4, 8);
+    const time = now.slice(10).padStart(8, '0');
     return `${year}-${month}-${day}T${time}.000`;
 }
 
